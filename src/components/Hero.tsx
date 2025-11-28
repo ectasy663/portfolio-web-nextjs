@@ -295,7 +295,7 @@ const Hero: React.FC = () => {
             <div className="flex-shrink-0">
               <div className="relative group cursor-pointer">
                 <img
-                  src="/assets/Professional pic mic.png"
+                  src="/assets/professional pic with bg straight.png"
                   alt="Naman Singh Panwar - Professional"
                   className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />

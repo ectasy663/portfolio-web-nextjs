@@ -142,18 +142,18 @@ const About: React.FC = () => {
         {/* Centered Content */}
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
-            {/* Left side - Cafe Image */}
+            {/* Left side - Professional Image */}
             <div className="flex-shrink-0">
               <div className="relative group cursor-pointer">
                 <img
-                  src="/assets/Cafe pic.png"
-                  alt="Creative Cafe Moment"
+                  src="/assets/Professional-styly-pic.png"
+                  alt="Naman Singh Panwar - Professional Style"
                   className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl shadow-2xl border-4 border-white/20 dark:border-white/10 group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                  <p className="text-lg font-bold mb-1">Finding inspiration everywhere</p>
-                  <p className="text-sm text-gray-200">Where creativity meets coffee ☕</p>
+                  <p className="text-lg font-bold mb-1">Driven by passion</p>
+                  <p className="text-sm text-gray-200">Building the future with code 🚀</p>
                 </div>
               </div>
             </div>
