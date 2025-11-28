@@ -215,7 +215,7 @@ const Skills: React.FC = () => {
               className="skill-card group relative"
             >
               {/* Glass morphism card */}
-              <div className="relative bg-white/90 dark:bg-white/10 backdrop-blur-xl border border-gray-200 dark:border-white/20 rounded-2xl p-8 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-xl hover:bg-white dark:hover:bg-white/20">
+                <div className="relative bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-2xl p-8 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:bg-white/95 dark:hover:bg-white/20">
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}></div>
 
@@ -269,7 +269,7 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-8 border border-gray-200 dark:border-gray-600 shadow-xl">
+        <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
           <h3 className="text-heading-lg font-heading text-center mb-8">
             <span className="gradient-text">
               Currently Learning
@@ -287,7 +287,7 @@ const Skills: React.FC = () => {
             ].map((tech, index) => (
               <div
                 key={index}
-                className="group flex items-center space-x-3 bg-gray-100 dark:bg-gray-700 rounded-xl px-6 py-3 border border-gray-200 dark:border-gray-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md"
+                className="group flex items-center space-x-3 bg-white/70 dark:bg-white/10 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-200/50 dark:border-white/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
               >
                 <span className="text-2xl group-hover:animate-bounce">{tech.icon}</span>
                 <span className={`font-heading font-medium text-transparent bg-gradient-to-r ${tech.color} bg-clip-text`}>

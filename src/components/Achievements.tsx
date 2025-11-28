@@ -101,8 +101,17 @@ const Achievements: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="achievements" className="section-padding bg-gray-100 dark:bg-slate-950">
-      <div className="container">
+    <section ref={sectionRef} id="achievements" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300">
+      {/* Light theme background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-yellow-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+
+      {/* Dynamic gradient background overlay */}
+      <div className="absolute inset-0 z-10 opacity-10 dark:opacity-30 transition-opacity duration-300">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container relative z-20">
         <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text leading-tight py-2">
           Awards & Recognition
         </h2>
@@ -111,7 +120,7 @@ const Achievements: React.FC = () => {
           {achievements.map((achievement, index) => (
             <div 
               key={index}
-              className="achievement-card card-hover bg-white/80 dark:bg-slate-800/80 p-6 rounded-xl border border-gray-300/50 dark:border-primary-500/20 relative overflow-hidden shadow-md dark:shadow-none"
+              className="achievement-card card-hover bg-white/80 dark:bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-gray-200/50 dark:border-white/20 relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               {/* Background pattern */}
               <div className={`absolute inset-0 bg-gradient-to-br ${achievement.bgColor} opacity-50`}></div>
@@ -174,7 +183,7 @@ const Achievements: React.FC = () => {
 
         {/* Quote section */}
         <div className="mt-16 text-center">
-          <div className="bg-white/80 dark:bg-slate-800/80 p-8 rounded-xl border border-gray-300/50 dark:border-primary-500/20 max-w-4xl mx-auto shadow-md dark:shadow-none">
+          <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 max-w-4xl mx-auto shadow-lg hover:shadow-2xl transition-all duration-300">
             <blockquote className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 italic mb-4">
               &quot;Success is not final, failure is not fatal: it is the courage to continue that counts.&quot;
             </blockquote>

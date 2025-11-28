@@ -355,7 +355,7 @@ const Projects: React.FC = () => {
                     {project.features.map((feature, featureIndex) => (
                       <div
                         key={featureIndex}
-                        className="flex items-center space-x-3 bg-white/70 dark:bg-slate-800/80 backdrop-blur-sm border border-gray-300/50 dark:border-white/10 rounded-lg p-3 hover:border-gray-400/50 dark:hover:border-white/20 transition-all duration-300"
+                        className="flex items-center space-x-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-lg p-3 hover:border-gray-300 dark:hover:border-white/30 hover:shadow-lg transition-all duration-300"
                       >
                         <span className="text-xl">{feature.icon}</span>
                         <span className="text-sm text-gray-700 dark:text-gray-300">{feature.text}</span>
@@ -370,7 +370,7 @@ const Projects: React.FC = () => {
                       {project.techStack.map((tech, techIndex) => (
                         <div
                           key={techIndex}
-                          className="flex items-center space-x-2 bg-white/70 dark:bg-slate-800/80 backdrop-blur-sm border border-gray-300/50 dark:border-white/10 rounded-lg px-4 py-2 hover:border-gray-400/50 dark:hover:border-white/20 hover:scale-105 transition-all duration-300"
+                          className="flex items-center space-x-2 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-lg px-4 py-2 hover:border-gray-300 dark:hover:border-white/30 hover:scale-105 hover:shadow-lg transition-all duration-300"
                         >
                           <div className="text-lg">{getTechIcon(tech)}</div>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
@@ -428,7 +428,7 @@ const Projects: React.FC = () => {
 
         {/* Call to action */}
         <div className="text-center mt-20">
-          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-8 border border-gray-200 dark:border-gray-600 shadow-xl">
+          <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Let&apos;s Build Something Amazing Together
             </h3>

@@ -170,7 +170,7 @@ const About: React.FC = () => {
             {strengths.map((strength, index) => (
               <div
                 key={index}
-                className="strength-card bg-white/90 dark:bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-gray-200 dark:border-white/20 text-center card-hover shadow-lg hover:bg-white dark:hover:bg-white/20 transition-all duration-300"
+                className="strength-card bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 text-center card-hover shadow-lg hover:shadow-2xl hover:bg-white/95 dark:hover:bg-white/20 transition-all duration-300"
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}

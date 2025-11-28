@@ -112,8 +112,17 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="contact" className="section-padding bg-gray-100 dark:bg-slate-950">
-      <div className="container">
+    <section ref={sectionRef} id="contact" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300">
+      {/* Light theme background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+
+      {/* Dynamic gradient background overlay */}
+      <div className="absolute inset-0 z-10 opacity-10 dark:opacity-30 transition-opacity duration-300">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container relative z-20">
         <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text leading-tight py-2">
           Let&apos;s Build Something Amazing
         </h2>
@@ -146,7 +155,7 @@ const Contact: React.FC = () => {
                     href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 bg-white/90 dark:bg-gray-800/80 rounded-xl border border-gray-200 dark:border-gray-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 group shadow-lg dark:shadow-xl backdrop-blur-sm"
+                    className="flex items-center gap-4 p-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-xl border border-gray-200/50 dark:border-white/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 group shadow-lg hover:shadow-2xl"
                   >
                     <div className="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/60 transition-colors duration-300">
                       <contact.icon className="w-6 h-6 text-primary-600 dark:text-primary-300" />
@@ -160,7 +169,7 @@ const Contact: React.FC = () => {
               </div>
 
               {/* Quick stats */}
-              <div className="bg-white/80 dark:bg-slate-800/80 p-6 rounded-xl border border-gray-300/50 dark:border-primary-500/20 shadow-md dark:shadow-none">
+              <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
                 <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Response Time</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
@@ -176,7 +185,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white/80 dark:bg-slate-800/80 p-8 rounded-xl border border-gray-300/50 dark:border-primary-500/20 shadow-md dark:shadow-none">
+            <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
               <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
