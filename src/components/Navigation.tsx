@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
 
 const Navigation: React.FC = () => {
@@ -87,9 +88,16 @@ const Navigation: React.FC = () => {
                 e.preventDefault();
                 handleNavClick('#home');
               }}
-              className="text-heading-md font-display gradient-text focus:outline-none focus-visible:outline-none focus:ring-0"
+              className="focus:outline-none focus-visible:outline-none focus:ring-0"
             >
-              NS
+              <Image
+                src="/assets/Name-logo-without-bg.png"
+                alt="NS Logo"
+                width={40}
+                height={40}
+                className="h-10 w-auto"
+                priority
+              />
             </a>
           </div>
 
