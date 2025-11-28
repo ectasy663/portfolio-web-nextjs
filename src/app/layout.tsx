@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   description: 'AI/ML Engineer & Full Stack Developer crafting intelligent digital experiences',
   keywords: ['AI', 'ML', 'Full Stack', 'React', 'Next.js', 'TypeScript', 'Portfolio'],
   authors: [{ name: 'Naman Singh Panwar' }],
+  icons: {
+    icon: '/assets/Name Logo.png',
+  },
   openGraph: {
     title: 'Naman Singh Panwar - Portfolio',
     description: 'AI/ML Engineer & Full Stack Developer crafting intelligent digital experiences',
