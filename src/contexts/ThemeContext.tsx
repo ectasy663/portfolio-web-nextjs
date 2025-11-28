@@ -4,20 +4,6 @@ import React, { createContext, useContext, useEffect, useState, useCallback, use
 
 type Theme = 'light' | 'dark';
 
-// Extend window interface for GSAP
-declare global {
-  interface Window {
-    gsap?: {
-      globalTimeline: {
-        pause: () => void;
-        resume: () => void;
-      };
-      killTweensOf: (target: unknown) => void;
-      getTweensOf: (target: unknown) => unknown[];
-    };
-  }
-}
-
 interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;

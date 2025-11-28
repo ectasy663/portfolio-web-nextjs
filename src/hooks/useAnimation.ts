@@ -9,6 +9,13 @@ interface UseAnimationOptions {
   respectThemeChange?: boolean;
 }
 
+// GSAP Timeline interface for type safety
+interface GSAPTimeline {
+  pause: () => void;
+  resume: () => void;
+  kill: () => void;
+}
+
 /**
  * Custom hook to manage animations that respect theme changes
  * Prevents animation conflicts during theme transitions
@@ -72,8 +79,7 @@ export const useAnimation = (options: UseAnimationOptions = {}) => {
  */
 export const useGSAPAnimation = () => {
   const { theme } = useTheme();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const timelineRef = useRef<any>(null);
+  const timelineRef = useRef<GSAPTimeline | null>(null);
 
   useEffect(() => {
     const handleThemeChange = () => {
@@ -105,10 +111,11 @@ export const useGSAPAnimation = () => {
       attributeFilter: ['class']
     });
 
+    const currentTimeline = timelineRef.current;
     return () => {
       observer.disconnect();
-      if (timelineRef.current) {
-        timelineRef.current.kill();
+      if (currentTimeline) {
+        currentTimeline.kill();
       }
     };
   }, [theme]);

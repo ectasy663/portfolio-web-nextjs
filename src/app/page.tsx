@@ -32,7 +32,7 @@ export default function HomePage() {
   useEffect(() => {
     // Make GSAP available globally for theme context
     if (typeof window !== 'undefined') {
-      (window as Window & { gsap?: typeof gsap }).gsap = gsap;
+      window.gsap = gsap;
     }
     
     // Initialize GSAP animations - NO navbar interference
