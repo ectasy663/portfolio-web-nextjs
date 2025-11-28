@@ -78,11 +78,12 @@ module.exports = {
         }
       },
       fontFamily: {
-        'sans': ['Poppins', 'system-ui', 'sans-serif'],
-        'display': ['Outfit', 'system-ui', 'sans-serif'],
-        'heading': ['Space Grotesk', 'system-ui', 'sans-serif'],
-        'body': ['Poppins', 'system-ui', 'sans-serif'],
+        'sans': ['The Seasons', 'Poppins', 'system-ui', 'sans-serif'],
+        'display': ['The Seasons', 'Outfit', 'system-ui', 'sans-serif'],
+        'heading': ['The Seasons', 'Space Grotesk', 'system-ui', 'sans-serif'],
+        'body': ['The Seasons', 'Poppins', 'system-ui', 'sans-serif'],
         'mono': ['JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
+        'seasons': ['The Seasons', 'Georgia', 'serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
