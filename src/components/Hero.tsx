@@ -188,104 +188,123 @@ const Hero: React.FC = () => {
 
       {/* Main content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-40">
-        <div ref={heroRef} className="max-w-4xl mx-auto">
-          <div className="text-center space-y-6 sm:space-y-8">
-            {/* Main heading with gradient text */}
-            <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50 mb-4" style={{ opacity: 1 }}>
-              <div className="block sm:hidden text-center">
-                <div className="text-4xl font-bold mb-2 text-gray-800 dark:text-white gradient-text">Naman Singh</div>
-                <div className="text-4xl font-bold text-gray-800 dark:text-white gradient-text">Panwar</div>
-              </div>
-              <span className="hidden sm:inline whitespace-nowrap gradient-text text-gray-800 dark:text-white transition-colors duration-300">
-                Naman Singh Panwar
-              </span>
-            </h1>
-
-            {/* Subtitle with typewriter effect */}
-            <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300 px-2 sm:px-0">
-              <Typewriter
-                options={{
-                  strings: [
-                    'AI/ML Engineer 🤖',
-                    'Full Stack Developer 💻',
-                    'Mobile App Developer 📱',
-                    'Creative Technologist 🎨',
-                    'Problem Solver 🚀'
-                  ],
-                  autoStart: true,
-                  loop: true,
-                  deleteSpeed: 30,
-                  delay: 100,
-                  wrapperClassName: "gradient-text",
-                }}
-              />
-            </h2>
-
-            {/* Description */}
-            <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-200 leading-relaxed max-w-3xl mx-auto transition-colors duration-300 px-4 sm:px-0">
-              Crafting intelligent digital experiences at the intersection of{' '}
-              <span className="text-cyan-600 dark:text-cyan-400 font-semibold transition-colors duration-300">AI/ML</span>,{' '}
-              <span className="text-purple-600 dark:text-purple-400 font-semibold transition-colors duration-300">web development</span>, and{' '}
-              <span className="text-pink-600 dark:text-pink-400 font-semibold transition-colors duration-300">creative design</span>.
-              Transforming complex ideas into elegant, user-centered solutions.
-            </p>
-
-            {/* Tech highlights */}
-            <div className="flex flex-wrap gap-2 sm:gap-3 justify-center px-4 sm:px-0">
-              {techStack.slice(0, 4).map((tech, index) => (
-                <div
-                  key={index}
-                  className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-gray-300 dark:hover:border-white/40 hover:shadow-lg transition-all duration-300 will-change-transform"
-                >
-                  <tech.icon className={`text-sm sm:text-lg ${tech.color} group-hover:scale-110 transition-transform duration-150`} />
-                  <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">{tech.name}</span>
+        <div ref={heroRef} className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+            {/* Left side - Text content */}
+            <div className="flex-1 text-left space-y-6 sm:space-y-8">
+              {/* Main heading with gradient text */}
+              <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50" style={{ opacity: 1 }}>
+                <div className="block sm:hidden text-left">
+                  <div className="text-4xl font-bold mb-2 text-gray-800 dark:text-white gradient-text">Naman Singh</div>
+                  <div className="text-4xl font-bold text-gray-800 dark:text-white gradient-text">Panwar</div>
                 </div>
-              ))}
-            </div>
-
-            {/* Action buttons */}
-            <div ref={buttonsRef} className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:gap-4 justify-center px-4 sm:px-0">
-              <button
-                onClick={scrollToProjects}
-                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
-              >
-                <span className="flex items-center justify-center space-x-2">
-                  <Code size={18} className="sm:w-5 sm:h-5" />
-                  <span className="text-sm sm:text-base">View My Work</span>
+                <span className="hidden sm:inline whitespace-nowrap gradient-text text-gray-800 dark:text-white transition-colors duration-300">
+                  Naman Singh Panwar
                 </span>
-              </button>
+              </h1>
 
-              <ResumeButton variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base" />
+              {/* Subtitle with typewriter effect */}
+              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">
+                <Typewriter
+                  options={{
+                    strings: [
+                      'AI/ML Engineer 🤖',
+                      'Full Stack Developer 💻',
+                      'Mobile App Developer 📱',
+                      'Creative Technologist 🎨',
+                      'Problem Solver 🚀'
+                    ],
+                    autoStart: true,
+                    loop: true,
+                    deleteSpeed: 30,
+                    delay: 100,
+                    wrapperClassName: "gradient-text",
+                  }}
+                />
+              </h2>
 
-              <button
-                onClick={scrollToContact}
-                className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
-              >
-                <span className="flex items-center justify-center space-x-2">
-                  <Zap size={18} className="sm:w-5 sm:h-5" />
-                  <span className="text-sm sm:text-base">Let's Connect</span>
-                </span>
-              </button>
-            </div>
+              {/* Description */}
+              <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300">
+                Crafting intelligent digital experiences at the intersection of{' '}
+                <span className="text-cyan-600 dark:text-cyan-400 font-semibold transition-colors duration-300">AI/ML</span>,{' '}
+                <span className="text-purple-600 dark:text-purple-400 font-semibold transition-colors duration-300">web development</span>, and{' '}
+                <span className="text-pink-600 dark:text-pink-400 font-semibold transition-colors duration-300">creative design</span>.
+                Transforming complex ideas into elegant, user-centered solutions.
+              </p>
 
-            {/* Social links */}
-            <div ref={socialRef} className="flex justify-center gap-4 sm:gap-6 px-4 sm:px-0">
-              {[
-                { icon: Github, href: 'https://github.com/ectasy663', label: 'GitHub' },
-                { icon: Linkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
-                { icon: Mail, href: 'mailto:namansingh4680@gmail.com', label: 'Email' }
-              ].map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target={social.href.startsWith('http') ? '_blank' : undefined}
-                  rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group p-2.5 sm:p-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-110 hover:shadow-lg transition-all duration-300 will-change-transform"
-                  title={social.label}
+              {/* Tech highlights */}
+              <div className="flex flex-wrap gap-2 sm:gap-3">
+                {techStack.slice(0, 4).map((tech, index) => (
+                  <div
+                    key={index}
+                    className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-gray-300 dark:hover:border-white/40 hover:shadow-lg transition-all duration-300 will-change-transform"
+                  >
+                    <tech.icon className={`text-sm sm:text-lg ${tech.color} group-hover:scale-110 transition-transform duration-150`} />
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">{tech.name}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Action buttons */}
+              <div ref={buttonsRef} className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:gap-4">
+                <button
+                  onClick={scrollToProjects}
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
                 >
-                  <social.icon size={20} className="sm:w-6 sm:h-6" />
-                </a>
-              ))}
+                  <span className="flex items-center justify-center space-x-2">
+                    <Code size={18} className="sm:w-5 sm:h-5" />
+                    <span className="text-sm sm:text-base">View My Work</span>
+                  </span>
+                </button>
+
+                <ResumeButton variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base" />
+
+                <button
+                  onClick={scrollToContact}
+                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
+                >
+                  <span className="flex items-center justify-center space-x-2">
+                    <Zap size={18} className="sm:w-5 sm:h-5" />
+                    <span className="text-sm sm:text-base">Let's Connect</span>
+                  </span>
+                </button>
+              </div>
+
+              {/* Social links */}
+              <div ref={socialRef} className="flex gap-4 sm:gap-6">
+                {[
+                  { icon: Github, href: 'https://github.com/ectasy663', label: 'GitHub' },
+                  { icon: Linkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
+                  { icon: Mail, href: 'mailto:namansingh4680@gmail.com', label: 'Email' }
+                ].map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target={social.href.startsWith('http') ? '_blank' : undefined}
+                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="group p-2.5 sm:p-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-110 hover:shadow-lg transition-all duration-300 will-change-transform"
+                    title={social.label}
+                  >
+                    <social.icon size={20} className="sm:w-6 sm:h-6" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side - Profile Image */}
+            <div className="flex-shrink-0">
+              <div className="relative group cursor-pointer">
+                <img
+                  src="/assets/Professional pic mic.png"
+                  alt="Naman Singh Panwar - Professional"
+                  className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
+                />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                  <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
+                  <p className="text-sm text-gray-200">One line of code at a time ✨</p>
+                </div>
+              </div>
             </div>
           </div>
 

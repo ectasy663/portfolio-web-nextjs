@@ -140,22 +140,43 @@ const About: React.FC = () => {
         </h2>
 
         {/* Centered Content */}
-        <div className="max-w-5xl mx-auto text-center">
-          <div
-            ref={contentRef}
-            className={`space-y-8 animate-fade-in-delay transform ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-          >
-            <div className="prose prose-xl lg:prose-2xl dark:prose-invert mx-auto">
-              <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                I'm a passionate and driven Computer Science student with a deep fascination for Artificial Intelligence
-                and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn and a
-                desire to build things that matter.
-              </p>
-              <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                From contributing to national defense projects at DRDO to innovating in the FinTech space, I thrive on
-                challenges that push the boundaries of technology. My goal is to not just write code, but to architect
-                elegant, efficient, and intelligent systems that leave a lasting impact.
-              </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+            {/* Left side - Cafe Image */}
+            <div className="flex-shrink-0">
+              <div className="relative group cursor-pointer">
+                <img
+                  src="/assets/Cafe pic.png"
+                  alt="Creative Cafe Moment"
+                  className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl shadow-2xl border-4 border-white/20 dark:border-white/10 group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
+                />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                  <p className="text-lg font-bold mb-1">Finding inspiration everywhere</p>
+                  <p className="text-sm text-gray-200">Where creativity meets coffee ☕</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - Text content */}
+            <div className="flex-1 text-left">
+              <div
+                ref={contentRef}
+                className={`space-y-8 animate-fade-in-delay transform ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              >
+                <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
+                  <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
+                    I'm a passionate and driven Computer Science student with a deep fascination for Artificial Intelligence
+                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn and a
+                    desire to build things that matter.
+                  </p>
+                  <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
+                    From contributing to national defense projects at DRDO to innovating in the FinTech space, I thrive on
+                    challenges that push the boundaries of technology. My goal is to not just write code, but to architect
+                    elegant, efficient, and intelligent systems that leave a lasting impact.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
