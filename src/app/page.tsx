@@ -1,30 +1,21 @@
 'use client';
 
-import { useEffect, useState, lazy, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Hero from '@/components/Hero';
 import Navigation from '@/components/Navigation';
-
-// Lazy load other components for better performance
-const About = lazy(() => import('@/components/About'));
-const Skills = lazy(() => import('@/components/Skills'));
-const Experience = lazy(() => import('@/components/Experience'));
-const Projects = lazy(() => import('@/components/Projects'));
-const Achievements = lazy(() => import('@/components/Achievements'));
-const Contact = lazy(() => import('@/components/Contact'));
+import About from '@/components/About';
+import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
+import Projects from '@/components/Projects';
+import Achievements from '@/components/Achievements';
+import Contact from '@/components/Contact';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
-
-// Loading component for Suspense fallback
-const LoadingSpinner = () => (
-  <div className="w-full h-screen flex items-center justify-center">
-    <div className="w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
-  </div>
-);
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -39,36 +30,45 @@ export default function HomePage() {
     gsap.set("body", { visibility: "visible" });
     document.body.classList.add('gsap-loaded');
     
-    // Initial loading animation
-    const tl = gsap.timeline({
-      onComplete: () => setIsLoading(false)
+    const mm = gsap.matchMedia();
+
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Initial loading animation
+      const tl = gsap.timeline({
+        onComplete: () => setIsLoading(false)
+      });
+      
+      tl.to(".loading-overlay", {
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+        delay: 0.5
+      });
+      
+      // Create scroll progress indicator with optimized settings
+      gsap.to(".scroll-progress", {
+        width: "100%",
+        ease: "none",
+        scrollTrigger: { 
+          trigger: "body",
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.5,
+          invalidateOnRefresh: true
+        }
+      });
     });
-    
-    tl.to(".loading-overlay", {
-      opacity: 0,
-      duration: 0.8,
-      ease: "power2.inOut",
-      delay: 0.5
-    });
-    
-    // Create scroll progress indicator with optimized settings
-    gsap.to(".scroll-progress", {
-      width: "100%",
-      ease: "none",
-      scrollTrigger: { 
-        trigger: "body",
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.5,
-        invalidateOnRefresh: true
-      }
+
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      setIsLoading(false);
+      gsap.set(".loading-overlay", { opacity: 0, display: "none" });
     });
 
     // Refresh ScrollTrigger on load
     ScrollTrigger.refresh();
 
     return () => {
-      tl.kill();
+      mm.revert();
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -89,14 +89,12 @@ export default function HomePage() {
       <Navigation />
       <main className="pt-20 relative z-0">
         <Hero />
-        <Suspense fallback={<LoadingSpinner />}>
-          <About />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Achievements />
-          <Contact />
-        </Suspense>
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Achievements />
+        <Contact />
       </main>
     </div>
   );

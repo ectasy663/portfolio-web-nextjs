@@ -20,70 +20,75 @@ const Hero: React.FC = () => {
   const socialRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline();
+    const mm = gsap.matchMedia();
 
-    if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
-      gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
-        opacity: 0,
-        y: 30
-      });
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline();
 
-      tl.to(titleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "elastic.out(1, 0.5)"
-      })
-        .to(subtitleRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1.2,
-          ease: "power4.out"
-        }, "-=1.0")
-        .to(descriptionRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out"
-        }, "-=0.8")
-        .to(buttonsRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "back.out(1.7)"
-        }, "-=0.6")
-        .to(socialRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "back.out(1.7)"
-        }, "-=0.6");
-    } else {
-      setTimeout(() => {
-        if (titleRef.current) titleRef.current.style.opacity = '1';
-        if (subtitleRef.current) subtitleRef.current.style.opacity = '1';
-        if (descriptionRef.current) descriptionRef.current.style.opacity = '1';
-        if (buttonsRef.current) buttonsRef.current.style.opacity = '1';
-        if (socialRef.current) socialRef.current.style.opacity = '1';
-      }, 100);
-    }
+      if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
+        gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
+          opacity: 0,
+          y: 30
+        });
 
-    const techIcons = document.querySelectorAll('.floating-tech-icon');
-    techIcons.forEach((icon, index) => {
-      gsap.to(icon, {
-        y: 'random(-20, 20)',
-        x: 'random(-15, 15)',
-        rotation: 'random(-15, 15)',
-        duration: 'random(3, 6)',
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: index * 0.2
+        tl.to(titleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 1.5,
+          ease: "elastic.out(1, 0.5)"
+        })
+          .to(subtitleRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power4.out"
+          }, "-=1.0")
+          .to(descriptionRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+          }, "-=0.8")
+          .to(buttonsRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+          }, "-=0.6")
+          .to(socialRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+          }, "-=0.6");
+      }
+
+      const techIcons = document.querySelectorAll('.floating-tech-icon');
+      techIcons.forEach((icon, index) => {
+        gsap.to(icon, {
+          y: 'random(-20, 20)',
+          x: 'random(-15, 15)',
+          rotation: 'random(-15, 15)',
+          duration: 'random(3, 6)',
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: index * 0.2
+        });
       });
     });
 
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+      if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
+        gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
+          opacity: 1,
+          y: 0
+        });
+      }
+    });
+
     return () => {
-      tl.kill();
+      mm.revert();
     };
   }, []);
 

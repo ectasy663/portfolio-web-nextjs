@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Brain, Code, Users } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useInView } from 'react-intersection-observer';
 import { useGSAPAnimation } from '@/hooks/useAnimation';
+import { strengths } from '@/data/about';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -78,24 +78,6 @@ const About: React.FC = () => {
       }
     };
   }, [strengthsInView, timelineRef]);
-
-  const strengths = [
-    {
-      icon: Brain,
-      title: "AI & Machine Learning",
-      description: "Proficient in applying ML algorithms and Generative AI concepts to create data-driven applications."
-    },
-    {
-      icon: Code,
-      title: "Full-Stack Web Development",
-      description: "Skilled in building responsive, end-to-end web solutions with modern tools like React, TypeScript, and Tailwind CSS."
-    },
-    {
-      icon: Users,
-      title: "Collaborative Problem-Solving",
-      description: "A proven team player with strong communication skills, experienced in agile environments and cross-functional collaboration."
-    }
-  ];
 
   return (
     <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">

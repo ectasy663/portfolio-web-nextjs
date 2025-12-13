@@ -21,6 +21,8 @@ const Contact: React.FC = () => {
     message: ''
   });
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -64,29 +66,43 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const subject = encodeURIComponent(`Portfolio Contact: ${formData.subject}`);
-    const body = encodeURIComponent(
-      `Hello Naman,\n\nI found your portfolio and would like to get in touch.\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\nBest regards,\n${formData.name}`
-    );
-    const mailtoLink = `mailto:namansingh4680@gmail.com?subject=${subject}&body=${body}`;
-    
-    window.open(mailtoLink, '_blank');
-    
-    setShowSuccess(true);
-    
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+    setIsSubmitting(true);
+    setError('');
+    setShowSuccess(false);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
+      }
+
+      setShowSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -253,22 +269,35 @@ const Contact: React.FC = () => {
                   />
                 </div>
 
-                {/* Success Message */}
+                {/* Success/Error Message */}
                 {showSuccess && (
                   <div className="p-4 rounded-lg flex items-center gap-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700">
                     <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
                     <p className="text-sm text-green-700 dark:text-green-300">
-                      Opening your email client with a pre-filled message. Please send it to complete your contact request!
+                      Message sent successfully! I'll get back to you soon.
+                    </p>
+                  </div>
+                )}
+                
+                {error && (
+                  <div className="p-4 rounded-lg flex items-center gap-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700">
+                    <p className="text-sm text-red-700 dark:text-red-300">
+                      {error}
                     </p>
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  className="w-full btn-primary flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-primary-500 to-secondary-600 text-white py-3 rounded-lg shadow-lg hover:shadow-royal-gold"
+                  disabled={isSubmitting}
+                  className="w-full btn-primary flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-primary-500 to-secondary-600 text-white py-3 rounded-lg shadow-lg hover:shadow-royal-gold disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <Send size={20} />
-                  Send Message
+                  {isSubmitting ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  ) : (
+                    <Send size={20} />
+                  )}
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>
