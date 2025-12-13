@@ -18,47 +18,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Animations */
-@keyframes floatParticle {
-  0% {
-    transform: translateY(0) translateX(0) rotate(0deg);
-  }
-
-  33% {
-    transform: translateY(-30px) translateX(20px) rotate(120deg);
-  }
-
-  66% {
-    transform: translateY(20px) translateX(-10px) rotate(240deg);
-  }
-
-  100% {
-    transform: translateY(0) translateX(0) rotate(360deg);
-  }
-}
-
-@keyframes gradientFlow {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.typewriter-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-primary-600;
-}
-
-.shadow-glow {
-  box-shadow: 0 0 25px rgba(14, 165, 233, 0.3);
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -67,7 +26,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white font-seasons antialiased;
+    @apply bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 text-primary-50 font-seasons antialiased;
     margin: 0;
     font-family: 'The Seasons', 'Outfit', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -76,13 +35,29 @@
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga' 1, 'kern' 1;
     text-rendering: optimizeLegibility;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
     overscroll-behavior: none;
     scroll-behavior: smooth;
   }
 
   .light body {
-    @apply bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900;
+    @apply bg-gradient-to-br from-primary-50 via-white to-primary-100 text-dark-900;
+  }
+
+  ::selection {
+    @apply bg-primary-500/30 text-primary-400;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-600/50 rounded-full hover:bg-primary-500 transition-colors;
   }
 
   body.gsap-loaded {
@@ -187,21 +162,25 @@
     font-feature-settings: 'liga' 1, 'zero' 1;
   }
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary-600 via-primary-700 to-secondary-600 bg-clip-text text-transparent;
-    background-size: 200% 200%;
-    animation: gradientFlow 3s ease infinite;
-    line-height: 1.2;
-    padding: 0.1em 0;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-family: 'The Seasons', serif;
-    font-weight: 700;
+  .gradient-text-gold {
+    @apply bg-gradient-to-r from-[#D4AF37] via-[#F9E076] to-[#AA8C2C] bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: shine 4s linear infinite;
   }
 
-  .dark .gradient-text {
-    @apply bg-gradient-to-r from-primary-400 via-primary-500 to-secondary-400;
+  .gradient-text-name {
+    background: linear-gradient(to right, #D4AF37, #F9E076, #AA8C2C, #D4AF37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 300% auto;
+    animation: shine 5s linear infinite;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
   }
 }
 
@@ -215,12 +194,14 @@
     left: 0 !important;
     width: 100% !important;
     object-fit: cover !important;
+    z-index: -1 !important;
   }
   
   #home .absolute.inset-0 {
     position: fixed !important;
     height: 100vh !important;
     width: 100% !important;
+    z-index: -1 !important;
   }
 }
 
@@ -487,15 +468,15 @@ nav[style*="position: fixed"] {
 }
 
 .simple-navbar.light-theme {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.5) !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(255, 253, 240, 0.95) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 4px 6px -1px rgba(212, 175, 55, 0.05) !important;
 }
 
 .simple-navbar.dark-theme {
-  background-color: rgba(2, 6, 23, 0.95) !important;
-  border-bottom: 1px solid rgba(55, 65, 81, 0.5) !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(10, 10, 10, 0.95) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 4px 20px -1px rgba(212, 175, 55, 0.1) !important;
 }
 
 /* Additional App.css styles */
@@ -558,36 +539,10 @@ html {
   50% { transform: translateY(-20px); }
 }
 
-@keyframes glow {
-  0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
-  100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4); }
-}
-
-@keyframes rotate-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes floatParticle {
-  0% {
-    transform: translateY(0px) translateX(0px) scale(1);
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% {
-    transform: translateY(-100vh) translateX(50px) scale(0);
-    opacity: 0;
-  }
-}
-
-.perspective-1000 { perspective: 1000px; }
-.perspective-1500 { perspective: 1500px; }
 .transform-gpu {
   transform: translateZ(0);
   will-change: transform;
 }
-.backdrop-blur-xs { backdrop-filter: blur(2px); }
 
 .bg-grid-pattern {
   background-image: url("data:image/svg+xml,%3csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3e%3cg fill='none' fill-rule='evenodd'%3e%3cg fill='%23334155' fill-opacity='0.1'%3e%3ccircle cx='30' cy='30' r='1'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");

@@ -135,7 +135,7 @@ const Navigation: React.FC = () => {
 
         {isOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-lg mt-2">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/95 dark:bg-dark-900/95 backdrop-blur-md rounded-lg mt-2 border border-primary-100 dark:border-primary-900/30 shadow-lg shadow-royal-gold/10">
               {navItems.map((item) => (
                 <a
                   key={item.href}

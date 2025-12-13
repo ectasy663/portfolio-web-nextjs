@@ -38,36 +38,39 @@ const Skills: React.FC = () => {
       }
     });
 
-    gsap.set([titleRef.current, skillsRef.current], {
-      opacity: 0,
-      y: 50
-    });
+    // Unique Title Animation: Fade Up with slight scale
+    gsap.set(titleRef.current, { opacity: 0, y: 30, scale: 0.9 });
+    gsap.set(skillsRef.current, { opacity: 0 });
 
     tl.to(titleRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.8,
-      ease: "power3.out"
+      scale: 1,
+      duration: 1,
+      ease: "back.out(1.2)"
     })
       .to(skillsRef.current, {
         opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+        duration: 0.5
+      }, "-=0.5");
 
     const skillCards = skillsRef.current?.querySelectorAll('.skill-card');
     if (skillCards) {
+      // Unique Card Animation: 3D Rotate In
       gsap.fromTo(skillCards,
-        { opacity: 0, y: 30, scale: 0.9, rotationY: 15 },
+        { 
+          opacity: 0, 
+          rotationX: 90, 
+          y: 50,
+          transformPerspective: 1000
+        },
         {
           opacity: 1,
+          rotationX: 0,
           y: 0,
-          scale: 1,
-          rotationY: 0,
-          duration: 1,
+          duration: 1.2,
           stagger: 0.2,
-          ease: "back.out(1.7)",
+          ease: "expo.out",
           scrollTrigger: {
             trigger: skillsRef.current,
             start: "top 70%",
@@ -126,7 +129,7 @@ const Skills: React.FC = () => {
         { name: "CSS3", icon: <SiCss3 className="text-2xl text-blue-500" />, level: 90 },
         { name: "Tailwind CSS", icon: <SiTailwindcss className="text-2xl text-teal-400" />, level: 88 },
       ],
-      gradient: "from-cyan-500 via-blue-500 to-purple-600"
+      gradient: "from-royal-blue-500 via-royal-blue-600 to-royal-purple-600"
     },
     {
       title: "Backend & Database",
@@ -139,7 +142,7 @@ const Skills: React.FC = () => {
         { name: "C++", icon: <SiCplusplus className="text-2xl text-blue-600" />, level: 85 },
         { name: "Java", icon: <FaJava className="text-2xl text-red-500" />, level: 80 },
       ],
-      gradient: "from-green-500 via-emerald-500 to-teal-600"
+      gradient: "from-secondary-500 via-secondary-600 to-royal-blue-600"
     },
     {
       title: "AI/ML & Data Science",
@@ -152,7 +155,7 @@ const Skills: React.FC = () => {
         { name: "Jupyter", icon: <SiJupyter className="text-2xl text-orange-400" />, level: 80 },
         { name: "Machine Learning", icon: <FaBrain className="text-2xl text-pink-400" />, level: 75 },
       ],
-      gradient: "from-purple-500 via-pink-500 to-red-500"
+      gradient: "from-royal-purple-500 via-royal-purple-600 to-royal-red-600"
     },
     {
       title: "Tools & DevOps",
@@ -165,7 +168,7 @@ const Skills: React.FC = () => {
         { name: "VS Code", icon: <VscCode className="text-2xl text-blue-500" />, level: 95 },
         { name: "Animation", icon: <FaRocket className="text-2xl text-green-400" />, level: 80 },
       ],
-      gradient: "from-orange-500 via-red-500 to-pink-600"
+      gradient: "from-royal-red-500 via-royal-red-600 to-primary-600"
     }
   ];
 
@@ -176,8 +179,8 @@ const Skills: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="skills-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="skills-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-blue-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
 
       {/* Background floating icons */}
@@ -200,7 +203,7 @@ const Skills: React.FC = () => {
       <div className="container relative z-40">
         <div className="text-center mb-16">
           <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
-            <span className="gradient-text text-gray-800 dark:text-white transition-colors duration-300">
+            <span className="gradient-text-gold transition-colors duration-300">
               Technical Skills
             </span>
           </h2>
@@ -216,13 +219,13 @@ const Skills: React.FC = () => {
               className="skill-card group relative"
             >
               {/* Glass morphism card */}
-                <div className="relative bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-2xl p-8 hover:border-gray-300 dark:hover:border-white/30 transition-all duration-500 shadow-lg hover:shadow-2xl hover:bg-white/95 dark:hover:bg-white/20">
+                <div className="relative bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}></div>
 
                 {/* Header */}
                 <div className="flex items-center space-x-4 mb-8">
-                  <div className="text-transparent bg-gradient-to-r from-cyan-600 to-purple-600 dark:from-cyan-400 dark:to-purple-400 bg-clip-text transition-colors duration-300">
+                  <div className="text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text transition-colors duration-300">
                     {category.icon}
                   </div>
                   <h3 className="text-heading-md font-heading text-gray-900 dark:text-white transition-colors duration-300">
@@ -235,7 +238,7 @@ const Skills: React.FC = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div
                       key={skillIndex}
-                      className="group/skill relative bg-white/80 dark:bg-white/10 rounded-xl p-4 hover:bg-white dark:hover:bg-white/20 transition-all duration-300 hover:scale-105 border border-gray-200/50 dark:border-white/10 backdrop-blur-sm"
+                      className="group/skill relative bg-white/80 dark:bg-dark-900/50 rounded-xl p-4 hover:bg-white dark:hover:bg-dark-900/80 transition-all duration-300 hover:scale-105 border border-primary-200/30 dark:border-primary-500/20 backdrop-blur-sm"
                     >
                       {/* Skill icon and name */}
                       <div className="flex items-center justify-between mb-3">
@@ -270,25 +273,25 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
+        <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
           <h3 className="text-heading-lg font-heading text-center mb-8">
-            <span className="gradient-text">
+            <span className="gradient-text-gold">
               Currently Learning
             </span>
           </h3>
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { name: "Cloud Computing", icon: "☁️", color: "from-blue-400 to-cyan-600" },
-              { name: "WebGL", icon: "🎨", color: "from-purple-400 to-pink-600" },
-              { name: "Blockchain", icon: "⛓️", color: "from-yellow-400 to-orange-600" },
-              { name: "Cloud Native", icon: "☁️", color: "from-blue-400 to-cyan-600" },
-              { name: "Edge Computing", icon: "🚀", color: "from-green-400 to-teal-600" },
-              { name: "Quantum ML", icon: "🔬", color: "from-indigo-400 to-purple-600" }
+              { name: "Cloud Computing", icon: "☁️", color: "from-primary-400 to-secondary-600" },
+              { name: "WebGL", icon: "🎨", color: "from-secondary-400 to-primary-600" },
+              { name: "Blockchain", icon: "⛓️", color: "from-primary-400 to-primary-600" },
+              { name: "Cloud Native", icon: "☁️", color: "from-secondary-400 to-secondary-600" },
+              { name: "Edge Computing", icon: "🚀", color: "from-primary-400 to-secondary-600" },
+              { name: "Quantum ML", icon: "🔬", color: "from-secondary-400 to-primary-600" }
             ].map((tech, index) => (
               <div
                 key={index}
-                className="group flex items-center space-x-3 bg-white/70 dark:bg-white/10 backdrop-blur-md rounded-xl px-6 py-3 border border-gray-200/50 dark:border-white/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+                className="group flex items-center space-x-3 bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-6 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold"
               >
                 <span className="text-2xl group-hover:animate-bounce">{tech.icon}</span>
                 <span className={`font-heading font-medium text-transparent bg-gradient-to-r ${tech.color} bg-clip-text`}>

@@ -32,36 +32,39 @@ const Projects: React.FC = () => {
       }
     });
 
-    gsap.set([titleRef.current, projectsRef.current], {
-      opacity: 0,
-      y: 50
-    });
+    // Unique entrance for Title: Zoom out effect with blur
+    gsap.set(titleRef.current, { opacity: 0, scale: 1.5, filter: "blur(10px)" });
+    gsap.set(projectsRef.current, { opacity: 0 });
 
     tl.to(titleRef.current, {
       opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out"
+      scale: 1,
+      filter: "blur(0px)",
+      duration: 1,
+      ease: "circ.out"
     })
-      .to(projectsRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+    .to(projectsRef.current, {
+      opacity: 1,
+      duration: 0.5
+    }, "-=0.5");
 
     const projectCards = projectsRef.current?.querySelectorAll('.project-card');
     if (projectCards) {
+      // Unique card animation: 3D Flip Up
       gsap.fromTo(projectCards,
-        { opacity: 0, y: 30, scale: 0.9, rotationY: 15 },
+        { 
+          opacity: 0, 
+          y: 100, 
+          rotationX: 45, 
+          transformPerspective: 1000 
+        },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
-          rotationY: 0,
-          duration: 1,
-          stagger: 0.3,
-          ease: "back.out(1.7)",
+          rotationX: 0,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: "power4.out",
           scrollTrigger: {
             trigger: projectsRef.current,
             start: "top 70%",
@@ -111,7 +114,7 @@ const Projects: React.FC = () => {
       githubUrl: "#",
       stats: { stars: 15, forks: 4, views: 298 },
       date: "2024",
-      gradient: "from-pink-500 via-rose-500 to-red-500",
+      gradient: "from-royal-red-500 via-primary-600 to-royal-red-600",
       category: "Creative Web App",
       status: "Live Production"
     },
@@ -132,7 +135,7 @@ const Projects: React.FC = () => {
       githubUrl: "#",
       stats: { stars: 8, forks: 2, views: 189 },
       date: "2024",
-      gradient: "from-green-500 via-emerald-500 to-teal-600",
+      gradient: "from-primary-500 via-royal-red-600 to-primary-600",
       category: "Frontend Application",
       status: "Active"
     },
@@ -153,29 +156,29 @@ const Projects: React.FC = () => {
       githubUrl: "#",
       stats: { stars: 18, forks: 5, views: 324 },
       date: "2024",
-      gradient: "from-purple-500 via-pink-500 to-red-500",
+      gradient: "from-royal-red-600 via-primary-500 to-royal-red-700",
       category: "Web3 DApp",
       status: "Live Production"
     }
   ];
 
   return (
-    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white dark:bg-slate-950">
+    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white dark:bg-dark-950">
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl"></div>
 
       <div className="container relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm border border-cyan-500/30 dark:border-cyan-500/30 rounded-full px-6 py-2 mb-6">
-            <Sparkles className="text-cyan-400" size={18} />
-            <span className="text-cyan-400 font-medium">Featured Work</span>
+          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-royal-red-500/20 to-primary-500/20 backdrop-blur-sm border border-royal-red-500/30 dark:border-royal-red-500/30 rounded-full px-6 py-2 mb-6">
+            <Sparkles className="text-royal-red-400" size={18} />
+            <span className="text-royal-red-400 font-medium">Featured Work</span>
           </div>
 
           <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            <span className="gradient-text-gold">
               Project Showcase
             </span>
           </h2>
@@ -245,9 +248,9 @@ const Projects: React.FC = () => {
                         <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent"></div>
 
                         {/* Mock browser/app interface */}
-                        <div className="absolute inset-4 bg-dark-900/90 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden">
+                        <div className="absolute inset-4 bg-dark-900/90 backdrop-blur-xl rounded-xl border border-primary-500/20 overflow-hidden">
                           {/* Browser bar */}
-                          <div className="flex items-center justify-between p-4 border-b border-white/10">
+                          <div className="flex items-center justify-between p-4 border-b border-primary-500/20">
                             <div className="flex space-x-2">
                               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -272,11 +275,11 @@ const Projects: React.FC = () => {
 
                             {/* Code-like representation */}
                             <div className="space-y-2 font-mono text-xs">
-                              <div className="text-cyan-400">const project = {'{'};</div>
-                              <div className="text-gray-600 dark:text-gray-400 ml-4">name: <span className="text-green-400">&quot;{project.title}&quot;</span>,</div>
-                              <div className="text-gray-600 dark:text-gray-400 ml-4">status: <span className="text-yellow-400">&quot;{project.status}&quot;</span>,</div>
-                              <div className="text-gray-600 dark:text-gray-400 ml-4">category: <span className="text-purple-400">&quot;{project.category}&quot;</span></div>
-                              <div className="text-cyan-400">{'};'}</div>
+                              <div className="text-primary-400">const project = {'{'};</div>
+                              <div className="text-gray-600 dark:text-gray-400 ml-4">name: <span className="text-secondary-400">&quot;{project.title}&quot;</span>,</div>
+                              <div className="text-gray-600 dark:text-gray-400 ml-4">status: <span className="text-primary-300">&quot;{project.status}&quot;</span>,</div>
+                              <div className="text-gray-600 dark:text-gray-400 ml-4">category: <span className="text-secondary-300">&quot;{project.category}&quot;</span></div>
+                              <div className="text-primary-400">{'};'}</div>
                             </div>
                           </div>
                         </div>
@@ -289,7 +292,7 @@ const Projects: React.FC = () => {
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-6 py-3 rounded-xl hover:shadow-neon-blue/50 transition-all duration-300 hover:scale-105 active:scale-95"
+                                className="flex items-center space-x-2 bg-gradient-to-r from-primary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:shadow-royal-gold transition-all duration-300 hover:scale-105 active:scale-95"
                               >
                                 <ExternalLink size={18} />
                                 <span>Live Demo</span>
@@ -300,7 +303,7 @@ const Projects: React.FC = () => {
                                 href={project.githubUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-white/20 text-white px-6 py-3 rounded-xl hover:border-white/40 transition-all duration-300 hover:scale-105 active:scale-95"
+                                className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-primary-500/30 text-white px-6 py-3 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:scale-105 active:scale-95"
                               >
                                 <Github size={18} />
                                 <span>Source</span>
@@ -337,7 +340,7 @@ const Projects: React.FC = () => {
 
                   {/* Title and tagline */}
                   <div>
-                    <h3 className="text-heading-lg font-heading text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-500 group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="text-heading-lg font-heading text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all duration-300">
                       {project.title}
                     </h3>
                     <p className={`text-body-md font-heading bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
@@ -355,7 +358,7 @@ const Projects: React.FC = () => {
                     {project.features.map((feature, featureIndex) => (
                       <div
                         key={featureIndex}
-                        className="flex items-center space-x-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-lg p-3 hover:border-gray-300 dark:hover:border-white/30 hover:shadow-lg transition-all duration-300"
+                        className="flex items-center space-x-3 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg p-3 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:shadow-lg transition-all duration-300"
                       >
                         <span className="text-xl">{feature.icon}</span>
                         <span className="text-sm text-gray-700 dark:text-gray-300">{feature.text}</span>
@@ -370,7 +373,7 @@ const Projects: React.FC = () => {
                       {project.techStack.map((tech, techIndex) => (
                         <div
                           key={techIndex}
-                          className="flex items-center space-x-2 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-lg px-4 py-2 hover:border-gray-300 dark:hover:border-white/30 hover:scale-105 hover:shadow-lg transition-all duration-300"
+                          className="flex items-center space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg px-4 py-2 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:scale-105 hover:shadow-lg transition-all duration-300"
                         >
                           <div className="text-lg">{getTechIcon(tech)}</div>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
@@ -398,13 +401,13 @@ const Projects: React.FC = () => {
               </div>
 
               {/* Mobile Action Buttons - MOVED OUTSIDE GRID */}
-              <div className="flex flex-wrap gap-4 mt-8 lg:hidden">
+              <div className="flex flex-wrap gap-4 mt-8 lg:hidden relative z-50 pointer-events-auto">
                 {project.liveUrl !== "#" && (
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-cyan-500 to-blue-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer"
                   >
                     <ExternalLink size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Live Demo</span>
@@ -415,7 +418,7 @@ const Projects: React.FC = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer"
                   >
                     <Github size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Source Code</span>
@@ -428,7 +431,7 @@ const Projects: React.FC = () => {
 
         {/* Call to action */}
         <div className="text-center mt-20">
-          <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
+          <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Let&apos;s Build Something Amazing Together
             </h3>
@@ -437,7 +440,7 @@ const Projects: React.FC = () => {
             </p>
             <button
               onClick={() => scrollToId('#contact', 80)}
-              className="group inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-8 py-4 rounded-xl hover:shadow-neon-blue/50 hover:scale-105 transition-all duration-300"
+              className="group inline-flex items-center space-x-2 bg-gradient-to-r from-primary-500 to-secondary-600 text-white px-8 py-4 rounded-xl hover:shadow-royal-gold hover:scale-105 transition-all duration-300"
             >
               <span className="font-semibold">Start a Project</span>
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

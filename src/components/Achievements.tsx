@@ -27,35 +27,33 @@ const Achievements: React.FC = () => {
       }
     });
 
-    gsap.set([titleRef.current, achievementsRef.current], {
-      opacity: 0,
-      y: 50
-    });
+    // Unique Title Animation: Slide down with bounce
+    gsap.set(titleRef.current, { opacity: 0, y: -50 });
+    gsap.set(achievementsRef.current, { opacity: 0 });
 
     tl.to(titleRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.8,
-      ease: "power3.out"
+      duration: 1,
+      ease: "bounce.out"
     })
     .to(achievementsRef.current, {
       opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    }, "-=0.4");
+      duration: 0.5
+    }, "-=0.5");
 
     const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
     if (achievementCards) {
+      // Unique Card Animation: Scale Up with Elasticity
       gsap.fromTo(achievementCards,
-        { opacity: 0, y: 30, scale: 0.9 },
+        { opacity: 0, scale: 0.5, rotation: -5 },
         {
           opacity: 1,
-          y: 0,
           scale: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
+          rotation: 0,
+          duration: 1,
+          stagger: 0.2,
+          ease: "elastic.out(1, 0.75)",
           scrollTrigger: {
             trigger: achievementsRef.current,
             start: "top 70%",
@@ -76,8 +74,8 @@ const Achievements: React.FC = () => {
       event: "Global IDEATHON 2025 (FIU)",
       description: "Secured top honors from a judging panel of industry leaders from Google, Microsoft, Meta, and Oracle for an innovative FinTech solution.",
       icon: Trophy,
-      color: "from-yellow-500 to-yellow-600",
-      bgColor: "from-yellow-500/20 to-yellow-600/20",
+      color: "from-primary-500 to-primary-600",
+      bgColor: "from-primary-500/20 to-primary-600/20",
       rank: "1st Place"
     },
     {
@@ -85,8 +83,8 @@ const Achievements: React.FC = () => {
       event: "'Build with India' National Hackathon",
       description: "Excelled in a high-stakes environment, placing in the top 5,000 out of 25,000 competing teams in a demanding national hackathon.",
       icon: Medal,
-      color: "from-blue-500 to-blue-600",
-      bgColor: "from-blue-500/20 to-blue-600/20",
+      color: "from-royal-purple-500 to-royal-purple-600",
+      bgColor: "from-royal-purple-500/20 to-royal-purple-600/20",
       rank: "Top 20%"
     },
     {
@@ -94,8 +92,8 @@ const Achievements: React.FC = () => {
       event: "Web-A-Thon MNIT Jaipur",
       description: "Placed among the top 30 teams out of over 100 teams from across the nation in a competitive web development marathon.",
       icon: Award,
-      color: "from-purple-500 to-purple-600",
-      bgColor: "from-purple-500/20 to-purple-600/20",
+      color: "from-primary-400 to-royal-purple-500",
+      bgColor: "from-primary-400/20 to-royal-purple-500/20",
       rank: "Top 30"
     }
   ];
@@ -107,12 +105,12 @@ const Achievements: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-10 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text leading-tight py-2">
+        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text-gold leading-tight py-2">
           Awards & Recognition
         </h2>
 
@@ -120,7 +118,7 @@ const Achievements: React.FC = () => {
           {achievements.map((achievement, index) => (
             <div 
               key={index}
-              className="achievement-card card-hover bg-white/80 dark:bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-gray-200/50 dark:border-white/20 relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="achievement-card card-hover bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-6 rounded-xl border border-primary-200/50 dark:border-primary-500/30 relative overflow-hidden shadow-lg hover:shadow-royal-gold transition-all duration-300"
             >
               {/* Background pattern */}
               <div className={`absolute inset-0 bg-gradient-to-br ${achievement.bgColor} opacity-50`}></div>
@@ -164,19 +162,19 @@ const Achievements: React.FC = () => {
         {/* Summary stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">3+</div>
+            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">3+</div>
             <p className="text-gray-600 dark:text-gray-400">Major Awards</p>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">25K+</div>
+            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">25K+</div>
             <p className="text-gray-600 dark:text-gray-400">Participants Competed</p>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">Top 20%</div>
+            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">Top 20%</div>
             <p className="text-gray-600 dark:text-gray-400">National Ranking</p>
           </div>
           <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text mb-2">4+</div>
+            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">4+</div>
             <p className="text-gray-600 dark:text-gray-400">Tech Giants Recognition</p>
           </div>
         </div>

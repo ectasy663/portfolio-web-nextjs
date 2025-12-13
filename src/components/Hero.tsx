@@ -31,33 +31,33 @@ const Hero: React.FC = () => {
       tl.to(titleRef.current, {
         opacity: 1,
         y: 0,
-        duration: 1.2,
-        ease: "back.out(1.7)"
+        duration: 1.5,
+        ease: "elastic.out(1, 0.5)"
       })
         .to(subtitleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          ease: "power4.out"
+        }, "-=1.0")
+        .to(descriptionRef.current, {
           opacity: 1,
           y: 0,
           duration: 1,
           ease: "power3.out"
         }, "-=0.8")
-        .to(descriptionRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out"
-        }, "-=0.6")
         .to(buttonsRef.current, {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          ease: "power3.out"
-        }, "-=0.4")
+          duration: 1,
+          ease: "back.out(1.7)"
+        }, "-=0.6")
         .to(socialRef.current, {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          ease: "power3.out"
-        }, "-=0.4");
+          duration: 1,
+          ease: "back.out(1.7)"
+        }, "-=0.6");
     } else {
       setTimeout(() => {
         if (titleRef.current) titleRef.current.style.opacity = '1';
@@ -158,8 +158,8 @@ const Hero: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
       </div>
 
       {/* Floating tech icons */}
@@ -181,9 +181,9 @@ const Hero: React.FC = () => {
 
       {/* Geometric shapes */}
       <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-gray-300/30 dark:border-white/20 rotate-45 animate-rotate-slow transition-colors duration-300"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-24 h-24 border border-gray-300/30 dark:border-white/20 rotate-12 animate-pulse transition-colors duration-300"></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full animate-float"></div>
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-primary-300/30 dark:border-primary-500/20 rotate-45 animate-rotate-slow transition-colors duration-300"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-24 h-24 border border-secondary-300/30 dark:border-secondary-500/20 rotate-12 animate-pulse transition-colors duration-300"></div>
+        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full animate-float"></div>
       </div>
 
       {/* Main content */}
@@ -195,10 +195,10 @@ const Hero: React.FC = () => {
               {/* Main heading with gradient text */}
               <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50" style={{ opacity: 1 }}>
                 <div className="block sm:hidden text-left">
-                  <div className="text-4xl font-bold mb-2 text-gray-800 dark:text-white gradient-text">Naman Singh</div>
-                  <div className="text-4xl font-bold text-gray-800 dark:text-white gradient-text">Panwar</div>
+                  <div className="text-4xl font-bold mb-2 gradient-text-name">Naman Singh</div>
+                  <div className="text-4xl font-bold gradient-text-name">Panwar</div>
                 </div>
-                <span className="hidden sm:inline whitespace-nowrap gradient-text text-gray-800 dark:text-white transition-colors duration-300">
+                <span className="hidden sm:inline whitespace-nowrap gradient-text-name transition-colors duration-300">
                   Naman Singh Panwar
                 </span>
               </h1>
@@ -218,7 +218,7 @@ const Hero: React.FC = () => {
                     loop: true,
                     deleteSpeed: 30,
                     delay: 100,
-                    wrapperClassName: "gradient-text",
+                    wrapperClassName: "gradient-text-gold",
                   }}
                 />
               </h2>
@@ -226,9 +226,9 @@ const Hero: React.FC = () => {
               {/* Description */}
               <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300">
                 Crafting intelligent digital experiences at the intersection of{' '}
-                <span className="text-cyan-600 dark:text-cyan-400 font-semibold transition-colors duration-300">AI/ML</span>,{' '}
-                <span className="text-purple-600 dark:text-purple-400 font-semibold transition-colors duration-300">web development</span>, and{' '}
-                <span className="text-pink-600 dark:text-pink-400 font-semibold transition-colors duration-300">creative design</span>.
+                <span className="text-primary-600 dark:text-primary-400 font-semibold transition-colors duration-300">AI/ML</span>,{' '}
+                <span className="text-secondary-600 dark:text-secondary-400 font-semibold transition-colors duration-300">web development</span>, and{' '}
+                <span className="text-primary-500 dark:text-primary-300 font-semibold transition-colors duration-300">creative design</span>.
                 Transforming complex ideas into elegant, user-centered solutions.
               </p>
 
@@ -237,7 +237,7 @@ const Hero: React.FC = () => {
                 {techStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
-                    className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-gray-300 dark:hover:border-white/40 hover:shadow-lg transition-all duration-300 will-change-transform"
+                    className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform"
                   >
                     <tech.icon className={`text-sm sm:text-lg ${tech.color} group-hover:scale-110 transition-transform duration-150`} />
                     <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">{tech.name}</span>

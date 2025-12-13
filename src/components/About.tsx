@@ -44,13 +44,14 @@ const About: React.FC = () => {
     if (strengthsInView) {
       const strengthCards = document.querySelectorAll('.strength-card');
       tl.fromTo(strengthCards,
-        { opacity: 0, y: 50 },
+        { opacity: 0, y: 100, rotationX: -15 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          rotationX: 0,
+          duration: 0.8,
           stagger: 0.2,
-          ease: "power3.out"
+          ease: "back.out(1.2)"
         }
       );
     }
@@ -127,14 +128,14 @@ const About: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="about-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="about-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="about-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-blue-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
+        <div className="about-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-30">
         <h2
           ref={titleRef}
-          className={`text-display-lg font-display text-center mb-16 gradient-text leading-tight py-2 animate-fade-in-slow transform transition-colors duration-300 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+          className={`text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2 animate-fade-in-slow transform transition-colors duration-300 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
         >
           About Me
         </h2>
@@ -148,7 +149,7 @@ const About: React.FC = () => {
                 <img
                   src="/assets/Professional-styly-pic.png"
                   alt="Naman Singh Panwar - Professional Style"
-                  className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl shadow-2xl border-4 border-white/20 dark:border-white/10 group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
+                  className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl shadow-royal-gold border-4 border-primary-200/50 dark:border-primary-500/30 group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
@@ -183,7 +184,7 @@ const About: React.FC = () => {
 
         {/* Key Strengths */}
         <div ref={strengthsRef} className="mt-24">
-          <h3 className={`text-heading-lg font-heading text-center mb-16 text-gray-800 dark:text-white animate-fade-in-slow transform transition-colors duration-300 ${strengthsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <h3 className={`text-heading-lg font-heading text-center mb-16 gradient-text-gold animate-fade-in-slow transform transition-colors duration-300 ${strengthsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
             Key Strengths
           </h3>
 
@@ -191,13 +192,13 @@ const About: React.FC = () => {
             {strengths.map((strength, index) => (
               <div
                 key={index}
-                className="strength-card bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 text-center card-hover shadow-lg hover:shadow-2xl hover:bg-white/95 dark:hover:bg-white/20 transition-all duration-300"
+                className="strength-card bg-white/80 dark:bg-dark-800/40 backdrop-blur-xl p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 text-center card-hover shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80 transition-all duration-300"
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gray-100 dark:bg-white/10 backdrop-blur-sm rounded-lg mb-6 hover:rotate-12 transition-all duration-300" style={{ transition: 'transform 0.2s ease-out' }}>
-                  <strength.icon className="w-10 h-10 text-cyan-600 dark:text-cyan-400 transition-colors duration-300" />
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-50 dark:bg-primary-900/20 backdrop-blur-sm rounded-lg mb-6 hover:rotate-12 transition-all duration-300" style={{ transition: 'transform 0.2s ease-out' }}>
+                  <strength.icon className="w-10 h-10 text-primary-600 dark:text-primary-400 transition-colors duration-300" />
                 </div>
                 <h4 className="text-heading-md font-heading mb-6 text-gray-800 dark:text-white transition-colors duration-300">
                   {strength.title}

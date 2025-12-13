@@ -34,23 +34,22 @@ const Contact: React.FC = () => {
       }
     });
 
-    gsap.set([titleRef.current, contentRef.current], {
-      opacity: 0,
-      y: 50
-    });
+    // Unique Title Animation: Slide Up with Fade
+    gsap.set(titleRef.current, { opacity: 0, y: 50 });
+    gsap.set(contentRef.current, { opacity: 0, y: 50 });
 
     tl.to(titleRef.current, {
       opacity: 1,
       y: 0,
-      duration: 0.8,
-      ease: "power3.out"
+      duration: 1,
+      ease: "power4.out"
     })
-      .to(contentRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+    .to(contentRef.current, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: "power4.out"
+    }, "-=0.8");
 
     return () => {
       tl.kill();
@@ -118,12 +117,12 @@ const Contact: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-10 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text leading-tight py-2">
+        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2">
           Let&apos;s Build Something Amazing
         </h2>
 
@@ -155,7 +154,7 @@ const Contact: React.FC = () => {
                     href={contact.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl rounded-xl border border-gray-200/50 dark:border-white/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 group shadow-lg hover:shadow-2xl"
+                    className="flex items-center gap-4 p-4 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-xl border border-primary-200/50 dark:border-primary-500/30 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 group shadow-lg hover:shadow-royal-gold"
                   >
                     <div className="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/60 transition-colors duration-300">
                       <contact.icon className="w-6 h-6 text-primary-600 dark:text-primary-300" />
@@ -169,15 +168,15 @@ const Contact: React.FC = () => {
               </div>
 
               {/* Quick stats */}
-              <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-6 rounded-xl border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-6 rounded-xl border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
                 <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Response Time</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="text-2xl font-bold gradient-text">&lt; 24h</div>
+                    <div className="text-2xl font-bold gradient-text-gold">&lt; 24h</div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">Email Response</p>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold gradient-text">100%</div>
+                    <div className="text-2xl font-bold gradient-text-gold">100%</div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">Reply Rate</p>
                   </div>
                 </div>
@@ -185,7 +184,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 shadow-lg hover:shadow-2xl transition-all duration-300">
+            <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
               <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -201,7 +200,7 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-600 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
+                      className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                       placeholder="John Doe"
                     />
                   </div>
@@ -216,7 +215,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-600 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
+                      className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -233,7 +232,7 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-600 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
+                    className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                     placeholder="Project Collaboration"
                   />
                 </div>
@@ -249,7 +248,7 @@ const Contact: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-600 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300 resize-none"
+                    className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300 resize-none"
                     placeholder="Tell me about your project or idea..."
                   />
                 </div>
@@ -266,7 +265,7 @@ const Contact: React.FC = () => {
 
                 <button
                   type="submit"
-                  className="w-full btn-primary flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300"
+                  className="w-full btn-primary flex items-center justify-center gap-2 hover:scale-105 transition-all duration-300 bg-gradient-to-r from-primary-500 to-secondary-600 text-white py-3 rounded-lg shadow-lg hover:shadow-royal-gold"
                 >
                   <Send size={20} />
                   Send Message

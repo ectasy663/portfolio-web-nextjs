@@ -77,7 +77,7 @@ export default function HomePage() {
     <div className="App">
       {/* Initial page loading overlay */}
       <div className={`loading-overlay fixed inset-0 bg-white dark:bg-dark-900 transition-all duration-500 flex flex-col items-center justify-center ${!isLoading ? 'opacity-0 pointer-events-none z-[-1]' : 'opacity-100 z-[200]'}`}>
-        <div className="text-4xl font-bold gradient-text">Naman Singh Panwar</div>
+        <div className="text-4xl font-bold gradient-text-name">Naman Singh Panwar</div>
         <div className="mt-4 w-16 h-16 border-4 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
       

@@ -36,7 +36,7 @@ const ThemeToggleButton: React.FC = () => {
     <button
       ref={buttonRef}
       onClick={handleToggle}
-      className="group relative p-3 rounded-xl bg-white/10 dark:bg-slate-800/50 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:border-white/40 dark:hover:border-white/30 transition-all duration-150 hover:scale-105"
+      className="group relative p-3 rounded-xl bg-white/10 dark:bg-dark-800/50 backdrop-blur-sm border border-primary-200/50 dark:border-primary-500/30 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-150 hover:scale-105 hover:shadow-royal-gold"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
@@ -44,17 +44,17 @@ const ThemeToggleButton: React.FC = () => {
         {theme === 'dark' ? (
           <Sun 
             size={20} 
-            className="text-yellow-400 group-hover:text-yellow-300 transition-colors duration-150" 
+            className="text-primary-400 group-hover:text-primary-300 transition-colors duration-150" 
           />
         ) : (
           <Moon 
             size={20} 
-            className="text-blue-600 group-hover:text-blue-500 transition-colors duration-150" 
+            className="text-primary-600 group-hover:text-primary-500 transition-colors duration-150" 
           />
         )}
       </div>
       
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-400/20 to-orange-400/20 dark:from-blue-400/20 dark:to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-150 blur-xl will-change-transform"></div>
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-400/20 to-secondary-400/20 dark:from-primary-400/20 dark:to-secondary-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-150 blur-xl will-change-transform"></div>
     </button>
   );
 };
