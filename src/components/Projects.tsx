@@ -20,6 +20,23 @@ const Projects: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
 
+  const openExternal = (url: string) => {
+    if (typeof window === 'undefined') return;
+    if (!url || url === '#') return;
+
+    const opened = window.open(url, '_blank', 'noopener,noreferrer');
+    if (!opened) {
+      window.location.assign(url);
+      return;
+    }
+
+    try {
+      opened.opener = null;
+    } catch {
+      // no-op
+    }
+  };
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -165,9 +182,9 @@ const Projects: React.FC = () => {
   return (
     <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white dark:bg-dark-950">
       {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" aria-hidden="true"></div>
+      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
       <div className="container relative z-10">
         {/* Header */}
@@ -407,7 +424,11 @@ const Projects: React.FC = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openExternal(project.liveUrl);
+                    }}
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
                   >
                     <ExternalLink size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Live Demo</span>
@@ -418,7 +439,11 @@ const Projects: React.FC = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openExternal(project.githubUrl);
+                    }}
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
                   >
                     <Github size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Source Code</span>
