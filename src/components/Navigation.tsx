@@ -78,7 +78,11 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className={`simple-navbar ${isDark ? 'dark-theme' : 'light-theme'}`}>
+    <nav className={`fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 ${
+      isDark 
+        ? 'bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]' 
+        : 'bg-primary-50/95 border-b border-primary-500/20 shadow-[0_4px_6px_-1px_rgba(212,175,55,0.05)]'
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import gsap from 'gsap';
 
 type Theme = 'light' | 'dark';
 
@@ -52,11 +53,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
       root.classList.add('theme-changing');
       // Don't interfere with any scroll-related animations
       // Only pause non-scroll GSAP animations
-      if (window.gsap) {
-        // Kill theme-related animations but preserve scroll animations
-        const elementsToKill = document.querySelectorAll('[data-gsap-theme]');
-        elementsToKill.forEach(el => window.gsap!.killTweensOf(el));
-      }
+      
+      // Kill theme-related animations but preserve scroll animations
+      const elementsToKill = document.querySelectorAll('[data-gsap-theme]');
+      elementsToKill.forEach(el => gsap.killTweensOf(el));
     };
 
     // Re-enable transitions after theme change
@@ -105,11 +105,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     toggleTheme,
     setTheme: setThemeCallback,
   }), [theme, toggleTheme, setThemeCallback]);
-
-  // Prevent flash of unstyled content
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider value={value}>

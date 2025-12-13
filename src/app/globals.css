@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 /* The Seasons Font - Online Version */
 @font-face {
   font-family: "The Seasons";
@@ -549,30 +547,6 @@ nav[style*="position: fixed"] {
 @keyframes loading-dots2 {
   0% { transform: translate(0, 0); }
   100% { transform: translate(24px, 0); }
-}
-
-/* Simple navbar fix */
-.simple-navbar {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  z-index: 1200 !important;
-  height: 5rem !important;
-  backdrop-filter: blur(12px) !important;
-}
-
-.simple-navbar.light-theme {
-  background-color: rgba(255, 253, 240, 0.95) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
-  box-shadow: 0 4px 6px -1px rgba(212, 175, 55, 0.05) !important;
-}
-
-.simple-navbar.dark-theme {
-  background-color: rgba(10, 10, 10, 0.95) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
-  box-shadow: 0 4px 20px -1px rgba(212, 175, 55, 0.1) !important;
 }
 
 /* Additional App.css styles */

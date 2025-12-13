@@ -115,11 +115,11 @@ module.exports = {
         }
       },
       fontFamily: {
-        'sans': ['The Seasons', 'Poppins', 'system-ui', 'sans-serif'],
-        'display': ['The Seasons', 'Outfit', 'system-ui', 'sans-serif'],
-        'heading': ['The Seasons', 'Space Grotesk', 'system-ui', 'sans-serif'],
-        'body': ['The Seasons', 'Poppins', 'system-ui', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
+        'sans': ['The Seasons', 'var(--font-poppins)', 'system-ui', 'sans-serif'],
+        'display': ['The Seasons', 'var(--font-outfit)', 'system-ui', 'sans-serif'],
+        'heading': ['The Seasons', 'var(--font-space-grotesk)', 'system-ui', 'sans-serif'],
+        'body': ['The Seasons', 'var(--font-poppins)', 'system-ui', 'sans-serif'],
+        'mono': ['var(--font-jetbrains-mono)', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
         'seasons': ['The Seasons', 'Georgia', 'serif'],
       },
       backgroundImage: {

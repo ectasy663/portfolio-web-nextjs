@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -21,6 +21,16 @@ const Skills: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const floatingRef = useRef<HTMLDivElement>(null);
+
+  const [iconPositions, setIconPositions] = useState<{ left: string; top: string }[]>([]);
+
+  useEffect(() => {
+    const positions = Array(8).fill(0).map(() => ({
+      left: `${Math.random() * 100}%`,
+      top: `${Math.random() * 100}%`,
+    }));
+    setIconPositions(positions);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -129,8 +139,9 @@ const Skills: React.FC = () => {
             key={index}
             className={`floating-icon absolute text-6xl text-blue-600 dark:text-blue-400 transition-colors duration-300`}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: iconPositions[index]?.left ?? '50%',
+              top: iconPositions[index]?.top ?? '50%',
+              opacity: iconPositions.length ? undefined : 0,
             }}
           />
         ))}

@@ -1,6 +1,32 @@
 import type { Metadata, Viewport } from 'next';
+import { Outfit, Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
+
+const outfit = Outfit({ 
+  subsets: ['latin'], 
+  variable: '--font-outfit',
+  display: 'swap',
+});
+
+const poppins = Poppins({ 
+  weight: ['300', '400', '500', '600', '700', '800', '900'], 
+  subsets: ['latin'], 
+  variable: '--font-poppins',
+  display: 'swap',
+});
+
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ['latin'], 
+  variable: '--font-space-grotesk',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({ 
+  subsets: ['latin'], 
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   themeColor: [
@@ -41,20 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        {/* NAVBAR POSITION FIX - Cannot be overridden */}
-        <style>{`
-          nav, .simple-navbar {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            z-index: 999999 !important;
-          }
-        `}</style>
-      </head>
+    <html lang="en" className={`dark ${outfit.variable} ${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="gsap-loaded">
         <ThemeProvider>
           {children}
