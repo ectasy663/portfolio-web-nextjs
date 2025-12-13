@@ -48,6 +48,102 @@
     @apply bg-primary-500/30 text-primary-400;
   }
 
+  /* Progressive Blur & Glassmorphism */
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+
+  .progressive-blur {
+    mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Light Rays */
+  .light-ray {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(255, 215, 0, 0.1) 20deg,
+      transparent 40deg,
+      rgba(255, 215, 0, 0.1) 60deg,
+      transparent 80deg,
+      rgba(255, 215, 0, 0.1) 100deg,
+      transparent 120deg,
+      rgba(255, 215, 0, 0.1) 140deg,
+      transparent 160deg,
+      rgba(255, 215, 0, 0.1) 180deg,
+      transparent 200deg,
+      rgba(255, 215, 0, 0.1) 220deg,
+      transparent 240deg,
+      rgba(255, 215, 0, 0.1) 260deg,
+      transparent 280deg,
+      rgba(255, 215, 0, 0.1) 300deg,
+      transparent 320deg,
+      rgba(255, 215, 0, 0.1) 340deg,
+      transparent 360deg
+    );
+    animation: rotate-rays 60s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  @keyframes rotate-rays {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  /* 3D Text Effect */
+  .text-3d {
+    text-shadow: 
+      0 1px 0 #ccc,
+      0 2px 0 #c9c9c9,
+      0 3px 0 #bbb,
+      0 4px 0 #b9b9b9,
+      0 5px 0 #aaa,
+      0 6px 1px rgba(0,0,0,.1),
+      0 0 5px rgba(0,0,0,.1),
+      0 1px 3px rgba(0,0,0,.3),
+      0 3px 5px rgba(0,0,0,.2),
+      0 5px 10px rgba(0,0,0,.25),
+      0 10px 10px rgba(0,0,0,.2),
+      0 20px 20px rgba(0,0,0,.15);
+  }
+  
+  .dark .text-3d {
+    text-shadow: 
+      0 1px 0 #333,
+      0 2px 0 #2c2c2c,
+      0 3px 0 #222,
+      0 4px 0 #1b1b1b,
+      0 5px 0 #111,
+      0 6px 1px rgba(0,0,0,.5),
+      0 0 5px rgba(0,0,0,.5),
+      0 1px 3px rgba(0,0,0,.6),
+      0 3px 5px rgba(0,0,0,.5),
+      0 5px 10px rgba(0,0,0,.5),
+      0 10px 10px rgba(0,0,0,.5),
+      0 20px 20px rgba(0,0,0,.5);
+  }
+
+  /* 3D Card Tilt */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .card-3d:hover {
+    transform: rotateX(10deg) rotateY(10deg);
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
   }

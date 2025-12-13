@@ -208,7 +208,7 @@ const Skills: React.FC = () => {
             </span>
           </h2>
           <p className="text-body-lg text-gray-700 dark:text-gray-200 max-w-3xl mx-auto transition-colors duration-300">
-            Mastering cutting-edge technologies to build innovative solutions
+            Mastering cutting-edge technologies to build innovative solutions 💡
           </p>
         </div>
 
@@ -219,7 +219,7 @@ const Skills: React.FC = () => {
               className="skill-card group relative"
             >
               {/* Glass morphism card */}
-                <div className="relative bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
+                <div className="relative glass-panel rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}></div>
 
@@ -273,7 +273,7 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
+        <div className="glass-panel rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
           <h3 className="text-heading-lg font-heading text-center mb-8">
             <span className="gradient-text-gold">
               Currently Learning

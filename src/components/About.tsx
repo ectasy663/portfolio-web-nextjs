@@ -167,14 +167,14 @@ const About: React.FC = () => {
               >
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    I'm a passionate and driven Computer Science student with a deep fascination for Artificial Intelligence
-                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn and a
+                    I'm a passionate and driven Computer Science student 🎓 with a deep fascination for <span className="font-bold text-primary-500">Artificial Intelligence 🤖</span>
+                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn 📚 and a
                     desire to build things that matter.
                   </p>
                   <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    From contributing to national defense projects at DRDO to innovating in the FinTech space, I thrive on
+                    From contributing to national defense projects at <span className="font-bold text-secondary-500">DRDO 🛡️</span> to innovating in the FinTech space 💸, I thrive on
                     challenges that push the boundaries of technology. My goal is to not just write code, but to architect
-                    elegant, efficient, and intelligent systems that leave a lasting impact.
+                    elegant, efficient, and intelligent systems that leave a lasting impact 🌟.
                   </p>
                 </div>
               </div>
@@ -192,7 +192,7 @@ const About: React.FC = () => {
             {strengths.map((strength, index) => (
               <div
                 key={index}
-                className="strength-card bg-white/80 dark:bg-dark-800/40 backdrop-blur-xl p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 text-center card-hover shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80 transition-all duration-300"
+                className="strength-card glass-panel p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 text-center card-hover shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80 transition-all duration-300"
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}

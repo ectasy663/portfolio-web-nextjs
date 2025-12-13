@@ -153,13 +153,17 @@ const Hero: React.FC = () => {
       {/* Light theme background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 
+      {/* Light Rays Effect */}
+      <div className="light-ray z-0"></div>
+
       {/* Video overlay for better text readability - Only in dark theme */}
       <div className="absolute inset-0 bg-black/40 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
 
-      {/* Dynamic gradient background overlay */}
-      <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
+      {/* Dynamic gradient background overlay - Detailed Illustrations */}
+      <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-radial-gradient from-white/5 to-transparent opacity-50 blur-2xl"></div>
       </div>
 
       {/* Floating tech icons */}
@@ -204,7 +208,8 @@ const Hero: React.FC = () => {
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">
+              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2">
+                <span className="text-3xl">🚀</span>
                 <Typewriter
                   options={{
                     strings: [
@@ -212,7 +217,7 @@ const Hero: React.FC = () => {
                       'Full Stack Developer 💻',
                       'Mobile App Developer 📱',
                       'Creative Technologist 🎨',
-                      'Problem Solver 🚀'
+                      'Problem Solver 🧩'
                     ],
                     autoStart: true,
                     loop: true,
@@ -224,12 +229,12 @@ const Hero: React.FC = () => {
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300">
-                Crafting intelligent digital experiences at the intersection of{' '}
-                <span className="text-primary-600 dark:text-primary-400 font-semibold transition-colors duration-300">AI/ML</span>,{' '}
-                <span className="text-secondary-600 dark:text-secondary-400 font-semibold transition-colors duration-300">web development</span>, and{' '}
-                <span className="text-primary-500 dark:text-primary-300 font-semibold transition-colors duration-300">creative design</span>.
-                Transforming complex ideas into elegant, user-centered solutions.
+              <p ref={descriptionRef} className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
+                Crafting intelligent digital experiences ✨ at the intersection of{' '}
+                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300">AI/ML 🧠</span>,{' '}
+                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300">web development 🌐</span>, and{' '}
+                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300">creative design 🎨</span>.
+                Transforming complex ideas into elegant, user-centered solutions 💡.
               </p>
 
               {/* Tech highlights */}
