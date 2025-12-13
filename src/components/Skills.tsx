@@ -6,7 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   SiReact, SiTypescript, SiJavascript, SiPython, SiCplusplus,
   SiHtml5, SiCss3, SiTailwindcss, SiGit, SiGithub, SiDocker, SiFigma,
-  SiNodedotjs, SiPostgresql, SiSupabase,
+  SiNodedotjs, SiPostgresql, SiSupabase, SiNextdotjs,
   SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiJupyter, SiExpo
 } from 'react-icons/si';
 import {
@@ -118,6 +118,7 @@ const Skills: React.FC = () => {
       icon: <FaDesktop className="text-3xl text-cyan-400" />,
       skills: [
         { name: "React.js", icon: <SiReact className="text-2xl text-cyan-400" />, level: 95 },
+        { name: "Next.js", icon: <SiNextdotjs className="text-2xl text-black dark:text-white" />, level: 90 },
         { name: "React Native", icon: <SiExpo className="text-2xl text-purple-400" />, level: 85 },
         { name: "TypeScript", icon: <SiTypescript className="text-2xl text-blue-400" />, level: 90 },
         { name: "JavaScript", icon: <SiJavascript className="text-2xl text-yellow-400" />, level: 92 },
@@ -278,7 +279,7 @@ const Skills: React.FC = () => {
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { name: "Next.js 14", icon: "⚡", color: "from-gray-400 to-gray-600" },
+              { name: "Cloud Computing", icon: "☁️", color: "from-blue-400 to-cyan-600" },
               { name: "WebGL", icon: "🎨", color: "from-purple-400 to-pink-600" },
               { name: "Blockchain", icon: "⛓️", color: "from-yellow-400 to-orange-600" },
               { name: "Cloud Native", icon: "☁️", color: "from-blue-400 to-cyan-600" },

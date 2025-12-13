@@ -71,6 +71,14 @@ const Experience: React.FC = () => {
 
   const experiences = [
     {
+      role: "Frontend Developer",
+      company: "AI R&D Division",
+      period: "Sep 2025 - Present",
+      description: "Spearheading frontend development for AI-driven applications, focusing on creating seamless user experiences and integrating complex AI functionalities. Collaborating with research teams to visualize data and model outputs effectively.",
+      type: "Current",
+      color: "from-cyan-500 to-cyan-600"
+    },
+    {
       role: "Summer Trainee",
       company: "DRDO (Defence Research and Development Organisation)",
       period: "July 2025 – Sep 2025",
