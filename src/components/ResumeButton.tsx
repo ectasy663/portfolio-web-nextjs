@@ -46,12 +46,13 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
       onClick={handleDownload}
       className={`${baseClasses} ${variantClasses[variant]} ${className}`}
       title="Download Resume"
+      aria-label="Download Resume"
     >
       {variant === 'icon' ? (
-        <FileText size={24} />
+        <FileText size={24} aria-hidden="true" />
       ) : (
         <span className="relative z-10 flex items-center justify-center space-x-2">
-          {showIcon && <Download size={20} />}
+          {showIcon && <Download size={20} aria-hidden="true" />}
           <span>Download Resume</span>
         </span>
       )}

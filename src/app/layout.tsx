@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Outfit, Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
+import Accessibility from '@/components/Accessibility';
 
 const outfit = Outfit({ 
   subsets: ['latin'], 
@@ -70,6 +71,7 @@ export default function RootLayout({
     <html lang="en" className={`dark ${outfit.variable} ${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <body className="gsap-loaded">
         <ThemeProvider>
+          <Accessibility />
           {children}
         </ThemeProvider>
       </body>

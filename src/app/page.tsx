@@ -11,7 +11,9 @@ import PageEffects from '@/components/PageEffects';
 export default function HomePage() {
   return (
     <div className="App">
-      <PageEffects />
+      <aside aria-label="Page effects">
+        <PageEffects />
+      </aside>
       <Navigation />
       <main className="pt-20 relative z-0">
         <Hero />

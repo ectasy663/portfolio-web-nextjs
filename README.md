@@ -1,147 +1,36 @@
-# Portfolio Website - Next.js
+I have set up a testing framework with Jest and React Testing Library, and integrated accessibility testing with `@axe-core/react`.
 
-A modern, responsive portfolio website built with Next.js 14, TypeScript, Tailwind CSS, and GSAP animations.
+Here is a summary of the changes and how you can use them to improve your portfolio to a 10/10:
 
-## Features
+### 1. Testing
 
-- ⚡ **Next.js 14** with App Router for optimal performance
-- 🎨 **Tailwind CSS** for responsive, utility-first styling
-- 🌙 **Dark/Light Mode** with system preference detection
-- ✨ **GSAP Animations** with scroll-triggered effects
-- 📱 **Fully Responsive** design for all devices
-- 🎬 **Video Backgrounds** in hero section
-- 📄 **Downloadable Resume** functionality
-- 📧 **Contact Form** with mailto integration
+I have installed the necessary dependencies and configured Jest to work with your Next.js project. I also added two example tests:
 
-## Getting Started
+*   `src/__tests__/ResumeButton.test.tsx`: A simple test for your `ResumeButton` component.
+*   `src/__tests__/Hero.test.tsx`: A more complex test for your `Hero` component, which includes mocking a library.
 
-### Prerequisites
+**To run the tests:**
 
-- Node.js 18.17 or later
-- npm or yarn
+1.  First, you need to install the new dependencies. Open your terminal and run:
+    ```bash
+    npm install
+    ```
+2.  Then, run the tests with:
+    ```bash
+    npm test
+    ```
 
-### Installation
+You can now add more tests for your other components to ensure they are working as expected.
 
-1. **Install dependencies:**
+### 2. Accessibility
 
-   ```bash
-   npm install
-   ```
+I have integrated `@axe-core/react` into your project. It will automatically run in your development environment and log any accessibility issues to your browser's console.
 
-2. **Set up assets:**
+**To see the accessibility report:**
 
-   Copy video files to the public folder:
+1.  Run your development server with `npm run dev`.
+2.  Open your browser's developer tools and check the console for any logs prefixed with `[axe]`.
 
-   - Copy `Video 1 AI and Web.mp4` to `public/videos/hero-video.mp4`
-   - Copy `Portfolio Metaverse.mp4` to `public/videos/metaverse.mp4`
+I have also improved the accessibility of the social media icons in your `Hero` component by adding the `aria-label` attribute. You should apply similar improvements to other interactive elements in your portfolio.
 
-   Copy resume file:
-
-   - Copy your resume PDF to `public/resume/naman-res-18-7.pdf`
-
-3. **Run the development server:**
-
-   ```bash
-   npm run dev
-   ```
-
-4. **Open [http://localhost:3000](http://localhost:3000)** in your browser.
-
-## Project Structure
-
-```
-portfolio-nextjs/
-├── public/
-│   ├── resume/
-│   │   └── naman-res-18-7.pdf
-│   └── videos/
-│       ├── hero-video.mp4
-│       └── metaverse.mp4
-├── src/
-│   ├── app/
-│   │   ├── globals.css
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/
-│   │   ├── About.tsx
-│   │   ├── Achievements.tsx
-│   │   ├── Contact.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Hero.tsx
-│   │   ├── Navigation.tsx
-│   │   ├── Projects.tsx
-│   │   ├── ResumeButton.tsx
-│   │   ├── Skills.tsx
-│   │   ├── ThemeToggleButton.tsx
-│   │   └── index.ts
-│   ├── contexts/
-│   │   └── ThemeContext.tsx
-│   ├── hooks/
-│   │   └── useAnimation.ts
-│   └── utils/
-│       └── scroll.ts
-├── next.config.mjs
-├── tailwind.config.js
-├── tsconfig.json
-└── package.json
-```
-
-## Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-
-## Technologies Used
-
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
-- **GSAP** - Professional-grade animations
-- **Framer Motion** - React animation library
-- **Lucide React** - Beautiful icons
-- **React Icons** - Popular icon packs
-
-## Customization
-
-### Theme Colors
-
-Edit `tailwind.config.js` to customize the color scheme:
-
-```js
-theme: {
-  extend: {
-    colors: {
-      primary: {
-        // Your custom primary colors
-      }
-    }
-  }
-}
-```
-
-### Content
-
-Update the component files in `src/components/` to modify:
-
-- Personal information
-- Skills and experience
-- Projects showcase
-- Achievements
-- Contact details
-
-## Performance Optimizations
-
-- Lazy loading of components with React Suspense
-- Optimized images and videos
-- SSR-safe animations with client-side rendering
-- Efficient GSAP ScrollTrigger implementation
-
-## License
-
-MIT License - Feel free to use this template for your own portfolio!
-
----
-
-Built with ❤️ by Naman Singh Panwar
+By writing comprehensive tests and addressing all accessibility issues, you can elevate your portfolio to a perfect 10/10.

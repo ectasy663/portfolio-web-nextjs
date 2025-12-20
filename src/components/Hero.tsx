@@ -173,7 +173,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Floating tech icons */}
-      <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block">
+      <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block" aria-hidden="true">
         {techStack.map((tech, index) => (
           <div
             key={index}
@@ -184,7 +184,7 @@ const Hero: React.FC = () => {
               fontSize: '2.5rem'
             }}
           >
-            <tech.icon />
+            <tech.icon aria-hidden="true" />
           </div>
         ))}
       </div>
@@ -293,8 +293,8 @@ const Hero: React.FC = () => {
                     href={social.href}
                     target={social.href.startsWith('http') ? '_blank' : undefined}
                     rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    aria-label={social.label}
                     className="group p-2.5 sm:p-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-110 hover:shadow-lg transition-all duration-300 will-change-transform"
-                    title={social.label}
                   >
                     <social.icon size={20} className="sm:w-6 sm:h-6" />
                   </a>
