@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { ArrowDown, Github, Linkedin, Mail, Code, Zap } from 'lucide-react';
 import gsap from 'gsap';
 import { scrollToId } from '@/utils/scroll';
@@ -303,13 +304,16 @@ const Hero: React.FC = () => {
 
             {/* Right side - Profile Image */}
             <div className="flex-shrink-0">
-              <div className="relative group cursor-pointer">
-                <img
+              <div className="relative group cursor-pointer w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem]">
+                <Image
                   src="/assets/wall lean pic professional.png"
                   alt="Naman Singh Panwar - Professional"
-                  className="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
+                  className="object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                   <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
                   <p className="text-sm text-gray-200">One line of code at a time ✨</p>

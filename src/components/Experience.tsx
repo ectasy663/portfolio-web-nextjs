@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Calendar, Building } from 'lucide-react';
+import { Calendar, Building, Briefcase } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -50,14 +50,13 @@ const Experience: React.FC = () => {
     const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
     if (timelineItems) {
       gsap.fromTo(timelineItems,
-        { opacity: 0, x: -100, filter: "blur(10px)" },
+        { opacity: 0, x: -50 },
         {
           opacity: 1,
           x: 0,
-          filter: "blur(0px)",
-          duration: 1,
-          stagger: 0.3,
-          ease: "power4.out",
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: timelineRef.current,
             start: "top 70%",
@@ -79,8 +78,8 @@ const Experience: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
       <div className="container relative z-30">
@@ -94,43 +93,53 @@ const Experience: React.FC = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-royal-purple-500 to-primary-600 dark:from-royal-purple-400 dark:to-primary-400 transition-colors duration-300"></div>
+            <div className="absolute left-[27px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-royal-purple-500 via-primary-500 to-royal-purple-500 dark:from-royal-purple-400 dark:via-primary-400 dark:to-royal-purple-400 transition-colors duration-300"></div>
 
             {experiences.map((exp, index) => (
-              <div key={index} className="timeline-item relative pl-20 pb-12 last:pb-0">
+              <div key={index} className="timeline-item relative pl-24 pb-16 last:pb-0">
                 {/* Timeline dot */}
-                <div className={`absolute left-6 w-4 h-4 bg-gradient-to-r ${exp.color} rounded-full border-4 border-white dark:border-dark-900 z-10 transition-colors duration-300`}></div>
+                <div className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center bg-white dark:bg-dark-900 rounded-full z-10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:scale-110 border-2 border-transparent bg-clip-padding`}>
+                  <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${exp.color} opacity-20 animate-spin-slow`}></div>
+                  <div className={`absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r ${exp.color} [mask:linear-gradient(#fff_0_0)_padding-box,linear-gradient(#fff_0_0)]`}></div>
+                  <Briefcase className="w-6 h-6 text-gray-700 dark:text-gray-200 relative z-10" />
+                </div>
 
                 {/* Content card */}
-                <div className="card-hover bg-white/90 dark:bg-dark-800/50 backdrop-blur-xl p-6 rounded-xl border border-royal-purple-200/50 dark:border-royal-purple-500/30 relative shadow-lg hover:shadow-royal-purple-glow hover:bg-white dark:hover:bg-dark-800/80 transition-all duration-300">
-                  {/* Type badge */}
-                  <div className={`inline-block px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${exp.color} text-white mb-4`}>
-                    {exp.type}
-                  </div>
+                <div className="group relative bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 shadow-lg hover:shadow-royal-gold transition-all duration-500 hover:-translate-y-1 overflow-hidden">
+                  
+                  {/* Gradient Border Effect on Hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-r ${exp.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
 
-                  {/* Role and company */}
-                  <h3 className="text-heading-md font-heading text-gray-900 dark:text-white mb-2 transition-colors duration-300">
-                    {exp.role}
-                  </h3>
-
-                  <div className="flex items-center gap-4 mb-4 text-gray-600 dark:text-gray-300 transition-colors duration-300">
-                    <div className="flex items-center gap-2">
-                      <Building size={16} />
-                      <span className="text-body-sm font-heading text-royal-purple-600 dark:text-royal-purple-400 font-medium transition-colors duration-300">{exp.company}</span>
+                  {/* Header */}
+                  <div className="flex flex-col gap-3 mb-6 relative z-10">
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 pr-32">
+                        {exp.role}
+                      </h3>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} />
-                      <span className="text-body-sm font-mono">{exp.period}</span>
+                    
+                    <div className="flex flex-wrap items-center gap-4 text-sm">
+                      <div className="flex items-center gap-2 text-royal-purple-600 dark:text-royal-purple-400 font-medium">
+                        <Building size={16} />
+                        <span>{exp.company}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-white/5 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10 backdrop-blur-sm">
+                        <Calendar size={14} />
+                        <span className="font-mono">{exp.period}</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="text-body-md text-gray-700 dark:text-gray-200 leading-relaxed transition-colors duration-300">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed relative z-10">
                     {exp.description}
                   </p>
-
-                  {/* Hover effect overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-royal-purple-500/5 to-primary-600/5 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  
+                  {/* Type Badge - Moved inside and fixed visibility */}
+                  <div className={`absolute top-6 right-6 px-3 py-1 text-xs font-bold tracking-wide uppercase bg-gradient-to-r ${exp.color} text-white rounded-full shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
+                    {exp.type}
+                  </div>
                 </div>
               </div>
             ))}
@@ -138,14 +147,14 @@ const Experience: React.FC = () => {
         </div>
 
         {/* Additional info */}
-        <div className="mt-16 text-center">
-          <div className="bg-white/90 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200 dark:border-white/20 max-w-3xl mx-auto shadow-lg hover:shadow-xl hover:bg-white dark:hover:bg-white/20 transition-all duration-300">
-            <h3 className="text-heading-md font-heading mb-4">
+        <div className="mt-20 text-center">
+          <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 max-w-3xl mx-auto shadow-lg hover:shadow-royal-purple-glow transition-all duration-500 group">
+            <h3 className="text-xl font-bold mb-4">
               <span className="gradient-text-gold">
                 Currently Exploring
               </span>
             </h3>
-            <p className="text-body-md text-gray-700 dark:text-gray-200 leading-relaxed transition-colors duration-300">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">
               Advanced AI/ML research, cloud computing platforms, and cutting-edge technologies
               that can revolutionize how we approach complex problem-solving in various industries.
             </p>

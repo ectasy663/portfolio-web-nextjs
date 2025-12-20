@@ -231,6 +231,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
+                      suppressHydrationWarning
                       className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                       placeholder="john@example.com"
                     />
