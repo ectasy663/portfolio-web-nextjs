@@ -22,14 +22,32 @@ const Navigation: React.FC = () => {
     const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150; // Offset for navbar height + buffer
+      const scrollPosition = window.scrollY + 200; // Offset for navbar height + buffer
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Check if we're near the bottom of the page (within 100px)
+      const isNearBottom = windowHeight + window.scrollY >= documentHeight - 100;
+
+      // If near bottom, activate the last section (contact)
+      if (isNearBottom) {
+        const lastSection = sectionIds[sectionIds.length - 1];
+        if (active !== lastSection) {
+          setActive(lastSection);
+        }
+        return;
+      }
 
       // Find which section is currently in view
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const section = document.getElementById(sectionIds[i]);
         if (section) {
           const sectionTop = section.offsetTop;
-          if (scrollPosition >= sectionTop) {
+          const sectionHeight = section.offsetHeight;
+          const sectionBottom = sectionTop + sectionHeight;
+
+          // Check if scroll position is within this section
+          if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
             if (active !== sectionIds[i]) {
               setActive(sectionIds[i]);
             }
@@ -63,7 +81,7 @@ const Navigation: React.FC = () => {
     handleScroll();
 
     return () => window.removeEventListener('scroll', scrollListener);
-  }, [active, mounted]);
+  }, [mounted]);
 
   const navItems = [
     { href: '#home', label: 'Home' },
