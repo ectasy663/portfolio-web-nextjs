@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
@@ -9,6 +9,13 @@ const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState<string>('home');
   const [mounted, setMounted] = useState(false);
+  const isScrollingRef = useRef(false);
+  const activeRef = useRef('home');
+
+  // Keep activeRef in sync
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
 
   // Mount effect
   useEffect(() => {
@@ -22,17 +29,19 @@ const Navigation: React.FC = () => {
     const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200; // Offset for navbar height + buffer
+      // Skip scroll spy during programmatic scrolling
+      if (isScrollingRef.current) return;
+
+      const scrollPosition = window.scrollY + 200;
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
 
-      // Check if we're near the bottom of the page (within 100px)
+      // Check if we're near the bottom of the page
       const isNearBottom = windowHeight + window.scrollY >= documentHeight - 100;
 
-      // If near bottom, activate the last section (contact)
       if (isNearBottom) {
         const lastSection = sectionIds[sectionIds.length - 1];
-        if (active !== lastSection) {
+        if (activeRef.current !== lastSection) {
           setActive(lastSection);
         }
         return;
@@ -46,9 +55,8 @@ const Navigation: React.FC = () => {
           const sectionHeight = section.offsetHeight;
           const sectionBottom = sectionTop + sectionHeight;
 
-          // Check if scroll position is within this section
           if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            if (active !== sectionIds[i]) {
+            if (activeRef.current !== sectionIds[i]) {
               setActive(sectionIds[i]);
             }
             break;
@@ -63,7 +71,7 @@ const Navigation: React.FC = () => {
       setActive(currentHash);
     }
 
-    // Add scroll listener with throttling for performance
+    // Throttled scroll listener
     let ticking = false;
     const scrollListener = () => {
       if (!ticking) {
@@ -76,8 +84,6 @@ const Navigation: React.FC = () => {
     };
 
     window.addEventListener('scroll', scrollListener, { passive: true });
-
-    // Initial check
     handleScroll();
 
     return () => window.removeEventListener('scroll', scrollListener);
@@ -96,7 +102,10 @@ const Navigation: React.FC = () => {
   const handleNavClick = useCallback((href: string) => {
     setIsOpen(false);
     const idFromHref = href.startsWith('#') ? href.slice(1) : href;
+
+    // Set active immediately and lock scroll spy
     setActive(idFromHref);
+    isScrollingRef.current = true;
 
     if (history.replaceState) {
       history.replaceState(null, '', `#${idFromHref}`);
@@ -105,7 +114,10 @@ const Navigation: React.FC = () => {
     }
 
     const target = document.querySelector(href);
-    if (!target) return;
+    if (!target) {
+      isScrollingRef.current = false;
+      return;
+    }
 
     const navbarHeight = 80;
     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
@@ -114,6 +126,11 @@ const Navigation: React.FC = () => {
       top: targetPosition,
       behavior: 'smooth'
     });
+
+    // Unlock scroll spy after scroll animation completes
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 800);
   }, []);
 
   return (
@@ -152,8 +169,8 @@ const Navigation: React.FC = () => {
                     handleNavClick(item.href);
                   }}
                   className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
+                      ? 'text-primary-600 dark:text-primary-400'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
                     }`}
                 >
                   {item.label}
@@ -192,8 +209,8 @@ const Navigation: React.FC = () => {
                     handleNavClick(item.href);
                   }}
                   className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                    ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
-                    : 'text-gray-600 dark:text-gray-300'
+                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
+                      : 'text-gray-600 dark:text-gray-300'
                     }`}
                 >
                   {item.label}
