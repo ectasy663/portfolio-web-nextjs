@@ -11,7 +11,6 @@ import dynamic from 'next/dynamic';
 const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
 
 interface TechStackItem {
-  icon: string;
   color: string;
   name: string;
 }
@@ -103,16 +102,16 @@ const Hero: React.FC = () => {
     scrollToId('#contact', 80);
   }, []);
 
-  // Tech stack with text-based icons to avoid React 19 compatibility issues
+  // Tech stack for displaying technology badges
   const technologyStack: TechStackItem[] = [
-    { icon: 'Rc', color: 'text-cyan-400', name: 'React' },
-    { icon: 'TS', color: 'text-blue-400', name: 'TypeScript' },
-    { icon: 'Py', color: 'text-yellow-400', name: 'Python' },
-    { icon: 'JS', color: 'text-yellow-300', name: 'JavaScript' },
-    { icon: 'Nd', color: 'text-green-400', name: 'Node.js' },
-    { icon: 'Dk', color: 'text-blue-500', name: 'Docker' },
-    { icon: 'Git', color: 'text-orange-500', name: 'Git' },
-    { icon: 'TF', color: 'text-orange-400', name: 'TensorFlow' },
+    { color: 'text-cyan-400', name: 'React' },
+    { color: 'text-blue-400', name: 'TypeScript' },
+    { color: 'text-yellow-400', name: 'Python' },
+    { color: 'text-yellow-300', name: 'JavaScript' },
+    { color: 'text-green-400', name: 'Node.js' },
+    { color: 'text-blue-500', name: 'Docker' },
+    { color: 'text-orange-500', name: 'Git' },
+    { color: 'text-orange-400', name: 'TensorFlow' },
   ];
 
   useEffect(() => {
@@ -177,21 +176,13 @@ const Hero: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-radial-gradient from-white/5 to-transparent opacity-50 blur-2xl"></div>
       </div>
 
-      {/* Floating tech icons */}
+      {/* Animated background particles */}
       <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block" aria-hidden="true">
-        {technologyStack.map((tech, index) => (
-          <div
-            key={index}
-            className={`floating-tech-icon absolute ${tech.color} opacity-40 dark:opacity-0 transition-opacity duration-300 font-bold`}
-            style={{
-              right: `${10 + (index * 8)}%`,
-              top: `${15 + (index % 4) * 20}%`,
-              fontSize: '2.5rem'
-            }}
-          >
-            {tech.icon}
-          </div>
-        ))}
+        <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+        <div className="absolute top-40 right-40 w-3 h-3 bg-blue-400 rounded-full animate-pulse delay-100"></div>
+        <div className="absolute top-60 right-60 w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-200"></div>
+        <div className="absolute bottom-40 right-32 w-3 h-3 bg-green-400 rounded-full animate-pulse delay-300"></div>
+        <div className="absolute bottom-60 right-52 w-2 h-2 bg-orange-400 rounded-full animate-pulse delay-500"></div>
       </div>
 
       {/* Geometric shapes */}
@@ -253,10 +244,9 @@ const Hero: React.FC = () => {
                 {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
-                    className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform"
+                    className="group flex items-center bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-3 sm:px-5 py-2 sm:py-2.5 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform"
                   >
-                    <span className={`text-sm sm:text-lg ${tech.color} font-bold`}>{tech.icon}</span>
-                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">{tech.name}</span>
+                    <span className={`text-xs sm:text-sm font-semibold ${tech.color} transition-colors duration-300`}>{tech.name}</span>
                   </div>
                 ))}
               </div>
