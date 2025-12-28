@@ -549,9 +549,7 @@ nav[style*="position: fixed"] {
   text-align: left;
 }
 
-* {
-  transition: all 0.3s ease;
-}
+/* Removed: * { transition: all 0.3s ease; } - causes massive CSS bloat and slow compilation */
 
 *:focus {
   outline: 2px solid #3b82f6;

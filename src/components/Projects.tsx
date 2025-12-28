@@ -62,20 +62,20 @@ const Projects: React.FC = () => {
       duration: 1,
       ease: "circ.out"
     })
-    .to(projectsRef.current, {
-      opacity: 1,
-      duration: 0.5
-    }, "-=0.5");
+      .to(projectsRef.current, {
+        opacity: 1,
+        duration: 0.5
+      }, "-=0.5");
 
     const projectCards = projectsRef.current?.querySelectorAll('.project-card');
     if (projectCards) {
       // Unique card animation: 3D Flip Up
       gsap.fromTo(projectCards,
-        { 
-          opacity: 0, 
-          y: 100, 
-          rotationX: 45, 
-          transformPerspective: 1000 
+        {
+          opacity: 0,
+          y: 100,
+          rotationX: 45,
+          transformPerspective: 1000
         },
         {
           opacity: 1,
@@ -100,19 +100,19 @@ const Projects: React.FC = () => {
 
   const getTechIcon = (tech: string) => {
     const iconMap: { [key: string]: React.ReactElement } = {
-      'React': <SiReact className="text-cyan-400" />,
-      'TypeScript': <SiTypescript className="text-blue-400" />,
-      'JavaScript': <SiJavascript className="text-yellow-400" />,
-      'Tailwind CSS': <SiTailwindcss className="text-teal-400" />,
-      'CSS': <SiCss3 className="text-blue-500" />,
-      'HTML': <SiHtml5 className="text-orange-500" />,
-      'Supabase': <SiSupabase className="text-emerald-400" />,
-      'Node.js': <SiNodedotjs className="text-green-500" />,
-      'Python': <SiPython className="text-yellow-400" />,
-      'Git': <SiGit className="text-orange-500" />,
-      'Solana Web3.js': <SiSolana className="text-purple-400" />
+      'React': <SiReact className="text-cyan-400" aria-hidden="true" />,
+      'TypeScript': <SiTypescript className="text-blue-400" aria-hidden="true" />,
+      'JavaScript': <SiJavascript className="text-yellow-400" aria-hidden="true" />,
+      'Tailwind CSS': <SiTailwindcss className="text-teal-400" aria-hidden="true" />,
+      'CSS': <SiCss3 className="text-blue-500" aria-hidden="true" />,
+      'HTML': <SiHtml5 className="text-orange-500" aria-hidden="true" />,
+      'Supabase': <SiSupabase className="text-emerald-400" aria-hidden="true" />,
+      'Node.js': <SiNodedotjs className="text-green-500" aria-hidden="true" />,
+      'Python': <SiPython className="text-yellow-400" aria-hidden="true" />,
+      'Git': <SiGit className="text-orange-500" aria-hidden="true" />,
+      'Solana Web3.js': <SiSolana className="text-purple-400" aria-hidden="true" />
     };
-    return iconMap[tech] || <Code2 className="text-gray-600 dark:text-gray-400" />;
+    return iconMap[tech] || <Code2 className="text-gray-600 dark:text-gray-400" aria-hidden="true" />;
   };
 
   return (
@@ -126,7 +126,7 @@ const Projects: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-royal-red-500/20 to-primary-500/20 backdrop-blur-sm border border-royal-red-500/30 dark:border-royal-red-500/30 rounded-full px-6 py-2 mb-6">
-            <Sparkles className="text-royal-red-400" size={18} />
+            <Sparkles className="text-royal-red-400" size={18} aria-hidden="true" />
             <span className="text-royal-red-400 font-medium">Featured Work</span>
           </div>
 
@@ -182,7 +182,7 @@ const Projects: React.FC = () => {
                       const centerY = rect.height / 2;
                       const rotateX = (y - centerY) / centerY * -15;
                       const rotateY = (x - centerX) / centerX * 15;
-                      
+
                       gsap.to(card, {
                         duration: 0.3,
                         rotationX: rotateX,
@@ -284,8 +284,8 @@ const Projects: React.FC = () => {
                     </div>
 
                     <div className={`px-3 py-1 rounded-full text-xs font-medium ${project.status === 'Live Production' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
-                        project.status === 'Active' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                          'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
+                      project.status === 'Active' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
+                        'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30'
                       }`}>
                       {project.status}
                     </div>

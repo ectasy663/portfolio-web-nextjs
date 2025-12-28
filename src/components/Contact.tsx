@@ -46,12 +46,12 @@ const Contact: React.FC = () => {
       duration: 1,
       ease: "power4.out"
     })
-    .to(contentRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power4.out"
-    }, "-=0.8");
+      .to(contentRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power4.out"
+      }, "-=0.8");
 
     return () => {
       tl.kill();
@@ -94,7 +94,7 @@ const Contact: React.FC = () => {
         subject: '',
         message: ''
       });
-      
+
       setTimeout(() => {
         setShowSuccess(false);
       }, 5000);
@@ -173,7 +173,7 @@ const Contact: React.FC = () => {
                     className="flex items-center gap-4 p-4 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-xl border border-primary-200/50 dark:border-primary-500/30 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 group shadow-lg hover:shadow-royal-gold"
                   >
                     <div className="flex items-center justify-center w-12 h-12 bg-primary-100 dark:bg-primary-900/50 rounded-lg group-hover:bg-primary-200 dark:group-hover:bg-primary-800/60 transition-colors duration-300">
-                      <contact.icon className="w-6 h-6 text-primary-600 dark:text-primary-300" />
+                      <contact.icon className="w-6 h-6 text-primary-600 dark:text-primary-300" aria-hidden="true" />
                     </div>
                     <div>
                       <p className="text-gray-500 dark:text-gray-400 text-sm">{contact.label}</p>
@@ -273,13 +273,13 @@ const Contact: React.FC = () => {
                 {/* Success/Error Message */}
                 {showSuccess && (
                   <div className="p-4 rounded-lg flex items-center gap-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700">
-                    <CheckCircle className="text-green-600 dark:text-green-400" size={20} />
+                    <CheckCircle className="text-green-600 dark:text-green-400" size={20} aria-hidden="true" />
                     <p className="text-sm text-green-700 dark:text-green-300">
                       Message sent successfully! I'll get back to you soon.
                     </p>
                   </div>
                 )}
-                
+
                 {error && (
                   <div className="p-4 rounded-lg flex items-center gap-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700">
                     <p className="text-sm text-red-700 dark:text-red-300">
@@ -296,7 +296,7 @@ const Contact: React.FC = () => {
                   {isSubmitting ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
-                    <Send size={20} />
+                    <Send size={20} aria-hidden="true" />
                   )}
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>

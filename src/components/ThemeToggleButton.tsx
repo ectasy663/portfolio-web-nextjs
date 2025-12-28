@@ -45,11 +45,13 @@ const ThemeToggleButton: React.FC = () => {
           <Sun 
             size={20} 
             className="text-primary-400 group-hover:text-primary-300 transition-colors duration-150" 
+            aria-hidden="true"
           />
         ) : (
           <Moon 
             size={20} 
             className="text-primary-600 group-hover:text-primary-500 transition-colors duration-150" 
+            aria-hidden="true"
           />
         )}
       </div>

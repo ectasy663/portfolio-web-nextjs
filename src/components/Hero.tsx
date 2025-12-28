@@ -3,14 +3,18 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { ArrowDown, Github, Linkedin, Mail, Code, Zap } from 'lucide-react';
-import gsap from 'gsap';
 import { scrollToId } from '@/utils/scroll';
-import Typewriter from 'typewriter-effect';
 import ResumeButton from './ResumeButton';
-import {
-  SiReact, SiTypescript, SiPython, SiJavascript, SiNodedotjs,
-  SiDocker, SiGit, SiTensorflow
-} from 'react-icons/si';
+import dynamic from 'next/dynamic';
+
+// Lazy load heavy dependencies
+const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
+
+interface TechStackItem {
+  icon: string;
+  color: string;
+  name: string;
+}
 
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -20,77 +24,75 @@ const Hero: React.FC = () => {
   const buttonsRef = useRef<HTMLDivElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
 
+  // Defer GSAP initialization for faster first paint
   useEffect(() => {
-    const mm = gsap.matchMedia();
+    const initAnimations = async () => {
+      const gsap = (await import('gsap')).default;
+      const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline();
 
-      if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
-        gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
-          opacity: 0,
-          y: 30
-        });
+        if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
+          gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
+            opacity: 0,
+            y: 30
+          });
 
-        tl.to(titleRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1.5,
-          ease: "elastic.out(1, 0.5)"
-        })
-          .to(subtitleRef.current, {
+          tl.to(titleRef.current, {
             opacity: 1,
             y: 0,
-            duration: 1.2,
-            ease: "power4.out"
-          }, "-=1.0")
-          .to(descriptionRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out"
-          }, "-=0.8")
-          .to(buttonsRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "back.out(1.7)"
-          }, "-=0.6")
-          .to(socialRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "back.out(1.7)"
-          }, "-=0.6");
-      }
+            duration: 1.5,
+            ease: "elastic.out(1, 0.5)"
+          })
+            .to(subtitleRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 1.2,
+              ease: "power4.out"
+            }, "-=1.0")
+            .to(descriptionRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out"
+            }, "-=0.8")
+            .to(buttonsRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "back.out(1.7)"
+            }, "-=0.6")
+            .to(socialRef.current, {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "back.out(1.7)"
+            }, "-=0.6");
+        }
 
-      const techIcons = document.querySelectorAll('.floating-tech-icon');
-      techIcons.forEach((icon, index) => {
-        gsap.to(icon, {
-          y: 'random(-20, 20)',
-          x: 'random(-15, 15)',
-          rotation: 'random(-15, 15)',
-          duration: 'random(3, 6)',
-          ease: "sine.inOut",
-          repeat: -1,
-          yoyo: true,
-          delay: index * 0.2
+        const techIcons = document.querySelectorAll('.floating-tech-icon');
+        techIcons.forEach((icon, index) => {
+          gsap.to(icon, {
+            y: 'random(-20, 20)',
+            x: 'random(-15, 15)',
+            rotation: 'random(-15, 15)',
+            duration: 'random(3, 6)',
+            ease: "sine.inOut",
+            repeat: -1,
+            yoyo: true,
+            delay: index * 0.2
+          });
         });
       });
-    });
-
-    mm.add("(prefers-reduced-motion: reduce)", () => {
-      if (titleRef.current && subtitleRef.current && descriptionRef.current && buttonsRef.current && socialRef.current) {
-        gsap.set([titleRef.current, subtitleRef.current, descriptionRef.current, buttonsRef.current, socialRef.current], {
-          opacity: 1,
-          y: 0
-        });
-      }
-    });
-
-    return () => {
-      mm.revert();
     };
+
+    // Use requestIdleCallback for non-blocking animation init
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initAnimations);
+    } else {
+      setTimeout(initAnimations, 1);
+    }
   }, []);
 
   const scrollToProjects = useCallback(() => {
@@ -101,22 +103,23 @@ const Hero: React.FC = () => {
     scrollToId('#contact', 80);
   }, []);
 
-  const techStack = [
-    { icon: SiReact, color: 'text-cyan-400', name: 'React' },
-    { icon: SiTypescript, color: 'text-blue-400', name: 'TypeScript' },
-    { icon: SiPython, color: 'text-yellow-400', name: 'Python' },
-    { icon: SiJavascript, color: 'text-yellow-300', name: 'JavaScript' },
-    { icon: SiNodedotjs, color: 'text-green-400', name: 'Node.js' },
-    { icon: SiDocker, color: 'text-blue-500', name: 'Docker' },
-    { icon: SiGit, color: 'text-orange-500', name: 'Git' },
-    { icon: SiTensorflow, color: 'text-orange-400', name: 'TensorFlow' },
+  // Tech stack with text-based icons to avoid React 19 compatibility issues
+  const technologyStack: TechStackItem[] = [
+    { icon: 'Rc', color: 'text-cyan-400', name: 'React' },
+    { icon: 'TS', color: 'text-blue-400', name: 'TypeScript' },
+    { icon: 'Py', color: 'text-yellow-400', name: 'Python' },
+    { icon: 'JS', color: 'text-yellow-300', name: 'JavaScript' },
+    { icon: 'Nd', color: 'text-green-400', name: 'Node.js' },
+    { icon: 'Dk', color: 'text-blue-500', name: 'Docker' },
+    { icon: 'Git', color: 'text-orange-500', name: 'Git' },
+    { icon: 'TF', color: 'text-orange-400', name: 'TensorFlow' },
   ];
 
   useEffect(() => {
     const handleResize = () => {
       const video = document.querySelector('#heroVideo') as HTMLVideoElement;
       if (!video) return;
-      
+
       if (window.innerWidth <= 640) {
         video.style.position = 'fixed';
         video.style.top = '0';
@@ -138,7 +141,7 @@ const Hero: React.FC = () => {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-    
+
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -151,7 +154,9 @@ const Hero: React.FC = () => {
         muted
         loop
         playsInline
+        preload="none"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
+        aria-hidden="true"
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
@@ -174,17 +179,17 @@ const Hero: React.FC = () => {
 
       {/* Floating tech icons */}
       <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block" aria-hidden="true">
-        {techStack.map((tech, index) => (
+        {technologyStack.map((tech, index) => (
           <div
             key={index}
-            className={`floating-tech-icon absolute ${tech.color} opacity-40 dark:opacity-0 transition-opacity duration-300`}
+            className={`floating-tech-icon absolute ${tech.color} opacity-40 dark:opacity-0 transition-opacity duration-300 font-bold`}
             style={{
               right: `${10 + (index * 8)}%`,
               top: `${15 + (index % 4) * 20}%`,
               fontSize: '2.5rem'
             }}
           >
-            <tech.icon aria-hidden="true" />
+            {tech.icon}
           </div>
         ))}
       </div>
@@ -245,12 +250,12 @@ const Hero: React.FC = () => {
 
               {/* Tech highlights */}
               <div className="flex flex-wrap gap-2 sm:gap-3">
-                {techStack.slice(0, 4).map((tech, index) => (
+                {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
                     className="group flex items-center space-x-1 sm:space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2 sm:px-4 py-1.5 sm:py-2 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform"
                   >
-                    <tech.icon className={`text-sm sm:text-lg ${tech.color} group-hover:scale-110 transition-transform duration-150`} />
+                    <span className={`text-sm sm:text-lg ${tech.color} font-bold`}>{tech.icon}</span>
                     <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-200 transition-colors duration-300">{tech.name}</span>
                   </div>
                 ))}
@@ -263,7 +268,7 @@ const Hero: React.FC = () => {
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    <Code size={18} className="sm:w-5 sm:h-5" />
+                    <Code size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     <span className="text-sm sm:text-base">View My Work</span>
                   </span>
                 </button>
@@ -275,7 +280,7 @@ const Hero: React.FC = () => {
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    <Zap size={18} className="sm:w-5 sm:h-5" />
+                    <Zap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     <span className="text-sm sm:text-base">Let's Connect</span>
                   </span>
                 </button>
@@ -296,7 +301,7 @@ const Hero: React.FC = () => {
                     aria-label={social.label}
                     className="group p-2.5 sm:p-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-110 hover:shadow-lg transition-all duration-300 will-change-transform"
                   >
-                    <social.icon size={20} className="sm:w-6 sm:h-6" />
+                    <social.icon size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />
                   </a>
                 ))}
               </div>
@@ -309,8 +314,8 @@ const Hero: React.FC = () => {
                   src="/assets/wall lean pic professional.png"
                   alt="Naman Singh Panwar - Professional"
                   fill
-                  priority
-                  sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
+                  loading="eager"
+                  sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
                   className="object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
@@ -326,7 +331,7 @@ const Hero: React.FC = () => {
           <div className="flex justify-center mt-12 sm:mt-16">
             <div className="flex flex-col items-center space-y-2 animate-bounce">
               <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 font-medium transition-colors duration-300">Scroll to explore</span>
-              <ArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} />
+              <ArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />
             </div>
           </div>
         </div>

@@ -99,6 +99,7 @@ const About: React.FC = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)'
         }}
+        aria-hidden="true"
       >
         <source src="/videos/metaverse.mp4" type="video/mp4" />
       </video>

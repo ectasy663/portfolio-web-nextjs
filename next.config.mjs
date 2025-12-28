@@ -1,60 +1,101 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable React Strict Mode for better development experience
-  reactStrictMode: true,
-  
+  // Disable React Strict Mode for faster rendering
+  reactStrictMode: false,
 
-  
-  // Enable experimental features if needed
-  experimental: {
-    // Optimize package imports
-    optimizePackageImports: ['lucide-react', 'react-icons'],
+  // Enable compression
+  compress: true,
+
+  // Optimize output for production
+  output: 'standalone',
+
+  // Remove X-Powered-By header
+  poweredByHeader: false,
+
+  // Transpile specific packages
+  transpilePackages: ['react-icons', 'gsap'],
+
+  // Turbopack configuration (Next.js 16+ default bundler)
+  turbopack: {
+    // Resolve aliases for faster module resolution
+    resolveAlias: {
+      '@': './src',
+    },
   },
-  
-  // Image optimization configuration
+
+  // Enable experimental features
+  experimental: {
+    // Modular imports for tree-shaking
+    modularizeImports: {
+      'lucide-react': {
+        transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',
+      },
+    },
+    // Enable optimistic client cache
+    optimisticClientCache: true,
+  },
+
+  // Aggressive image optimization
   images: {
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 1080, 1920],
+    imageSizes: [16, 32, 64, 128, 256],
+    minimumCacheTTL: 31536000, // 1 year cache
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
+  // Compiler optimizations
+  compiler: {
+    // Remove console.log in production
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  // Aggressive caching headers
   async headers() {
     return [
+      // Static assets - 1 year cache
       {
         source: '/assets/:path*',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
         ],
       },
+      // Fonts - 1 year cache
       {
         source: '/fonts/:path*',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      // Videos - lazy load with cache
       {
         source: '/videos/:path*',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      // Resume
       {
         source: '/resume/:path*',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // Next.js static files
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // HTML pages - enable DNS prefetch
+      {
+        source: '/:path*',
+        headers: [
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
         ],
       },
     ];

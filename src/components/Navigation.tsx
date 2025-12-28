@@ -14,11 +14,11 @@ const Navigation: React.FC = () => {
     const checkTheme = () => {
       setIsDark(document.documentElement.classList.contains('dark'));
     };
-    
+
     checkTheme();
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -26,7 +26,7 @@ const Navigation: React.FC = () => {
     const currentHash = window.location.hash.replace('#', '');
     if (currentHash) setActive(currentHash);
 
-    const ids = ['home','about','skills','experience','projects','achievements','contact'];
+    const ids = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
     const sections = ids
       .map(id => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -64,13 +64,13 @@ const Navigation: React.FC = () => {
     } else {
       window.location.hash = idFromHref;
     }
-    
+
     const target = document.querySelector(href);
     if (!target) return;
-    
+
     const navbarHeight = 80;
     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-    
+
     window.scrollTo({
       top: targetPosition,
       behavior: 'smooth'
@@ -78,11 +78,10 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 ${
-      isDark 
-        ? 'bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]' 
+    <nav className={`fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 ${isDark
+        ? 'bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]'
         : 'bg-primary-50/95 border-b border-primary-500/20 shadow-[0_4px_6px_-1px_rgba(212,175,55,0.05)]'
-    }`}>
+      }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
@@ -99,6 +98,7 @@ const Navigation: React.FC = () => {
                 alt="NS Logo"
                 width={40}
                 height={40}
+                sizes="40px"
                 className="h-10 w-auto"
                 priority
               />

@@ -64,9 +64,9 @@ const Skills: React.FC = () => {
     if (skillCards) {
       // Unique Card Animation: 3D Rotate In
       gsap.fromTo(skillCards,
-        { 
-          opacity: 0, 
-          rotationX: 90, 
+        {
+          opacity: 0,
+          rotationX: 90,
           y: 50,
           transformPerspective: 1000
         },
@@ -143,6 +143,7 @@ const Skills: React.FC = () => {
               top: iconPositions[index]?.top ?? '50%',
               opacity: iconPositions.length ? undefined : 0,
             }}
+            aria-hidden="true"
           />
         ))}
       </div>
@@ -169,7 +170,7 @@ const Skills: React.FC = () => {
               className="skill-card group relative"
             >
               {/* Glass morphism card */}
-                <div className="relative glass-panel rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
+              <div className="relative glass-panel rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
                 {/* Gradient border effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${category.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`}></div>
 

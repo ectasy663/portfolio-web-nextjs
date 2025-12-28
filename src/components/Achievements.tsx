@@ -38,10 +38,10 @@ const Achievements: React.FC = () => {
       duration: 1,
       ease: "bounce.out"
     })
-    .to(achievementsRef.current, {
-      opacity: 1,
-      duration: 0.5
-    }, "-=0.5");
+      .to(achievementsRef.current, {
+        opacity: 1,
+        duration: 0.5
+      }, "-=0.5");
 
     const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
     if (achievementCards) {
@@ -87,19 +87,19 @@ const Achievements: React.FC = () => {
 
         <div ref={achievementsRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {achievements.map((achievement, index) => (
-            <div 
+            <div
               key={index}
               className="achievement-card card-hover bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-6 rounded-xl border border-primary-200/50 dark:border-primary-500/30 relative overflow-hidden shadow-lg hover:shadow-royal-gold transition-all duration-300"
             >
               {/* Background pattern */}
               <div className={`absolute inset-0 bg-gradient-to-br ${achievement.bgColor} opacity-50`}></div>
-              
+
               {/* Content */}
               <div className="relative z-10">
                 {/* Icon and rank */}
                 <div className="flex items-center justify-between mb-6">
                   <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${achievement.color} rounded-lg`}>
-                    <achievement.icon className="w-6 h-6 text-white" />
+                    <achievement.icon className="w-6 h-6 text-white" aria-hidden="true" />
                   </div>
                   <div className={`px-3 py-1 bg-gradient-to-r ${achievement.color} text-white text-xs font-bold rounded-full`}>
                     {achievement.rank}
@@ -123,7 +123,7 @@ const Achievements: React.FC = () => {
 
                 {/* Decorative elements */}
                 <div className="absolute top-4 right-4 opacity-20">
-                  <Star className={`w-8 h-8 text-gradient-to-r ${achievement.color}`} />
+                  <Star className={`w-8 h-8 text-gradient-to-r ${achievement.color}`} aria-hidden="true" />
                 </div>
               </div>
             </div>

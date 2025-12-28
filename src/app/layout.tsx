@@ -1,32 +1,15 @@
 import type { Metadata, Viewport } from 'next';
-import { Outfit, Poppins, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Outfit } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import './globals.css';
-import Accessibility from '@/components/Accessibility';
 
-const outfit = Outfit({ 
-  subsets: ['latin'], 
+// Single optimized font - reduce font loading overhead
+const outfit = Outfit({
+  subsets: ['latin'],
   variable: '--font-outfit',
   display: 'swap',
-});
-
-const poppins = Poppins({ 
-  weight: ['300', '400', '500', '600', '700', '800', '900'], 
-  subsets: ['latin'], 
-  variable: '--font-poppins',
-  display: 'swap',
-});
-
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ['latin'], 
-  variable: '--font-space-grotesk',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({ 
-  subsets: ['latin'], 
-  variable: '--font-jetbrains-mono',
-  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 export const viewport: Viewport = {
@@ -34,6 +17,8 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#050505' },
   ],
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export const metadata: Metadata = {
@@ -68,10 +53,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`dark ${outfit.variable} ${poppins.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`dark ${outfit.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS prefetch for external resources */}
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        {/* Preload critical assets */}
+        <link rel="preload" href="/fonts/the-seasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="gsap-loaded">
         <ThemeProvider>
-          <Accessibility />
           {children}
         </ThemeProvider>
       </body>
