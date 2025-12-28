@@ -313,7 +313,6 @@ const Projects: React.FC = () => {
                         key={featureIndex}
                         className="flex items-center space-x-3 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg p-3 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:shadow-lg transition-all duration-300"
                       >
-                        <span className="text-xl">{feature.icon}</span>
                         <span className="text-sm text-gray-700 dark:text-gray-300">{feature.text}</span>
                       </div>
                     ))}

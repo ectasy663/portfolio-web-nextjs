@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { ArrowDown, Github, Linkedin, Mail, Code, Zap } from 'lucide-react';
+import { ArrowDown, Github, Linkedin, Mail, Code, Zap, Rocket, Sparkles, Bot, Laptop, Smartphone, Palette, Puzzle, Brain, Globe, Lightbulb } from 'lucide-react';
 import { scrollToId } from '@/utils/scroll';
 import ResumeButton from './ResumeButton';
 import dynamic from 'next/dynamic';
@@ -210,16 +210,16 @@ const Hero: React.FC = () => {
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2">
-                <span className="text-3xl">🚀</span>
+              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-3">
+                <Rocket className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500 animate-pulse-slow" />
                 <Typewriter
                   options={{
                     strings: [
-                      'AI/ML Engineer 🤖',
-                      'Full Stack Developer 💻',
-                      'Mobile App Developer 📱',
-                      'Creative Technologist 🎨',
-                      'Problem Solver 🧩'
+                      'AI/ML Engineer',
+                      'Full Stack Developer',
+                      'Mobile App Developer',
+                      'Creative Technologist',
+                      'Problem Solver'
                     ],
                     autoStart: true,
                     loop: true,
@@ -232,11 +232,11 @@ const Hero: React.FC = () => {
 
               {/* Description */}
               <p ref={descriptionRef} className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
-                Crafting intelligent digital experiences ✨ at the intersection of{' '}
-                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300">AI/ML 🧠</span>,{' '}
-                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300">web development 🌐</span>, and{' '}
-                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300">creative design 🎨</span>.
-                Transforming complex ideas into elegant, user-centered solutions 💡.
+                Crafting intelligent digital experiences <span className="inline-block align-middle"><Sparkles className="w-5 h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
+                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <Brain className="w-5 h-5" /></span>,{' '}
+                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <Globe className="w-5 h-5" /></span>, and{' '}
+                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <Palette className="w-5 h-5" /></span>.
+                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><Lightbulb className="w-5 h-5 text-yellow-500" /></span>.
               </p>
 
               {/* Tech highlights */}
@@ -311,7 +311,7 @@ const Hero: React.FC = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                   <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
-                  <p className="text-sm text-gray-200">One line of code at a time ✨</p>
+                  <p className="text-sm text-gray-200 flex items-center gap-2">One line of code at a time <Sparkles className="w-4 h-4 text-yellow-300" /></p>
                 </div>
               </div>
             </div>

@@ -44,18 +44,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
     const root = window.document.documentElement;
 
-    // Use requestAnimationFrame for smooth transitions
-    requestAnimationFrame(() => {
-      root.classList.remove('light', 'dark');
-      root.classList.add(theme);
-      localStorage.setItem('theme', theme);
+    // Apply theme class synchronously for instant switching
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    localStorage.setItem('theme', theme);
 
-      // Update meta theme-color
-      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', theme === 'dark' ? '#050505' : '#ffffff');
-      }
-    });
+    // Update meta theme-color
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', theme === 'dark' ? '#050505' : '#ffffff');
+    }
   }, [theme, mounted]);
 
   const toggleTheme = useCallback(() => {

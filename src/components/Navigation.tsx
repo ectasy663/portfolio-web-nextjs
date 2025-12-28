@@ -1,49 +1,69 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const [active, setActive] = useState<string>('home');
+  const [mounted, setMounted] = useState(false);
 
+  // Mount effect
   useEffect(() => {
-    const checkTheme = () => {
-      setIsDark(document.documentElement.classList.contains('dark'));
+    setMounted(true);
+  }, []);
+
+  // Scroll spy using scroll event for reliable detection
+  useEffect(() => {
+    if (!mounted) return;
+
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150; // Offset for navbar height + buffer
+
+      // Find which section is currently in view
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section) {
+          const sectionTop = section.offsetTop;
+          if (scrollPosition >= sectionTop) {
+            if (active !== sectionIds[i]) {
+              setActive(sectionIds[i]);
+            }
+            break;
+          }
+        }
+      }
     };
 
-    checkTheme();
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
+    // Check hash on load
     const currentHash = window.location.hash.replace('#', '');
-    if (currentHash) setActive(currentHash);
+    if (currentHash && sectionIds.includes(currentHash)) {
+      setActive(currentHash);
+    }
 
-    const ids = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
-    const sections = ids
-      .map(id => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-    if (!sections.length) return;
+    // Add scroll listener with throttling for performance
+    let ticking = false;
+    const scrollListener = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute('id');
-          if (id) setActive(id);
-        }
-      });
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0.01 });
+    window.addEventListener('scroll', scrollListener, { passive: true });
 
-    sections.forEach(sec => observer.observe(sec));
-    return () => observer.disconnect();
-  }, []);
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', scrollListener);
+  }, [active, mounted]);
 
   const navItems = [
     { href: '#home', label: 'Home' },
@@ -55,10 +75,11 @@ const Navigation: React.FC = () => {
     { href: '#contact', label: 'Contact' },
   ];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = useCallback((href: string) => {
     setIsOpen(false);
     const idFromHref = href.startsWith('#') ? href.slice(1) : href;
     setActive(idFromHref);
+
     if (history.replaceState) {
       history.replaceState(null, '', `#${idFromHref}`);
     } else {
@@ -75,13 +96,10 @@ const Navigation: React.FC = () => {
       top: targetPosition,
       behavior: 'smooth'
     });
-  };
+  }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 ${isDark
-        ? 'bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]'
-        : 'bg-primary-50/95 border-b border-primary-500/20 shadow-[0_4px_6px_-1px_rgba(212,175,55,0.05)]'
-      }`}>
+    <nav className="fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 bg-primary-50/95 dark:bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_6px_-1px_rgba(212,175,55,0.05)] dark:shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           <div className="flex-shrink-0">
@@ -115,10 +133,16 @@ const Navigation: React.FC = () => {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1) ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'}`}
+                  className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
+                    ? 'text-primary-600 dark:text-primary-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
+                    }`}
                 >
                   {item.label}
-                  <span className={`absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full transition-all duration-300 ${active === item.href.slice(1) ? 'bg-primary-500 opacity-100' : 'opacity-0'}`}></span>
+                  <span
+                    className={`absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary-500 transition-all duration-300 ${active === item.href.slice(1) ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
+                      }`}
+                  />
                 </a>
               ))}
             </div>
@@ -149,7 +173,10 @@ const Navigation: React.FC = () => {
                     e.preventDefault();
                     handleNavClick(item.href);
                   }}
-                  className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1) ? 'text-primary-600 dark:text-primary-400' : 'text-gray-600 dark:text-gray-300'} `}
+                  className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
+                    ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
+                    : 'text-gray-600 dark:text-gray-300'
+                    }`}
                 >
                   {item.label}
                 </a>

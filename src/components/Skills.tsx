@@ -159,7 +159,7 @@ const Skills: React.FC = () => {
             </span>
           </h2>
           <p className="text-body-lg text-gray-700 dark:text-gray-200 max-w-3xl mx-auto transition-colors duration-300">
-            Mastering cutting-edge technologies to build innovative solutions 💡
+            Mastering cutting-edge technologies to build innovative solutions
           </p>
         </div>
 
@@ -233,18 +233,17 @@ const Skills: React.FC = () => {
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { name: "Cloud Computing", icon: "☁️", color: "from-primary-400 to-secondary-600" },
-              { name: "WebGL", icon: "🎨", color: "from-secondary-400 to-primary-600" },
-              { name: "Blockchain", icon: "⛓️", color: "from-primary-400 to-primary-600" },
-              { name: "Cloud Native", icon: "☁️", color: "from-secondary-400 to-secondary-600" },
-              { name: "Edge Computing", icon: "🚀", color: "from-primary-400 to-secondary-600" },
-              { name: "Quantum ML", icon: "🔬", color: "from-secondary-400 to-primary-600" }
+              { name: "Cloud Computing", color: "from-primary-400 to-secondary-600" },
+              { name: "WebGL", color: "from-secondary-400 to-primary-600" },
+              { name: "Blockchain", color: "from-primary-400 to-primary-600" },
+              { name: "Cloud Native", color: "from-secondary-400 to-secondary-600" },
+              { name: "Edge Computing", color: "from-primary-400 to-secondary-600" },
+              { name: "Quantum ML", color: "from-secondary-400 to-primary-600" }
             ].map((tech, index) => (
               <div
                 key={index}
                 className="group flex items-center space-x-3 bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-6 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold"
               >
-                <span className="text-2xl group-hover:animate-bounce">{tech.icon}</span>
                 <span className={`font-heading font-medium text-transparent bg-gradient-to-r ${tech.color} bg-clip-text`}>
                   {tech.name}
                 </span>
@@ -258,3 +257,4 @@ const Skills: React.FC = () => {
 };
 
 export default Skills;
+

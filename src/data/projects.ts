@@ -4,12 +4,12 @@ export const projects = [
     tagline: "Creative Gift Discovery Platform",
     description: "An innovative gift discovery platform that combines intuitive design with smart curation to provide personalized gift recommendations. Features a beautiful interface with creative filtering and curated suggestions for every occasion and recipient.",
     features: [
-      { icon: "🎁", text: "Curated Gift Collections" },
-      { icon: "✨", text: "Personalized Suggestions" },
-      { icon: "🎯", text: "Occasion-Based Filtering" },
-      { icon: "💡", text: "Creative Gift Ideas" },
-      { icon: "🔍", text: "Smart Search Engine" },
-      { icon: "📱", text: "Responsive Design" }
+      { text: "Curated Gift Collections" },
+      { text: "Personalized Suggestions" },
+      { text: "Occasion-Based Filtering" },
+      { text: "Creative Gift Ideas" },
+      { text: "Smart Search Engine" },
+      { text: "Responsive Design" }
     ],
     techStack: ["React", "TypeScript", "Tailwind CSS"],
     liveUrl: "https://gifting-muse-oracle.vercel.app",
@@ -25,12 +25,12 @@ export const projects = [
     tagline: "Next-Gen Real Estate Discovery",
     description: "An intelligent property discovery platform that leverages advanced filtering algorithms and modern UX principles to transform how users find their perfect property.",
     features: [
-      { icon: "📱", text: "Progressive Web App" },
-      { icon: "🔍", text: "AI-Powered Search" },
-      { icon: "🚀", text: "Optimized Performance" },
-      { icon: "🎨", text: "Modern UI/UX Design" },
-      { icon: "📈", text: "SEO Excellence" },
-      { icon: "🔄", text: "Real-Time Updates" }
+      { text: "Progressive Web App" },
+      { text: "AI-Powered Search" },
+      { text: "Optimized Performance" },
+      { text: "Modern UI/UX Design" },
+      { text: "SEO Excellence" },
+      { text: "Real-Time Updates" }
     ],
     techStack: ["React", "JavaScript", "CSS"],
     liveUrl: "https://modernwebshowcase.netlify.app",
@@ -46,12 +46,12 @@ export const projects = [
     tagline: "Web3 Wallet Interface & DeFi Platform",
     description: "A comprehensive Web3 wallet interface built with generative AI assistance, featuring Solana blockchain integration, token management, and decentralized finance capabilities with a modern, intuitive user experience.",
     features: [
-      { icon: "🔗", text: "Solana Blockchain Integration" },
-      { icon: "💼", text: "Multi-Token Wallet Support" },
-      { icon: "🔒", text: "Secure Transaction Handling" },
-      { icon: "📊", text: "Portfolio Analytics" },
-      { icon: "🏦", text: "DeFi Protocol Access" },
-      { icon: "🎨", text: "Modern Web3 UI/UX" }
+      { text: "Solana Blockchain Integration" },
+      { text: "Multi-Token Wallet Support" },
+      { text: "Secure Transaction Handling" },
+      { text: "Portfolio Analytics" },
+      { text: "DeFi Protocol Access" },
+      { text: "Modern Web3 UI/UX" }
     ],
     techStack: ["React", "TypeScript", "Solana Web3.js", "Tailwind CSS"],
     liveUrl: "https://tokenarium.vercel.app",
