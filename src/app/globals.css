@@ -297,10 +297,39 @@
   }
 }
 
-/* Mobile button accessibility fixes */
+/* Mobile button accessibility fixes - ensures touch events work on mobile */
 @media (max-width: 1023px) {
   .project-card .tilt-container {
     pointer-events: none !important;
+    transform: none !important;
+  }
+
+  .project-card .tilt-container * {
+    pointer-events: none !important;
+  }
+
+  /* Mobile action buttons container - highest z-index and isolated stacking context */
+  .project-card>div:last-child {
+    position: relative !important;
+    z-index: 9999 !important;
+    isolation: isolate !important;
+  }
+
+  /* Mobile action button links - ensure they receive all touch events */
+  .project-card>div:last-child a {
+    position: relative !important;
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+  }
+
+  /* Ensure no parent elements block touches */
+  .project-card {
+    pointer-events: auto !important;
   }
 }
 

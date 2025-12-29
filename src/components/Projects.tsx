@@ -22,23 +22,6 @@ const Projects: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
 
-  const openExternal = (url: string) => {
-    if (typeof window === 'undefined') return;
-    if (!url || url === '#') return;
-
-    const opened = window.open(url, '_blank', 'noopener,noreferrer');
-    if (!opened) {
-      window.location.assign(url);
-      return;
-    }
-
-    try {
-      opened.opener = null;
-    } catch {
-      // no-op
-    }
-  };
-
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -146,7 +129,8 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group relative z-0"
+              className="project-card group relative"
+              style={{ isolation: 'isolate' }}
             >
               <div className={`grid lg:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}>
@@ -353,17 +337,14 @@ const Projects: React.FC = () => {
               </div>
 
               {/* Mobile Action Buttons - MOVED OUTSIDE GRID */}
-              <div className="flex flex-wrap gap-4 mt-8 lg:hidden relative z-50 pointer-events-auto">
+              <div className="flex flex-wrap gap-4 mt-8 lg:hidden relative z-[100] pointer-events-auto" style={{ isolation: 'isolate' }}>
                 {project.liveUrl !== "#" && (
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openExternal(project.liveUrl);
-                    }}
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none"
+                    style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
                   >
                     <LuExternalLink size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Live Demo</span>
@@ -374,11 +355,8 @@ const Projects: React.FC = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      openExternal(project.githubUrl);
-                    }}
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none"
+                    style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
                   >
                     <LuGithub size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Source Code</span>
