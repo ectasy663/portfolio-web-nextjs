@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Menu, X } from 'lucide-react';
+import { LuMenu, LuX } from 'react-icons/lu';
 import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
 
@@ -169,8 +169,8 @@ const Navigation: React.FC = () => {
                     handleNavClick(item.href);
                   }}
                   className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                      ? 'text-primary-600 dark:text-primary-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
+                    ? 'text-primary-600 dark:text-primary-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
                     }`}
                 >
                   {item.label}
@@ -192,7 +192,7 @@ const Navigation: React.FC = () => {
               className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+              {isOpen ? <LuX size={24} aria-hidden="true" /> : <LuMenu size={24} aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -209,8 +209,8 @@ const Navigation: React.FC = () => {
                     handleNavClick(item.href);
                   }}
                   className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
-                      : 'text-gray-600 dark:text-gray-300'
+                    ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
+                    : 'text-gray-600 dark:text-gray-300'
                     }`}
                 >
                   {item.label}

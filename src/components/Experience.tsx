@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Calendar, Building, Briefcase } from 'lucide-react';
+import { LuCalendar, LuBuilding, LuBriefcase } from 'react-icons/lu';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -101,7 +101,7 @@ const Experience: React.FC = () => {
                 <div className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center bg-white dark:bg-dark-900 rounded-full z-10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:scale-110 border-2 border-transparent bg-clip-padding`}>
                   <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${exp.color} opacity-20 animate-spin-slow`}></div>
                   <div className={`absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r ${exp.color} [mask:linear-gradient(#fff_0_0)_padding-box,linear-gradient(#fff_0_0)]`}></div>
-                  <Briefcase className="w-6 h-6 text-gray-700 dark:text-gray-200 relative z-10" aria-hidden="true" />
+                  <LuBriefcase className="w-6 h-6 text-gray-700 dark:text-gray-200 relative z-10" aria-hidden="true" />
                 </div>
 
                 {/* Content card */}
@@ -121,11 +121,11 @@ const Experience: React.FC = () => {
 
                     <div className="flex flex-wrap items-center gap-4 text-sm">
                       <div className="flex items-center gap-2 text-royal-purple-600 dark:text-royal-purple-400 font-medium">
-                        <Building size={16} aria-hidden="true" />
+                        <LuBuilding size={16} aria-hidden="true" />
                         <span>{exp.company}</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 bg-white/50 dark:bg-white/5 px-3 py-1 rounded-full border border-gray-200 dark:border-white/10 backdrop-blur-sm">
-                        <Calendar size={14} aria-hidden="true" />
+                        <LuCalendar size={14} aria-hidden="true" />
                         <span className="font-mono">{exp.period}</span>
                       </div>
                     </div>

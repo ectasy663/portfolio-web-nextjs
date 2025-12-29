@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { ExternalLink, Github, ArrowRight, Star, Eye, GitFork, Calendar, Code2, Sparkles } from 'lucide-react';
+import { LuExternalLink, LuGithub, LuArrowRight, LuStar, LuEye, LuGitFork, LuCalendar, LuCode, LuSparkles } from 'react-icons/lu';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { scrollToId } from '@/utils/scroll';
@@ -112,7 +112,7 @@ const Projects: React.FC = () => {
       'Git': <SiGit className="text-orange-500" aria-hidden="true" />,
       'Solana Web3.js': <SiSolana className="text-purple-400" aria-hidden="true" />
     };
-    return iconMap[tech] || <Code2 className="text-gray-600 dark:text-gray-400" aria-hidden="true" />;
+    return iconMap[tech] || <LuCode className="text-gray-600 dark:text-gray-400" aria-hidden="true" />;
   };
 
   return (
@@ -126,7 +126,7 @@ const Projects: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-royal-red-500/20 to-primary-500/20 backdrop-blur-sm border border-royal-red-500/30 dark:border-royal-red-500/30 rounded-full px-6 py-2 mb-6">
-            <Sparkles className="text-royal-red-400" size={18} aria-hidden="true" />
+            <LuSparkles className="text-royal-red-400" size={18} aria-hidden="true" />
             <span className="text-royal-red-400 font-medium">Featured Work</span>
           </div>
 
@@ -247,7 +247,7 @@ const Projects: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-gradient-to-r from-primary-500 to-secondary-600 text-white px-6 py-3 rounded-xl hover:shadow-royal-gold transition-all duration-300 hover:scale-105 active:scale-95"
                               >
-                                <ExternalLink size={18} />
+                                <LuExternalLink size={18} />
                                 <span>Live Demo</span>
                               </a>
                             )}
@@ -258,7 +258,7 @@ const Projects: React.FC = () => {
                                 rel="noopener noreferrer"
                                 className="flex items-center space-x-2 bg-dark-800/80 backdrop-blur-sm border border-primary-500/30 text-white px-6 py-3 rounded-xl hover:border-primary-500/50 transition-all duration-300 hover:scale-105 active:scale-95"
                               >
-                                <Github size={18} />
+                                <LuGithub size={18} />
                                 <span>Source</span>
                               </a>
                             )}
@@ -278,7 +278,7 @@ const Projects: React.FC = () => {
                         {project.category}
                       </span>
                       <div className="flex items-center space-x-1 text-gray-600 dark:text-gray-400 text-sm">
-                        <Calendar size={14} />
+                        <LuCalendar size={14} />
                         <span>{project.date}</span>
                       </div>
                     </div>
@@ -337,15 +337,15 @@ const Projects: React.FC = () => {
                   {/* Project stats */}
                   <div className="flex items-center space-x-6 pt-4 border-t border-gray-300/50 dark:border-gray-700/50">
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                      <Star size={16} />
+                      <LuStar size={16} />
                       <span className="text-sm">{project.stats.stars}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                      <GitFork size={16} />
+                      <LuGitFork size={16} />
                       <span className="text-sm">{project.stats.forks}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
-                      <Eye size={16} />
+                      <LuEye size={16} />
                       <span className="text-sm">{project.stats.views}</span>
                     </div>
                   </div>
@@ -365,7 +365,7 @@ const Projects: React.FC = () => {
                     }}
                     className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
                   >
-                    <ExternalLink size={24} strokeWidth={2.5} />
+                    <LuExternalLink size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Live Demo</span>
                   </a>
                 )}
@@ -380,7 +380,7 @@ const Projects: React.FC = () => {
                     }}
                     className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation"
                   >
-                    <Github size={24} strokeWidth={2.5} />
+                    <LuGithub size={24} strokeWidth={2.5} />
                     <span className="text-sm font-bold">Source Code</span>
                   </a>
                 )}
@@ -403,7 +403,7 @@ const Projects: React.FC = () => {
               className="group inline-flex items-center space-x-2 bg-gradient-to-r from-primary-500 to-secondary-600 text-white px-8 py-4 rounded-xl hover:shadow-royal-gold hover:scale-105 transition-all duration-300"
             >
               <span className="font-semibold">Start a Project</span>
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              <LuArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>

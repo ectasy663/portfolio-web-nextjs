@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Mail, Linkedin, Github, Send, CheckCircle } from 'lucide-react';
+import { LuMail, LuLinkedin, LuGithub, LuSend, LuCheck } from 'react-icons/lu';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -107,19 +107,19 @@ const Contact: React.FC = () => {
 
   const contactInfo = [
     {
-      icon: Mail,
+      icon: LuMail,
       label: "Email",
       value: "namansingh4680@gmail.com",
       href: "mailto:namansingh4680@gmail.com"
     },
     {
-      icon: Linkedin,
+      icon: LuLinkedin,
       label: "LinkedIn",
       value: "/in/naman-singh-panwar7/",
       href: "https://www.linkedin.com/in/naman-singh-panwar7/"
     },
     {
-      icon: Github,
+      icon: LuGithub,
       label: "GitHub",
       value: "/ectasy663",
       href: "https://github.com/ectasy663"
@@ -231,7 +231,7 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      suppressHydrationWarning
+                      suppressHydrationWarning={true}
                       className="w-full px-4 py-3 bg-gray-100 dark:bg-dark-900 border border-gray-300 dark:border-primary-500/20 rounded-lg focus:border-primary-500 focus:ring-1 focus:ring-primary-500 text-gray-900 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300"
                       placeholder="john@example.com"
                     />
@@ -273,7 +273,7 @@ const Contact: React.FC = () => {
                 {/* Success/Error Message */}
                 {showSuccess && (
                   <div className="p-4 rounded-lg flex items-center gap-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700">
-                    <CheckCircle className="text-green-600 dark:text-green-400" size={20} aria-hidden="true" />
+                    <LuCheck className="text-green-600 dark:text-green-400" size={20} aria-hidden="true" />
                     <p className="text-sm text-green-700 dark:text-green-300">
                       Message sent successfully! I'll get back to you soon.
                     </p>
@@ -296,7 +296,7 @@ const Contact: React.FC = () => {
                   {isSubmitting ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
-                    <Send size={20} aria-hidden="true" />
+                    <LuSend size={20} aria-hidden="true" />
                   )}
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback } from 'react';
-import { Sun, Moon } from 'lucide-react';
+import { LuSun, LuMoon } from 'react-icons/lu';
 import { useTheme } from '@/contexts/ThemeContext';
 import gsap from 'gsap';
 
@@ -42,13 +42,13 @@ const ThemeToggleButton: React.FC = () => {
     >
       <div ref={iconRef} className="relative will-change-transform">
         {theme === 'dark' ? (
-          <Sun
+          <LuSun
             size={20}
             className="text-primary-400 group-hover:text-primary-300 transition-colors duration-150"
             aria-hidden="true"
           />
         ) : (
-          <Moon
+          <LuMoon
             size={20}
             className="text-primary-600 group-hover:text-primary-500 transition-colors duration-150"
             aria-hidden="true"

@@ -16,7 +16,7 @@ export const projects = [
     githubUrl: "#",
     stats: { stars: 15, forks: 4, views: 298 },
     date: "2024",
-    gradient: "from-royal-red-500 via-primary-600 to-royal-red-600",
+    gradient: "dark:from-royal-red-500 dark:via-primary-600 dark:to-royal-red-600 from-primary-500 via-primary-400 to-primary-600",
     category: "Creative Web App",
     status: "Live Production"
   },
@@ -37,7 +37,7 @@ export const projects = [
     githubUrl: "#",
     stats: { stars: 8, forks: 2, views: 189 },
     date: "2024",
-    gradient: "from-primary-500 via-royal-red-600 to-primary-600",
+    gradient: "dark:from-primary-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600",
     category: "Frontend Application",
     status: "Active"
   },
@@ -58,7 +58,7 @@ export const projects = [
     githubUrl: "#",
     stats: { stars: 18, forks: 5, views: 324 },
     date: "2024",
-    gradient: "from-royal-red-600 via-primary-500 to-royal-red-700",
+    gradient: "dark:from-royal-red-600 dark:via-primary-500 dark:to-royal-red-700 from-primary-500 via-primary-400 to-primary-600",
     category: "Web3 DApp",
     status: "Live Production"
   }

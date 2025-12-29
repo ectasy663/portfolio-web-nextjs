@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { Star } from 'lucide-react';
+import { LuStar } from 'react-icons/lu';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { achievements } from '@/data/achievements';
@@ -123,7 +123,7 @@ const Achievements: React.FC = () => {
 
                 {/* Decorative elements */}
                 <div className="absolute top-4 right-4 opacity-20">
-                  <Star className={`w-8 h-8 text-gradient-to-r ${achievement.color}`} aria-hidden="true" />
+                  <LuStar className={`w-8 h-8 text-gradient-to-r ${achievement.color}`} aria-hidden="true" />
                 </div>
               </div>
             </div>

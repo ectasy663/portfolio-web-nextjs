@@ -10,33 +10,27 @@ import Navigation from '@/components/Navigation';
 // Minimal loading placeholder
 const LoadingPlaceholder = () => <div className="min-h-[50vh]" />;
 
-// Lazy load below-the-fold components with SSR disabled for faster initial load
+// Lazy load below-the-fold components
 const About = dynamic(() => import('@/components/About'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const Skills = dynamic(() => import('@/components/Skills'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const Experience = dynamic(() => import('@/components/Experience'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const Projects = dynamic(() => import('@/components/Projects'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const Achievements = dynamic(() => import('@/components/Achievements'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const Contact = dynamic(() => import('@/components/Contact'), {
   loading: LoadingPlaceholder,
-  ssr: false,
 });
 const PageEffects = dynamic(() => import('@/components/PageEffects'), {
-  ssr: false,
+  ssr: false, // Keep PageEffects client-side only as it likely deals with window/scroll exclusively
 });
 
 export default function HomePage() {

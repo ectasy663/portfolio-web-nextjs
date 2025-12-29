@@ -25,7 +25,7 @@ export const skillCategories = [
       { name: "CSS3", icon: React.createElement(SiCss3, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 90 },
       { name: "Tailwind CSS", icon: React.createElement(SiTailwindcss, { className: "text-2xl text-teal-400", "aria-hidden": "true" }), level: 88 },
     ],
-    gradient: "from-royal-blue-500 via-royal-blue-600 to-royal-purple-600"
+    gradient: "dark:from-royal-blue-500 dark:via-royal-blue-600 dark:to-royal-purple-600 from-primary-500 via-primary-400 to-primary-600"
   },
   {
     title: "Backend & Database",
@@ -38,7 +38,7 @@ export const skillCategories = [
       { name: "C++", icon: React.createElement(SiCplusplus, { className: "text-2xl text-blue-600", "aria-hidden": "true" }), level: 85 },
       { name: "Java", icon: React.createElement(FaJava, { className: "text-2xl text-red-500", "aria-hidden": "true" }), level: 80 },
     ],
-    gradient: "from-secondary-500 via-secondary-600 to-royal-blue-600"
+    gradient: "dark:from-secondary-500 dark:via-secondary-600 dark:to-royal-blue-600 from-primary-500 via-primary-400 to-primary-600"
   },
   {
     title: "AI/ML & Data Science",
@@ -51,7 +51,7 @@ export const skillCategories = [
       { name: "Jupyter", icon: React.createElement(SiJupyter, { className: "text-2xl text-orange-400", "aria-hidden": "true" }), level: 80 },
       { name: "Machine Learning", icon: React.createElement(FaBrain, { className: "text-2xl text-pink-400", "aria-hidden": "true" }), level: 75 },
     ],
-    gradient: "from-royal-purple-500 via-royal-purple-600 to-royal-red-600"
+    gradient: "dark:from-royal-purple-500 dark:via-royal-purple-600 dark:to-royal-red-600 from-primary-500 via-primary-400 to-primary-600"
   },
   {
     title: "Tools & DevOps",
@@ -64,6 +64,6 @@ export const skillCategories = [
       { name: "VS Code", icon: React.createElement(VscCode, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 95 },
       { name: "Animation", icon: React.createElement(FaRocket, { className: "text-2xl text-green-400", "aria-hidden": "true" }), level: 80 },
     ],
-    gradient: "from-royal-red-500 via-royal-red-600 to-primary-600"
+    gradient: "dark:from-royal-red-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600"
   }
 ];

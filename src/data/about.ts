@@ -1,18 +1,18 @@
-import { Brain, Code, Users } from 'lucide-react';
+import { LuBrain, LuCode, LuUsers } from 'react-icons/lu';
 
 export const strengths = [
   {
-    icon: Brain,
+    icon: LuBrain,
     title: "AI & Machine Learning",
     description: "Proficient in applying ML algorithms and Generative AI concepts to create data-driven applications."
   },
   {
-    icon: Code,
+    icon: LuCode,
     title: "Full-Stack Web Development",
     description: "Skilled in building responsive, end-to-end web solutions with modern tools like React, TypeScript, and Tailwind CSS."
   },
   {
-    icon: Users,
+    icon: LuUsers,
     title: "Collaborative Problem-Solving",
     description: "A proven team player with strong communication skills, experienced in agile environments and cross-functional collaboration."
   }

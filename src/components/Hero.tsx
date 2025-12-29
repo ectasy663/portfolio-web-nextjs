@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { ArrowDown, Github, Linkedin, Mail, Code, Zap, Rocket, Sparkles, Bot, Laptop, Smartphone, Palette, Puzzle, Brain, Globe, Lightbulb } from 'lucide-react';
+import { LuArrowDown, LuGithub, LuLinkedin, LuMail, LuCode, LuZap, LuRocket, LuSparkles, LuBot, LuLaptop, LuSmartphone, LuPalette, LuPuzzle, LuBrain, LuGlobe, LuLightbulb } from 'react-icons/lu';
 import { scrollToId } from '@/utils/scroll';
 import ResumeButton from './ResumeButton';
 import dynamic from 'next/dynamic';
@@ -211,7 +211,7 @@ const Hero: React.FC = () => {
 
               {/* Subtitle with typewriter effect */}
               <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-3">
-                <Rocket className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500 animate-pulse-slow" />
+                <LuRocket className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500 animate-pulse-slow" />
                 <Typewriter
                   options={{
                     strings: [
@@ -232,11 +232,11 @@ const Hero: React.FC = () => {
 
               {/* Description */}
               <p ref={descriptionRef} className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
-                Crafting intelligent digital experiences <span className="inline-block align-middle"><Sparkles className="w-5 h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
-                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <Brain className="w-5 h-5" /></span>,{' '}
-                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <Globe className="w-5 h-5" /></span>, and{' '}
-                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <Palette className="w-5 h-5" /></span>.
-                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><Lightbulb className="w-5 h-5 text-yellow-500" /></span>.
+                Crafting intelligent digital experiences <span className="inline-block align-middle"><LuSparkles className="w-5 h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
+                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <LuBrain className="w-5 h-5" /></span>,{' '}
+                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <LuGlobe className="w-5 h-5" /></span>, and{' '}
+                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <LuPalette className="w-5 h-5" /></span>.
+                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><LuLightbulb className="w-5 h-5 text-yellow-500" /></span>.
               </p>
 
               {/* Tech highlights */}
@@ -258,7 +258,7 @@ const Hero: React.FC = () => {
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    <Code size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
+                    <LuCode size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     <span className="text-sm sm:text-base">View My Work</span>
                   </span>
                 </button>
@@ -270,7 +270,7 @@ const Hero: React.FC = () => {
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
                 >
                   <span className="flex items-center justify-center space-x-2">
-                    <Zap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
+                    <LuZap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     <span className="text-sm sm:text-base">Let's Connect</span>
                   </span>
                 </button>
@@ -279,9 +279,9 @@ const Hero: React.FC = () => {
               {/* Social links */}
               <div ref={socialRef} className="flex gap-4 sm:gap-6">
                 {[
-                  { icon: Github, href: 'https://github.com/ectasy663', label: 'GitHub' },
-                  { icon: Linkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
-                  { icon: Mail, href: 'mailto:namansingh4680@gmail.com', label: 'Email' }
+                  { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'GitHub' },
+                  { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
+                  { icon: LuMail, href: 'mailto:namansingh4680@gmail.com', label: 'Email' }
                 ].map((social, index) => (
                   <a
                     key={index}
@@ -311,7 +311,7 @@ const Hero: React.FC = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                   <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
-                  <p className="text-sm text-gray-200 flex items-center gap-2">One line of code at a time <Sparkles className="w-4 h-4 text-yellow-300" /></p>
+                  <p className="text-sm text-gray-200 flex items-center gap-2">One line of code at a time <LuSparkles className="w-4 h-4 text-yellow-300" /></p>
                 </div>
               </div>
             </div>
@@ -321,7 +321,7 @@ const Hero: React.FC = () => {
           <div className="flex justify-center mt-12 sm:mt-16">
             <div className="flex flex-col items-center space-y-2 animate-bounce">
               <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 font-medium transition-colors duration-300">Scroll to explore</span>
-              <ArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />
+              <LuArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />
             </div>
           </div>
         </div>

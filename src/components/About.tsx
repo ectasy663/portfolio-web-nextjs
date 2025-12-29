@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useInView } from 'react-intersection-observer';
 import { useGSAPAnimation } from '@/hooks/useAnimation';
 import { strengths } from '@/data/about';
-import { Rocket, GraduationCap, Bot, BookOpen, Shield, Banknote, Star } from 'lucide-react';
+import { LuRocket, LuGraduationCap, LuBot, LuBookOpen, LuShield, LuBanknote, LuStar } from 'react-icons/lu';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -141,7 +141,7 @@ const About: React.FC = () => {
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 z-20">
                   <p className="text-lg font-bold mb-1">Driven by passion</p>
-                  <p className="text-sm text-gray-200 flex items-center gap-2">Building the future with code <Rocket className="w-4 h-4 text-orange-400" /></p>
+                  <p className="text-sm text-gray-200 flex items-center gap-2">Building the future with code <LuRocket className="w-4 h-4 text-orange-400" /></p>
                 </div>
               </div>
             </div>
@@ -154,14 +154,14 @@ const About: React.FC = () => {
               >
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    I'm a passionate and driven Computer Science student <span className="inline-flex align-middle"><GraduationCap className="w-5 h-5 text-blue-500 mx-1" /></span> with a deep fascination for <span className="font-bold text-primary-500 inline-flex items-center gap-1">Artificial Intelligence <Bot className="w-5 h-5" /></span>
-                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn <span className="inline-flex align-middle"><BookOpen className="w-5 h-5 text-yellow-500 mx-1" /></span> and a
+                    I'm a passionate and driven Computer Science student <span className="inline-flex align-middle"><LuGraduationCap className="w-5 h-5 text-blue-500 mx-1" /></span> with a deep fascination for <span className="font-bold text-primary-500 inline-flex items-center gap-1">Artificial Intelligence <LuBot className="w-5 h-5" /></span>
+                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn <span className="inline-flex align-middle"><LuBookOpen className="w-5 h-5 text-yellow-500 mx-1" /></span> and a
                     desire to build things that matter.
                   </p>
                   <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    From contributing to national defense projects at <span className="font-bold text-secondary-500 inline-flex items-center gap-1">DRDO <Shield className="w-5 h-5" /></span> to innovating in the FinTech space <span className="inline-flex align-middle"><Banknote className="w-5 h-5 text-green-500 mx-1" /></span>, I thrive on
+                    From contributing to national defense projects at <span className="font-bold text-secondary-500 inline-flex items-center gap-1">DRDO <LuShield className="w-5 h-5" /></span> to innovating in the FinTech space <span className="inline-flex align-middle"><LuBanknote className="w-5 h-5 text-green-500 mx-1" /></span>, I thrive on
                     challenges that push the boundaries of technology. My goal is to not just write code, but to architect
-                    elegant, efficient, and intelligent systems that leave a lasting impact <span className="inline-flex align-middle"><Star className="w-5 h-5 text-yellow-400 mx-1" /></span>.
+                    elegant, efficient, and intelligent systems that leave a lasting impact <span className="inline-flex align-middle"><LuStar className="w-5 h-5 text-yellow-400 mx-1" /></span>.
                   </p>
                 </div>
               </div>

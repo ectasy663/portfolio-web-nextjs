@@ -26,11 +26,7 @@ const nextConfig = {
   // Enable experimental features
   experimental: {
     // Modular imports for tree-shaking
-    modularizeImports: {
-      'lucide-react': {
-        transform: 'lucide-react/dist/esm/icons/{{kebabCase member}}',
-      },
-    },
+
     // Enable optimistic client cache
     optimisticClientCache: true,
   },

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { FileText, Download } from 'lucide-react';
+import { LuFileText, LuDownload } from 'react-icons/lu';
 
 interface ResumeButtonProps {
   variant?: 'primary' | 'secondary' | 'icon';
@@ -9,13 +9,13 @@ interface ResumeButtonProps {
   showIcon?: boolean;
 }
 
-const ResumeButton: React.FC<ResumeButtonProps> = ({ 
-  variant = 'primary', 
+const ResumeButton: React.FC<ResumeButtonProps> = ({
+  variant = 'primary',
   className = '',
-  showIcon = true 
+  showIcon = true
 }) => {
   const btnRef = useRef<HTMLButtonElement>(null);
-  
+
   const handleDownload = () => {
     const link = document.createElement('a');
     link.href = '/resume/naman-res-18-7.pdf';
@@ -49,10 +49,10 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
       aria-label="Download Resume"
     >
       {variant === 'icon' ? (
-        <FileText size={24} aria-hidden="true" />
+        <LuFileText size={24} aria-hidden="true" />
       ) : (
         <span className="relative z-10 flex items-center justify-center space-x-2">
-          {showIcon && <Download size={20} aria-hidden="true" />}
+          {showIcon && <LuDownload size={20} aria-hidden="true" />}
           <span>Download Resume</span>
         </span>
       )}

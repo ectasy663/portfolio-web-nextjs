@@ -233,12 +233,12 @@ const Skills: React.FC = () => {
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { name: "Cloud Computing", color: "from-primary-400 to-secondary-600" },
-              { name: "WebGL", color: "from-secondary-400 to-primary-600" },
-              { name: "Blockchain", color: "from-primary-400 to-primary-600" },
-              { name: "Cloud Native", color: "from-secondary-400 to-secondary-600" },
-              { name: "Edge Computing", color: "from-primary-400 to-secondary-600" },
-              { name: "Quantum ML", color: "from-secondary-400 to-primary-600" }
+              { name: "Cloud Computing", color: "dark:from-primary-400 dark:to-secondary-600 from-primary-500 to-primary-600" },
+              { name: "WebGL", color: "dark:from-secondary-400 dark:to-primary-600 from-primary-500 to-primary-600" },
+              { name: "Blockchain", color: "dark:from-primary-400 dark:to-primary-600 from-primary-500 to-primary-600" },
+              { name: "Cloud Native", color: "dark:from-secondary-400 dark:to-secondary-600 from-primary-500 to-primary-600" },
+              { name: "Edge Computing", color: "dark:from-primary-400 dark:to-secondary-600 from-primary-500 to-primary-600" },
+              { name: "Quantum ML", color: "dark:from-secondary-400 dark:to-primary-600 from-primary-500 to-primary-600" }
             ].map((tech, index) => (
               <div
                 key={index}
