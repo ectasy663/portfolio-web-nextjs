@@ -138,7 +138,7 @@ const About: React.FC = () => {
                   sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
                   className="object-cover rounded-2xl shadow-royal-gold border-4 border-primary-200/50 dark:border-primary-500/30 group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 z-20">
                   <p className="text-lg font-bold mb-1">Driven by passion</p>
                   <p className="text-sm text-gray-200 flex items-center gap-2">Building the future with code <LuRocket className="w-4 h-4 text-orange-400" /></p>

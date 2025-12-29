@@ -308,7 +308,7 @@ const Hero: React.FC = () => {
                   sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
                   className="object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                   <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
                   <p className="text-sm text-gray-200 flex items-center gap-2">One line of code at a time <LuSparkles className="w-4 h-4 text-yellow-300" /></p>

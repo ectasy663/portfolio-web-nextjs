@@ -289,11 +289,21 @@
     z-index: -1 !important;
   }
 
-  #home .absolute.inset-0 {
+  /* Only fix the video background overlays, not profile image overlay */
+  #home>.absolute.inset-0 {
     position: fixed !important;
     height: 100vh !important;
     width: 100% !important;
     z-index: -1 !important;
+  }
+
+  /* Ensure profile image overlay NEVER becomes fixed */
+  #home .group .absolute.inset-0 {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
   }
 }
 
