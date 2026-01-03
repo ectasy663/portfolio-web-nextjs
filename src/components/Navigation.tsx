@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { LuMenu, LuX } from 'react-icons/lu';
 import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +11,11 @@ const Navigation: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const isScrollingRef = useRef(false);
   const activeRef = useRef('home');
+  const [scrolled, setScrolled] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const { theme } = useTheme();
 
   // Keep activeRef in sync
   useEffect(() => {
@@ -20,6 +25,23 @@ const Navigation: React.FC = () => {
   // Mount effect
   useEffect(() => {
     setMounted(true);
+
+    // Check initial scroll
+    const checkScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    checkScroll();
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
+  }, []);
+
+  // Mouse tracking for liquid refraction effect
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!navRef.current) return;
+    const rect = navRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePosition({ x, y });
   }, []);
 
   // Scroll spy using scroll event for reliable detection
@@ -95,7 +117,7 @@ const Navigation: React.FC = () => {
     { href: '#skills', label: 'Skills' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
-    { href: '#achievements', label: 'Achievements' },
+    { href: '#achievements', label: 'Awards' },
     { href: '#contact', label: 'Contact' },
   ];
 
@@ -133,94 +155,400 @@ const Navigation: React.FC = () => {
     }, 800);
   }, []);
 
+  if (!mounted) return null;
+
+  // Dynamic glass colors based on theme
+  const isDark = theme === 'dark';
+
   return (
-    <nav className="fixed top-0 left-0 right-0 w-full z-[1200] h-20 backdrop-blur-md transition-all duration-300 bg-primary-50/95 dark:bg-dark-900/95 border-b border-primary-500/20 shadow-[0_4px_6px_-1px_rgba(212,175,55,0.05)] dark:shadow-[0_4px_20px_-1px_rgba(212,175,55,0.1)]">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <div className="flex-shrink-0">
+    <>
+      {/* Mobile Menu Backdrop Overlay - Must be outside the nav container */}
+      <div
+        className={`
+          fixed inset-0 md:hidden z-[1198]
+          transition-all duration-500
+          ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
+        `}
+        style={{
+          background: isDark
+            ? 'rgba(0, 0, 0, 0.5)'
+            : 'rgba(0, 0, 0, 0.2)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+        }}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Mobile Menu Dropdown - Must be outside nav container for visibility */}
+      <div
+        className={`
+          fixed top-20 left-1/2 -translate-x-1/2 md:hidden z-[1201]
+          w-[calc(100%-2rem)] max-w-[340px]
+          rounded-[24px]
+          overflow-hidden
+          transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] origin-top
+          ${isOpen ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto' : 'opacity-0 -translate-y-6 scale-90 pointer-events-none'}
+        `}
+        style={{
+          background: isDark
+            ? `linear-gradient(180deg, 
+                rgba(18, 18, 24, 0.98) 0%, 
+                rgba(22, 22, 30, 0.95) 100%)`
+            : `linear-gradient(180deg, 
+                rgba(255, 255, 255, 0.98) 0%, 
+                rgba(250, 250, 252, 0.95) 100%)`,
+          backdropFilter: 'blur(60px) saturate(200%)',
+          WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+          border: isDark
+            ? '1px solid rgba(255, 255, 255, 0.1)'
+            : '1px solid rgba(0, 0, 0, 0.05)',
+          boxShadow: isDark
+            ? `0 0 0 1px rgba(255, 255, 255, 0.05),
+               0 25px 80px -15px rgba(0, 0, 0, 0.6),
+               inset 0 1px 0 0 rgba(255, 255, 255, 0.06)`
+            : `0 0 0 1px rgba(255, 255, 255, 1),
+               0 25px 80px -15px rgba(0, 0, 0, 0.2),
+               inset 0 1px 0 0 rgba(255, 255, 255, 1)`,
+        }}
+      >
+        {/* Top edge highlight */}
+        <div
+          className="absolute top-0 left-8 right-8 h-[1px]"
+          style={{
+            background: isDark
+              ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent)'
+              : 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 1), transparent)',
+          }}
+        />
+
+        <div className="p-3 space-y-1.5 max-h-[70vh] overflow-y-auto relative z-10">
+          {navItems.map((item, idx) => {
+            const isActiveItem = active === item.href.slice(1);
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(item.href);
+                }}
+                className="block px-5 py-4 rounded-2xl text-base font-medium transition-all duration-500 flex items-center justify-between group active:scale-[0.98] focus:outline-none focus-visible:outline-none"
+                style={{
+                  transitionDelay: isOpen ? `${idx * 40}ms` : '0ms',
+                  transform: isOpen ? 'translateX(0)' : 'translateX(-10px)',
+                  opacity: isOpen ? 1 : 0,
+                  background: isActiveItem
+                    ? isDark
+                      ? 'linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%)'
+                      : 'linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.04) 100%)'
+                    : 'transparent',
+                  color: isActiveItem
+                    ? isDark ? '#F9E076' : '#AA8C2C'
+                    : isDark ? '#a1a1aa' : '#52525b',
+                  boxShadow: isActiveItem
+                    ? isDark
+                      ? 'inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2)'
+                      : 'inset 0 1px 0 rgba(255, 255, 255, 1), 0 1px 3px rgba(0, 0, 0, 0.04)'
+                    : 'none',
+                  border: isActiveItem
+                    ? isDark
+                      ? '1px solid rgba(212, 175, 55, 0.2)'
+                      : '1px solid rgba(212, 175, 55, 0.15)'
+                    : '1px solid transparent',
+                }}
+              >
+                <span className="transition-transform duration-300 group-hover:translate-x-1.5 font-medium">
+                  {item.label}
+                </span>
+                {isActiveItem && (
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-2 h-2 rounded-full transition-all duration-500"
+                      style={{
+                        background: 'linear-gradient(135deg, #D4AF37, #F9E076)',
+                        boxShadow: '0 0 12px rgba(212, 175, 55, 0.7)',
+                      }}
+                    />
+                  </div>
+                )}
+              </a>
+            );
+          })}
+        </div>
+
+        {/* Bottom gradient fade */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-6 pointer-events-none"
+          style={{
+            background: isDark
+              ? 'linear-gradient(to top, rgba(22, 22, 30, 0.9), transparent)'
+              : 'linear-gradient(to top, rgba(250, 250, 252, 0.9), transparent)',
+          }}
+        />
+      </div>
+
+      <div className="fixed top-4 sm:top-6 left-0 right-0 z-[1200] flex justify-center px-4 pointer-events-none">
+        {/* Outer glow effect */}
+        <div
+          className={`
+          absolute transition-all duration-700 ease-out rounded-full
+          ${isHovering ? 'opacity-100' : 'opacity-0'}
+        `}
+          style={{
+            background: isDark
+              ? `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, rgba(147, 197, 253, 0.15) 0%, transparent 60%)`
+              : `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.1) 0%, transparent 60%)`,
+            width: scrolled ? 'auto' : 'min(92%, 820px)',
+            height: 'calc(100% + 20px)',
+            top: '-10px',
+            filter: 'blur(10px)',
+            pointerEvents: 'none',
+          }}
+        />
+
+        <nav
+          ref={navRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
+          className={`
+          pointer-events-auto
+          relative flex items-center justify-between
+          overflow-hidden
+          transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]
+          ${scrolled ? 'py-2 pl-2 pr-2 sm:py-2 sm:pl-3 sm:pr-3' : 'py-3 pl-4 pr-3 sm:py-3 sm:pl-6 sm:pr-4'}
+          rounded-[28px]
+        `}
+          style={{
+            width: scrolled ? 'auto' : 'min(90%, 800px)',
+            maxWidth: '100%',
+            // Liquid glass background
+            background: isDark
+              ? `linear-gradient(135deg, 
+                rgba(15, 15, 20, 0.75) 0%, 
+                rgba(25, 25, 35, 0.65) 50%,
+                rgba(20, 20, 30, 0.7) 100%)`
+              : `linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.85) 0%, 
+                rgba(245, 247, 250, 0.75) 50%,
+                rgba(255, 255, 255, 0.8) 100%)`,
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            // Refined border with gradient
+            border: isDark
+              ? '1px solid rgba(255, 255, 255, 0.08)'
+              : '1px solid rgba(255, 255, 255, 0.6)',
+            // Premium shadow layering
+            boxShadow: isDark
+              ? `0 0 0 1px rgba(255, 255, 255, 0.05),
+               0 4px 24px -4px rgba(0, 0, 0, 0.4),
+               0 8px 48px -8px rgba(0, 0, 0, 0.3),
+               inset 0 1px 0 0 rgba(255, 255, 255, 0.05)`
+              : `0 0 0 1px rgba(255, 255, 255, 0.8),
+               0 4px 24px -4px rgba(0, 0, 0, 0.08),
+               0 8px 48px -8px rgba(0, 0, 0, 0.06),
+               inset 0 1px 0 0 rgba(255, 255, 255, 1),
+               inset 0 -1px 0 0 rgba(0, 0, 0, 0.02)`,
+          }}
+        >
+          {/* Liquid light refraction overlay */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500 rounded-[28px] overflow-hidden"
+            style={{
+              opacity: isHovering ? 1 : 0.3,
+              background: isDark
+                ? `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, 
+                  rgba(99, 102, 241, 0.08) 0%,
+                  rgba(147, 197, 253, 0.04) 25%,
+                  transparent 50%)`
+                : `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, 
+                  rgba(99, 102, 241, 0.06) 0%,
+                  rgba(59, 130, 246, 0.03) 25%,
+                  transparent 50%)`,
+            }}
+          />
+
+          {/* Top highlight edge */}
+          <div
+            className="absolute top-0 left-4 right-4 h-[1px] pointer-events-none rounded-full"
+            style={{
+              background: isDark
+                ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 80%, transparent)'
+                : 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.9) 80%, transparent)',
+            }}
+          />
+
+          {/* Rainbow shimmer on hover */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-700 rounded-[28px] overflow-hidden"
+            style={{
+              opacity: isHovering ? 0.4 : 0,
+              background: `linear-gradient(
+              ${90 + (mousePosition.x - 50) * 0.5}deg,
+              transparent 0%,
+              rgba(255, 0, 128, 0.02) 20%,
+              rgba(128, 0, 255, 0.02) 40%,
+              rgba(0, 128, 255, 0.02) 60%,
+              rgba(0, 255, 128, 0.02) 80%,
+              transparent 100%
+            )`,
+            }}
+          />
+
+          {/* Logo Section with Glow Effect */}
+          <div className="flex-shrink-0 mr-3 sm:mr-4 ml-1 relative z-10">
             <a
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
                 handleNavClick('#home');
               }}
-              className="focus:outline-none focus-visible:outline-none focus:ring-0"
+              className="group block relative rounded-2xl overflow-visible transition-all duration-500 hover:scale-110 active:scale-95 focus:outline-none focus-visible:outline-none"
             >
-              <Image
-                src="/assets/Name-logo-without-bg.png"
-                alt="NS Logo"
-                width={40}
-                height={40}
-                sizes="40px"
-                className="h-10 w-auto"
-                priority
+              {/* Glow ring behind logo */}
+              <div
+                className="absolute inset-[-4px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(249, 224, 118, 0.3))',
+                  filter: 'blur(8px)',
+                }}
               />
+              <div
+                className="relative p-1.5 rounded-2xl transition-all duration-500"
+                style={{
+                  background: isDark
+                    ? 'rgba(255, 255, 255, 0.05)'
+                    : 'rgba(0, 0, 0, 0.03)',
+                  boxShadow: isDark
+                    ? '0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)'
+                    : '0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
+                }}
+              >
+                <Image
+                  src="/assets/Name-logo-without-bg.png"
+                  alt="NS Logo"
+                  width={36}
+                  height={36}
+                  sizes="36px"
+                  className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+                  priority
+                />
+              </div>
             </a>
           </div>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <div className="flex items-baseline space-x-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  className={`relative px-3 py-2 text-body-sm font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400'
-                    }`}
-                >
-                  {item.label}
-                  <span
-                    className={`absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-primary-500 transition-all duration-300 ${active === item.href.slice(1) ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'
-                      }`}
-                  />
-                </a>
-              ))}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1 relative z-10">
+            <div
+              className="flex items-center p-1 rounded-full transition-all duration-500"
+              style={{
+                background: isDark
+                  ? 'rgba(255, 255, 255, 0.03)'
+                  : 'rgba(0, 0, 0, 0.02)',
+                border: isDark
+                  ? '1px solid rgba(255, 255, 255, 0.03)'
+                  : '1px solid rgba(0, 0, 0, 0.02)',
+              }}
+            >
+              {navItems.map((item) => {
+                const isActive = active === item.href.slice(1);
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href);
+                    }}
+                    className={`
+                    relative px-4 py-1.5 text-sm font-medium rounded-full 
+                    transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
+                    flex items-center justify-center
+                    focus:outline-none focus-visible:outline-none
+                    ${isActive
+                        ? isDark ? 'text-white' : 'text-gray-900'
+                        : isDark
+                          ? 'text-gray-400 hover:text-gray-200'
+                          : 'text-gray-500 hover:text-gray-800'
+                      }
+                  `}
+                  >
+                    {isActive && (
+                      <span
+                        className="absolute inset-0 rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                        style={{
+                          zIndex: -1,
+                          background: isDark
+                            ? 'linear-gradient(135deg, rgba(45, 45, 55, 0.9) 0%, rgba(35, 35, 45, 0.8) 100%)'
+                            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 252, 0.9) 100%)',
+                          boxShadow: isDark
+                            ? '0 2px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)'
+                            : '0 2px 12px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 1)',
+                          border: isDark
+                            ? '1px solid rgba(255, 255, 255, 0.05)'
+                            : '1px solid rgba(0, 0, 0, 0.03)',
+                        }}
+                      />
+                    )}
+                    <span className="relative z-10">{item.label}</span>
+                  </a>
+                );
+              })}
             </div>
-
-            <ThemeToggleButton />
           </div>
 
-          <div className="md:hidden flex items-center space-x-3">
+          {/* Right Actions */}
+          <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-4 relative z-10">
             <ThemeToggleButton />
+
+            {/* Mobile Menu Button - Animated Hamburger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 focus:outline-none"
+              className="md:hidden relative w-11 h-11 flex items-center justify-center rounded-2xl transition-all duration-500 active:scale-90 focus:outline-none focus-visible:outline-none"
+              style={{
+                background: isDark
+                  ? 'rgba(255, 255, 255, 0.06)'
+                  : 'rgba(0, 0, 0, 0.04)',
+                boxShadow: isOpen
+                  ? isDark
+                    ? 'inset 0 1px 2px rgba(0,0,0,0.3)'
+                    : 'inset 0 1px 2px rgba(0,0,0,0.1)'
+                  : 'none',
+              }}
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <LuX size={24} aria-hidden="true" /> : <LuMenu size={24} aria-hidden="true" />}
+              <div className="w-5 h-4 flex flex-col justify-between items-center">
+                {/* Top bar */}
+                <span
+                  className="block w-full h-[2px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center"
+                  style={{
+                    background: isDark ? '#e5e7eb' : '#374151',
+                    transform: isOpen ? 'translateY(7px) rotate(45deg)' : 'translateY(0) rotate(0)',
+                  }}
+                />
+                {/* Middle bar */}
+                <span
+                  className="block w-full h-[2px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]"
+                  style={{
+                    background: isDark ? '#e5e7eb' : '#374151',
+                    opacity: isOpen ? 0 : 1,
+                    transform: isOpen ? 'scaleX(0)' : 'scaleX(1)',
+                  }}
+                />
+                {/* Bottom bar */}
+                <span
+                  className="block w-full h-[2px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center"
+                  style={{
+                    background: isDark ? '#e5e7eb' : '#374151',
+                    transform: isOpen ? 'translateY(-7px) rotate(-45deg)' : 'translateY(0) rotate(0)',
+                  }}
+                />
+              </div>
             </button>
           </div>
-        </div>
-
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white/95 dark:bg-dark-900/95 backdrop-blur-md rounded-lg mt-2 border border-primary-100 dark:border-primary-900/30 shadow-lg shadow-royal-gold/10">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  className={`block px-3 py-2 text-body-md font-heading font-medium transition-colors duration-200 focus:outline-none focus-visible:outline-none focus:ring-0 ${active === item.href.slice(1)
-                    ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-lg'
-                    : 'text-gray-600 dark:text-gray-300'
-                    }`}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+        </nav>
       </div>
-    </nav>
+    </>
   );
 };
 

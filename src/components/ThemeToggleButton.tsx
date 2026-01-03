@@ -14,7 +14,7 @@ const ThemeToggleButton: React.FC = () => {
     if (iconRef.current) {
       gsap.fromTo(iconRef.current,
         { rotation: -90, scale: 0.8, opacity: 0 },
-        { rotation: 0, scale: 1, opacity: 1, duration: 0.2, ease: "power2.out" }
+        { rotation: 0, scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }
       );
     }
   }, [theme]);
@@ -22,8 +22,8 @@ const ThemeToggleButton: React.FC = () => {
   const handleToggle = useCallback(() => {
     if (buttonRef.current) {
       gsap.to(buttonRef.current, {
-        scale: 0.95,
-        duration: 0.05,
+        scale: 0.9,
+        duration: 0.1,
         yoyo: true,
         repeat: 1,
         ease: "power2.out"
@@ -36,7 +36,7 @@ const ThemeToggleButton: React.FC = () => {
     <button
       ref={buttonRef}
       onClick={handleToggle}
-      className="group relative p-3 rounded-xl bg-white/10 dark:bg-dark-800/50 backdrop-blur-sm border border-primary-200/50 dark:border-primary-500/30 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-150 hover:scale-105 hover:shadow-royal-gold focus:outline-none focus:ring-0 focus-visible:ring-0"
+      className="group relative p-2.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-all duration-300 focus:outline-none"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
@@ -44,19 +44,17 @@ const ThemeToggleButton: React.FC = () => {
         {theme === 'dark' ? (
           <LuSun
             size={20}
-            className="text-primary-400 group-hover:text-primary-300 transition-colors duration-150"
+            className="text-yellow-400 group-hover:text-yellow-300 transition-colors duration-300 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]"
             aria-hidden="true"
           />
         ) : (
           <LuMoon
             size={20}
-            className="text-primary-600 group-hover:text-primary-500 transition-colors duration-150"
+            className="text-slate-700 group-hover:text-slate-900 transition-colors duration-300"
             aria-hidden="true"
           />
         )}
       </div>
-
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary-400/20 to-secondary-400/20 dark:from-primary-400/20 dark:to-secondary-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-150 blur-xl will-change-transform"></div>
     </button>
   );
 };
