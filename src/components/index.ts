@@ -9,3 +9,5 @@ export { default as Achievements } from './Achievements';
 export { default as Contact } from './Contact';
 export { default as ThemeToggleButton } from './ThemeToggleButton';
 export { default as ResumeButton } from './ResumeButton';
+export { default as ErrorBoundary } from './ErrorBoundary';
+

@@ -70,6 +70,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     setTheme: setThemeCallback,
   }), [theme, toggleTheme, setThemeCallback]);
 
+  // Prevent hydration mismatch by not rendering until client is mounted
+  // This ensures theme is consistent between server and client
+  if (!mounted) {
+    return (
+      <ThemeContext.Provider value={value}>
+        <div style={{ visibility: 'hidden' }}>
+          {children}
+        </div>
+      </ThemeContext.Provider>
+    );
+  }
+
   return (
     <ThemeContext.Provider value={value}>
       {children}

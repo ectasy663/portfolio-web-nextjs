@@ -87,8 +87,8 @@ const Hero: React.FC = () => {
     };
 
     // Use requestIdleCallback for non-blocking animation init
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(initAnimations);
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback?.(initAnimations);
     } else {
       setTimeout(initAnimations, 1);
     }

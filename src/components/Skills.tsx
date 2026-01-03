@@ -132,21 +132,22 @@ const Skills: React.FC = () => {
         <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Background floating icons */}
-      <div ref={floatingRef} className="absolute inset-0 pointer-events-none opacity-3 dark:opacity-5 z-30 transition-opacity duration-300">
-        {[SiReact, SiJavascript, SiPython, SiDocker, SiGit, FaBrain, FaRocket, FaCode].map((Icon, index) => (
-          <Icon
-            key={index}
-            className={`floating-icon absolute text-6xl text-blue-600 dark:text-blue-400 transition-colors duration-300`}
-            style={{
-              left: iconPositions[index]?.left ?? '50%',
-              top: iconPositions[index]?.top ?? '50%',
-              opacity: iconPositions.length ? undefined : 0,
-            }}
-            aria-hidden="true"
-          />
-        ))}
-      </div>
+      {/* Background floating icons - only rendered after client-side positions are set */}
+      {iconPositions.length > 0 && (
+        <div ref={floatingRef} className="absolute inset-0 pointer-events-none opacity-3 dark:opacity-5 z-30 transition-opacity duration-300">
+          {[SiReact, SiJavascript, SiPython, SiDocker, SiGit, FaBrain, FaRocket, FaCode].map((Icon, index) => (
+            <Icon
+              key={index}
+              className={`floating-icon absolute text-6xl text-blue-600 dark:text-blue-400 transition-colors duration-300`}
+              style={{
+                left: iconPositions[index]?.left ?? '50%',
+                top: iconPositions[index]?.top ?? '50%',
+              }}
+              aria-hidden="true"
+            />
+          ))}
+        </div>
+      )}
 
       {/* Background gradient mesh */}
       <div className="absolute inset-0 bg-grid-pattern opacity-3 dark:opacity-5 z-30 transition-opacity duration-300"></div>

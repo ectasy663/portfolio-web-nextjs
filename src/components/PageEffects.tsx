@@ -24,8 +24,12 @@ export default function PageEffects() {
       });
     };
 
-    // Initialize after DOM is painted
-    requestIdleCallback ? requestIdleCallback(initGSAP) : setTimeout(initGSAP, 0);
+    // Initialize after DOM is painted - use typeof check for browser compatibility
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback?.(initGSAP);
+    } else {
+      setTimeout(initGSAP, 1);
+    }
   }, []);
 
   return (

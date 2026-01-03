@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Outfit } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import './globals.css';
 
 // Single optimized font - reduce font loading overhead
@@ -64,9 +65,11 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/the-seasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="gsap-loaded">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+        <ErrorBoundary>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );
