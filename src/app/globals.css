@@ -11,33 +11,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* shadcn/ui CSS Variables */
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 43 74% 49%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 43 74% 49%;
-    --radius: 0.75rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 43 74% 66%;
-    --accent-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 43 74% 66%;
-  }
-}
 
 @layer base {
   html {
@@ -285,7 +258,7 @@
   .gradient-text-gold {
     @apply bg-gradient-to-r from-[#D4AF37] via-[#F9E076] to-[#AA8C2C] bg-clip-text text-transparent;
     background-size: 200% auto;
-    animation: shine 4s linear infinite;
+    animation: shine 10s ease-in-out infinite;
   }
 
   .gradient-text-name {
@@ -294,7 +267,7 @@
     background-clip: text;
     color: transparent;
     background-size: 300% auto;
-    animation: shine 5s linear infinite;
+    animation: shine 12s ease-in-out infinite;
   }
 }
 
