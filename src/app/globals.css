@@ -277,25 +277,26 @@
   }
 }
 
-/* Fix video background on mobile */
+/* Video background - Full viewport height on all devices */
+#home {
+  height: 100vh;
+  min-height: 100vh;
+}
+
+#home video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  object-fit: cover;
+}
+
+/* Mobile-specific adjustments */
 @media (max-width: 640px) {
   #home video {
-    min-height: 100vh !important;
-    height: 100vh !important;
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    object-fit: cover !important;
-    z-index: -1 !important;
-  }
-
-  /* Only fix the video background overlays, not profile image overlay */
-  #home>.absolute.inset-0 {
-    position: fixed !important;
-    height: 100vh !important;
-    width: 100% !important;
-    z-index: -1 !important;
+    position: absolute !important;
   }
 
   /* Ensure profile image overlay NEVER becomes fixed */

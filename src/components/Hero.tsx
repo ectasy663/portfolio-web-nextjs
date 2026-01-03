@@ -119,23 +119,14 @@ const Hero: React.FC = () => {
       const video = document.querySelector('#heroVideo') as HTMLVideoElement;
       if (!video) return;
 
-      if (window.innerWidth <= 640) {
-        video.style.position = 'fixed';
-        video.style.top = '0';
-        video.style.left = '0';
-        video.style.width = '100%';
-        video.style.height = '100vh';
-        video.style.objectFit = 'cover';
-      } else {
-        video.style.position = 'absolute';
-        video.style.width = 'auto';
-        video.style.height = 'auto';
-        video.style.minWidth = '100%';
-        video.style.minHeight = '100%';
-        video.style.top = '50%';
-        video.style.left = '50%';
-        video.style.transform = 'translate(-50%, -50%)';
-      }
+      // Ensure video always covers full viewport
+      video.style.position = 'absolute';
+      video.style.top = '0';
+      video.style.left = '0';
+      video.style.width = '100%';
+      video.style.height = '100vh';
+      video.style.objectFit = 'cover';
+      video.style.minHeight = '100vh';
     };
 
     handleResize();
@@ -145,8 +136,8 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 py-8 sm:py-12 md:py-0">
-      {/* Background Video - Only visible in dark theme */}
+    <section id="home" className="h-screen min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+      {/* Background Video - Only visible in dark theme - Full viewport */}
       <video
         id="heroVideo"
         autoPlay
@@ -155,19 +146,20 @@ const Hero: React.FC = () => {
         playsInline
         preload="none"
         className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
+        style={{ minHeight: '100vh', height: '100vh' }}
         aria-hidden="true"
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
 
-      {/* Light theme background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+      {/* Light theme background - Full viewport */}
+      <div className="absolute inset-0 h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 
       {/* Light Rays Effect */}
       <div className="light-ray z-0"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="absolute inset-0 bg-black/40 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="absolute inset-0 h-screen bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
 
       {/* Dynamic gradient background overlay - Detailed Illustrations */}
       <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300 pointer-events-none">
