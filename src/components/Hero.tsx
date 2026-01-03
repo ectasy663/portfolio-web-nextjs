@@ -114,30 +114,12 @@ const Hero: React.FC = () => {
     { color: 'text-orange-400', name: 'TensorFlow' },
   ];
 
-  useEffect(() => {
-    const handleResize = () => {
-      const video = document.querySelector('#heroVideo') as HTMLVideoElement;
-      if (!video) return;
-
-      // Ensure video always covers full viewport
-      video.style.position = 'absolute';
-      video.style.top = '0';
-      video.style.left = '0';
-      video.style.width = '100%';
-      video.style.height = '100vh';
-      video.style.objectFit = 'cover';
-      video.style.minHeight = '100vh';
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Removed manual video resizing in favor of CSS
+  // The video element now uses h-full object-cover to automatically fill the container
 
   return (
-    <section id="home" className="h-screen min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
-      {/* Background Video - Only visible in dark theme - Full viewport */}
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+      {/* Background Video - Only visible in dark theme - Extended to cover all borders */}
       <video
         id="heroVideo"
         autoPlay
@@ -145,21 +127,30 @@ const Hero: React.FC = () => {
         loop
         playsInline
         preload="none"
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
-        style={{ minHeight: '100vh', height: '100vh' }}
+        className="absolute z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
+        style={{
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%) scale(1.1)',
+          minWidth: '100%',
+          minHeight: '100%',
+          width: 'auto',
+          height: 'auto',
+          objectFit: 'cover',
+        }}
         aria-hidden="true"
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
       </video>
 
       {/* Light theme background - Full viewport */}
-      <div className="absolute inset-0 h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+      <div className="absolute inset-0 h-full bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 
       {/* Light Rays Effect */}
       <div className="light-ray z-0"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="absolute inset-0 h-screen bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="absolute inset-0 h-full bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
 
       {/* Dynamic gradient background overlay - Detailed Illustrations */}
       <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300 pointer-events-none">
@@ -185,7 +176,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-40">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-40 pt-28 sm:pt-32">
         <div ref={heroRef} className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
             {/* Left side - Text content */}

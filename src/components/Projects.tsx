@@ -343,11 +343,15 @@ const Projects: React.FC = () => {
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-royal-red-500 to-primary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none outline-none focus:outline-none focus:ring-0"
-                    style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-600 text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none outline-none focus:outline-none focus:ring-0"
+                    style={{
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation',
+                      color: '#ffffff !important'
+                    }}
                   >
-                    <LuExternalLink size={24} strokeWidth={2.5} />
-                    <span className="text-sm font-bold">Live Demo</span>
+                    <LuExternalLink size={24} strokeWidth={2.5} className="text-white" />
+                    <span className="text-sm font-bold text-white">Live Demo</span>
                   </a>
                 )}
                 {project.githubUrl !== "#" && (
@@ -355,7 +359,7 @@ const Projects: React.FC = () => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-cyan-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none outline-none focus:outline-none focus:ring-0"
+                    className="flex-1 min-w-[140px] flex flex-col items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-primary-500 dark:border-cyan-600 text-gray-900 dark:text-white py-5 px-6 rounded-2xl shadow-xl active:scale-95 transition-all duration-200 cursor-pointer touch-manipulation select-none outline-none focus:outline-none focus:ring-0"
                     style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
                   >
                     <LuGithub size={24} strokeWidth={2.5} />

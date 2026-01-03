@@ -323,32 +323,38 @@ const Navigation: React.FC = () => {
             width: scrolled ? 'auto' : 'min(90%, 800px)',
             maxWidth: '100%',
             // Liquid glass background
-            background: isDark
-              ? `linear-gradient(135deg, 
-                rgba(15, 15, 20, 0.75) 0%, 
-                rgba(25, 25, 35, 0.65) 50%,
-                rgba(20, 20, 30, 0.7) 100%)`
-              : `linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.85) 0%, 
-                rgba(245, 247, 250, 0.75) 50%,
-                rgba(255, 255, 255, 0.8) 100%)`,
-            backdropFilter: 'blur(40px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            background: scrolled
+              ? (isDark
+                ? `linear-gradient(135deg, 
+                  rgba(15, 15, 20, 0.75) 0%, 
+                  rgba(25, 25, 35, 0.65) 50%,
+                  rgba(20, 20, 30, 0.7) 100%)`
+                : `linear-gradient(135deg, 
+                  rgba(255, 255, 255, 0.85) 0%, 
+                  rgba(245, 247, 250, 0.75) 50%,
+                  rgba(255, 255, 255, 0.8) 100%)`)
+              : 'transparent',
+            backdropFilter: scrolled ? 'blur(40px) saturate(180%)' : 'none',
+            WebkitBackdropFilter: scrolled ? 'blur(40px) saturate(180%)' : 'none',
             // Refined border with gradient
-            border: isDark
-              ? '1px solid rgba(255, 255, 255, 0.08)'
-              : '1px solid rgba(255, 255, 255, 0.6)',
+            border: scrolled
+              ? (isDark
+                ? '1px solid rgba(255, 255, 255, 0.08)'
+                : '1px solid rgba(255, 255, 255, 0.6)')
+              : '1px solid transparent',
             // Premium shadow layering
-            boxShadow: isDark
-              ? `0 0 0 1px rgba(255, 255, 255, 0.05),
-               0 4px 24px -4px rgba(0, 0, 0, 0.4),
-               0 8px 48px -8px rgba(0, 0, 0, 0.3),
-               inset 0 1px 0 0 rgba(255, 255, 255, 0.05)`
-              : `0 0 0 1px rgba(255, 255, 255, 0.8),
-               0 4px 24px -4px rgba(0, 0, 0, 0.08),
-               0 8px 48px -8px rgba(0, 0, 0, 0.06),
-               inset 0 1px 0 0 rgba(255, 255, 255, 1),
-               inset 0 -1px 0 0 rgba(0, 0, 0, 0.02)`,
+            boxShadow: scrolled
+              ? (isDark
+                ? `0 0 0 1px rgba(255, 255, 255, 0.05),
+                 0 4px 24px -4px rgba(0, 0, 0, 0.4),
+                 0 8px 48px -8px rgba(0, 0, 0, 0.3),
+                 inset 0 1px 0 0 rgba(255, 255, 255, 0.05)`
+                : `0 0 0 1px rgba(255, 255, 255, 0.8),
+                 0 4px 24px -4px rgba(0, 0, 0, 0.08),
+                 0 8px 48px -8px rgba(0, 0, 0, 0.06),
+                 inset 0 1px 0 0 rgba(255, 255, 255, 1),
+                 inset 0 -1px 0 0 rgba(0, 0, 0, 0.02)`)
+              : 'none',
           }}
         >
           {/* Liquid light refraction overlay */}
@@ -370,8 +376,9 @@ const Navigation: React.FC = () => {
 
           {/* Top highlight edge */}
           <div
-            className="absolute top-0 left-4 right-4 h-[1px] pointer-events-none rounded-full"
+            className="absolute top-0 left-4 right-4 h-[1px] pointer-events-none rounded-full transition-opacity duration-300"
             style={{
+              opacity: scrolled ? 1 : 0,
               background: isDark
                 ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 80%, transparent)'
                 : 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.9) 80%, transparent)',

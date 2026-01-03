@@ -37,7 +37,7 @@ export default function HomePage() {
   return (
     <div className="App">
       <Navigation />
-      <main className="pt-20 relative z-0">
+      <main className="relative z-0">
         <Hero />
         <Suspense fallback={<LoadingPlaceholder />}>
           <About />

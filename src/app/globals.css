@@ -278,9 +278,11 @@
 }
 
 /* Video background - Full viewport height on all devices */
+/* Video background - Full viewport height on all devices */
 #home {
-  height: 100vh;
+  /* height: 100vh; - Removed to allow content to grow */
   min-height: 100vh;
+  width: 100%;
 }
 
 #home video {
@@ -288,8 +290,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  min-height: 100vh;
+  height: 100%;
+  /* Changed from 100vh to cover full section height */
+  min-height: 100%;
   object-fit: cover;
 }
 
