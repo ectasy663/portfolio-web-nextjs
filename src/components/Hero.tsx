@@ -281,15 +281,15 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right side - Profile Image */}
-            <div className="flex-shrink-0">
-              <div className="relative group cursor-pointer w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem]">
+            <div className="flex-shrink-0 ml-auto lg:ml-12 lg:pl-12">
+              <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
-                  src="/assets/wall lean pic professional.png"
+                  src="/assets/black and white aesthetic image right.png"
                   alt="Naman Singh Panwar - Professional"
                   fill
                   loading="eager"
                   sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
-                  className="object-cover rounded-2xl border-4 border-white/20 dark:border-white/10 shadow-2xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-3xl"
+                  className="object-cover rounded-2xl shadow-xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-2xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
                 <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
