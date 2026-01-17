@@ -850,3 +850,263 @@ html {
     gap: 0.5rem;
   }
 }
+
+/* =========================================
+   GSAP ANIMATION UTILITIES
+   ========================================= */
+
+/* Split Text Animations */
+.split-char,
+.split-word,
+.title-char,
+.str-title-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* 3D Transform Utilities */
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.perspective-1500 {
+  perspective: 1500px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Shimmer Effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* Glow Pulse */
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Royal Shadows */
+.shadow-royal-gold {
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2),
+    0 4px 20px rgba(212, 175, 55, 0.1);
+}
+
+.shadow-royal-purple-glow {
+  box-shadow: 0 10px 40px rgba(139, 92, 246, 0.2),
+    0 4px 20px rgba(139, 92, 246, 0.1);
+}
+
+/* Enhanced Hover States */
+.hover-lift {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Magnetic Cursor Follow */
+.magnetic {
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Floating Animation */
+@keyframes float-gentle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 3s ease-in-out infinite;
+}
+
+/* Pulse Slow */
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Spin Slow */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+/* Bounce Subtle */
+@keyframes bounce-subtle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Wave Animation for Particles */
+@keyframes wave {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  50% {
+    transform: translateY(0) translateX(10px);
+  }
+
+  75% {
+    transform: translateY(10px) translateX(5px);
+  }
+}
+
+.animate-wave {
+  animation: wave 4s ease-in-out infinite;
+}
+
+/* Text Scramble Ready State */
+.text-scramble {
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+/* Counter Animation Container */
+.counter-animate {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* GPU Acceleration for Animated Elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* Smooth Color Transitions */
+.color-transition {
+  transition: color 0.3s ease-out,
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out;
+}
+
+/* Timeline Line Drawing */
+.timeline-line-draw {
+  transform-origin: top center;
+  will-change: transform;
+}
+
+/* Card Tilt Effect Reset */
+.tilt-reset {
+  transform: rotateX(0deg) rotateY(0deg) scale(1);
+  transition: transform 0.5s ease-out;
+}
+
+/* Stagger Container */
+.stagger-container>* {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-container.animated>* {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced Focus States for Accessibility */
+.focus-ring:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Reduce Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+  .split-char,
+  .split-word,
+  .title-char,
+  .str-title-char,
+  .animate-shimmer,
+  .animate-glow-pulse,
+  .animate-float-gentle,
+  .animate-pulse-slow,
+  .animate-spin-slow,
+  .animate-bounce-subtle,
+  .animate-wave {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .gpu-accelerated {
+    will-change: auto;
+  }
+}

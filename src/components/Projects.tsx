@@ -21,64 +21,281 @@ const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    const ctx = gsap.context(() => {
+      // === SPLIT TEXT ANIMATION FOR TITLE ===
+      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
+      if (titleElement && titleElement.textContent) {
+        const text = titleElement.textContent;
+        titleElement.innerHTML = '';
 
-    // Unique entrance for Title: Zoom out effect with blur
-    gsap.set(titleRef.current, { opacity: 0, scale: 1.5, filter: "blur(10px)" });
-    gsap.set(projectsRef.current, { opacity: 0 });
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          titleElement.appendChild(span);
+        });
 
-    tl.to(titleRef.current, {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-      duration: 1,
-      ease: "circ.out"
-    })
-      .to(projectsRef.current, {
-        opacity: 1,
-        duration: 0.5
-      }, "-=0.5");
+        const chars = titleElement.querySelectorAll('.title-char');
 
-    const projectCards = projectsRef.current?.querySelectorAll('.project-card');
-    if (projectCards) {
-      // Unique card animation: 3D Flip Up
-      gsap.fromTo(projectCards,
-        {
+        gsap.set(chars, {
           opacity: 0,
-          y: 100,
-          rotationX: 45,
+          scale: 2,
+          filter: "blur(10px)",
           transformPerspective: 1000
-        },
-        {
+        });
+
+        gsap.to(chars, {
           opacity: 1,
-          y: 0,
-          rotationX: 0,
-          duration: 1.2,
-          stagger: 0.2,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
+          stagger: 0.03,
           ease: "power4.out",
           scrollTrigger: {
-            trigger: projectsRef.current,
-            start: "top 70%",
+            trigger: sectionRef.current,
+            start: "top 80%",
             toggleActions: "play none none reverse"
           }
-        }
-      );
-    }
+        });
+      }
 
-    return () => {
-      tl.kill();
-    };
+      // === FEATURED BADGE ENTRANCE ===
+      const featuredBadge = sectionRef.current?.querySelector('.featured-badge');
+      if (featuredBadge) {
+        gsap.set(featuredBadge, {
+          opacity: 0,
+          scale: 0,
+          rotation: -180
+        });
+
+        gsap.to(featuredBadge, {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 0.8,
+          ease: "back.out(2)",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // === PROJECT CARDS CINEMATIC REVEAL ===
+      const projectCards = projectsRef.current?.querySelectorAll('.project-card');
+      if (projectCards) {
+        projectCards.forEach((card, index) => {
+          const isEven = index % 2 === 0;
+
+          gsap.set(card, {
+            opacity: 0,
+            y: 100,
+            x: isEven ? -100 : 100,
+            rotationY: isEven ? -30 : 30,
+            transformPerspective: 1500
+          });
+
+          gsap.to(card, {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            rotationY: 0,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === PROJECT IMAGE CONTAINERS - ENHANCED 3D TILT ===
+      const tiltContainers = projectsRef.current?.querySelectorAll('.tilt-container');
+      tiltContainers?.forEach((container) => {
+        const containerEl = container as HTMLElement;
+
+        containerEl.addEventListener('mouseenter', () => {
+          gsap.to(containerEl, {
+            scale: 1.02,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+
+        containerEl.addEventListener('mouseleave', () => {
+          gsap.to(containerEl, {
+            scale: 1,
+            rotationX: 0,
+            rotationY: 0,
+            duration: 0.5,
+            ease: "power2.out"
+          });
+        });
+
+        containerEl.addEventListener('mousemove', (e: MouseEvent) => {
+          const rect = containerEl.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = (y - centerY) / centerY * -15;
+          const rotateY = (x - centerX) / centerX * 15;
+
+          gsap.to(containerEl, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            transformPerspective: 1000,
+            duration: 0.3,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      // === TECH STACK BADGES WAVE ANIMATION ===
+      const techBadges = projectsRef.current?.querySelectorAll('.tech-badge');
+      if (techBadges) {
+        techBadges.forEach((badge, index) => {
+          gsap.set(badge, {
+            opacity: 0,
+            scale: 0.5,
+            y: 20
+          });
+
+          ScrollTrigger.create({
+            trigger: badge.closest('.project-card'),
+            start: "top 70%",
+            onEnter: () => {
+              gsap.to(badge, {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.5,
+                delay: index * 0.05,
+                ease: "back.out(1.7)"
+              });
+            },
+            onLeaveBack: () => {
+              gsap.to(badge, {
+                opacity: 0,
+                scale: 0.5,
+                y: 20,
+                duration: 0.3
+              });
+            }
+          });
+        });
+      }
+
+      // === FEATURE ITEMS STAGGER REVEAL ===
+      const featureItems = projectsRef.current?.querySelectorAll('.feature-item');
+      if (featureItems) {
+        featureItems.forEach((item) => {
+          gsap.set(item, {
+            opacity: 0,
+            x: -20,
+            scale: 0.9
+          });
+
+          ScrollTrigger.create({
+            trigger: item.closest('.project-card'),
+            start: "top 65%",
+            onEnter: () => {
+              gsap.to(item, {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 0.6,
+                ease: "power3.out"
+              });
+            },
+            onLeaveBack: () => {
+              gsap.to(item, {
+                opacity: 0,
+                x: -20,
+                scale: 0.9,
+                duration: 0.3
+              });
+            }
+          });
+        });
+      }
+
+      // === PROJECT STATS COUNTER ANIMATION ===
+      const stats = projectsRef.current?.querySelectorAll('.stat-number');
+      stats?.forEach((stat) => {
+        const statEl = stat as HTMLElement;
+        const originalText = statEl.textContent || '0';
+        const numericValue = parseInt(originalText.replace(/\D/g, '')) || 0;
+
+        ScrollTrigger.create({
+          trigger: stat.closest('.project-card'),
+          start: "top 70%",
+          onEnter: () => {
+            const counter = { value: 0 };
+            gsap.to(counter, {
+              value: numericValue,
+              duration: 1.5,
+              ease: "power2.out",
+              onUpdate: () => {
+                statEl.textContent = Math.round(counter.value).toString();
+              },
+              onComplete: () => {
+                statEl.textContent = originalText;
+              }
+            });
+          }
+        });
+      });
+
+      // === CTA SECTION ENTRANCE ===
+      if (ctaRef.current) {
+        gsap.set(ctaRef.current, {
+          opacity: 0,
+          y: 60,
+          scale: 0.95
+        });
+
+        gsap.to(ctaRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ctaRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // === BACKGROUND PARALLAX ===
+      const bgElements = sectionRef.current?.querySelectorAll('.bg-parallax');
+      bgElements?.forEach((el, i) => {
+        gsap.to(el, {
+          y: (i + 1) * -50,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current!,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5
+          }
+        });
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const getTechIcon = (tech: string) => {
@@ -102,13 +319,13 @@ const Projects: React.FC = () => {
     <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white dark:bg-dark-950">
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" aria-hidden="true"></div>
-      <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div className="bg-parallax absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div className="bg-parallax absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
       <div className="container relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-royal-red-500/20 to-primary-500/20 backdrop-blur-sm border border-royal-red-500/30 dark:border-royal-red-500/30 rounded-full px-6 py-2 mb-6">
+          <div className="featured-badge inline-flex items-center space-x-2 bg-gradient-to-r from-royal-red-500/20 to-primary-500/20 backdrop-blur-sm border border-royal-red-500/30 dark:border-royal-red-500/30 rounded-full px-6 py-2 mb-6">
             <LuSparkles className="text-royal-red-400" size={18} aria-hidden="true" />
             <span className="text-royal-red-400 font-medium">Featured Work</span>
           </div>
@@ -130,7 +347,7 @@ const Projects: React.FC = () => {
             <div
               key={index}
               className="project-card group relative"
-              style={{ isolation: 'isolate' }}
+              style={{ isolation: 'isolate', transformStyle: 'preserve-3d' }}
             >
               <div className={`grid lg:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}>
@@ -139,42 +356,7 @@ const Projects: React.FC = () => {
                 <div className={`lg:col-span-7 ${index % 2 === 1 ? 'lg:col-start-6' : ''} relative z-0 lg:z-10 pointer-events-none lg:pointer-events-auto`}>
                   <div
                     className="tilt-container pointer-events-none lg:pointer-events-auto"
-                    onMouseEnter={(e) => {
-                      const card = e.currentTarget;
-                      gsap.to(card, {
-                        duration: 0.3,
-                        scale: 1.02,
-                        ease: "power2.out"
-                      });
-                    }}
-                    onMouseLeave={(e) => {
-                      const card = e.currentTarget;
-                      gsap.to(card, {
-                        duration: 0.5,
-                        scale: 1,
-                        rotationX: 0,
-                        rotationY: 0,
-                        ease: "power2.out"
-                      });
-                    }}
-                    onMouseMove={(e) => {
-                      const card = e.currentTarget;
-                      const rect = card.getBoundingClientRect();
-                      const x = e.clientX - rect.left;
-                      const y = e.clientY - rect.top;
-                      const centerX = rect.width / 2;
-                      const centerY = rect.height / 2;
-                      const rotateX = (y - centerY) / centerY * -15;
-                      const rotateY = (x - centerX) / centerX * 15;
-
-                      gsap.to(card, {
-                        duration: 0.3,
-                        rotationX: rotateX,
-                        rotationY: rotateY,
-                        transformPerspective: 1000,
-                        ease: "power2.out"
-                      });
-                    }}
+                    style={{ transformStyle: 'preserve-3d' }}
                   >
                     <div className="relative group overflow-hidden rounded-2xl">
                       {/* Main project showcase */}
@@ -212,7 +394,7 @@ const Projects: React.FC = () => {
 
                             {/* Code-like representation */}
                             <div className="space-y-2 font-mono text-xs">
-                              <div className="text-primary-400">const project = {'{'};</div>
+                              <div className="text-primary-400">const project = {'{'}</div>
                               <div className="text-gray-600 dark:text-gray-400 ml-4">name: <span className="text-secondary-400">&quot;{project.title}&quot;</span>,</div>
                               <div className="text-gray-600 dark:text-gray-400 ml-4">status: <span className="text-primary-300">&quot;{project.status}&quot;</span>,</div>
                               <div className="text-gray-600 dark:text-gray-400 ml-4">category: <span className="text-secondary-300">&quot;{project.category}&quot;</span></div>
@@ -295,7 +477,7 @@ const Projects: React.FC = () => {
                     {project.features.map((feature, featureIndex) => (
                       <div
                         key={featureIndex}
-                        className="flex items-center space-x-3 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg p-3 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:shadow-lg transition-all duration-300"
+                        className="feature-item flex items-center space-x-3 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg p-3 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:shadow-lg transition-all duration-300"
                       >
                         <span className="text-sm text-gray-700 dark:text-gray-300">{feature.text}</span>
                       </div>
@@ -309,7 +491,7 @@ const Projects: React.FC = () => {
                       {project.techStack.map((tech, techIndex) => (
                         <div
                           key={techIndex}
-                          className="flex items-center space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg px-4 py-2 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:scale-105 hover:shadow-lg transition-all duration-300"
+                          className="tech-badge flex items-center space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg px-4 py-2 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:scale-105 hover:shadow-lg transition-all duration-300"
                         >
                           <div className="text-lg">{getTechIcon(tech)}</div>
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
@@ -322,15 +504,15 @@ const Projects: React.FC = () => {
                   <div className="flex items-center space-x-6 pt-4 border-t border-gray-300/50 dark:border-gray-700/50">
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
                       <LuStar size={16} />
-                      <span className="text-sm">{project.stats.stars}</span>
+                      <span className="stat-number text-sm">{project.stats.stars}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
                       <LuGitFork size={16} />
-                      <span className="text-sm">{project.stats.forks}</span>
+                      <span className="stat-number text-sm">{project.stats.forks}</span>
                     </div>
                     <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-400">
                       <LuEye size={16} />
-                      <span className="text-sm">{project.stats.views}</span>
+                      <span className="stat-number text-sm">{project.stats.views}</span>
                     </div>
                   </div>
                 </div>
@@ -372,7 +554,7 @@ const Projects: React.FC = () => {
         </div>
 
         {/* Call to action */}
-        <div className="text-center mt-20">
+        <div ref={ctaRef} className="text-center mt-20">
           <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
             <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Let&apos;s Build Something Amazing Together

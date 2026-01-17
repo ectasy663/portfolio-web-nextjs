@@ -14,49 +14,63 @@ const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
+  const learningRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    const ctx = gsap.context(() => {
+      // === SPLIT TEXT ANIMATION FOR TITLE ===
+      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
+      if (titleElement && titleElement.textContent) {
+        const text = titleElement.textContent;
+        titleElement.innerHTML = '';
 
-    // Unique Title Animation: Fade Up with slight scale
-    gsap.set(titleRef.current, { opacity: 0, y: 30, scale: 0.9 });
-    gsap.set(skillsRef.current, { opacity: 0 });
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          titleElement.appendChild(span);
+        });
 
-    tl.to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      duration: 1,
-      ease: "back.out(1.2)"
-    })
-      .to(skillsRef.current, {
-        opacity: 1,
-        duration: 0.5
-      }, "-=0.5");
+        const chars = titleElement.querySelectorAll('.title-char');
 
-    const skillCards = skillsRef.current?.querySelectorAll('.skill-card');
-    if (skillCards) {
-      // Unique Card Animation: 3D Rotate In
-      gsap.fromTo(skillCards,
-        {
+        gsap.set(chars, {
           opacity: 0,
-          rotationX: 90,
-          y: 50,
+          y: 60,
+          rotateX: -90,
           transformPerspective: 1000
-        },
-        {
+        });
+
+        gsap.to(chars, {
           opacity: 1,
-          rotationX: 0,
           y: 0,
+          rotateX: 0,
+          duration: 0.8,
+          stagger: 0.03,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // === SKILL CARDS 3D FLIP ENTRANCE ===
+      const skillCards = skillsRef.current?.querySelectorAll('.skill-card');
+      if (skillCards) {
+        gsap.set(skillCards, {
+          opacity: 0,
+          rotationY: 90,
+          transformPerspective: 1500,
+          transformOrigin: "left center"
+        });
+
+        gsap.to(skillCards, {
+          opacity: 1,
+          rotationY: 0,
           duration: 1.2,
           stagger: 0.2,
           ease: "expo.out",
@@ -65,29 +79,140 @@ const Skills: React.FC = () => {
             start: "top 70%",
             toggleActions: "play none none reverse"
           }
-        }
-      );
-    }
+        });
+      }
 
-    if (sectionRef.current) {
-      const overlays = sectionRef.current.querySelectorAll('.skills-overlay');
-      overlays.forEach((el, i) => {
-        gsap.to(el, {
-          y: i % 2 === 0 ? -50 : -30,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true
-          }
+      // === SKILL BARS ANIMATED FILL ===
+      const skillBars = skillsRef.current?.querySelectorAll('.skill-bar-fill');
+      if (skillBars) {
+        skillBars.forEach((bar) => {
+          const width = (bar as HTMLElement).style.width;
+          gsap.set(bar, { width: '0%', opacity: 0 });
+
+          gsap.to(bar, {
+            width: width,
+            opacity: 1,
+            duration: 1.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: bar,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === INDIVIDUAL SKILL ITEMS STAGGER ===
+      const skillItems = skillsRef.current?.querySelectorAll('.skill-item');
+      if (skillItems) {
+        skillItems.forEach((item, index) => {
+          gsap.set(item, {
+            opacity: 0,
+            x: -30,
+            scale: 0.9
+          });
+
+          gsap.to(item, {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.6,
+            delay: index * 0.05,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item.closest('.skill-card'),
+              start: "top 70%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === SKILL ICONS HOVER MAGNETIC EFFECT ===
+      const skillIcons = skillsRef.current?.querySelectorAll('.skill-icon');
+      skillIcons?.forEach((icon) => {
+        const iconEl = icon as HTMLElement;
+
+        iconEl.addEventListener('mouseenter', () => {
+          gsap.to(iconEl, {
+            scale: 1.3,
+            rotation: 360,
+            duration: 0.5,
+            ease: "back.out(1.7)"
+          });
+        });
+
+        iconEl.addEventListener('mouseleave', () => {
+          gsap.to(iconEl, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.5,
+            ease: "power2.out"
+          });
         });
       });
-    }
 
-    return () => {
-      tl.kill();
-    };
+      // === LEARNING BADGES WAVE ANIMATION ===
+      const learningBadges = learningRef.current?.querySelectorAll('.learning-badge');
+      if (learningBadges) {
+        gsap.set(learningBadges, {
+          opacity: 0,
+          y: 40,
+          scale: 0.7,
+          rotation: gsap.utils.random(-15, 15, true)
+        });
+
+        gsap.to(learningBadges, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          rotation: 0,
+          duration: 0.8,
+          stagger: {
+            each: 0.1,
+            from: "center"
+          },
+          ease: "elastic.out(1, 0.5)",
+          scrollTrigger: {
+            trigger: learningRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        // Continuous gentle float
+        learningBadges.forEach((badge, index) => {
+          gsap.to(badge, {
+            y: "+=6",
+            duration: 2 + index * 0.3,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: index * 0.2
+          });
+        });
+      }
+
+      // === BACKGROUND PARALLAX ===
+      if (sectionRef.current) {
+        const overlays = sectionRef.current.querySelectorAll('.skills-overlay');
+        overlays.forEach((el, i) => {
+          gsap.to(el, {
+            y: i % 2 === 0 ? -80 : -50,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current!,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1
+            }
+          });
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -121,6 +246,7 @@ const Skills: React.FC = () => {
             <div
               key={index}
               className="skill-card group relative"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Glass morphism card */}
               <div className="relative glass-panel rounded-2xl p-8 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-500 shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80">
@@ -129,7 +255,7 @@ const Skills: React.FC = () => {
 
                 {/* Header */}
                 <div className="flex items-center space-x-4 mb-8">
-                  <div className="text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text transition-colors duration-300">
+                  <div className="skill-icon text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text transition-colors duration-300 cursor-pointer">
                     {category.icon}
                   </div>
                   <h3 className="text-heading-md font-heading text-gray-900 dark:text-white transition-colors duration-300">
@@ -142,12 +268,12 @@ const Skills: React.FC = () => {
                   {category.skills.map((skill, skillIndex) => (
                     <div
                       key={skillIndex}
-                      className="group/skill relative bg-white/80 dark:bg-dark-900/50 rounded-xl p-4 hover:bg-white dark:hover:bg-dark-900/80 transition-all duration-300 hover:scale-105 border border-primary-200/30 dark:border-primary-500/20 backdrop-blur-sm"
+                      className="skill-item group/skill relative bg-white/80 dark:bg-dark-900/50 rounded-xl p-4 hover:bg-white dark:hover:bg-dark-900/80 transition-all duration-300 hover:scale-105 border border-primary-200/30 dark:border-primary-500/20 backdrop-blur-sm"
                     >
                       {/* Skill icon and name */}
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-3">
-                          <div className="group-hover/skill:scale-110 transition-transform duration-300">
+                          <div className="skill-icon group-hover/skill:scale-110 transition-transform duration-300 cursor-pointer">
                             {skill.icon}
                           </div>
                           <span className="text-body-sm font-body text-gray-800 dark:text-gray-200 group-hover/skill:text-gray-900 dark:group-hover/skill:text-white transition-colors duration-300">
@@ -163,7 +289,7 @@ const Skills: React.FC = () => {
                       <div className="relative">
                         <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded-full overflow-hidden">
                           <div
-                            className={`h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ease-out transform origin-left group-hover/skill:scale-x-105`}
+                            className={`skill-bar-fill h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ease-out transform origin-left group-hover/skill:scale-x-105`}
                             style={{ width: `${skill.level}%` }}
                           ></div>
                         </div>
@@ -177,7 +303,7 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div className="glass-panel rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
+        <div ref={learningRef} className="glass-panel rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
           <h3 className="text-heading-lg font-heading text-center mb-8">
             <span className="gradient-text-gold">
               Currently Learning
@@ -195,7 +321,7 @@ const Skills: React.FC = () => {
             ].map((tech, index) => (
               <div
                 key={index}
-                className="group flex items-center space-x-3 bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-6 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold"
+                className="learning-badge group flex items-center space-x-3 bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-6 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold cursor-pointer"
               >
                 <span className={`font-heading font-medium text-transparent bg-gradient-to-r ${tech.color} bg-clip-text`}>
                   {tech.name}

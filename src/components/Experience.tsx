@@ -16,59 +16,265 @@ const Experience: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
+  const timelineLineRef = useRef<HTMLDivElement>(null);
+  const exploringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    const ctx = gsap.context(() => {
+      // === SPLIT TEXT ANIMATION FOR TITLE ===
+      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
+      if (titleElement && titleElement.textContent) {
+        const text = titleElement.textContent;
+        titleElement.innerHTML = '';
 
-    gsap.set([titleRef.current, timelineRef.current], {
-      opacity: 0,
-      y: 50
-    });
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          titleElement.appendChild(span);
+        });
 
-    tl.to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: "power3.out"
-    })
-      .to(timelineRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-      }, "-=0.4");
+        const chars = titleElement.querySelectorAll('.title-char');
 
-    const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
-    if (timelineItems) {
-      gsap.fromTo(timelineItems,
-        { opacity: 0, x: -50 },
-        {
+        gsap.set(chars, {
+          opacity: 0,
+          y: -40,
+          rotateZ: gsap.utils.random(-30, 30, true),
+          transformPerspective: 1000
+        });
+
+        gsap.to(chars, {
           opacity: 1,
-          x: 0,
+          y: 0,
+          rotateZ: 0,
           duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
+          stagger: 0.04,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // === TIMELINE LINE DRAW ANIMATION ===
+      if (timelineLineRef.current) {
+        gsap.set(timelineLineRef.current, {
+          scaleY: 0,
+          transformOrigin: "top center"
+        });
+
+        gsap.to(timelineLineRef.current, {
+          scaleY: 1,
+          duration: 1.5,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: timelineRef.current,
             start: "top 70%",
+            end: "bottom 30%",
+            scrub: 1
+          }
+        });
+      }
+
+      // === TIMELINE ITEMS STAGGERED REVEAL ===
+      const timelineItems = timelineRef.current?.querySelectorAll('.timeline-item');
+      if (timelineItems) {
+        timelineItems.forEach((item, index) => {
+          const isEven = index % 2 === 0;
+
+          gsap.set(item, {
+            opacity: 0,
+            x: isEven ? -80 : 80,
+            y: 50,
+            scale: 0.9
+          });
+
+          gsap.to(item, {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === TIMELINE DOTS PULSE ===
+      const timelineDots = timelineRef.current?.querySelectorAll('.timeline-dot');
+      if (timelineDots) {
+        timelineDots.forEach((dot, index) => {
+          gsap.set(dot, {
+            opacity: 0,
+            scale: 0,
+            rotation: -180
+          });
+
+          gsap.to(dot, {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.8,
+            ease: "elastic.out(1, 0.5)",
+            scrollTrigger: {
+              trigger: dot,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          // Continuous glow pulse
+          gsap.to(dot.querySelector('.dot-glow'), {
+            opacity: 0.5,
+            scale: 1.5,
+            duration: 1.5,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: index * 0.3
+          });
+        });
+      }
+
+      // === EXPERIENCE CARDS CONTENT REVEAL ===
+      const cardContents = timelineRef.current?.querySelectorAll('.card-content');
+      if (cardContents) {
+        cardContents.forEach((content) => {
+          // Role title scramble effect
+          const roleEl = content.querySelector('.role-title');
+          if (roleEl && roleEl.textContent) {
+            const originalText = roleEl.textContent;
+
+            ScrollTrigger.create({
+              trigger: content,
+              start: "top 80%",
+              onEnter: () => {
+                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                let frame = 0;
+                const totalFrames = 30;
+
+                const animate = () => {
+                  const progress = frame / totalFrames;
+                  let result = '';
+
+                  for (let i = 0; i < originalText.length; i++) {
+                    if (originalText[i] === ' ') {
+                      result += ' ';
+                    } else if (i < originalText.length * progress) {
+                      result += originalText[i];
+                    } else {
+                      result += chars[Math.floor(Math.random() * chars.length)];
+                    }
+                  }
+
+                  roleEl.textContent = result;
+                  frame++;
+
+                  if (frame <= totalFrames) {
+                    requestAnimationFrame(animate);
+                  }
+                };
+
+                animate();
+              }
+            });
+          }
+        });
+      }
+
+      // === TYPE BADGES POP-IN ===
+      const typeBadges = timelineRef.current?.querySelectorAll('.type-badge');
+      if (typeBadges) {
+        typeBadges.forEach((badge) => {
+          gsap.set(badge, {
+            opacity: 0,
+            scale: 0,
+            rotation: -20
+          });
+
+          gsap.to(badge, {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.6,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: badge.closest('.timeline-item'),
+              start: "top 75%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === SHIMMER EFFECT ON HOVER ===
+      const cards = timelineRef.current?.querySelectorAll('.experience-card');
+      cards?.forEach((card) => {
+        const shimmer = card.querySelector('.shimmer-effect');
+
+        card.addEventListener('mouseenter', () => {
+          gsap.to(shimmer, {
+            x: '200%',
+            duration: 0.8,
+            ease: "power2.out"
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.set(shimmer, { x: '-100%' });
+        });
+      });
+
+      // === EXPLORING SECTION ENTRANCE ===
+      if (exploringRef.current) {
+        gsap.set(exploringRef.current, {
+          opacity: 0,
+          y: 60,
+          scale: 0.95
+        });
+
+        gsap.to(exploringRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: exploringRef.current,
+            start: "top 85%",
             toggleActions: "play none none reverse"
           }
-        }
-      );
-    }
+        });
+      }
 
-    return () => {
-      tl.kill();
-    };
+      // === BACKGROUND PARALLAX ===
+      const overlays = sectionRef.current?.querySelectorAll('.exp-overlay');
+      overlays?.forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -80 : -50,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current!,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5
+          }
+        });
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -78,8 +284,8 @@ const Experience: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }}></div>
+        <div className="exp-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
+        <div className="exp-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-30">
@@ -92,29 +298,32 @@ const Experience: React.FC = () => {
         <div ref={timelineRef} className="max-w-4xl mx-auto">
           {/* Timeline */}
           <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-[27px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-royal-purple-500 via-primary-500 to-royal-purple-500 dark:from-royal-purple-400 dark:via-primary-400 dark:to-royal-purple-400 transition-colors duration-300"></div>
+            {/* Timeline line - Animated */}
+            <div
+              ref={timelineLineRef}
+              className="absolute left-[27px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-royal-purple-500 via-primary-500 to-royal-purple-500 dark:from-royal-purple-400 dark:via-primary-400 dark:to-royal-purple-400 transition-colors duration-300"
+            ></div>
 
             {experiences.map((exp, index) => (
               <div key={index} className="timeline-item relative pl-24 pb-16 last:pb-0">
-                {/* Timeline dot */}
-                <div className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center bg-white dark:bg-dark-900 rounded-full z-10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:scale-110 border-2 border-transparent bg-clip-padding`}>
-                  <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${exp.color} opacity-20 animate-spin-slow`}></div>
+                {/* Timeline dot - Enhanced */}
+                <div className="timeline-dot absolute left-0 top-0 w-14 h-14 flex items-center justify-center bg-white dark:bg-dark-900 rounded-full z-10 transition-all duration-300 shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)] border-2 border-transparent bg-clip-padding">
+                  <div className={`dot-glow absolute inset-0 rounded-full bg-gradient-to-r ${exp.color} opacity-20`}></div>
                   <div className={`absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r ${exp.color} [mask:linear-gradient(#fff_0_0)_padding-box,linear-gradient(#fff_0_0)]`}></div>
                   <LuBriefcase className="w-6 h-6 text-gray-700 dark:text-gray-200 relative z-10" aria-hidden="true" />
                 </div>
 
-                {/* Content card */}
-                <div className="group relative bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 shadow-lg hover:shadow-royal-gold transition-all duration-500 hover:-translate-y-1 overflow-hidden">
+                {/* Content card - Enhanced */}
+                <div className="experience-card card-content group relative bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 shadow-lg hover:shadow-royal-gold transition-all duration-500 hover:-translate-y-1 overflow-hidden">
 
                   {/* Gradient Border Effect on Hover */}
                   <div className={`absolute inset-0 bg-gradient-to-r ${exp.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
+                  <div className="shimmer-effect absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"></div>
 
                   {/* Header */}
                   <div className="flex flex-col gap-3 mb-6 relative z-10">
                     <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 pr-32">
+                      <h3 className="role-title text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 pr-32">
                         {exp.role}
                       </h3>
                     </div>
@@ -136,8 +345,8 @@ const Experience: React.FC = () => {
                     {exp.description}
                   </p>
 
-                  {/* Type Badge - Moved inside and fixed visibility */}
-                  <div className={`absolute top-6 right-6 px-3 py-1 text-xs font-bold tracking-wide uppercase bg-gradient-to-r ${exp.color} text-white rounded-full shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
+                  {/* Type Badge - Enhanced */}
+                  <div className={`type-badge absolute top-6 right-6 px-3 py-1 text-xs font-bold tracking-wide uppercase bg-gradient-to-r ${exp.color} text-white rounded-full shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
                     {exp.type}
                   </div>
                 </div>
@@ -146,8 +355,8 @@ const Experience: React.FC = () => {
           </div>
         </div>
 
-        {/* Additional info */}
-        <div className="mt-20 text-center">
+        {/* Additional info - Enhanced */}
+        <div ref={exploringRef} className="mt-20 text-center">
           <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 max-w-3xl mx-auto shadow-lg hover:shadow-royal-purple-glow transition-all duration-500 group">
             <h3 className="text-xl font-bold mb-4">
               <span className="gradient-text-gold">

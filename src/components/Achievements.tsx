@@ -15,58 +15,281 @@ const Achievements: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const achievementsRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
+    const ctx = gsap.context(() => {
+      // === SPLIT TEXT ANIMATION FOR TITLE ===
+      if (titleRef.current && titleRef.current.textContent) {
+        const text = titleRef.current.textContent;
+        titleRef.current.innerHTML = '';
 
-    // Unique Title Animation: Slide down with bounce
-    gsap.set(titleRef.current, { opacity: 0, y: -50 });
-    gsap.set(achievementsRef.current, { opacity: 0 });
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          titleRef.current?.appendChild(span);
+        });
 
-    tl.to(titleRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "bounce.out"
-    })
-      .to(achievementsRef.current, {
-        opacity: 1,
-        duration: 0.5
-      }, "-=0.5");
+        const chars = titleRef.current.querySelectorAll('.title-char');
 
-    const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
-    if (achievementCards) {
-      // Unique Card Animation: Scale Up with Elasticity
-      gsap.fromTo(achievementCards,
-        { opacity: 0, scale: 0.5, rotation: -5 },
-        {
+        gsap.set(chars, {
+          opacity: 0,
+          y: -60,
+          scale: 1.5,
+          rotation: gsap.utils.random(-30, 30, true)
+        });
+
+        gsap.to(chars, {
           opacity: 1,
+          y: 0,
           scale: 1,
           rotation: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: "elastic.out(1, 0.75)",
+          duration: 0.8,
+          stagger: 0.03,
+          ease: "elastic.out(1, 0.5)",
           scrollTrigger: {
-            trigger: achievementsRef.current,
-            start: "top 70%",
+            trigger: sectionRef.current,
+            start: "top 80%",
             toggleActions: "play none none reverse"
           }
-        }
-      );
-    }
+        });
+      }
 
-    return () => {
-      tl.kill();
-    };
+      // === ACHIEVEMENT CARDS STAGGERED 3D ENTRANCE ===
+      const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
+      if (achievementCards) {
+        achievementCards.forEach((card, index) => {
+          // Calculate grid position for wave effect
+          const row = Math.floor(index / 3);
+          const col = index % 3;
+          const delay = (row + col) * 0.1;
+
+          gsap.set(card, {
+            opacity: 0,
+            scale: 0.5,
+            rotationY: -45,
+            transformPerspective: 1500
+          });
+
+          gsap.to(card, {
+            opacity: 1,
+            scale: 1,
+            rotationY: 0,
+            duration: 1,
+            delay: delay,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: achievementsRef.current,
+              start: "top 75%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === RANK BADGES POP-IN ===
+      const rankBadges = achievementsRef.current?.querySelectorAll('.rank-badge');
+      if (rankBadges) {
+        rankBadges.forEach((badge, index) => {
+          gsap.set(badge, {
+            opacity: 0,
+            scale: 0,
+            rotation: -180
+          });
+
+          gsap.to(badge, {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.6,
+            delay: 0.3 + index * 0.1,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: badge.closest('.achievement-card'),
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === ACHIEVEMENT ICONS GLOW PULSE ===
+      const achievementIcons = achievementsRef.current?.querySelectorAll('.achievement-icon');
+      achievementIcons?.forEach((icon, index) => {
+        gsap.to(icon, {
+          boxShadow: "0 0 20px rgba(255, 215, 0, 0.4)",
+          duration: 1.5,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: index * 0.3
+        });
+      });
+
+      // === DECORATIVE STARS TWINKLE ===
+      const decorativeStars = achievementsRef.current?.querySelectorAll('.decorative-star');
+      decorativeStars?.forEach((star, index) => {
+        gsap.to(star, {
+          opacity: gsap.utils.random(0.3, 1),
+          scale: gsap.utils.random(0.8, 1.2),
+          rotation: gsap.utils.random(-20, 20),
+          duration: 1 + Math.random() * 2,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+          delay: index * 0.2
+        });
+      });
+
+      // === STATS COUNTER ANIMATION ===
+      const stats = statsRef.current?.querySelectorAll('.stat-item');
+      if (stats) {
+        stats.forEach((stat, index) => {
+          const numberEl = stat.querySelector('.stat-number');
+          const labelEl = stat.querySelector('.stat-label');
+
+          gsap.set(stat, {
+            opacity: 0,
+            y: 50,
+            scale: 0.8
+          });
+
+          gsap.to(stat, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: index * 0.15,
+            ease: "back.out(1.5)",
+            scrollTrigger: {
+              trigger: statsRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+
+          // Counter animation for numbers
+          if (numberEl && numberEl.textContent) {
+            const originalText = numberEl.textContent;
+            const numericMatch = originalText.match(/[\d.]+/);
+            const numericValue = numericMatch ? parseFloat(numericMatch[0]) : 0;
+            const prefix = originalText.charAt(0) === '<' ? '< ' : '';
+            const suffix = originalText.includes('+') ? '+' : originalText.includes('%') ? '%' : originalText.includes('K') ? 'K+' : '';
+
+            ScrollTrigger.create({
+              trigger: stat,
+              start: "top 85%",
+              onEnter: () => {
+                const counter = { value: 0 };
+                gsap.to(counter, {
+                  value: numericValue,
+                  duration: 2,
+                  delay: index * 0.2,
+                  ease: "power2.out",
+                  onUpdate: () => {
+                    if (numericValue < 10) {
+                      (numberEl as HTMLElement).textContent = `${prefix}${counter.value.toFixed(0)}${suffix}`;
+                    } else {
+                      (numberEl as HTMLElement).textContent = `${prefix}${Math.round(counter.value)}${suffix}`;
+                    }
+                  },
+                  onComplete: () => {
+                    (numberEl as HTMLElement).textContent = originalText;
+                  }
+                });
+              }
+            });
+          }
+        });
+      }
+
+      // === QUOTE SECTION ENTRANCE ===
+      if (quoteRef.current) {
+        const quote = quoteRef.current.querySelector('blockquote');
+        const author = quoteRef.current.querySelector('.quote-author');
+
+        gsap.set(quoteRef.current, {
+          opacity: 0,
+          y: 60,
+          scale: 0.95
+        });
+
+        gsap.to(quoteRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: quoteRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        // Quote text scramble effect
+        if (quote && quote.textContent) {
+          const originalText = quote.textContent;
+
+          ScrollTrigger.create({
+            trigger: quoteRef.current,
+            start: "top 80%",
+            onEnter: () => {
+              const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+              let frame = 0;
+              const totalFrames = 60;
+
+              const animate = () => {
+                const progress = frame / totalFrames;
+                let result = '';
+
+                for (let i = 0; i < originalText.length; i++) {
+                  if (originalText[i] === ' ' || originalText[i] === '"' || originalText[i] === '"') {
+                    result += originalText[i];
+                  } else if (i < originalText.length * progress) {
+                    result += originalText[i];
+                  } else {
+                    result += chars[Math.floor(Math.random() * chars.length)];
+                  }
+                }
+
+                quote.textContent = result;
+                frame++;
+
+                if (frame <= totalFrames) {
+                  requestAnimationFrame(animate);
+                }
+              };
+
+              animate();
+            }
+          });
+        }
+      }
+
+      // === BACKGROUND PARALLAX ===
+      const overlays = sectionRef.current?.querySelectorAll('.ach-overlay');
+      overlays?.forEach((el, i) => {
+        gsap.to(el, {
+          y: i % 2 === 0 ? -70 : -40,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current!,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5
+          }
+        });
+      });
+
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -76,8 +299,8 @@ const Achievements: React.FC = () => {
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-10 opacity-10 dark:opacity-30 transition-opacity duration-300">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
+        <div className="ach-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
+        <div className="ach-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container relative z-20">
@@ -90,6 +313,7 @@ const Achievements: React.FC = () => {
             <div
               key={index}
               className="achievement-card card-hover bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-6 rounded-xl border border-primary-200/50 dark:border-primary-500/30 relative overflow-hidden shadow-lg hover:shadow-royal-gold transition-all duration-300"
+              style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Background pattern */}
               <div className={`absolute inset-0 bg-gradient-to-br ${achievement.bgColor} opacity-50`}></div>
@@ -98,10 +322,10 @@ const Achievements: React.FC = () => {
               <div className="relative z-10">
                 {/* Icon and rank */}
                 <div className="flex items-center justify-between mb-6">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${achievement.color} rounded-lg`}>
+                  <div className={`achievement-icon inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${achievement.color} rounded-lg`}>
                     <achievement.icon className="w-6 h-6 text-white" aria-hidden="true" />
                   </div>
-                  <div className={`px-3 py-1 bg-gradient-to-r ${achievement.color} text-white text-xs font-bold rounded-full`}>
+                  <div className={`rank-badge px-3 py-1 bg-gradient-to-r ${achievement.color} text-white text-xs font-bold rounded-full`}>
                     {achievement.rank}
                   </div>
                 </div>
@@ -122,7 +346,7 @@ const Achievements: React.FC = () => {
                 </p>
 
                 {/* Decorative elements */}
-                <div className="absolute top-4 right-4 opacity-20">
+                <div className="decorative-star absolute top-4 right-4 opacity-20">
                   <LuStar className={`w-8 h-8 text-gradient-to-r ${achievement.color}`} aria-hidden="true" />
                 </div>
               </div>
@@ -131,32 +355,32 @@ const Achievements: React.FC = () => {
         </div>
 
         {/* Summary stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">3+</div>
-            <p className="text-gray-600 dark:text-gray-400">Major Awards</p>
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="stat-item text-center">
+            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">3+</div>
+            <p className="stat-label text-gray-600 dark:text-gray-400">Major Awards</p>
           </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">25K+</div>
-            <p className="text-gray-600 dark:text-gray-400">Participants Competed</p>
+          <div className="stat-item text-center">
+            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">25K+</div>
+            <p className="stat-label text-gray-600 dark:text-gray-400">Participants Competed</p>
           </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">Top 20%</div>
-            <p className="text-gray-600 dark:text-gray-400">National Ranking</p>
+          <div className="stat-item text-center">
+            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">Top 20%</div>
+            <p className="stat-label text-gray-600 dark:text-gray-400">National Ranking</p>
           </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-bold gradient-text-gold mb-2">4+</div>
-            <p className="text-gray-600 dark:text-gray-400">Tech Giants Recognition</p>
+          <div className="stat-item text-center">
+            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">4+</div>
+            <p className="stat-label text-gray-600 dark:text-gray-400">Tech Giants Recognition</p>
           </div>
         </div>
 
         {/* Quote section */}
-        <div className="mt-16 text-center">
+        <div ref={quoteRef} className="mt-16 text-center">
           <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 max-w-4xl mx-auto shadow-lg hover:shadow-2xl transition-all duration-300">
             <blockquote className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 italic mb-4">
               &quot;Success is not final, failure is not fatal: it is the courage to continue that counts.&quot;
             </blockquote>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="quote-author text-gray-600 dark:text-gray-400">
               — Winston Churchill
             </p>
           </div>

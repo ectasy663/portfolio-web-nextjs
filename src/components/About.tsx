@@ -4,8 +4,6 @@ import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useInView } from 'react-intersection-observer';
-import { useGSAPAnimation } from '@/hooks/useAnimation';
 import { strengths } from '@/data/about';
 import { LuRocket, LuGraduationCap, LuBot, LuBookOpen, LuShield, LuBanknote, LuStar } from 'react-icons/lu';
 
@@ -16,70 +14,251 @@ if (typeof window !== 'undefined') {
 
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const timelineRef = useGSAPAnimation();
-
-  const [titleRef, titleInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [contentRef, contentInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [strengthsRef, strengthsInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const strengthsRef = useRef<HTMLDivElement>(null);
+  const strengthsTitleRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    if (strengthsInView && timelineRef.current) {
-      timelineRef.current.kill();
-    }
+    const ctx = gsap.context(() => {
+      // === SPLIT TEXT ANIMATION FOR TITLE ===
+      if (titleRef.current && titleRef.current.textContent) {
+        const text = titleRef.current.textContent;
+        titleRef.current.innerHTML = '';
 
-    const tl = gsap.timeline();
-    timelineRef.current = tl;
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          titleRef.current?.appendChild(span);
+        });
 
-    if (strengthsInView) {
-      const strengthCards = document.querySelectorAll('.strength-card');
-      tl.fromTo(strengthCards,
-        { opacity: 0, y: 100, rotationX: -15 },
-        {
+        const chars = titleRef.current.querySelectorAll('.title-char');
+
+        gsap.set(chars, {
+          opacity: 0,
+          y: 80,
+          rotateY: -90,
+          transformPerspective: 1000
+        });
+
+        gsap.to(chars, {
           opacity: 1,
           y: 0,
-          rotationX: 0,
+          rotateY: 0,
           duration: 0.8,
-          stagger: 0.2,
-          ease: "back.out(1.2)"
-        }
-      );
-    }
-
-    if (sectionRef.current) {
-      const overlayBubbles = sectionRef.current.querySelectorAll('.about-overlay');
-      overlayBubbles.forEach((el, i) => {
-        gsap.to(el, {
-          y: i % 2 === 0 ? -60 : -40,
-          ease: 'none',
+          stagger: 0.05,
+          ease: "back.out(1.7)",
           scrollTrigger: {
-            trigger: sectionRef.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
           }
         });
-      });
-    }
-
-    return () => {
-      if (timelineRef.current) {
-        timelineRef.current.kill();
       }
-    };
-  }, [strengthsInView, timelineRef]);
+
+      // === IMAGE 3D ENTRANCE ===
+      if (imageRef.current) {
+        gsap.set(imageRef.current, {
+          opacity: 0,
+          x: -100,
+          rotateY: -45,
+          transformPerspective: 1500
+        });
+
+        gsap.to(imageRef.current, {
+          opacity: 1,
+          x: 0,
+          rotateY: 0,
+          duration: 1.5,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: imageRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+
+        // 3D tilt on hover
+        const imageContainer = imageRef.current.querySelector('.image-container');
+        if (imageContainer) {
+          imageContainer.addEventListener('mouseenter', () => {
+            gsap.to(imageContainer, {
+              scale: 1.02,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          });
+
+          imageContainer.addEventListener('mouseleave', () => {
+            gsap.to(imageContainer, {
+              scale: 1,
+              rotateX: 0,
+              rotateY: 0,
+              duration: 0.5,
+              ease: "power2.out"
+            });
+          });
+
+          imageContainer.addEventListener('mousemove', (e: Event) => {
+            const mouseEvent = e as MouseEvent;
+            const rect = (imageContainer as HTMLElement).getBoundingClientRect();
+            const x = mouseEvent.clientX - rect.left;
+            const y = mouseEvent.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / centerY * -10;
+            const rotateY = (x - centerX) / centerX * 10;
+
+            gsap.to(imageContainer, {
+              rotateX: rotateX,
+              rotateY: rotateY,
+              transformPerspective: 1000,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          });
+        }
+      }
+
+      // === CONTENT PARAGRAPHS WORD-BY-WORD REVEAL ===
+      if (contentRef.current) {
+        const paragraphs = contentRef.current.querySelectorAll('p');
+
+        paragraphs.forEach((p, pIndex) => {
+          gsap.set(p, {
+            opacity: 0,
+            y: 30
+          });
+
+          gsap.to(p, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: pIndex * 0.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: p,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === STRENGTHS TITLE SPLIT TEXT ===
+      if (strengthsTitleRef.current && strengthsTitleRef.current.textContent) {
+        const text = strengthsTitleRef.current.textContent;
+        strengthsTitleRef.current.innerHTML = '';
+
+        text.split('').forEach((char) => {
+          const span = document.createElement('span');
+          span.className = 'str-title-char inline-block';
+          span.style.display = 'inline-block';
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          strengthsTitleRef.current?.appendChild(span);
+        });
+
+        const chars = strengthsTitleRef.current.querySelectorAll('.str-title-char');
+
+        gsap.set(chars, {
+          opacity: 0,
+          scale: 0,
+          rotation: gsap.utils.random(-45, 45, true)
+        });
+
+        gsap.to(chars, {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 0.6,
+          stagger: 0.03,
+          ease: "back.out(2)",
+          scrollTrigger: {
+            trigger: strengthsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
+
+      // === STRENGTH CARDS 3D FLIP REVEAL ===
+      const strengthCards = strengthsRef.current?.querySelectorAll('.strength-card');
+      if (strengthCards) {
+        strengthCards.forEach((card, index) => {
+          gsap.set(card, {
+            opacity: 0,
+            rotationX: -90,
+            y: 100,
+            transformPerspective: 1500,
+            transformOrigin: "top center"
+          });
+
+          gsap.to(card, {
+            opacity: 1,
+            rotationX: 0,
+            y: 0,
+            duration: 1,
+            delay: index * 0.15,
+            ease: "back.out(1.2)",
+            scrollTrigger: {
+              trigger: strengthsRef.current,
+              start: "top 70%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+      }
+
+      // === STRENGTH ICONS MAGNETIC HOVER ===
+      const strengthIcons = strengthsRef.current?.querySelectorAll('.strength-icon');
+      strengthIcons?.forEach((icon) => {
+        const iconEl = icon as HTMLElement;
+
+        iconEl.addEventListener('mouseenter', () => {
+          gsap.to(iconEl, {
+            rotation: 360,
+            scale: 1.2,
+            duration: 0.6,
+            ease: "back.out(1.7)"
+          });
+        });
+
+        iconEl.addEventListener('mouseleave', () => {
+          gsap.to(iconEl, {
+            rotation: 0,
+            scale: 1,
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        });
+      });
+
+      // === BACKGROUND PARALLAX ===
+      if (sectionRef.current) {
+        const overlayBubbles = sectionRef.current.querySelectorAll('.about-overlay');
+        overlayBubbles.forEach((el, i) => {
+          gsap.to(el, {
+            y: i % 2 === 0 ? -80 : -50,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current!,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5
+            }
+          });
+        });
+      }
+
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
@@ -120,7 +299,7 @@ const About: React.FC = () => {
       <div className="container relative z-30">
         <h2
           ref={titleRef}
-          className={`text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2 animate-fade-in-slow transform transition-colors duration-300 ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+          className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
         >
           About Me
         </h2>
@@ -128,9 +307,9 @@ const About: React.FC = () => {
         {/* Centered Content */}
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
-            {/* Left side - Professional Image */}
-            <div className="flex-shrink-0">
-              <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
+            {/* Left side - Professional Image - Enhanced 3D */}
+            <div ref={imageRef} className="flex-shrink-0" style={{ perspective: '1500px' }}>
+              <div className="image-container relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]" style={{ transformStyle: 'preserve-3d' }}>
                 <Image
                   src="/assets/black and white different pose.png"
                   alt="Naman Singh Panwar - Professional Style"
@@ -148,10 +327,7 @@ const About: React.FC = () => {
 
             {/* Right side - Text content */}
             <div className="flex-1 text-left">
-              <div
-                ref={contentRef}
-                className={`space-y-8 animate-fade-in-delay transform ${contentInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              >
+              <div ref={contentRef} className="space-y-8">
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
                     I'm a passionate and driven Computer Science student <span className="inline-flex align-middle"><LuGraduationCap className="w-5 h-5 text-blue-500 mx-1" /></span> with a deep fascination for <span className="font-bold text-primary-500 inline-flex items-center gap-1">Artificial Intelligence <LuBot className="w-5 h-5" /></span>
@@ -169,9 +345,12 @@ const About: React.FC = () => {
           </div>
         </div>
 
-        {/* Key Strengths */}
+        {/* Key Strengths - Enhanced */}
         <div ref={strengthsRef} className="mt-24">
-          <h3 className={`text-heading-lg font-heading text-center mb-16 gradient-text-gold animate-fade-in-slow transform transition-colors duration-300 ${strengthsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+          <h3
+            ref={strengthsTitleRef}
+            className="text-heading-lg font-heading text-center mb-16 gradient-text-gold transition-colors duration-300"
+          >
             Key Strengths
           </h3>
 
@@ -181,10 +360,11 @@ const About: React.FC = () => {
                 key={index}
                 className="strength-card glass-panel p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 text-center card-hover shadow-lg hover:shadow-royal-gold hover:bg-white/95 dark:hover:bg-dark-800/80 transition-all duration-300"
                 style={{
+                  transformStyle: 'preserve-3d',
                   transitionDelay: `${index * 100}ms`,
                 }}
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-primary-50 dark:bg-primary-900/20 backdrop-blur-sm rounded-lg mb-6 hover:rotate-12 transition-all duration-300" style={{ transition: 'transform 0.2s ease-out' }}>
+                <div className="strength-icon inline-flex items-center justify-center w-20 h-20 bg-primary-50 dark:bg-primary-900/20 backdrop-blur-sm rounded-lg mb-6 cursor-pointer" style={{ transition: 'transform 0.2s ease-out' }}>
                   <strength.icon className="w-10 h-10 text-primary-600 dark:text-primary-400 transition-colors duration-300" />
                 </div>
                 <h4 className="text-heading-md font-heading mb-6 text-gray-800 dark:text-white transition-colors duration-300">
