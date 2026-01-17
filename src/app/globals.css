@@ -721,7 +721,7 @@ html {
 }
 
 /* =========================================
-   INTRO LOADER - Awwwards Premium Animation
+   INTRO LOADER - CSS-Only Fast Animation
    ========================================= */
 
 /* Hide main content until intro completes */
@@ -733,7 +733,7 @@ html {
 .app-content--ready {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.25s ease-out;
 }
 
 .intro-loader {
@@ -749,10 +749,12 @@ html {
 .intro-loader__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg,
-      #0a0a0a 0%,
-      #111111 50%,
-      #0a0a0a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+  transition: opacity 0.3s ease-out;
+}
+
+.intro-loader--exit .intro-loader__overlay {
+  opacity: 0;
 }
 
 .intro-loader__content {
@@ -763,23 +765,13 @@ html {
   justify-content: center;
 }
 
-.intro-loader__name {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-/* Premium metallic gold text */
-/* Premium metallic gold text - Refined for elegance */
-.intro-loader__text {
+/* Word animation */
+.intro-loader__word {
   font-family: 'The Seasons', Georgia, serif;
   font-size: clamp(1.5rem, 5vw, 3.5rem);
-  /* Reduced max size for better fit */
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  /* Slightly more muted/elegant gold gradient */
   background: linear-gradient(135deg,
       #8A7324 0%,
       #C5A02F 20%,
@@ -792,34 +784,64 @@ html {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  opacity: 0.9;
-  /* "Less opaque" / more subtle */
-  /* Softer shadow */
-  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.15));
+  opacity: 0;
+  transform: translateY(30px);
+  filter: blur(8px);
+  animation: wordEnter 0.4s ease-out forwards;
 }
 
-/* Shine sweep effect - easier on the eyes */
-.intro-loader__shine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.2) 50%,
-      transparent 100%);
-  pointer-events: none;
+.intro-loader__word--0 {
+  animation-delay: 0s;
 }
 
-/* Exit state */
-.intro-loader--exiting {
-  pointer-events: none;
+.intro-loader__word--1 {
+  animation-delay: 0.08s;
+}
+
+.intro-loader__word--2 {
+  animation-delay: 0.16s;
+}
+
+@keyframes wordEnter {
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Exit phase animations */
+.intro-loader--exit .intro-loader__word {
+  animation: wordExit 0.3s ease-in forwards;
+}
+
+.intro-loader--exit .intro-loader__word--0 {
+  animation-delay: 0s;
+  --exit-x: -60px;
+}
+
+.intro-loader--exit .intro-loader__word--1 {
+  animation-delay: 0.05s;
+  --exit-x: 0;
+  --exit-scale: 1.2;
+}
+
+.intro-loader--exit .intro-loader__word--2 {
+  animation-delay: 0s;
+  --exit-x: 60px;
+}
+
+@keyframes wordExit {
+  to {
+    opacity: 0;
+    transform: translateX(var(--exit-x, 0)) scale(var(--exit-scale, 1));
+    filter: blur(10px);
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
-  .intro-loader__text {
+  .intro-loader__word {
     font-size: clamp(1.2rem, 8vw, 2rem);
     letter-spacing: -0.01em;
   }

@@ -65,6 +65,33 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/the-seasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="gsap-loaded">
+        {/* Instant CSS-only splash screen - shows before React hydrates */}
+        <div id="instant-loader" style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 99999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)',
+        }}>
+          <div style={{
+            display: 'flex',
+            gap: '0.75rem',
+            fontFamily: "'The Seasons', Georgia, serif",
+            fontSize: 'clamp(1.5rem, 5vw, 3.5rem)',
+            fontWeight: 600,
+            background: 'linear-gradient(135deg, #8A7324 0%, #C5A02F 20%, #E6CD68 40%, #F0D475 50%, #E6CD68 60%, #C5A02F 80%, #8A7324 100%)',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            color: 'transparent',
+            opacity: 0.9,
+          }}>
+            <span>Naman</span>
+            <span>Singh</span>
+            <span>Panwar</span>
+          </div>
+        </div>
         <ErrorBoundary>
           <ThemeProvider>
             {children}
