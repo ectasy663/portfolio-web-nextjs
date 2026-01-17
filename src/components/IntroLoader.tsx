@@ -17,12 +17,6 @@ const IntroLoader: React.FC<IntroLoaderProps> = ({ onComplete }) => {
   }, [onComplete]);
 
   useEffect(() => {
-    // Immediately hide the instant-loader from layout.tsx
-    const instantLoader = document.getElementById('instant-loader');
-    if (instantLoader) {
-      instantLoader.style.display = 'none';
-    }
-
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
