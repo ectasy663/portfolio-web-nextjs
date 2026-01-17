@@ -12,21 +12,18 @@ const nextConfig = {
   // Remove X-Powered-By header
   poweredByHeader: false,
 
-  // Transpile specific packages
-  transpilePackages: ['react-icons', 'gsap'],
+  // Transpile specific packages for optimization
+  transpilePackages: ['gsap'],
 
   // Turbopack configuration (Next.js 16+ default bundler)
   turbopack: {
-    // Resolve aliases for faster module resolution
     resolveAlias: {
       '@': './src',
     },
   },
 
-  // Enable experimental features
+  // Enable experimental features for performance
   experimental: {
-    // Modular imports for tree-shaking
-
     // Enable optimistic client cache
     optimisticClientCache: true,
   },
@@ -36,7 +33,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 1080, 1920],
     imageSizes: [16, 32, 64, 128, 256],
-    minimumCacheTTL: 31536000, // 1 year cache
+    minimumCacheTTL: 31536000,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
@@ -46,6 +43,8 @@ const nextConfig = {
     // Remove console.log in production
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
+
 
   // Aggressive caching headers
   async headers() {

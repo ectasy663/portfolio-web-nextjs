@@ -12,8 +12,7 @@ const Navigation: React.FC = () => {
   const isScrollingRef = useRef(false);
   const activeRef = useRef('home');
   const [scrolled, setScrolled] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+
   const navRef = useRef<HTMLElement>(null);
   const { theme } = useTheme();
 
@@ -35,14 +34,7 @@ const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', checkScroll);
   }, []);
 
-  // Mouse tracking for liquid refraction effect
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!navRef.current) return;
-    const rect = navRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePosition({ x, y });
-  }, []);
+
 
   // Scroll spy using scroll event for reliable detection
   useEffect(() => {
@@ -288,121 +280,78 @@ const Navigation: React.FC = () => {
       </div>
 
       <div className="fixed top-4 sm:top-6 left-0 right-0 z-[1200] flex justify-center px-4 pointer-events-none">
-        {/* Outer glow effect */}
-        <div
-          className={`
-          absolute transition-all duration-700 ease-out rounded-full
-          ${isHovering ? 'opacity-100' : 'opacity-0'}
-        `}
-          style={{
-            background: isDark
-              ? `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, rgba(147, 197, 253, 0.15) 0%, transparent 60%)`
-              : `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, rgba(59, 130, 246, 0.1) 0%, transparent 60%)`,
-            width: scrolled ? 'auto' : 'min(92%, 820px)',
-            height: 'calc(100% + 20px)',
-            top: '-10px',
-            filter: 'blur(10px)',
-            pointerEvents: 'none',
-          }}
-        />
+
 
         <nav
           ref={navRef}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+
           className={`
           pointer-events-auto
           relative flex items-center justify-between
           overflow-hidden
           transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]
-          ${scrolled ? 'py-2 pl-2 pr-2 sm:py-2 sm:pl-3 sm:pr-3' : 'py-3 pl-4 pr-3 sm:py-3 sm:pl-6 sm:pr-4'}
+          py-3 pl-4 pr-3 sm:py-3 sm:pl-6 sm:pr-4
           rounded-[28px]
         `}
           style={{
-            width: scrolled ? 'auto' : 'min(90%, 800px)',
+            width: 'min(90%, 800px)',
             maxWidth: '100%',
-            // Liquid glass background
-            background: scrolled
-              ? (isDark
-                ? `linear-gradient(135deg, 
-                  rgba(15, 15, 20, 0.75) 0%, 
-                  rgba(25, 25, 35, 0.65) 50%,
-                  rgba(20, 20, 30, 0.7) 100%)`
-                : `linear-gradient(135deg, 
-                  rgba(255, 255, 255, 0.85) 0%, 
-                  rgba(245, 247, 250, 0.75) 50%,
-                  rgba(255, 255, 255, 0.8) 100%)`)
-              : 'transparent',
-            backdropFilter: scrolled ? 'blur(40px) saturate(180%)' : 'none',
-            WebkitBackdropFilter: scrolled ? 'blur(40px) saturate(180%)' : 'none',
-            // Refined border with gradient
-            border: scrolled
-              ? (isDark
-                ? '1px solid rgba(255, 255, 255, 0.08)'
-                : '1px solid rgba(255, 255, 255, 0.6)')
-              : '1px solid transparent',
-            // Premium shadow layering
-            boxShadow: scrolled
-              ? (isDark
-                ? `0 0 0 1px rgba(255, 255, 255, 0.05),
-                 0 4px 24px -4px rgba(0, 0, 0, 0.4),
-                 0 8px 48px -8px rgba(0, 0, 0, 0.3),
-                 inset 0 1px 0 0 rgba(255, 255, 255, 0.05)`
-                : `0 0 0 1px rgba(255, 255, 255, 0.8),
-                 0 4px 24px -4px rgba(0, 0, 0, 0.08),
-                 0 8px 48px -8px rgba(0, 0, 0, 0.06),
-                 inset 0 1px 0 0 rgba(255, 255, 255, 1),
-                 inset 0 -1px 0 0 rgba(0, 0, 0, 0.02)`)
-              : 'none',
+            // Advanced Apple Liquid Glass Effect
+            background: isDark
+              ? `linear-gradient(
+                  180deg,
+                  rgba(40, 40, 50, 0.5) 0%,
+                  rgba(20, 20, 28, 0.6) 100%
+                )`
+              : `linear-gradient(
+                  180deg,
+                  rgba(255, 255, 255, 0.85) 0%,
+                  rgba(245, 245, 250, 0.75) 100%
+                )`,
+            backdropFilter: 'blur(40px) saturate(200%) contrast(1.05) brightness(1.02)',
+            WebkitBackdropFilter: 'blur(40px) saturate(200%) contrast(1.05) brightness(1.02)',
+            // Crisp outer border with subtle inner glow
+            border: isDark
+              ? '0.5px solid rgba(255, 255, 255, 0.12)'
+              : '0.5px solid rgba(255, 255, 255, 0.6)',
+            // Multi-layer shadow for realistic depth
+            boxShadow: isDark
+              ? `0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                 0 12px 24px -8px rgba(0, 0, 0, 0.3),
+                 0 0 0 0.5px rgba(255, 255, 255, 0.08),
+                 inset 0 1px 1px rgba(255, 255, 255, 0.08),
+                 inset 0 -1px 1px rgba(0, 0, 0, 0.1)`
+              : `0 25px 50px -12px rgba(0, 0, 0, 0.08),
+                 0 12px 24px -8px rgba(0, 0, 0, 0.04),
+                 0 0 0 0.5px rgba(0, 0, 0, 0.03),
+                 inset 0 1px 2px rgba(255, 255, 255, 0.9),
+                 inset 0 -1px 1px rgba(0, 0, 0, 0.02)`,
           }}
         >
-          {/* Liquid light refraction overlay */}
+
+          {/* Top highlight edge - Glossy reflection */}
           <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-500 rounded-[28px] overflow-hidden"
+            className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
             style={{
-              opacity: isHovering ? 1 : 0.3,
               background: isDark
-                ? `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, 
-                  rgba(99, 102, 241, 0.08) 0%,
-                  rgba(147, 197, 253, 0.04) 25%,
-                  transparent 50%)`
-                : `radial-gradient(ellipse at ${mousePosition.x}% ${mousePosition.y}%, 
-                  rgba(99, 102, 241, 0.06) 0%,
-                  rgba(59, 130, 246, 0.03) 25%,
-                  transparent 50%)`,
+                ? 'linear-gradient(90deg, transparent 5%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.15) 70%, transparent 95%)'
+                : 'linear-gradient(90deg, transparent 5%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.8) 70%, transparent 95%)',
             }}
           />
 
-          {/* Top highlight edge */}
+          {/* Secondary glow layer for extra gloss */}
           <div
-            className="absolute top-0 left-4 right-4 h-[1px] pointer-events-none rounded-full transition-opacity duration-300"
+            className="absolute top-0 left-0 right-0 h-8 pointer-events-none rounded-t-[28px]"
             style={{
-              opacity: scrolled ? 1 : 0,
               background: isDark
-                ? 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.1) 80%, transparent)'
-                : 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9) 20%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.9) 80%, transparent)',
+                ? 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%)'
+                : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%)',
             }}
           />
 
-          {/* Rainbow shimmer on hover */}
-          <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-700 rounded-[28px] overflow-hidden"
-            style={{
-              opacity: isHovering ? 0.4 : 0,
-              background: `linear-gradient(
-              ${90 + (mousePosition.x - 50) * 0.5}deg,
-              transparent 0%,
-              rgba(255, 0, 128, 0.02) 20%,
-              rgba(128, 0, 255, 0.02) 40%,
-              rgba(0, 128, 255, 0.02) 60%,
-              rgba(0, 255, 128, 0.02) 80%,
-              transparent 100%
-            )`,
-            }}
-          />
 
-          {/* Logo Section with Glow Effect */}
+
+          {/* Logo Section - Removed hover effects */}
           <div className="flex-shrink-0 mr-3 sm:mr-4 ml-1 relative z-10">
             <a
               href="#home"
@@ -410,16 +359,8 @@ const Navigation: React.FC = () => {
                 e.preventDefault();
                 handleNavClick('#home');
               }}
-              className="group block relative rounded-2xl overflow-visible transition-all duration-500 hover:scale-110 active:scale-95 focus:outline-none focus-visible:outline-none"
+              className="group block relative rounded-2xl overflow-visible transition-all duration-500 active:scale-95 focus:outline-none focus-visible:outline-none"
             >
-              {/* Glow ring behind logo */}
-              <div
-                className="absolute inset-[-4px] rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(249, 224, 118, 0.3))',
-                  filter: 'blur(8px)',
-                }}
-              />
               <div
                 className="relative p-1.5 rounded-2xl transition-all duration-500"
                 style={{

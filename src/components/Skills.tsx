@@ -1,14 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  SiReact, SiJavascript, SiPython, SiDocker, SiGit
-} from 'react-icons/si';
-import {
-  FaBrain, FaCode, FaRocket
-} from 'react-icons/fa';
 import { skillCategories } from '@/data/skills';
 
 // Register GSAP plugins
@@ -20,17 +14,6 @@ const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
-  const floatingRef = useRef<HTMLDivElement>(null);
-
-  const [iconPositions, setIconPositions] = useState<{ left: string; top: string }[]>([]);
-
-  useEffect(() => {
-    const positions = Array(8).fill(0).map(() => ({
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`,
-    }));
-    setIconPositions(positions);
-  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -86,20 +69,6 @@ const Skills: React.FC = () => {
       );
     }
 
-    if (floatingRef.current) {
-      const floatingElements = floatingRef.current.querySelectorAll('.floating-icon');
-      gsap.to(floatingElements, {
-        y: 'random(-20, 20)',
-        x: 'random(-10, 10)',
-        rotation: 'random(-15, 15)',
-        duration: 'random(3, 6)',
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        stagger: 0.3
-      });
-    }
-
     if (sectionRef.current) {
       const overlays = sectionRef.current.querySelectorAll('.skills-overlay');
       overlays.forEach((el, i) => {
@@ -131,23 +100,6 @@ const Skills: React.FC = () => {
         <div className="skills-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-blue-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
         <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
-
-      {/* Background floating icons - only rendered after client-side positions are set */}
-      {iconPositions.length > 0 && (
-        <div ref={floatingRef} className="absolute inset-0 pointer-events-none opacity-3 dark:opacity-5 z-30 transition-opacity duration-300">
-          {[SiReact, SiJavascript, SiPython, SiDocker, SiGit, FaBrain, FaRocket, FaCode].map((Icon, index) => (
-            <Icon
-              key={index}
-              className={`floating-icon absolute text-6xl text-blue-600 dark:text-blue-400 transition-colors duration-300`}
-              style={{
-                left: iconPositions[index]?.left ?? '50%',
-                top: iconPositions[index]?.top ?? '50%',
-              }}
-              aria-hidden="true"
-            />
-          ))}
-        </div>
-      )}
 
       {/* Background gradient mesh */}
       <div className="absolute inset-0 bg-grid-pattern opacity-3 dark:opacity-5 z-30 transition-opacity duration-300"></div>
@@ -257,5 +209,4 @@ const Skills: React.FC = () => {
   );
 };
 
-export default Skills;
-
+export default React.memo(Skills);

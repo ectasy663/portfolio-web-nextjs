@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { LuArrowDown, LuGithub, LuLinkedin, LuMail, LuCode, LuZap, LuRocket, LuSparkles, LuBot, LuLaptop, LuSmartphone, LuPalette, LuPuzzle, LuBrain, LuGlobe, LuLightbulb } from 'react-icons/lu';
+import { LuArrowDown, LuGithub, LuLinkedin, LuMail, LuCode, LuZap, LuRocket, LuSparkles, LuBrain, LuGlobe, LuPalette, LuLightbulb } from 'react-icons/lu';
 import { scrollToId } from '@/utils/scroll';
 import ResumeButton from './ResumeButton';
 import dynamic from 'next/dynamic';
@@ -69,20 +69,6 @@ const Hero: React.FC = () => {
               ease: "back.out(1.7)"
             }, "-=0.6");
         }
-
-        const techIcons = document.querySelectorAll('.floating-tech-icon');
-        techIcons.forEach((icon, index) => {
-          gsap.to(icon, {
-            y: 'random(-20, 20)',
-            x: 'random(-15, 15)',
-            rotation: 'random(-15, 15)',
-            duration: 'random(3, 6)',
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-            delay: index * 0.2
-          });
-        });
       });
     };
 
@@ -159,20 +145,12 @@ const Hero: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-radial-gradient from-white/5 to-transparent opacity-50 blur-2xl"></div>
       </div>
 
-      {/* Animated background particles */}
+      {/* Animated background particles - CSS only, no JS overhead */}
       <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block" aria-hidden="true">
         <div className="absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
         <div className="absolute top-40 right-40 w-3 h-3 bg-blue-400 rounded-full animate-pulse delay-100"></div>
         <div className="absolute top-60 right-60 w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-200"></div>
-        <div className="absolute bottom-40 right-32 w-3 h-3 bg-green-400 rounded-full animate-pulse delay-300"></div>
         <div className="absolute bottom-60 right-52 w-2 h-2 bg-orange-400 rounded-full animate-pulse delay-500"></div>
-      </div>
-
-      {/* Geometric shapes */}
-      <div className="absolute inset-0 pointer-events-none z-30 hidden sm:block">
-        <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-primary-300/30 dark:border-primary-500/20 rotate-45 animate-rotate-slow transition-colors duration-300"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-24 h-24 border border-secondary-300/30 dark:border-secondary-500/20 rotate-12 animate-pulse transition-colors duration-300"></div>
-        <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full animate-float"></div>
       </div>
 
       {/* Main content */}

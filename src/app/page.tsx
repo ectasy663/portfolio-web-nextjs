@@ -1,7 +1,10 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { Suspense, useState, useCallback } from 'react';
+
+// Import IntroLoader directly (not dynamically) so it renders immediately
+import IntroLoader from '@/components/IntroLoader';
 
 // Critical above-the-fold components - load immediately
 import Hero from '@/components/Hero';
@@ -30,35 +33,47 @@ const Contact = dynamic(() => import('@/components/Contact'), {
   loading: LoadingPlaceholder,
 });
 const PageEffects = dynamic(() => import('@/components/PageEffects'), {
-  ssr: false, // Keep PageEffects client-side only as it likely deals with window/scroll exclusively
+  ssr: false,
 });
 
 export default function HomePage() {
+  const [introComplete, setIntroComplete] = useState(false);
+
+  const handleIntroComplete = useCallback(() => {
+    setIntroComplete(true);
+  }, []);
+
   return (
-    <div className="App">
-      <Navigation />
-      <main className="relative z-0">
-        <Hero />
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <Skills />
-        </Suspense>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <Experience />
-        </Suspense>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <Achievements />
-        </Suspense>
-        <Suspense fallback={<LoadingPlaceholder />}>
-          <Contact />
-        </Suspense>
-      </main>
-      <PageEffects />
-    </div>
+    <>
+      {/* Intro animation - renders immediately, removed from DOM after completion */}
+      {!introComplete && <IntroLoader onComplete={handleIntroComplete} />}
+
+      {/* Main content - hidden during intro, revealed after */}
+      <div className={`App ${introComplete ? 'app-content--ready' : 'app-content--loading'}`}>
+        <Navigation />
+        <main className="relative z-0">
+          <Hero />
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <Skills />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <Experience />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <Achievements />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <Contact />
+          </Suspense>
+        </main>
+        <PageEffects />
+      </div>
+    </>
   );
 }

@@ -166,4 +166,4 @@ const Achievements: React.FC = () => {
   );
 };
 
-export default Achievements;
+export default React.memo(Achievements);

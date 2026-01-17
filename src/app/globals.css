@@ -719,3 +719,112 @@ html {
     scroll-behavior: auto !important;
   }
 }
+
+/* =========================================
+   INTRO LOADER - Awwwards Premium Animation
+   ========================================= */
+
+/* Hide main content until intro completes */
+.app-content--loading {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.app-content--ready {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-out;
+}
+
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.intro-loader__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      #0a0a0a 0%,
+      #111111 50%,
+      #0a0a0a 100%);
+}
+
+.intro-loader__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-loader__name {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Premium metallic gold text */
+/* Premium metallic gold text - Refined for elegance */
+.intro-loader__text {
+  font-family: 'The Seasons', Georgia, serif;
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+  /* Reduced max size for better fit */
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  /* Slightly more muted/elegant gold gradient */
+  background: linear-gradient(135deg,
+      #8A7324 0%,
+      #C5A02F 20%,
+      #E6CD68 40%,
+      #F0D475 50%,
+      #E6CD68 60%,
+      #C5A02F 80%,
+      #8A7324 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.9;
+  /* "Less opaque" / more subtle */
+  /* Softer shadow */
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.15));
+}
+
+/* Shine sweep effect - easier on the eyes */
+.intro-loader__shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%);
+  pointer-events: none;
+}
+
+/* Exit state */
+.intro-loader--exiting {
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .intro-loader__text {
+    font-size: clamp(1.2rem, 8vw, 2rem);
+    letter-spacing: -0.01em;
+  }
+
+  .intro-loader__content {
+    gap: 0.5rem;
+  }
+}
