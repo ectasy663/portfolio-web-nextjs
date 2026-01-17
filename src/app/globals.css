@@ -310,6 +310,73 @@
     z-index: 10 !important;
     pointer-events: none !important;
   }
+
+  /* Mobile text sizing and wrapping */
+  .gradient-text-name {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.2 !important;
+  }
+
+  /* Ensure split text characters don't overflow on mobile */
+  .split-char {
+    display: inline-block !important;
+  }
+
+  /* Reduce animation intensity on mobile for performance */
+  .parallax-layer {
+    animation: none !important;
+  }
+
+  /* Better spacing for hero content on mobile */
+  #home .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Ensure typewriter text fits on mobile */
+  .gradient-text-gold {
+    font-size: inherit !important;
+    word-break: break-word;
+  }
+}
+
+/* Extra small mobile devices (< 375px) */
+@media (max-width: 374px) {
+  .gradient-text-name {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Even smaller hero text for very small screens */
+  #home h1 {
+    font-size: 1.5rem;
+  }
+
+  #home h2 {
+    font-size: 1rem;
+  }
+
+  #home p {
+    font-size: 0.875rem;
+  }
+
+  /* Smaller tech badges for very small screens */
+  .tech-badge {
+    padding: 0.375rem 0.625rem;
+  }
+
+  .tech-badge span {
+    font-size: 0.625rem;
+  }
+
+  /* Smaller buttons for very small screens */
+  #home button,
+  #home a.btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
+  }
 }
 
 /* Mobile button accessibility fixes - ensures touch events work on mobile */

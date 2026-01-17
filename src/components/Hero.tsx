@@ -369,54 +369,58 @@ const Hero: React.FC = () => {
             {/* Left side - Text content */}
             <div className="flex-1 text-left space-y-6 sm:space-y-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50" style={{ opacity: 1 }}>
+              <h1 ref={titleRef} className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50" style={{ opacity: 1 }}>
+                {/* Mobile: Split name into two lines for better fit */}
                 <div className="block sm:hidden text-left">
-                  <div className="text-4xl font-bold mb-2 gradient-text-name">Naman Singh</div>
-                  <div className="text-4xl font-bold gradient-text-name">Panwar</div>
+                  <div className="text-2xl xs:text-3xl font-bold mb-1 gradient-text-name break-words">Naman Singh</div>
+                  <div className="text-2xl xs:text-3xl font-bold gradient-text-name break-words">Panwar</div>
                 </div>
-                <span className="hidden sm:inline whitespace-nowrap gradient-text-name transition-colors duration-300">
+                {/* Desktop: Single line display */}
+                <span className="hidden sm:inline gradient-text-name transition-colors duration-300">
                   Naman Singh Panwar
                 </span>
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-3">
-                <LuRocket className="w-8 h-8 sm:w-10 sm:h-10 text-orange-500 animate-pulse-slow" />
-                <Typewriter
-                  options={{
-                    strings: [
-                      'AI/ML Engineer',
-                      'Full Stack Developer',
-                      'Mobile App Developer',
-                      'Creative Technologist',
-                      'Problem Solver'
-                    ],
-                    autoStart: true,
-                    loop: true,
-                    deleteSpeed: 30,
-                    delay: 100,
-                    wrapperClassName: "gradient-text-gold",
-                  }}
-                />
+              <h2 ref={subtitleRef} className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2 sm:gap-3 flex-wrap">
+                <LuRocket className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-orange-500 animate-pulse-slow flex-shrink-0" />
+                <span className="min-w-0">
+                  <Typewriter
+                    options={{
+                      strings: [
+                        'AI/ML Engineer',
+                        'Full Stack Developer',
+                        'Mobile App Developer',
+                        'Creative Technologist',
+                        'Problem Solver'
+                      ],
+                      autoStart: true,
+                      loop: true,
+                      deleteSpeed: 30,
+                      delay: 100,
+                      wrapperClassName: "gradient-text-gold",
+                    }}
+                  />
+                </span>
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
-                Crafting intelligent digital experiences <span className="inline-block align-middle"><LuSparkles className="w-5 h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
-                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <LuBrain className="w-5 h-5" /></span>,{' '}
-                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <LuGlobe className="w-5 h-5" /></span>, and{' '}
-                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <LuPalette className="w-5 h-5" /></span>.
-                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><LuLightbulb className="w-5 h-5 text-yellow-500" /></span>.
+              <p ref={descriptionRef} className="text-base xs:text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
+                Crafting intelligent digital experiences <span className="inline-block align-middle"><LuSparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
+                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <LuBrain className="w-4 h-4 sm:w-5 sm:h-5" /></span>,{' '}
+                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <LuGlobe className="w-4 h-4 sm:w-5 sm:h-5" /></span>, and{' '}
+                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <LuPalette className="w-4 h-4 sm:w-5 sm:h-5" /></span>.
+                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><LuLightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" /></span>.
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
-              <div ref={techBadgesRef} className="flex flex-wrap gap-2 sm:gap-3">
+              <div ref={techBadgesRef} className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-3">
                 {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
-                    className="tech-badge group flex items-center bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-3 sm:px-5 py-2 sm:py-2.5 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform cursor-pointer"
+                    className="tech-badge group flex items-center bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2.5 xs:px-3 sm:px-5 py-1.5 xs:py-2 sm:py-2.5 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform cursor-pointer"
                   >
-                    <span className={`text-xs sm:text-sm font-semibold ${tech.color} transition-colors duration-300`}>{tech.name}</span>
+                    <span className={`text-[10px] xs:text-xs sm:text-sm font-semibold ${tech.color} transition-colors duration-300`}>{tech.name}</span>
                   </div>
                 ))}
               </div>
