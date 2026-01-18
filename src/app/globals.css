@@ -278,6 +278,23 @@
     overflow: visible !important;
   }
 
+  /* Hero name specific styles for better wrapping */
+  .hero-name {
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+    display: inline-block;
+  }
+
+  /* Allow wrapping on very small screens if necessary */
+  @media (max-width: 374px) {
+    .hero-name {
+      white-space: normal;
+      word-spacing: 9999px; /* Forces each word to its own line if wrapping is needed */
+    }
+  }
+
   /* Curvy underline animation */
   .curvy-underline path {
     stroke-dasharray: 1000;
