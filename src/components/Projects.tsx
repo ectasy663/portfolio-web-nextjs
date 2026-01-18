@@ -564,7 +564,7 @@ const Projects: React.FC = () => {
         {/* Call to action */}
         <div ref={ctaRef} className="text-center mt-20">
           <div className="bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               Let&apos;s Build Something Amazing Together
             </h3>
             <p className="text-gray-600 dark:text-gray-200 mb-6 max-w-2xl mx-auto">

@@ -310,7 +310,7 @@ const Achievements: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
+        <h2 ref={titleRef} className="text-5xl sm:text-6xl md:text-7xl font-bold text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Awards & Recognition
         </h2>
 
@@ -363,19 +363,19 @@ const Achievements: React.FC = () => {
         {/* Summary stats */}
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="stat-item text-center">
-            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">3+</div>
+            <div className="stat-number text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-gold mb-2">3+</div>
             <p className="stat-label text-gray-600 dark:text-gray-400">Major Awards</p>
           </div>
           <div className="stat-item text-center">
-            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">25K+</div>
+            <div className="stat-number text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-gold mb-2">25K+</div>
             <p className="stat-label text-gray-600 dark:text-gray-400">Participants Competed</p>
           </div>
           <div className="stat-item text-center">
-            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">Top 20%</div>
+            <div className="stat-number text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-gold mb-2">Top 20%</div>
             <p className="stat-label text-gray-600 dark:text-gray-400">National Ranking</p>
           </div>
           <div className="stat-item text-center">
-            <div className="stat-number text-3xl md:text-4xl font-bold gradient-text-gold mb-2">4+</div>
+            <div className="stat-number text-4xl sm:text-5xl md:text-6xl font-bold gradient-text-gold mb-2">4+</div>
             <p className="stat-label text-gray-600 dark:text-gray-400">Tech Giants Recognition</p>
           </div>
         </div>
@@ -383,7 +383,7 @@ const Achievements: React.FC = () => {
         {/* Quote section */}
         <div ref={quoteRef} className="mt-16 text-center">
           <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-gray-200/50 dark:border-white/20 max-w-4xl mx-auto shadow-lg hover:shadow-2xl transition-all duration-300">
-            <blockquote className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 italic mb-4">
+            <blockquote className="text-2xl sm:text-3xl md:text-4xl text-gray-700 dark:text-gray-300 italic mb-4">
               &quot;Success is not final, failure is not fatal: it is the courage to continue that counts.&quot;
             </blockquote>
             <p className="quote-author text-gray-600 dark:text-gray-400">

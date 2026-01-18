@@ -446,11 +446,11 @@ const Contact: React.FC = () => {
                 <h4 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Response Time</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="response-stat text-center">
-                    <div className="text-2xl font-bold gradient-text-gold">&lt; 24h</div>
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-gold">&lt; 24h</div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">Email Response</p>
                   </div>
                   <div className="response-stat text-center">
-                    <div className="text-2xl font-bold gradient-text-gold">100%</div>
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-gold">100%</div>
                     <p className="text-gray-600 dark:text-gray-400 text-sm">Reply Rate</p>
                   </div>
                 </div>
@@ -459,7 +459,7 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <div className="form-container bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300 relative overflow-hidden" style={{ transformStyle: 'preserve-3d' }}>
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
+              <h3 className="text-3xl sm:text-4xl md:text-4xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
 
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
