@@ -1,14 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { LuMail, LuLinkedin, LuGithub, LuSend, LuCheck, LuSparkles } from 'react-icons/lu';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import { loadGSAP } from '@/utils/gsapLoader';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,103 +21,95 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      if (titleRef.current && titleRef.current.textContent) {
-        const text = titleRef.current.textContent;
-        titleRef.current.innerHTML = '';
+    let cancelled = false;
 
-        // Split into words first for better animation
-        const words = text.split(' ');
-        words.forEach((word, wordIndex) => {
-          const wordSpan = document.createElement('span');
-          wordSpan.className = 'word inline-block';
-          wordSpan.style.display = 'inline-block';
-          wordSpan.style.marginRight = '0.3em';
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-          word.split('').forEach((char) => {
-            const charSpan = document.createElement('span');
-            charSpan.className = 'title-char inline-block';
-            charSpan.style.display = 'inline-block';
-            charSpan.textContent = char;
-            wordSpan.appendChild(charSpan);
-          });
-
-          titleRef.current?.appendChild(wordSpan);
-        });
-
-        const chars = titleRef.current.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          y: 100,
-          rotateX: -90,
-          transformPerspective: 1000
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.8,
-          stagger: 0.02,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === INTRO TEXT FADE IN ===
       const introText = contentRef.current?.querySelector('.intro-text');
       if (introText) {
-        gsap.set(introText, {
-          opacity: 0,
-          y: 30
-        });
-
-        gsap.to(introText, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: introText,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(introText,
+          {
+            opacity: 0,
+            y: 30
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: introText,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       }
 
       // === CONTACT INFO CARDS STAGGERED ENTRANCE ===
       const contactCards = contactInfoRef.current?.querySelectorAll('.contact-card');
       if (contactCards) {
         contactCards.forEach((card, index) => {
-          gsap.set(card, {
-            opacity: 0,
-            x: -60,
-            rotateY: -30,
-            transformPerspective: 1000
-          });
-
-          gsap.to(card, {
-            opacity: 1,
-            x: 0,
-            rotateY: 0,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: "back.out(1.5)",
-            scrollTrigger: {
-              trigger: contactInfoRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(card,
+            {
+              opacity: 0,
+              x: -60,
+              rotateY: -30,
+              transformPerspective: 1000
+            },
+            {
+              opacity: 1,
+              x: 0,
+              rotateY: 0,
+              duration: 0.8,
+              delay: index * 0.15,
+              ease: "back.out(1.5)",
+              scrollTrigger: {
+                trigger: contactInfoRef.current,
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -143,48 +130,50 @@ const Contact: React.FC = () => {
       const responseStats = contactInfoRef.current?.querySelectorAll('.response-stat');
       if (responseStats) {
         responseStats.forEach((stat, index) => {
-          gsap.set(stat, {
-            opacity: 0,
-            scale: 0.5
-          });
-
-          gsap.to(stat, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            delay: 0.3 + index * 0.1,
-            ease: "back.out(2)",
-            scrollTrigger: {
-              trigger: contactInfoRef.current,
-              start: "top 75%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(stat,
+            {
+              opacity: 0,
+              scale: 0.5
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.6,
+              delay: 0.3 + index * 0.1,
+              ease: "back.out(2)",
+              scrollTrigger: {
+                trigger: contactInfoRef.current,
+                start: "top 75%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
       // === FORM CONTAINER ENTRANCE ===
       const formContainer = formRef.current?.closest('.form-container');
       if (formContainer) {
-        gsap.set(formContainer, {
-          opacity: 0,
-          x: 60,
-          rotateY: 15,
-          transformPerspective: 1500
-        });
-
-        gsap.to(formContainer, {
-          opacity: 1,
-          x: 0,
-          rotateY: 0,
-          duration: 1,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: formContainer,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(formContainer,
+          {
+            opacity: 0,
+            x: 60,
+            rotateY: 15,
+            transformPerspective: 1500
+          },
+          {
+            opacity: 1,
+            x: 0,
+            rotateY: 0,
+            duration: 1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: formContainer,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       }
 
       // === FORM INPUTS FOCUS ANIMATION ===
@@ -284,10 +273,20 @@ const Contact: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize Contact animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // === SUCCESS ANIMATION ===
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (showSuccess && formRef.current) {
       // Confetti-like particles
       const particles = 20;
@@ -394,7 +393,7 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2">
+        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Let&apos;s Build Something Amazing
         </h2>
 

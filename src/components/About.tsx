@@ -1,16 +1,11 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { loadGSAP } from '@/utils/gsapLoader';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { strengths } from '@/data/about';
 import { LuRocket, LuGraduationCap, LuBot, LuBookOpen, LuShield, LuBanknote, LuStar } from 'react-icons/lu';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const About: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -20,68 +15,70 @@ const About: React.FC = () => {
   const strengthsRef = useRef<HTMLDivElement>(null);
   const strengthsTitleRef = useRef<HTMLHeadingElement>(null);
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      if (titleRef.current && titleRef.current.textContent) {
-        const text = titleRef.current.textContent;
-        titleRef.current.innerHTML = '';
+    let cancelled = false;
 
-        text.split('').forEach((char) => {
-          const span = document.createElement('span');
-          span.className = 'title-char inline-block';
-          span.style.display = 'inline-block';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          titleRef.current?.appendChild(span);
-        });
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-        const chars = titleRef.current.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          y: 80,
-          rotateY: -90,
-          transformPerspective: 1000
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          rotateY: 0,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === IMAGE 3D ENTRANCE ===
       if (imageRef.current) {
-        gsap.set(imageRef.current, {
-          opacity: 0,
-          x: -100,
-          rotateY: -45,
-          transformPerspective: 1500
-        });
-
-        gsap.to(imageRef.current, {
-          opacity: 1,
-          x: 0,
-          rotateY: 0,
-          duration: 1.5,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: imageRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(imageRef.current,
+          {
+            opacity: 0,
+            x: -100,
+            rotateY: -45,
+            transformPerspective: 1500
+          },
+          {
+            opacity: 1,
+            x: 0,
+            rotateY: 0,
+            duration: 1.5,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: imageRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
 
         // 3D tilt on hover
         const imageContainer = imageRef.current.querySelector('.image-container');
@@ -130,23 +127,24 @@ const About: React.FC = () => {
         const paragraphs = contentRef.current.querySelectorAll('p');
 
         paragraphs.forEach((p, pIndex) => {
-          gsap.set(p, {
-            opacity: 0,
-            y: 30
-          });
-
-          gsap.to(p, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: pIndex * 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: p,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(p,
+            {
+              opacity: 0,
+              y: 30
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              delay: pIndex * 0.2,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: p,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -165,52 +163,54 @@ const About: React.FC = () => {
 
         const chars = strengthsTitleRef.current.querySelectorAll('.str-title-char');
 
-        gsap.set(chars, {
-          opacity: 0,
-          scale: 0,
-          rotation: gsap.utils.random(-45, 45, true)
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          scale: 1,
-          rotation: 0,
-          duration: 0.6,
-          stagger: 0.03,
-          ease: "back.out(2)",
-          scrollTrigger: {
-            trigger: strengthsRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(chars,
+          {
+            opacity: 0,
+            scale: 0,
+            rotation: gsap.utils.random(-45, 45, true)
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.6,
+            stagger: 0.03,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: strengthsRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       }
 
       // === STRENGTH CARDS 3D FLIP REVEAL ===
       const strengthCards = strengthsRef.current?.querySelectorAll('.strength-card');
       if (strengthCards) {
         strengthCards.forEach((card, index) => {
-          gsap.set(card, {
-            opacity: 0,
-            rotationX: -90,
-            y: 100,
-            transformPerspective: 1500,
-            transformOrigin: "top center"
-          });
-
-          gsap.to(card, {
-            opacity: 1,
-            rotationX: 0,
-            y: 0,
-            duration: 1,
-            delay: index * 0.15,
-            ease: "back.out(1.2)",
-            scrollTrigger: {
-              trigger: strengthsRef.current,
-              start: "top 70%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(card,
+            {
+              opacity: 0,
+              rotationX: -90,
+              y: 100,
+              transformPerspective: 1500,
+              transformOrigin: "top center"
+            },
+            {
+              opacity: 1,
+              rotationX: 0,
+              y: 0,
+              duration: 1,
+              delay: index * 0.15,
+              ease: "back.out(1.2)",
+              scrollTrigger: {
+                trigger: strengthsRef.current,
+                start: "top 70%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -255,9 +255,19 @@ const About: React.FC = () => {
         });
       }
 
-    }, sectionRef);
+        }, sectionRef);
 
-    return () => ctx.revert();
+        return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize About animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -300,6 +310,7 @@ const About: React.FC = () => {
         <h2
           ref={titleRef}
           className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
+          style={{ opacity: 0 }}
         >
           About Me
         </h2>

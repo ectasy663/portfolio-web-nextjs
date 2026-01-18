@@ -1,15 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { LuStar } from 'react-icons/lu';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { loadGSAP } from '@/utils/gsapLoader';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { achievements } from '@/data/achievements';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const Achievements: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -18,77 +13,77 @@ const Achievements: React.FC = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      if (titleRef.current && titleRef.current.textContent) {
-        const text = titleRef.current.textContent;
-        titleRef.current.innerHTML = '';
+    let cancelled = false;
 
-        text.split('').forEach((char) => {
-          const span = document.createElement('span');
-          span.className = 'title-char inline-block';
-          span.style.display = 'inline-block';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          titleRef.current?.appendChild(span);
-        });
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-        const chars = titleRef.current.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          y: -60,
-          scale: 1.5,
-          rotation: gsap.utils.random(-30, 30, true)
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotation: 0,
-          duration: 0.8,
-          stagger: 0.03,
-          ease: "elastic.out(1, 0.5)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === ACHIEVEMENT CARDS STAGGERED 3D ENTRANCE ===
       const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
       if (achievementCards) {
         achievementCards.forEach((card, index) => {
-          // Calculate grid position for wave effect
           const row = Math.floor(index / 3);
           const col = index % 3;
-          const delay = (row + col) * 0.1;
+          const delay = (row + col) * 0.05;
 
-          gsap.set(card, {
-            opacity: 0,
-            scale: 0.5,
-            rotationY: -45,
-            transformPerspective: 1500
-          });
-
-          gsap.to(card, {
-            opacity: 1,
-            scale: 1,
-            rotationY: 0,
-            duration: 1,
-            delay: delay,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: achievementsRef.current,
-              start: "top 75%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(card,
+            {
+              opacity: 0,
+              scale: 0.8,
+              rotationY: -30,
+              transformPerspective: 1500
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              rotationY: 0,
+              duration: 0.8,
+              delay: delay,
+              ease: "back.out(1.7)",
+              scrollTrigger: {
+                trigger: achievementsRef.current,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -96,25 +91,26 @@ const Achievements: React.FC = () => {
       const rankBadges = achievementsRef.current?.querySelectorAll('.rank-badge');
       if (rankBadges) {
         rankBadges.forEach((badge, index) => {
-          gsap.set(badge, {
-            opacity: 0,
-            scale: 0,
-            rotation: -180
-          });
-
-          gsap.to(badge, {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 0.6,
-            delay: 0.3 + index * 0.1,
-            ease: "back.out(2)",
-            scrollTrigger: {
-              trigger: badge.closest('.achievement-card'),
-              start: "top 80%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(badge,
+            {
+              opacity: 0,
+              scale: 0,
+              rotation: -180
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 0,
+              duration: 0.5,
+              delay: 0.1 + index * 0.05,
+              ease: "back.out(2)",
+              scrollTrigger: {
+                trigger: badge.closest('.achievement-card'),
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -290,6 +286,16 @@ const Achievements: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize Achievements animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -304,7 +310,7 @@ const Achievements: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text-gold leading-tight py-2">
+        <h2 ref={titleRef} className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Awards & Recognition
         </h2>
 

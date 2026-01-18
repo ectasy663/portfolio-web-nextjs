@@ -127,37 +127,185 @@ export function createMouseParallax(container: HTMLElement, elements: HTMLElemen
 /**
  * Text reveal animation (character by character)
  */
-export function animateTextReveal(
+/**
+ * Robust Text reveal animation using fromTo to ensure visibility
+ * Handles gradient text compatibility by ensuring inline-block behavior
+ */
+export type SplitTextInstance = {
+  element: HTMLElement;
+  chars: HTMLSpanElement[];
+  revert: () => void;
+};
+
+export function createSplitText(
+  element: HTMLElement,
+  options: {
+    // If true, will not use inline-block if it breaks gradients (experimental)
+    preserveGradient?: boolean;
+  } = {}
+): SplitTextInstance {
+  const originalHTML = element.innerHTML;
+  const text = element.textContent || '';
+  element.innerHTML = '';
+
+  const computed = window.getComputedStyle(element);
+  const hasGradientClass =
+    element.classList.contains('gradient-text-gold') ||
+    element.classList.contains('gradient-text-name');
+  const usesClippedBackground =
+    computed.backgroundImage !== 'none' &&
+    (computed.webkitBackgroundClip === 'text' || computed.backgroundClip === 'text');
+  const hasTransparentFill =
+    computed.color === 'transparent' ||
+    computed.color === 'rgba(0, 0, 0, 0)' ||
+    (computed as any).webkitTextFillColor === 'transparent';
+  const shouldPreserveGradient =
+    options.preserveGradient ?? (hasGradientClass || (usesClippedBackground && hasTransparentFill));
+
+  const gradientClasses: string[] = [];
+  if (element.classList.contains('gradient-text-gold')) gradientClasses.push('gradient-text-gold');
+  if (element.classList.contains('gradient-text-name')) gradientClasses.push('gradient-text-name');
+
+  const applyContinuousGradient = (targets: HTMLSpanElement[]) => {
+    const parentRect = element.getBoundingClientRect();
+    if (!parentRect.width || !parentRect.height) return;
+
+    const bgSizeTokens = computed.backgroundSize.split(/\s+/).filter(Boolean);
+    const sizeXToken = bgSizeTokens[0] || '100%';
+    const sizeYToken = bgSizeTokens[1] || 'auto';
+
+    const percentToMultiplier = (value: string) => {
+      const match = value.trim().match(/^([0-9.]+)%$/);
+      if (!match) return null;
+      const n = Number(match[1]);
+      return Number.isFinite(n) ? n / 100 : null;
+    };
+
+    const multiplierX = percentToMultiplier(sizeXToken) ?? 1;
+    const multiplierY = percentToMultiplier(sizeYToken) ?? null;
+
+    const backgroundWidthPx = parentRect.width * multiplierX;
+    const backgroundHeightPx = multiplierY ? parentRect.height * multiplierY : parentRect.height;
+
+    targets.forEach((span) => {
+      const spanRect = span.getBoundingClientRect();
+      const offsetX = spanRect.left - parentRect.left;
+      const offsetY = spanRect.top - parentRect.top;
+
+      span.style.backgroundImage = computed.backgroundImage;
+      span.style.backgroundRepeat = 'no-repeat';
+      span.style.backgroundSize = `${backgroundWidthPx}px ${backgroundHeightPx}px`;
+      span.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`;
+      span.style.backgroundClip = 'text';
+      (span.style as any).WebkitBackgroundClip = 'text';
+      span.style.color = 'transparent';
+      (span.style as any).WebkitTextFillColor = 'transparent';
+      span.style.animation = 'none';
+    });
+  };
+
+  const animChars: HTMLSpanElement[] = [];
+
+  Array.from(text).forEach((char) => {
+    if (char === ' ') {
+      const spaceSpan = document.createElement('span');
+      spaceSpan.className = 'split-space';
+      spaceSpan.style.display = 'inline-block';
+      spaceSpan.style.width = '0.33em';
+      spaceSpan.style.lineHeight = 'inherit';
+      spaceSpan.style.verticalAlign = 'baseline';
+      spaceSpan.textContent = '\u00A0';
+      element.appendChild(spaceSpan);
+      element.appendChild(document.createElement('wbr'));
+      return;
+    }
+
+    const span = document.createElement('span');
+    span.className = 'split-char inline-block';
+    span.style.display = 'inline-block';
+    span.style.willChange = 'transform, opacity';
+    span.textContent = char;
+    span.style.lineHeight = 'inherit';
+    span.style.letterSpacing = 'inherit';
+    span.style.verticalAlign = 'baseline';
+    span.style.overflow = 'visible';
+    span.style.position = 'relative';
+
+    if (shouldPreserveGradient) {
+      gradientClasses.forEach((cls) => span.classList.add(cls));
+      span.style.backgroundImage = computed.backgroundImage;
+      span.style.backgroundSize = computed.backgroundSize;
+      span.style.backgroundRepeat = computed.backgroundRepeat;
+      span.style.backgroundClip = 'text';
+      (span.style as any).WebkitBackgroundClip = 'text';
+      span.style.color = 'transparent';
+      (span.style as any).WebkitTextFillColor = 'transparent';
+    }
+
+    element.appendChild(span);
+    animChars.push(span);
+  });
+
+  if (shouldPreserveGradient) {
+    requestAnimationFrame(() => applyContinuousGradient(animChars));
+  }
+
+  return {
+    element,
+    chars: animChars,
+    revert: () => {
+      element.innerHTML = originalHTML;
+    }
+  };
+}
+
+export function animateSplitText(
   element: HTMLElement,
   options: {
     duration?: number;
     stagger?: number;
     ease?: string;
+    delay?: number;
+    scrollTrigger?: any;
     from?: gsap.TweenVars;
+    // If true, will not use inline-block if it breaks gradients (experimental)
+    preserveGradient?: boolean;
   } = {}
 ) {
-  const { chars } = splitTextIntoSpans(element, 'chars');
+  const split = createSplitText(element, { preserveGradient: options.preserveGradient });
 
   const defaults = {
-    duration: 0.8,
-    stagger: 0.02,
+    duration: 1,
+    stagger: 0.03,
     ease: 'back.out(1.7)',
-    from: { opacity: 0, y: 50, rotateX: -90 }
+    delay: 0,
+    from: {
+      opacity: 0,
+      y: 40,
+      rotateX: -90,
+      transformPerspective: 1000
+    }
   };
 
   const config = { ...defaults, ...options };
 
-  gsap.set(chars, config.from);
-
-  return gsap.to(chars, {
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    duration: config.duration,
-    stagger: config.stagger,
-    ease: config.ease
-  });
+  return gsap.fromTo(split.chars,
+    config.from,
+    {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      duration: config.duration,
+      stagger: config.stagger,
+      ease: config.ease,
+      delay: config.delay,
+      scrollTrigger: config.scrollTrigger
+    }
+  );
 }
+
+// Keep legacy export name for compatibility if needed, but alias to new function
+export const animateTextReveal = animateSplitText;
 
 /**
  * Word wave animation

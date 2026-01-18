@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { LuExternalLink, LuGithub, LuArrowRight, LuStar, LuEye, LuGitFork, LuCalendar, LuCode, LuSparkles } from 'react-icons/lu';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { loadGSAP } from '@/utils/gsapLoader';
 import { scrollToId } from '@/utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
@@ -12,80 +12,77 @@ import {
 
 import { projects } from '@/data/projects';
 
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleTextRef = useRef<HTMLSpanElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleTextRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
-      if (titleElement && titleElement.textContent) {
-        const text = titleElement.textContent;
-        titleElement.innerHTML = '';
+    let cancelled = false;
 
-        text.split('').forEach((char) => {
-          const span = document.createElement('span');
-          span.className = 'title-char inline-block';
-          span.style.display = 'inline-block';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          titleElement.appendChild(span);
-        });
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-        const chars = titleElement.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          scale: 2,
-          filter: "blur(10px)",
-          transformPerspective: 1000
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 0.6,
-          stagger: 0.03,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === FEATURED BADGE ENTRANCE ===
       const featuredBadge = sectionRef.current?.querySelector('.featured-badge');
       if (featuredBadge) {
-        gsap.set(featuredBadge, {
-          opacity: 0,
-          scale: 0,
-          rotation: -180
-        });
-
-        gsap.to(featuredBadge, {
-          opacity: 1,
-          scale: 1,
-          rotation: 0,
-          duration: 0.8,
-          ease: "back.out(2)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(featuredBadge,
+          {
+            opacity: 0,
+            scale: 0,
+            rotation: -180
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 0.8,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       }
 
       // === PROJECT CARDS CINEMATIC REVEAL ===
@@ -94,27 +91,28 @@ const Projects: React.FC = () => {
         projectCards.forEach((card, index) => {
           const isEven = index % 2 === 0;
 
-          gsap.set(card, {
-            opacity: 0,
-            y: 100,
-            x: isEven ? -100 : 100,
-            rotationY: isEven ? -30 : 30,
-            transformPerspective: 1500
-          });
-
-          gsap.to(card, {
-            opacity: 1,
-            y: 0,
-            x: 0,
-            rotationY: 0,
-            duration: 1.2,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(card,
+            {
+              opacity: 0,
+              y: 50,
+              x: isEven ? -50 : 50,
+              rotationY: isEven ? -15 : 15,
+              transformPerspective: 1500
+            },
+            {
+              opacity: 1,
+              y: 0,
+              x: 0,
+              rotationY: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -296,6 +294,16 @@ const Projects: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize Projects animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const getTechIcon = (tech: string) => {
@@ -331,7 +339,7 @@ const Projects: React.FC = () => {
           </div>
 
           <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
-            <span className="gradient-text-gold">
+            <span ref={titleTextRef} className="gradient-text-gold" style={{ opacity: 0 }}>
               Project Showcase
             </span>
           </h2>

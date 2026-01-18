@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useLayoutEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { LuArrowDown, LuGithub, LuLinkedin, LuMail, LuCode, LuZap, LuRocket, LuSparkles, LuBrain, LuGlobe, LuPalette, LuLightbulb } from 'react-icons/lu';
 import { scrollToId } from '@/utils/scroll';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import ResumeButton from './ResumeButton';
 import dynamic from 'next/dynamic';
+import { loadGSAP } from '@/utils/gsapLoader';
 
 // Lazy load heavy dependencies
 const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
@@ -18,6 +20,7 @@ interface TechStackItem {
 const Hero: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
@@ -26,208 +29,163 @@ const Hero: React.FC = () => {
   const particlesRef = useRef<HTMLDivElement>(null);
   const techBadgesRef = useRef<HTMLDivElement>(null);
 
-  // Defer GSAP initialization for faster first paint
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: heroRef,
+    targetRef: nameRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      delay: 0.1,
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      delay: 0.05,
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  // Initialize GSAP immediately (less lag)
+  useLayoutEffect(() => {
+    let cancelled = false;
+
     const initAnimations = async () => {
-      const gsap = (await import('gsap')).default;
-      const mm = gsap.matchMedia();
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        // === SPLIT TEXT ANIMATION FOR NAME ===
-        const nameElement = titleRef.current?.querySelector('.gradient-text-name');
-        if (nameElement && nameElement.textContent) {
-          const text = nameElement.textContent;
-          nameElement.innerHTML = '';
+        const mm = gsap.matchMedia();
 
-          // Create character spans
-          text.split('').forEach((char) => {
-            const span = document.createElement('span');
-            span.className = 'split-char inline-block';
-            span.style.display = 'inline-block';
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            nameElement.appendChild(span);
-          });
-
-          const chars = nameElement.querySelectorAll('.split-char');
-
-          // Animate characters with wave effect
-          gsap.set(chars, {
-            opacity: 0,
-            y: 80,
-            rotateX: -90,
-            transformPerspective: 1000
-          });
-
-          gsap.to(chars, {
-            opacity: 1,
-            y: 0,
-            rotateX: 0,
-            duration: 1,
-            stagger: 0.04,
-            ease: "back.out(1.7)",
-            delay: 0.2
-          });
-        }
-
-        // Mobile name split text
-        const mobileNameElements = titleRef.current?.querySelectorAll('.gradient-text-name');
-        mobileNameElements?.forEach((el) => {
-          if (el.classList.contains('split-animated')) return;
-          el.classList.add('split-animated');
-        });
-
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
         // === SUBTITLE ANIMATION ===
         if (subtitleRef.current) {
-          gsap.set(subtitleRef.current, {
-            opacity: 0,
-            y: 40,
-            filter: "blur(10px)"
-          });
-
-          gsap.to(subtitleRef.current, {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 1.2,
-            ease: "power4.out",
-            delay: 0.8
-          });
+          gsap.fromTo(subtitleRef.current,
+            {
+              opacity: 0,
+              y: 40,
+              filter: "blur(10px)"
+            },
+            {
+              opacity: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 1.2,
+              ease: "power4.out",
+              delay: 0.2 // Reduced from 0.8
+            }
+          );
         }
 
         // === DESCRIPTION WITH SCRAMBLE EFFECT ===
         if (descriptionRef.current) {
-          gsap.set(descriptionRef.current, { opacity: 0, y: 30 });
-
-          gsap.to(descriptionRef.current, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 1.2
-          });
+          gsap.fromTo(descriptionRef.current,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+              delay: 0.4 // Reduced from 1.2
+            }
+          );
         }
 
         // === BUTTONS STAGGERED ENTRANCE ===
         if (buttonsRef.current) {
           const buttons = buttonsRef.current.querySelectorAll('button, a');
-          gsap.set(buttons, {
-            opacity: 0,
-            y: 50,
-            scale: 0.8,
-            rotateY: -15
-          });
-
-          gsap.to(buttons, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotateY: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "back.out(1.7)",
-            delay: 1.5
-          });
+          gsap.fromTo(buttons,
+            {
+              opacity: 0,
+              y: 30, // Reduced movement distance
+              scale: 0.9, // Less extreme scale
+              rotateY: 0 // Removed rotation for cleaner entry
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              rotateY: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "back.out(1.7)",
+              delay: 0.8 // Reduced from 1.5
+            }
+          );
         }
 
         // === SOCIAL LINKS POP-IN ===
         if (socialRef.current) {
           const socialLinks = socialRef.current.querySelectorAll('a');
-          gsap.set(socialLinks, {
-            opacity: 0,
-            scale: 0,
-            rotation: -180
-          });
-
-          gsap.to(socialLinks, {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(2)",
-            delay: 1.8
-          });
+          gsap.fromTo(socialLinks,
+            {
+              opacity: 0,
+              scale: 0,
+              rotation: -90 // Reduced rotation
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "back.out(2)",
+              delay: 1.0 // Reduced from 1.8
+            }
+          );
         }
 
-        // === TECH BADGES FLOATING ENTRANCE ===
+        // === TECH BADGES ENTRANCE ===
         if (techBadgesRef.current) {
           const badges = techBadgesRef.current.querySelectorAll('.tech-badge');
-          gsap.set(badges, {
-            opacity: 0,
-            y: 30,
-            scale: 0.5,
-            rotation: gsap.utils.random(-20, 20, true)
-          });
-
-          gsap.to(badges, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotation: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "elastic.out(1, 0.5)",
-            delay: 1.3
-          });
-
-          // Add continuous floating
-          badges.forEach((badge, index) => {
-            gsap.to(badge, {
-              y: "+=8",
-              duration: 2 + index * 0.3,
-              ease: "sine.inOut",
-              yoyo: true,
-              repeat: -1,
-              delay: index * 0.2
-            });
-          });
+          gsap.fromTo(badges,
+            {
+              opacity: 0,
+              y: 20,
+              scale: 0.8,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.05,
+              ease: "power2.out",
+              delay: 0.6 // Reduced from 1.3
+            }
+          );
         }
 
         // === PROFILE IMAGE REVEAL ===
         if (imageRef.current) {
-          gsap.set(imageRef.current, {
-            opacity: 0,
-            scale: 0.8,
-            x: 100,
-            rotateY: 25
-          });
-
-          gsap.to(imageRef.current, {
-            opacity: 1,
-            scale: 1,
-            x: 0,
-            rotateY: 0,
-            duration: 1.5,
-            ease: "expo.out",
-            delay: 0.5
-          });
+          gsap.fromTo(imageRef.current,
+            {
+              opacity: 0,
+              scale: 0.8,
+              x: 100,
+              rotateY: 25
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              rotateY: 0,
+              duration: 1.5,
+              ease: "expo.out",
+              delay: 0.1 // Reduced from 0.5
+            }
+          );
         }
 
         // === PARTICLES FLOATING ANIMATION ===
-        if (particlesRef.current) {
-          const particles = particlesRef.current.querySelectorAll('.particle');
-          particles.forEach((particle, index) => {
-            // Random floating
-            gsap.to(particle, {
-              y: gsap.utils.random(-30, 30),
-              x: gsap.utils.random(-20, 20),
-              duration: 3 + index * 0.5,
-              ease: "sine.inOut",
-              yoyo: true,
-              repeat: -1,
-              delay: index * 0.3
-            });
+        // Removed as per design request
 
-            // Scale pulse
-            gsap.to(particle, {
-              scale: gsap.utils.random(0.8, 1.3),
-              duration: 2 + index * 0.4,
-              ease: "sine.inOut",
-              yoyo: true,
-              repeat: -1
-            });
-          });
-        }
 
         // === MOUSE PARALLAX FOR HERO ===
         const handleMouseMove = (e: MouseEvent) => {
@@ -278,14 +236,17 @@ const Hero: React.FC = () => {
           heroRef.current?.removeEventListener('mousemove', handleMouseMove);
         };
       });
+      } catch (error) {
+        console.error('Failed to initialize Hero animations:', error);
+      }
     };
 
-    // Use requestIdleCallback for non-blocking animation init
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      (window as Window & { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback?.(initAnimations);
-    } else {
-      setTimeout(initAnimations, 1);
-    }
+    // Run animations immediately once component mounts
+    initAnimations();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const scrollToProjects = useCallback(() => {
@@ -341,42 +302,22 @@ const Hero: React.FC = () => {
       <div className="light-ray z-0"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="absolute inset-0 h-full bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="absolute inset-0 h-full bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-5"></div>
 
-      {/* Dynamic gradient background overlay - Detailed Illustrations */}
-      <div className="absolute inset-0 z-20 opacity-20 dark:opacity-30 transition-opacity duration-300 pointer-events-none">
-        <div className="parallax-layer absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse"></div>
-        <div className="parallax-layer absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-secondary-500/20 to-primary-500/20 rounded-full blur-3xl mix-blend-screen animate-pulse delay-1000"></div>
-        <div className="parallax-layer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-radial-gradient from-white/5 to-transparent opacity-50 blur-2xl"></div>
-      </div>
-
-      {/* Animated background particles - Enhanced with GSAP */}
-      <div ref={particlesRef} className="absolute inset-0 pointer-events-none z-30 hidden sm:block" aria-hidden="true">
-        <div className="particle absolute top-20 right-20 w-2 h-2 bg-cyan-400 rounded-full"></div>
-        <div className="particle absolute top-40 right-40 w-3 h-3 bg-blue-400 rounded-full"></div>
-        <div className="particle absolute top-60 right-60 w-2 h-2 bg-yellow-400 rounded-full"></div>
-        <div className="particle absolute bottom-60 right-52 w-2 h-2 bg-orange-400 rounded-full"></div>
-        <div className="particle absolute top-32 left-20 w-2 h-2 bg-purple-400 rounded-full"></div>
-        <div className="particle absolute bottom-40 left-40 w-3 h-3 bg-pink-400 rounded-full"></div>
-        <div className="particle absolute top-1/2 right-32 w-2 h-2 bg-green-400 rounded-full"></div>
-        <div className="particle absolute bottom-32 right-1/3 w-2 h-2 bg-indigo-400 rounded-full"></div>
+      {/* Subtle glow overlay (no blob/ball shapes) */}
+      <div className="absolute inset-0 z-15 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300">
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary-500/10 via-transparent to-secondary-500/10" />
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-40 pt-28 sm:pt-32">
-        <div ref={heroRef} className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
+        <div ref={heroRef} className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
             {/* Left side - Text content */}
-            <div className="flex-1 text-left space-y-6 sm:space-y-8">
+            <div className="flex-1 lg:flex-[1.3] text-left space-y-5 sm:space-y-7 lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight relative z-50" style={{ opacity: 1 }}>
-                {/* Mobile: Split name into two lines for better fit */}
-                <div className="block sm:hidden text-left">
-                  <div className="text-2xl xs:text-3xl font-bold mb-1 gradient-text-name break-words">Naman Singh</div>
-                  <div className="text-2xl xs:text-3xl font-bold gradient-text-name break-words">Panwar</div>
-                </div>
-                {/* Desktop: Single line display */}
-                <span className="hidden sm:inline gradient-text-name transition-colors duration-300">
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold leading-tight relative z-50 pb-2">
+                <span ref={nameRef} className="hero-name gradient-text-name transition-colors duration-300 whitespace-nowrap" style={{ opacity: 0 }}>
                   Naman Singh Panwar
                 </span>
               </h1>
@@ -414,7 +355,7 @@ const Hero: React.FC = () => {
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
-              <div ref={techBadgesRef} className="flex flex-wrap gap-1.5 xs:gap-2 sm:gap-3">
+              <div ref={techBadgesRef} className="flex flex-wrap gap-2.5 xs:gap-3 sm:gap-4 mt-4 mb-2">
                 {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
@@ -426,7 +367,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Action buttons */}
-              <div ref={buttonsRef} className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:gap-4">
+              <div ref={buttonsRef} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-5 sm:items-center">
                 <button
                   onClick={scrollToProjects}
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
@@ -451,7 +392,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Social links */}
-              <div ref={socialRef} className="flex gap-4 sm:gap-6">
+              <div ref={socialRef} className="flex items-center gap-4 sm:gap-6 pt-1 sm:pt-2">
                 {[
                   { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'GitHub' },
                   { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
@@ -472,8 +413,8 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <div ref={imageRef} className="flex-shrink-0 ml-auto lg:ml-12 lg:pl-12" style={{ perspective: '1000px' }}>
-              <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
+            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-16" style={{ perspective: '1000px' }}>
+              <div className="relative group cursor-pointer w-72 h-[22rem] sm:w-80 sm:h-[24rem] md:w-[22rem] md:h-[28rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"
                   alt="Naman Singh Panwar - Professional"

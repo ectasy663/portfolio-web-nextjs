@@ -1,85 +1,82 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useLayoutEffect, useRef } from 'react';
+import { loadGSAP } from '@/utils/gsapLoader';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { skillCategories } from '@/data/skills';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleTextRef = useRef<HTMLSpanElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const learningRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleTextRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
-      if (titleElement && titleElement.textContent) {
-        const text = titleElement.textContent;
-        titleElement.innerHTML = '';
+    let cancelled = false;
 
-        text.split('').forEach((char) => {
-          const span = document.createElement('span');
-          span.className = 'title-char inline-block';
-          span.style.display = 'inline-block';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          titleElement.appendChild(span);
-        });
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-        const chars = titleElement.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          y: 60,
-          rotateX: -90,
-          transformPerspective: 1000
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.8,
-          stagger: 0.03,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === SKILL CARDS 3D FLIP ENTRANCE ===
       const skillCards = skillsRef.current?.querySelectorAll('.skill-card');
       if (skillCards) {
-        gsap.set(skillCards, {
-          opacity: 0,
-          rotationY: 90,
-          transformPerspective: 1500,
-          transformOrigin: "left center"
-        });
-
-        gsap.to(skillCards, {
-          opacity: 1,
-          rotationY: 0,
-          duration: 1.2,
-          stagger: 0.2,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: skillsRef.current,
-            start: "top 70%",
-            toggleActions: "play none none reverse"
+        gsap.fromTo(skillCards,
+          {
+            opacity: 0,
+            rotationY: 90,
+            transformPerspective: 1500,
+            transformOrigin: "left center"
+          },
+          {
+            opacity: 1,
+            rotationY: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: skillsRef.current,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
       }
 
       // === SKILL BARS ANIMATED FILL ===
@@ -87,19 +84,20 @@ const Skills: React.FC = () => {
       if (skillBars) {
         skillBars.forEach((bar) => {
           const width = (bar as HTMLElement).style.width;
-          gsap.set(bar, { width: '0%', opacity: 0 });
-
-          gsap.to(bar, {
-            width: width,
-            opacity: 1,
-            duration: 1.5,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: bar,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(bar,
+            { width: '0%', opacity: 0 },
+            {
+              width: width,
+              opacity: 1,
+              duration: 1.5,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: bar,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -107,25 +105,26 @@ const Skills: React.FC = () => {
       const skillItems = skillsRef.current?.querySelectorAll('.skill-item');
       if (skillItems) {
         skillItems.forEach((item, index) => {
-          gsap.set(item, {
-            opacity: 0,
-            x: -30,
-            scale: 0.9
-          });
-
-          gsap.to(item, {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 0.6,
-            delay: index * 0.05,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: item.closest('.skill-card'),
-              start: "top 70%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(item,
+            {
+              opacity: 0,
+              x: -30,
+              scale: 0.9
+            },
+            {
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              duration: 0.6,
+              delay: index * 0.05,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: item.closest('.skill-card'),
+                start: "top 70%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -156,30 +155,31 @@ const Skills: React.FC = () => {
       // === LEARNING BADGES WAVE ANIMATION ===
       const learningBadges = learningRef.current?.querySelectorAll('.learning-badge');
       if (learningBadges) {
-        gsap.set(learningBadges, {
-          opacity: 0,
-          y: 40,
-          scale: 0.7,
-          rotation: gsap.utils.random(-15, 15, true)
-        });
-
-        gsap.to(learningBadges, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          rotation: 0,
-          duration: 0.8,
-          stagger: {
-            each: 0.1,
-            from: "center"
+        gsap.fromTo(learningBadges,
+          {
+            opacity: 0,
+            y: 40,
+            scale: 0.7,
+            rotation: gsap.utils.random(-15, 15, true)
           },
-          ease: "elastic.out(1, 0.5)",
-          scrollTrigger: {
-            trigger: learningRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            rotation: 0,
+            duration: 0.8,
+            stagger: {
+              each: 0.1,
+              from: "center"
+            },
+            ease: "elastic.out(1, 0.5)",
+            scrollTrigger: {
+              trigger: learningRef.current,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        });
+        );
 
         // Continuous gentle float
         learningBadges.forEach((badge, index) => {
@@ -213,6 +213,16 @@ const Skills: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize Skills animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -232,7 +242,7 @@ const Skills: React.FC = () => {
       <div className="container relative z-40">
         <div className="text-center mb-16">
           <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
-            <span className="gradient-text-gold transition-colors duration-300">
+            <span ref={titleTextRef} className="gradient-text-gold transition-colors duration-300" style={{ opacity: 0 }}>
               Technical Skills
             </span>
           </h2>
@@ -303,14 +313,14 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div ref={learningRef} className="glass-panel rounded-3xl p-8 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300">
-          <h3 className="text-heading-lg font-heading text-center mb-8">
+        <div ref={learningRef} className="glass-panel rounded-3xl px-6 py-10 sm:px-10 sm:py-12 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300 max-w-5xl mx-auto">
+          <h3 className="text-heading-lg font-heading text-center mb-6 sm:mb-8">
             <span className="gradient-text-gold">
               Currently Learning
             </span>
           </h3>
 
-          <div className="flex flex-wrap justify-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {[
               { name: "Cloud Computing", color: "dark:from-primary-400 dark:to-secondary-600 from-primary-500 to-primary-600" },
               { name: "WebGL", color: "dark:from-secondary-400 dark:to-primary-600 from-primary-500 to-primary-600" },

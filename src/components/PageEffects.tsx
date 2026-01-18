@@ -1,35 +1,33 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
+import { loadGSAP } from '@/utils/gsapLoader';
 
 export default function PageEffects() {
-  useEffect(() => {
-    // Defer GSAP initialization to after first paint
+  useLayoutEffect(() => {
+    // Initialize GSAP with dynamic loading
     const initGSAP = async () => {
-      const gsap = (await import('gsap')).default;
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
 
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Create scroll progress indicator
-      gsap.to(".scroll-progress", {
-        width: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: "body",
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.5,
-        }
-      });
+        // Create scroll progress indicator
+        gsap.to(".scroll-progress", {
+          width: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 0.5,
+          }
+        });
+      } catch (error) {
+        console.error('Failed to initialize PageEffects:', error);
+      }
     };
 
-    // Initialize after DOM is painted - use typeof check for browser compatibility
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      (window as Window & { requestIdleCallback?: (cb: () => void) => void }).requestIdleCallback?.(initGSAP);
-    } else {
-      setTimeout(initGSAP, 1);
-    }
+    // Initialize GSAP immediately to prevent lag
+    initGSAP();
   }, []);
 
   return (

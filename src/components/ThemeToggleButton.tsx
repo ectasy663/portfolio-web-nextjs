@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useLayoutEffect, useRef, useCallback } from 'react';
 import { LuSun, LuMoon } from 'react-icons/lu';
 import { useTheme } from '@/contexts/ThemeContext';
 import gsap from 'gsap';
@@ -10,7 +10,7 @@ const ThemeToggleButton: React.FC = () => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const iconRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (iconRef.current) {
       gsap.fromTo(iconRef.current,
         { rotation: -90, scale: 0.8, opacity: 0 },

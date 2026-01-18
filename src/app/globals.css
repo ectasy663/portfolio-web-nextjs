@@ -259,6 +259,10 @@
     @apply bg-gradient-to-r from-[#D4AF37] via-[#F9E076] to-[#AA8C2C] bg-clip-text text-transparent;
     background-size: 200% auto;
     animation: shine 10s ease-in-out infinite;
+    line-height: 1.4 !important;
+    padding-top: 0.15em !important;
+    padding-bottom: 0.15em !important;
+    overflow: visible !important;
   }
 
   .gradient-text-name {
@@ -268,6 +272,24 @@
     color: transparent;
     background-size: 300% auto;
     animation: shine 12s ease-in-out infinite;
+    line-height: 1.4 !important;
+    padding-top: 0.15em !important;
+    padding-bottom: 0.4em !important;
+    overflow: visible !important;
+  }
+
+  /* Curvy underline animation */
+  .curvy-underline path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawUnderline 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+}
+
+@keyframes drawUnderline {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
@@ -316,17 +338,15 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
-    line-height: 1.2 !important;
+    line-height: 1.4 !important;
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
   }
 
   /* Ensure split text characters don't overflow on mobile */
   .split-char {
     display: inline-block !important;
-  }
-
-  /* Reduce animation intensity on mobile for performance */
-  .parallax-layer {
-    animation: none !important;
+    overflow: visible !important;
   }
 
   /* Better spacing for hero content on mobile */
@@ -339,6 +359,11 @@
   .gradient-text-gold {
     font-size: inherit !important;
     word-break: break-word;
+    line-height: 1.4 !important;
+    padding-top: 0.2em !important;
+    padding-bottom:5 !important;
+    padding-top: 0.25em !important;
+    padding-bottom: 0.25em0.2em !important;
   }
 }
 

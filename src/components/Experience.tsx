@@ -1,84 +1,80 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { LuCalendar, LuBuilding, LuBriefcase } from 'react-icons/lu';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+import { loadGSAP } from '@/utils/gsapLoader';
+import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { experiences } from '@/data/experience';
-
-// Register GSAP plugins
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 const Experience: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const titleTextRef = useRef<HTMLSpanElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
   const timelineLineRef = useRef<HTMLDivElement>(null);
   const exploringRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useSplitTextAnimation({
+    scopeRef: sectionRef,
+    targetRef: titleTextRef,
+    desktop: {
+      duration: 1,
+      stagger: 0.04,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 28
+      }
+    },
+    mobile: {
+      duration: 0.9,
+      stagger: 0.035,
+      ease: 'back.out(1.7)',
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse'
+      },
+      from: {
+        y: 20
+      }
+    }
+  });
+
+  useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const ctx = gsap.context(() => {
-      // === SPLIT TEXT ANIMATION FOR TITLE ===
-      const titleElement = titleRef.current?.querySelector('.gradient-text-gold');
-      if (titleElement && titleElement.textContent) {
-        const text = titleElement.textContent;
-        titleElement.innerHTML = '';
+    let cancelled = false;
 
-        text.split('').forEach((char) => {
-          const span = document.createElement('span');
-          span.className = 'title-char inline-block';
-          span.style.display = 'inline-block';
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          titleElement.appendChild(span);
-        });
+    const init = async () => {
+      try {
+        const { gsap, ScrollTrigger } = await loadGSAP();
+        if (cancelled) return;
 
-        const chars = titleElement.querySelectorAll('.title-char');
-
-        gsap.set(chars, {
-          opacity: 0,
-          y: -40,
-          rotateZ: gsap.utils.random(-30, 30, true),
-          transformPerspective: 1000
-        });
-
-        gsap.to(chars, {
-          opacity: 1,
-          y: 0,
-          rotateZ: 0,
-          duration: 0.8,
-          stagger: 0.04,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
+        const ctx = gsap.context(() => {
       // === TIMELINE LINE DRAW ANIMATION ===
       if (timelineLineRef.current) {
-        gsap.set(timelineLineRef.current, {
-          scaleY: 0,
-          transformOrigin: "top center"
-        });
-
-        gsap.to(timelineLineRef.current, {
-          scaleY: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: timelineRef.current,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: 1
+        gsap.fromTo(timelineLineRef.current,
+          {
+            scaleY: 0,
+            transformOrigin: "top center"
+          },
+          {
+            scaleY: 1,
+            duration: 1.5,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: timelineRef.current,
+              start: "top 70%",
+              end: "bottom 30%",
+              scrub: 1
+            }
           }
-        });
+        );
       }
 
       // === TIMELINE ITEMS STAGGERED REVEAL ===
@@ -87,26 +83,27 @@ const Experience: React.FC = () => {
         timelineItems.forEach((item, index) => {
           const isEven = index % 2 === 0;
 
-          gsap.set(item, {
-            opacity: 0,
-            x: isEven ? -80 : 80,
-            y: 50,
-            scale: 0.9
-          });
-
-          gsap.to(item, {
-            opacity: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(item,
+            {
+              opacity: 0,
+              x: isEven ? -50 : 50,
+              y: 30,
+              scale: 0.95
+            },
+            {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: item,
+                start: "top 90%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
         });
       }
 
@@ -114,24 +111,25 @@ const Experience: React.FC = () => {
       const timelineDots = timelineRef.current?.querySelectorAll('.timeline-dot');
       if (timelineDots) {
         timelineDots.forEach((dot, index) => {
-          gsap.set(dot, {
-            opacity: 0,
-            scale: 0,
-            rotation: -180
-          });
-
-          gsap.to(dot, {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 0.8,
-            ease: "elastic.out(1, 0.5)",
-            scrollTrigger: {
-              trigger: dot,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
+          gsap.fromTo(dot,
+            {
+              opacity: 0,
+              scale: 0,
+              rotation: -180
+            },
+            {
+              opacity: 1,
+              scale: 1,
+              rotation: 0,
+              duration: 0.8,
+              ease: "elastic.out(1, 0.5)",
+              scrollTrigger: {
+                trigger: dot,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+              }
             }
-          });
+          );
 
           // Continuous glow pulse
           gsap.to(dot.querySelector('.dot-glow'), {
@@ -275,6 +273,16 @@ const Experience: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+      } catch (error) {
+        console.error('Failed to initialize Experience animations:', error);
+      }
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -290,7 +298,7 @@ const Experience: React.FC = () => {
 
       <div className="container relative z-30">
         <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 leading-tight py-2">
-          <span className="gradient-text-gold">
+          <span ref={titleTextRef} className="gradient-text-gold" style={{ opacity: 0 }}>
             My Journey
           </span>
         </h2>
