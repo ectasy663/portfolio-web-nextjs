@@ -314,16 +314,16 @@ const Hero: React.FC = () => {
         <div ref={heroRef} className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
             {/* Left side - Text content */}
-            <div className="flex-1 lg:flex-[1.3] text-left space-y-5 sm:space-y-7 lg:pr-8">
+            <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold leading-tight relative z-50 pb-4">
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold leading-tight relative z-50 mb-3">
                 <span ref={nameRef} className="hero-name gradient-text-name transition-colors duration-300" style={{ opacity: 0 }}>
                   Naman Singh Panwar
                 </span>
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2 sm:gap-3 flex-wrap">
+              <h2 ref={subtitleRef} className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2 sm:gap-3 flex-wrap mb-3">
                 <LuRocket className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-orange-500 animate-pulse-slow flex-shrink-0" />
                 <span className="min-w-0">
                   <Typewriter
@@ -346,7 +346,7 @@ const Hero: React.FC = () => {
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="text-base xs:text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium">
+              <p ref={descriptionRef} className="text-base xs:text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium mb-3">
                 Crafting intelligent digital experiences <span className="inline-block align-middle"><LuSparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
                 <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <LuBrain className="w-4 h-4 sm:w-5 sm:h-5" /></span>,{' '}
                 <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <LuGlobe className="w-4 h-4 sm:w-5 sm:h-5" /></span>, and{' '}
@@ -355,7 +355,7 @@ const Hero: React.FC = () => {
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
-              <div ref={techBadgesRef} className="flex flex-wrap gap-2.5 xs:gap-3 sm:gap-4 mt-4 mb-2">
+              <div ref={techBadgesRef} className="flex flex-wrap gap-2.5 xs:gap-3 sm:gap-4 mb-2">
                 {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
@@ -367,7 +367,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Action buttons */}
-              <div ref={buttonsRef} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-5 sm:items-center">
+              <div ref={buttonsRef} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-5 sm:items-center mb-2">
                 <button
                   onClick={scrollToProjects}
                   className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
@@ -392,7 +392,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Social links */}
-              <div ref={socialRef} className="flex items-center gap-4 sm:gap-6 pt-1 sm:pt-2">
+              <div ref={socialRef} className="flex items-center gap-4 sm:gap-6">
                 {[
                   { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'GitHub' },
                   { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
@@ -413,14 +413,14 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-16" style={{ perspective: '1000px' }}>
-              <div className="relative group cursor-pointer w-72 h-[22rem] sm:w-80 sm:h-[24rem] md:w-[22rem] md:h-[28rem]">
+            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-24" style={{ perspective: '1000px' }}>
+              <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"
                   alt="Naman Singh Panwar - Professional"
                   fill
                   loading="eager"
-                  sizes="(max-width: 640px) 256px, (max-width: 768px) 288px, 320px"
+                  sizes="(max-width: 640px) 20rem, (max-width: 768px) 24rem, 26rem"
                   className="object-cover rounded-2xl shadow-xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-2xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
