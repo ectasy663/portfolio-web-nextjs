@@ -56,13 +56,15 @@ const Contact: React.FC = () => {
     if (typeof window === 'undefined') return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+    const controller = new AbortController();
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === INTRO TEXT FADE IN ===
       const introText = contentRef.current?.querySelector('.intro-text');
       if (introText) {
@@ -187,7 +189,7 @@ const Contact: React.FC = () => {
             duration: 0.3,
             ease: "power2.out"
           });
-        });
+        }, { signal: controller.signal });
 
         input.addEventListener('blur', () => {
           gsap.to(input, {
@@ -197,7 +199,7 @@ const Contact: React.FC = () => {
             duration: 0.3,
             ease: "power2.out"
           });
-        });
+        }, { signal: controller.signal });
       });
 
       // === SUBMIT BUTTON HOVER EFFECT ===
@@ -211,12 +213,15 @@ const Contact: React.FC = () => {
             ease: "power2.out"
           });
 
-          gsap.to(submitBtn.querySelector('.btn-icon'), {
-            x: 5,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
+          const icon = submitBtn.querySelector('.btn-icon');
+          if (icon) {
+            gsap.to(icon, {
+              x: 5,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
+        }, { signal: controller.signal });
 
         submitBtn.addEventListener('mouseleave', () => {
           gsap.to(submitBtn, {
@@ -226,12 +231,15 @@ const Contact: React.FC = () => {
             ease: "power2.out"
           });
 
-          gsap.to(submitBtn.querySelector('.btn-icon'), {
-            x: 0,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
+          const icon = submitBtn.querySelector('.btn-icon');
+          if (icon) {
+            gsap.to(icon, {
+              x: 0,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
+        }, { signal: controller.signal });
       }
 
       // === FOOTER ENTRANCE ===
@@ -271,8 +279,6 @@ const Contact: React.FC = () => {
       });
 
     }, sectionRef);
-
-    return () => ctx.revert();
       } catch (error) {
         console.error('Failed to initialize Contact animations:', error);
       }
@@ -282,35 +288,54 @@ const Contact: React.FC = () => {
 
     return () => {
       cancelled = true;
+      controller.abort();
+      ctx?.revert();
     };
   }, []);
 
   // === SUCCESS ANIMATION ===
   useLayoutEffect(() => {
-    if (showSuccess && formRef.current) {
-      // Confetti-like particles
-      const particles = 20;
-      const container = formRef.current.closest('.form-container');
+    if (!showSuccess || !formRef.current) return;
 
-      for (let i = 0; i < particles; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'absolute w-2 h-2 rounded-full pointer-events-none';
-        particle.style.background = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'][Math.floor(Math.random() * 5)];
-        particle.style.left = '50%';
-        particle.style.top = '50%';
-        container?.appendChild(particle);
+    let cancelled = false;
 
-        gsap.to(particle, {
-          x: gsap.utils.random(-200, 200),
-          y: gsap.utils.random(-200, 200),
-          opacity: 0,
-          scale: gsap.utils.random(0.5, 2),
-          duration: 1,
-          ease: "power2.out",
-          onComplete: () => particle.remove()
-        });
+    const run = async () => {
+      try {
+        const { gsap } = await loadGSAP();
+        if (cancelled || !formRef.current) return;
+
+        const particles = 20;
+        const container = formRef.current.closest('.form-container');
+        if (!container) return;
+
+        for (let i = 0; i < particles; i++) {
+          const particle = document.createElement('div');
+          particle.className = 'absolute w-2 h-2 rounded-full pointer-events-none';
+          particle.style.background = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'][Math.floor(Math.random() * 5)];
+          particle.style.left = '50%';
+          particle.style.top = '50%';
+          container.appendChild(particle);
+
+          gsap.to(particle, {
+            x: gsap.utils.random(-200, 200),
+            y: gsap.utils.random(-200, 200),
+            opacity: 0,
+            scale: gsap.utils.random(0.5, 2),
+            duration: 1,
+            ease: "power2.out",
+            onComplete: () => particle.remove()
+          });
+        }
+      } catch (error) {
+        console.error('Failed to run success animation:', error);
       }
-    }
+    };
+
+    run();
+
+    return () => {
+      cancelled = true;
+    };
   }, [showSuccess]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

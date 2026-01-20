@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+export const runtime = 'nodejs';
+
 const rateLimit = new Map<string, { count: number; lastTime: number }>();
 const WINDOW_SIZE = 60 * 1000; // 1 minute
 const MAX_REQUESTS = 3;
@@ -8,7 +10,8 @@ const MAX_REQUESTS = 3;
 export async function POST(req: Request) {
   try {
     // Rate Limiting
-    const ip = req.headers.get('x-forwarded-for') || 'unknown';
+    const forwardedFor = req.headers.get('x-forwarded-for');
+    const ip = (forwardedFor?.split(',')[0] || req.headers.get('x-real-ip') || 'unknown').trim();
     const now = Date.now();
     const record = rateLimit.get(ip);
 
