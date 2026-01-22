@@ -343,8 +343,8 @@
     padding-right: 1rem;
   }
 
-  /* Ensure typewriter text fits on mobile */
-  .gradient-text-gold {
+  /* Ensure typewriter text fits on mobile - but don't override section heading sizes */
+  .gradient-text-gold:not(h1):not(h2):not(h3) {
     font-size: inherit !important;
     word-break: break-word;
     line-height: 1.4 !important;
@@ -932,6 +932,40 @@ html {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   line-height: inherit !important;
+}
+
+/* Force section headings to respect their Tailwind text-* sizes on mobile.
+   The gradient-text-gold class has line-height/padding that can visually shrink text. */
+#contact h2.gradient-text-gold,
+#about h2.gradient-text-gold,
+#achievements h2.gradient-text-gold {
+  font-size: 3rem !important; /* text-5xl equivalent */
+  line-height: 1.1 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 375px) {
+  #contact h2.gradient-text-gold,
+  #about h2.gradient-text-gold,
+  #achievements h2.gradient-text-gold {
+    font-size: 3.75rem !important; /* text-6xl equivalent */
+  }
+}
+
+@media (min-width: 640px) {
+  #contact h2.gradient-text-gold,
+  #about h2.gradient-text-gold,
+  #achievements h2.gradient-text-gold {
+    font-size: 3.75rem !important; /* sm:text-6xl */
+  }
+}
+
+@media (min-width: 768px) {
+  #contact h2.gradient-text-gold,
+  #about h2.gradient-text-gold,
+  #achievements h2.gradient-text-gold {
+    font-size: 4.5rem !important; /* md:text-7xl */
+  }
 }
 
 /* 3D Transform Utilities */
