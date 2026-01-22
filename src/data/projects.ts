@@ -1,5 +1,26 @@
 export const projects = [
   {
+    title: "Portfolio Website (Next.js)",
+    tagline: "Performance-Optimized Personal Portfolio",
+    description: "A production-grade portfolio built with Next.js App Router and a component-driven architecture. Includes a server-side contact API route, dynamic loading for heavy animation dependencies, and a polished UI system with Tailwind CSS. The project is backed by Jest + React Testing Library and includes accessibility checks via axe-core.",
+    features: [
+      { text: "Next.js App Router architecture" },
+      { text: "Reusable section components" },
+      { text: "GSAP-powered cinematic animations" },
+      { text: "Dynamic imports for performance" },
+      { text: "Contact API route (server-side)" },
+      { text: "Jest + RTL tests & a11y checks" }
+    ],
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "GSAP", "Jest", "React Testing Library"],
+    liveUrl: "https://namansinghpanwar.vercel.app/",
+    githubUrl: "https://github.com/ectasy663/portfolio-web-nextjs",
+    stats: { stars: 0, forks: 0, views: 0 },
+    date: "2026",
+    gradient: "dark:from-primary-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600",
+    category: "Portfolio",
+    status: "Live Production"
+  },
+  {
     title: "Gifting Muse Oracle",
     tagline: "Creative Gift Discovery Platform",
     description: "An innovative gift discovery platform that combines intuitive design with smart curation to provide personalized gift recommendations. Features a beautiful interface with creative filtering and curated suggestions for every occasion and recipient.",

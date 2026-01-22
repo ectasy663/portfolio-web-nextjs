@@ -7,7 +7,7 @@ import { loadGSAP } from '@/utils/gsapLoader';
 import { scrollToId } from '@/utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
-  SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana
+  SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs, SiJest
 } from 'react-icons/si';
 
 import { projects } from '@/data/projects';
@@ -308,6 +308,7 @@ const Projects: React.FC = () => {
 
   const getTechIcon = (tech: string) => {
     const iconMap: { [key: string]: React.ReactElement } = {
+      'Next.js': <SiNextdotjs className="text-gray-900 dark:text-gray-100" aria-hidden="true" />,
       'React': <SiReact className="text-cyan-400" aria-hidden="true" />,
       'TypeScript': <SiTypescript className="text-blue-400" aria-hidden="true" />,
       'JavaScript': <SiJavascript className="text-yellow-400" aria-hidden="true" />,
@@ -318,7 +319,8 @@ const Projects: React.FC = () => {
       'Node.js': <SiNodedotjs className="text-green-500" aria-hidden="true" />,
       'Python': <SiPython className="text-yellow-400" aria-hidden="true" />,
       'Git': <SiGit className="text-orange-500" aria-hidden="true" />,
-      'Solana Web3.js': <SiSolana className="text-purple-400" aria-hidden="true" />
+      'Solana Web3.js': <SiSolana className="text-purple-400" aria-hidden="true" />,
+      'Jest': <SiJest className="text-rose-400" aria-hidden="true" />
     };
     return iconMap[tech] || <LuCode className="text-gray-600 dark:text-gray-400" aria-hidden="true" />;
   };
