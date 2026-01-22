@@ -401,7 +401,7 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-24 perspective-1000">
+            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] mx-auto lg:ml-24 lg:mr-0 perspective-1000">
               <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"
