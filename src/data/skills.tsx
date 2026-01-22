@@ -35,8 +35,10 @@ export const skillCategories = [
       { name: "Python", icon: React.createElement(SiPython, { className: "text-2xl text-yellow-400", "aria-hidden": "true" }), level: 90 },
       { name: "PostgreSQL", icon: React.createElement(SiPostgresql, { className: "text-2xl text-blue-400", "aria-hidden": "true" }), level: 80 },
       { name: "Supabase", icon: React.createElement(SiSupabase, { className: "text-2xl text-emerald-400", "aria-hidden": "true" }), level: 82 },
+      { name: "Docker", icon: React.createElement(SiDocker, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 75 },
       { name: "C++", icon: React.createElement(SiCplusplus, { className: "text-2xl text-blue-600", "aria-hidden": "true" }), level: 85 },
       { name: "Java", icon: React.createElement(FaJava, { className: "text-2xl text-red-500", "aria-hidden": "true" }), level: 80 },
+      { name: "Git", icon: React.createElement(SiGit, { className: "text-2xl text-orange-500", "aria-hidden": "true" }), level: 90 },
     ],
     gradient: "dark:from-secondary-500 dark:via-secondary-600 dark:to-royal-blue-600 from-primary-500 via-primary-400 to-primary-600"
   },

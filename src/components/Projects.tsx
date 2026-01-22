@@ -338,7 +338,7 @@ const Projects: React.FC = () => {
             <span className="text-royal-red-400 font-medium">Featured Work</span>
           </div>
 
-          <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
+          <h2 ref={titleRef} className="text-display-lg font-display font-normal mb-6 leading-tight py-2">
             <span ref={titleTextRef} className="gradient-text-gold" style={{ opacity: 0 }}>
               Project Showcase
             </span>
@@ -467,12 +467,28 @@ const Projects: React.FC = () => {
 
                   {/* Title and tagline */}
                   <div>
-                    <h3 className="text-heading-lg font-heading text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="text-2xl font-body font-medium text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all duration-300">
                       {project.title}
                     </h3>
-                    <p className={`text-body-md font-heading bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
+                    <p className={`text-body-md font-body font-medium bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
                       {project.tagline}
                     </p>
+                  </div>
+
+                  {/* Tech stack */}
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Built with</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {project.techStack.map((tech, techIndex) => (
+                        <div
+                          key={techIndex}
+                          className="tech-badge flex items-center space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg px-4 py-2 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:scale-105 hover:shadow-lg transition-all duration-300"
+                        >
+                          <div className="text-lg">{getTechIcon(tech)}</div>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Description */}
@@ -490,22 +506,6 @@ const Projects: React.FC = () => {
                         <span className="text-sm text-gray-700 dark:text-gray-300">{feature.text}</span>
                       </div>
                     ))}
-                  </div>
-
-                  {/* Tech stack */}
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Built with</h4>
-                    <div className="flex flex-wrap gap-3">
-                      {project.techStack.map((tech, techIndex) => (
-                        <div
-                          key={techIndex}
-                          className="tech-badge flex items-center space-x-2 bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-royal-red-200/50 dark:border-royal-red-500/20 rounded-lg px-4 py-2 hover:border-royal-red-400 dark:hover:border-royal-red-400 hover:scale-105 hover:shadow-lg transition-all duration-300"
-                        >
-                          <div className="text-lg">{getTechIcon(tech)}</div>
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{tech}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
                   {/* Project stats */}

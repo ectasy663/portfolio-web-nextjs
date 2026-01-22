@@ -1,12 +1,3 @@
-/* The Seasons Font - Local Version */
-@font-face {
-  font-family: "The Seasons";
-  src: url("/fonts/the-seasons.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,11 +11,8 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 text-primary-50 font-seasons antialiased;
+    @apply bg-gradient-to-br from-dark-950 via-dark-900 to-dark-950 text-primary-50 font-sans antialiased;
     margin: 0;
-    font-family: 'The Seasons', 'Outfit', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: 'liga' 1, 'kern' 1;
@@ -40,6 +28,16 @@
 
   ::selection {
     @apply bg-primary-500/30 text-primary-400;
+  }
+
+  /* Seasons only for headings / section titles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-seasons;
   }
 
   /* Progressive Blur & Glassmorphism */
@@ -179,73 +177,55 @@
   }
 
   .text-display-xl {
-    @apply text-7xl sm:text-8xl md:text-9xl font-bold;
-    font-family: 'The Seasons', serif;
+    @apply text-7xl sm:text-8xl md:text-9xl font-bold font-seasons;
     line-height: 0.95;
     letter-spacing: -0.03em;
   }
 
   .text-display-lg {
-    @apply text-5xl sm:text-6xl md:text-7xl font-bold;
-    font-family: 'The Seasons', serif;
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold font-seasons;
     line-height: 1.05;
     letter-spacing: -0.025em;
   }
 
   .text-display-md {
-    @apply text-4xl sm:text-5xl md:text-6xl font-semibold;
-    font-family: 'The Seasons', serif;
+    @apply text-4xl sm:text-5xl md:text-6xl font-semibold font-seasons;
     line-height: 1.15;
     letter-spacing: -0.02em;
   }
 
   .text-heading-xl {
-    @apply text-3xl sm:text-4xl md:text-5xl font-semibold;
-    font-family: 'The Seasons', serif;
+    @apply text-3xl sm:text-4xl md:text-5xl font-semibold font-seasons;
     line-height: 1.25;
     letter-spacing: -0.015em;
   }
 
   .text-heading-lg {
-    @apply text-2xl sm:text-3xl md:text-4xl font-semibold;
-    font-family: 'The Seasons', serif;
+    @apply text-2xl sm:text-3xl md:text-4xl font-semibold font-seasons;
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
 
   .text-heading-md {
-    @apply text-xl sm:text-2xl md:text-3xl font-semibold;
-    font-family: 'The Seasons', serif;
+    @apply text-xl sm:text-2xl md:text-3xl font-semibold font-seasons;
     line-height: 1.4;
     letter-spacing: -0.005em;
   }
 
   .text-body-lg {
-    @apply text-lg sm:text-xl;
-    font-family: 'The Seasons', serif;
-    line-height: 1.6;
-    font-weight: 400;
+    @apply text-lg sm:text-xl font-body font-normal leading-relaxed;
   }
 
   .text-body-md {
-    @apply text-base sm:text-lg;
-    font-family: 'The Seasons', serif;
-    line-height: 1.7;
-    font-weight: 400;
+    @apply text-base sm:text-lg font-body font-normal leading-relaxed;
   }
 
   .text-body-sm {
-    @apply text-sm sm:text-base;
-    font-family: 'The Seasons', serif;
-    line-height: 1.6;
-    font-weight: 400;
+    @apply text-sm sm:text-base font-body font-normal leading-relaxed;
   }
 
   .text-caption {
-    @apply text-xs sm:text-sm;
-    font-family: 'The Seasons', serif;
-    line-height: 1.5;
-    font-weight: 500;
+    @apply text-xs sm:text-sm font-body font-medium leading-snug;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }

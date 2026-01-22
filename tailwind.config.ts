@@ -1,9 +1,10 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
   theme: {
@@ -34,30 +35,31 @@ module.exports = {
       },
       fontFamily: {
         // Default UI/content font
-        'sans': ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
-        'body': ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
+        body: ['var(--font-satoshi)', 'system-ui', 'sans-serif'],
 
         // Headings / display font
-        'display': ['var(--font-seasons)', 'Georgia', 'serif'],
-        'heading': ['var(--font-seasons)', 'Georgia', 'serif'],
-        'mono': ['var(--font-jetbrains-mono)', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
-        'seasons': ['var(--font-seasons)', 'Georgia', 'serif'],
+        display: ['var(--font-seasons)', 'Georgia', 'serif'],
+        heading: ['var(--font-seasons)', 'Georgia', 'serif'],
+        seasons: ['var(--font-seasons)', 'Georgia', 'serif'],
+
+        mono: ['var(--font-jetbrains-mono)', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%)',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+        glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
         'royal-gold': '0 4px 14px 0 rgba(212, 175, 55, 0.2)',
       },
       animation: {
         'pulse-slow': 'pulse 3s infinite',
-        'float': 'float 6s ease-in-out infinite',
+        float: 'float 6s ease-in-out infinite',
         'rotate-slow': 'rotate-slow 20s linear infinite',
       },
       keyframes: {
-        'float': {
+        float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-20px)' },
         },
@@ -67,7 +69,7 @@ module.exports = {
         },
       },
       backdropBlur: {
-        'xs': '2px',
+        xs: '2px',
       },
       perspective: {
         '1000': '1000px',
@@ -75,11 +77,11 @@ module.exports = {
         '2000': '2000px',
       },
       screens: {
-        'xs': '375px',
+        xs: '375px',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
 };
+
+export default config;

@@ -83,6 +83,10 @@ export function useSplitTextAnimation({
               const targetEl = targetRef.current;
               if (!targetEl || cancelled) return;
 
+                // Prevent a brief flash of mis-aligned gradient while we swap DOM nodes for SplitText.
+                // We reveal it only when the animation begins.
+                gsap.set(targetEl, { visibility: 'hidden' });
+
               // Kill ALL existing ScrollTriggers on this target to prevent duplicates
               ScrollTrigger.getAll().forEach((trigger: any) => {
                 if (trigger.trigger === targetEl) {
@@ -110,7 +114,7 @@ export function useSplitTextAnimation({
               }
 
               // Ensure parent containers don't clip animated text
-              gsap.set(targetEl, { visibility: 'visible', overflow: 'visible' });
+              gsap.set(targetEl, { overflow: 'visible' });
               if (targetEl.parentElement) {
                 gsap.set(targetEl.parentElement, { overflow: 'visible' });
               }
@@ -141,31 +145,47 @@ export function useSplitTextAnimation({
                 ? ({ each: staggerValue * speedScale, from: 'center' as const })
                 : staggerValue;
 
-              // Animate from hidden state to visible
-              tweenRef.current = gsap.fromTo(
-                splitRef.current.chars,
-                {
-                  ...fromVars,
-                  opacity: 0
-                },
-                {
-                  opacity: 1,
-                  y: 0,
-                  rotateX: 0,
-                  transformPerspective: 1000,
-                  duration: (config.duration ?? 1) * speedScale,
-                  stagger,
-                  ease: config.ease ?? 'back.out(1.7)',
-                  delay: config.delay ?? 0,
-                  scrollTrigger: config.scrollTrigger,
-                  immediateRender: false,
-                  overwrite: 'auto',
-                  onStart: () => {
-                    // Ensure visibility when animation begins
-                    gsap.set(targetEl, { opacity: 1 });
-                  }
-                }
-              );
+              // Double RAF ensures DOM layout is fully settled before gradient calculations
+              // This prevents the 100ms "broken" flash on initial load
+              requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                  if (cancelled) return;
+                  
+                  // Now that layout is stable, refresh gradient alignment
+                  splitRef.current?.refresh?.();
+
+                  // Animate from hidden state to visible
+                  tweenRef.current = gsap.fromTo(
+                    splitRef.current!.chars,
+                    {
+                      ...fromVars,
+                      opacity: 0
+                    },
+                    {
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      transformPerspective: 1000,
+                      duration: (config.duration ?? 1) * speedScale,
+                      stagger,
+                      ease: config.ease ?? 'back.out(1.7)',
+                      delay: config.delay ?? 0,
+                      scrollTrigger: config.scrollTrigger,
+                      immediateRender: false,
+                      overwrite: 'auto',
+                      onStart: () => {
+                        // Ensure visibility when animation begins
+                        gsap.set(targetEl, { opacity: 1, visibility: 'visible' });
+                      },
+                      onComplete: () => {
+                        // After transforms settle, recompute per-char gradient positions.
+                        // This prevents rare "broken" gradient seams after repeated reloads.
+                        splitRef.current?.refresh?.();
+                      }
+                    }
+                  );
+                });
+              });
             };
 
             // Add animation to context for proper cleanup
@@ -178,6 +198,8 @@ export function useSplitTextAnimation({
               document.fonts.ready
                 .then(() => {
                   if (cancelled) return;
+                  // Recalculate gradient backgrounds now that font metrics are stable
+                  splitRef.current?.refresh?.();
                   ScrollTrigger.refresh();
                 })
                 .catch(() => {

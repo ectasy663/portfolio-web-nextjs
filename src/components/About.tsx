@@ -278,7 +278,7 @@ const About: React.FC = () => {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300 will-change-transform dark:brightness-75 dark:contrast-125"
         style={{
           minWidth: '100%',
           minHeight: '100%',
@@ -287,7 +287,7 @@ const About: React.FC = () => {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -50%)'
+          transform: 'translate(-50%, -50%) scale(1.08)'
         }}
         aria-hidden="true"
       >
@@ -298,7 +298,7 @@ const About: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="absolute inset-0 bg-black/50 dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
 
       {/* Dynamic gradient background overlay */}
       <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
@@ -309,7 +309,7 @@ const About: React.FC = () => {
       <div className="container relative z-30">
         <h2
           ref={titleRef}
-          className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
+          className="text-display-lg font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
           style={{ opacity: 0 }}
         >
           About Me
@@ -340,15 +340,15 @@ const About: React.FC = () => {
             <div className="flex-1 text-left">
               <div ref={contentRef} className="space-y-8">
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
-                  <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    I'm a passionate and driven Computer Science student <span className="inline-flex align-middle"><LuGraduationCap className="w-5 h-5 text-blue-500 mx-1" /></span> with a deep fascination for <span className="font-bold text-primary-500 inline-flex items-center gap-1">Artificial Intelligence <LuBot className="w-5 h-5" /></span>
-                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn <span className="inline-flex align-middle"><LuBookOpen className="w-5 h-5 text-yellow-500 mx-1" /></span> and a
+                  <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
+                    I'm a passionate and driven Computer Science student with a deep fascination for Artificial Intelligence
+                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn and a
                     desire to build things that matter.
                   </p>
-                  <p className="text-body-lg text-gray-700 dark:text-gray-100 leading-relaxed font-body transition-colors duration-300">
-                    From contributing to national defense projects at <span className="font-bold text-secondary-500 inline-flex items-center gap-1">DRDO <LuShield className="w-5 h-5" /></span> to innovating in the FinTech space <span className="inline-flex align-middle"><LuBanknote className="w-5 h-5 text-green-500 mx-1" /></span>, I thrive on
+                  <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
+                    From contributing to national defense projects at DRDO to innovating in the FinTech space, I thrive on
                     challenges that push the boundaries of technology. My goal is to not just write code, but to architect
-                    elegant, efficient, and intelligent systems that leave a lasting impact <span className="inline-flex align-middle"><LuStar className="w-5 h-5 text-yellow-400 mx-1" /></span>.
+                    elegant, efficient, and intelligent systems that leave a lasting impact.
                   </p>
                 </div>
               </div>
@@ -360,7 +360,7 @@ const About: React.FC = () => {
         <div ref={strengthsRef} className="mt-24">
           <h3
             ref={strengthsTitleRef}
-            className="text-heading-lg font-heading text-center mb-16 gradient-text-gold transition-colors duration-300"
+            className="text-heading-lg font-display font-normal text-center mb-16 gradient-text-gold transition-colors duration-300"
           >
             Key Strengths
           </h3>
@@ -378,7 +378,7 @@ const About: React.FC = () => {
                 <div className="strength-icon inline-flex items-center justify-center w-20 h-20 bg-primary-50 dark:bg-primary-900/20 backdrop-blur-sm rounded-lg mb-6 cursor-pointer" style={{ transition: 'transform 0.2s ease-out' }}>
                   <strength.icon className="w-10 h-10 text-primary-600 dark:text-primary-400 transition-colors duration-300" />
                 </div>
-                <h4 className="text-heading-md font-heading mb-6 text-gray-800 dark:text-white transition-colors duration-300">
+                <h4 className="text-lg font-body font-medium mb-6 text-gray-800 dark:text-white transition-colors duration-300">
                   {strength.title}
                 </h4>
                 <p className="text-body-md text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300">

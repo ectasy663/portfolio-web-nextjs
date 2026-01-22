@@ -297,7 +297,7 @@ const Experience: React.FC = () => {
       </div>
 
       <div className="container relative z-30">
-        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 leading-tight py-2">
+        <h2 ref={titleRef} className="text-display-lg font-display font-normal text-center mb-16 leading-tight py-2">
           <span ref={titleTextRef} className="gradient-text-gold" style={{ opacity: 0 }}>
             My Journey
           </span>
@@ -331,7 +331,7 @@ const Experience: React.FC = () => {
                   {/* Header */}
                   <div className="flex flex-col gap-3 mb-6 relative z-10">
                     <div className="flex justify-between items-start">
-                      <h3 className="role-title text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 pr-32">
+                      <h3 className="role-title text-xl font-body font-medium text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300 pr-32">
                         {exp.role}
                       </h3>
                     </div>
@@ -354,7 +354,7 @@ const Experience: React.FC = () => {
                   </p>
 
                   {/* Type Badge - Enhanced */}
-                  <div className={`type-badge absolute top-6 right-6 px-3 py-1 text-xs font-bold tracking-wide uppercase bg-gradient-to-r ${exp.color} text-white rounded-full shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
+                  <div className={`type-badge absolute top-6 right-6 px-3 py-1 text-xs font-medium tracking-wide uppercase bg-gradient-to-r ${exp.color} text-white rounded-full shadow-md transform group-hover:scale-105 transition-transform duration-300`}>
                     {exp.type}
                   </div>
                 </div>
@@ -365,7 +365,7 @@ const Experience: React.FC = () => {
 
         {/* Additional info - Enhanced */}
         <div ref={exploringRef} className="mt-20 text-center">
-          <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 max-w-3xl mx-auto shadow-lg hover:shadow-royal-purple-glow transition-all duration-500 group">
+          <div className="bg-white/80 dark:bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/20 dark:border-white/10 max-w-4xl mx-auto shadow-lg hover:shadow-royal-purple-glow transition-all duration-500 group">
             <h3 className="text-xl font-bold mb-4">
               <span className="gradient-text-gold">
                 Currently Exploring

@@ -1,17 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import { Outfit } from 'next/font/google';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { satoshi, seasons } from './fonts';
 import './globals.css';
-
-// Single optimized font - reduce font loading overhead
-const outfit = Outfit({
-  subsets: ['latin'],
-  variable: '--font-outfit',
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', 'sans-serif'],
-});
 
 export const viewport: Viewport = {
   themeColor: [
@@ -54,16 +45,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`dark ${outfit.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Preconnect to external domains for faster loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* DNS prefetch for external resources */}
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        {/* Preload critical assets */}
-        <link rel="preload" href="/fonts/the-seasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-      </head>
+    <html
+      lang="en"
+      className={`dark ${satoshi.variable} ${seasons.variable}`}
+      suppressHydrationWarning
+    >
       <body className="gsap-loaded">
         <ErrorBoundary>
           <ThemeProvider>

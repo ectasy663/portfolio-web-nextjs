@@ -279,17 +279,7 @@ const Hero: React.FC = () => {
         loop
         playsInline
         preload="none"
-        className="absolute z-0 opacity-0 dark:opacity-100 transition-opacity duration-300"
-        style={{
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.1)',
-          minWidth: '100%',
-          minHeight: '100%',
-          width: 'auto',
-          height: 'auto',
-          objectFit: 'cover',
-        }}
+        className="absolute inset-0 z-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 will-change-transform transform-gpu scale-110 dark:opacity-100 dark:brightness-75 dark:contrast-125"
         aria-hidden="true"
       >
         <source src="/videos/hero-video.mp4" type="video/mp4" />
@@ -302,10 +292,10 @@ const Hero: React.FC = () => {
       <div className="light-ray z-0"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="absolute inset-0 h-full bg-gradient-to-b from-black/50 via-black/30 to-black/60 dark:opacity-100 opacity-0 transition-opacity duration-300 z-5"></div>
+      <div className="pointer-events-none absolute inset-0 h-full bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
 
       {/* Subtle glow overlay (no blob/ball shapes) */}
-      <div className="absolute inset-0 z-15 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300">
+      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300">
         <div className="absolute inset-0 bg-gradient-to-tr from-primary-500/10 via-transparent to-secondary-500/10" />
       </div>
 
@@ -316,15 +306,15 @@ const Hero: React.FC = () => {
             {/* Left side - Text content */}
             <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold leading-tight relative z-50 mb-3">
-                <span ref={nameRef} className="hero-name gradient-text-name transition-colors duration-300" style={{ opacity: 0 }}>
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-tight relative z-50 mb-5">
+                <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300">
                   Naman Singh Panwar
                 </span>
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-700 dark:text-gray-200 transition-colors duration-300 flex items-center gap-2 sm:gap-3 flex-wrap mb-3">
-                <LuRocket className="w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-orange-500 animate-pulse-slow flex-shrink-0" />
+              <h2 ref={subtitleRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700/90 dark:text-gray-200/90 transition-colors duration-300 flex items-center gap-2.5 sm:gap-3 flex-wrap mb-5">
+                <LuRocket className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-orange-500/90 animate-pulse-slow flex-shrink-0" />
                 <span className="min-w-0">
                   <Typewriter
                     options={{
@@ -346,12 +336,12 @@ const Hero: React.FC = () => {
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="text-base xs:text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-200 leading-relaxed transition-colors duration-300 font-medium mb-3">
-                Crafting intelligent digital experiences <span className="inline-block align-middle"><LuSparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 animate-spin-slow" /></span> at the intersection of{' '}
-                <span className="text-primary-600 dark:text-primary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">AI/ML <LuBrain className="w-4 h-4 sm:w-5 sm:h-5" /></span>,{' '}
-                <span className="text-secondary-600 dark:text-secondary-400 font-bold transition-colors duration-300 inline-flex items-center gap-1">web development <LuGlobe className="w-4 h-4 sm:w-5 sm:h-5" /></span>, and{' '}
-                <span className="text-primary-500 dark:text-primary-300 font-bold transition-colors duration-300 inline-flex items-center gap-1">creative design <LuPalette className="w-4 h-4 sm:w-5 sm:h-5" /></span>.
-                Transforming complex ideas into elegant, user-centered solutions <span className="inline-block align-middle"><LuLightbulb className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" /></span>.
+              <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-8">
+                Crafting intelligent digital experiences at the intersection of{' '}
+                <span className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI/ML</span>,{' '}
+                <span>web development</span>, and{' '}
+                <span>creative design</span>.
+                Transforming complex ideas into elegant, user-centered solutions.
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
@@ -361,38 +351,36 @@ const Hero: React.FC = () => {
                     key={index}
                     className="tech-badge group flex items-center bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2.5 xs:px-3 sm:px-5 py-1.5 xs:py-2 sm:py-2.5 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform cursor-pointer"
                   >
-                    <span className={`text-[10px] xs:text-xs sm:text-sm font-semibold ${tech.color} transition-colors duration-300`}>{tech.name}</span>
+                    <span className={`text-[10px] xs:text-xs sm:text-sm font-medium tracking-[0.02em] ${tech.color} transition-colors duration-300`}>{tech.name}</span>
                   </div>
                 ))}
               </div>
 
               {/* Action buttons */}
-              <div ref={buttonsRef} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-5 sm:items-center mb-2">
-                <button
-                  onClick={scrollToProjects}
-                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
-                >
-                  <span className="flex items-center justify-center space-x-2">
+              <div ref={buttonsRef} className="flex flex-col gap-3 mb-6 max-w-md">
+                <div className="flex gap-3 w-full">
+                  <button
+                    onClick={scrollToProjects}
+                    className="flex-1 group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
+                  >
                     <LuCode size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
-                    <span className="text-sm sm:text-base">View My Work</span>
-                  </span>
-                </button>
+                    <span className="text-sm sm:text-base">View Work</span>
+                  </button>
 
-                <ResumeButton variant="secondary" className="px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base" />
+                  <ResumeButton variant="secondary" className="flex-1 font-body font-medium py-3 px-4 text-sm sm:text-base justify-center" />
+                </div>
 
                 <button
                   onClick={scrollToContact}
-                  className="group px-6 sm:px-8 py-3 sm:py-4 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white font-semibold rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-xl hover:scale-105 transition-all duration-300 will-change-transform focus:outline-none focus:ring-2 focus:ring-gray-300/50 dark:focus:ring-white/30 active:scale-95"
+                  className="w-full group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
                 >
-                  <span className="flex items-center justify-center space-x-2">
-                    <LuZap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
-                    <span className="text-sm sm:text-base">Let's Connect</span>
-                  </span>
+                  <LuZap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
+                  <span className="text-sm sm:text-base">Let's Connect</span>
                 </button>
               </div>
 
               {/* Social links */}
-              <div ref={socialRef} className="flex items-center gap-4 sm:gap-6">
+              <div ref={socialRef} className="flex items-center gap-3 sm:gap-4">
                 {[
                   { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'GitHub' },
                   { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
@@ -404,16 +392,16 @@ const Hero: React.FC = () => {
                     target={social.href.startsWith('http') ? '_blank' : undefined}
                     rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     aria-label={social.label}
-                    className="group p-2.5 sm:p-3 bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-110 hover:shadow-lg transition-all duration-300 will-change-transform"
+                    className="group w-[72px] h-[72px] sm:w-20 sm:h-20 flex items-center justify-center bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 rounded-xl text-gray-600 dark:text-gray-200 hover:text-gray-800 dark:hover:text-white hover:border-gray-300 dark:hover:border-white/40 hover:scale-105 hover:shadow-lg transition-all duration-300 will-change-transform"
                   >
-                    <social.icon size={20} className="sm:w-6 sm:h-6" aria-hidden="true" />
+                    <social.icon size={32} className="sm:w-9 sm:h-9" aria-hidden="true" />
                   </a>
                 ))}
               </div>
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-24" style={{ perspective: '1000px' }}>
+            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] ml-auto lg:ml-24 perspective-1000">
               <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"

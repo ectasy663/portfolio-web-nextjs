@@ -158,21 +158,19 @@ const Skills: React.FC = () => {
         gsap.fromTo(learningBadges,
           {
             opacity: 0,
-            y: 40,
-            scale: 0.7,
-            rotation: gsap.utils.random(-15, 15, true)
+            y: 20,
+            scale: 0.8
           },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            rotation: 0,
-            duration: 0.8,
+            duration: 0.6,
             stagger: {
-              each: 0.1,
-              from: "center"
+              each: 0.08,
+              from: "start"
             },
-            ease: "elastic.out(1, 0.5)",
+            ease: "power3.out",
             scrollTrigger: {
               trigger: learningRef.current,
               start: "top 80%",
@@ -184,12 +182,12 @@ const Skills: React.FC = () => {
         // Continuous gentle float
         learningBadges.forEach((badge, index) => {
           gsap.to(badge, {
-            y: "+=6",
-            duration: 2 + index * 0.3,
+            y: "+=3",
+            duration: 2 + index * 0.2,
             ease: "sine.inOut",
             yoyo: true,
             repeat: -1,
-            delay: index * 0.2
+            delay: index * 0.15
           });
         });
       }
@@ -241,7 +239,7 @@ const Skills: React.FC = () => {
 
       <div className="container relative z-40">
         <div className="text-center mb-16">
-          <h2 ref={titleRef} className="text-display-lg font-display mb-6 leading-tight py-2">
+          <h2 ref={titleRef} className="text-display-lg font-display font-normal mb-6 leading-tight py-2">
             <span ref={titleTextRef} className="gradient-text-gold transition-colors duration-300" style={{ opacity: 0 }}>
               Technical Skills
             </span>
@@ -268,7 +266,7 @@ const Skills: React.FC = () => {
                   <div className="skill-icon text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400 bg-clip-text transition-colors duration-300 cursor-pointer">
                     {category.icon}
                   </div>
-                  <h3 className="text-heading-md font-heading text-gray-900 dark:text-white transition-colors duration-300">
+                  <h3 className="text-lg font-body font-medium text-gray-900 dark:text-white transition-colors duration-300">
                     {category.title}
                   </h3>
                 </div>
@@ -313,14 +311,14 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Tech stack highlights */}
-        <div ref={learningRef} className="glass-panel rounded-3xl px-6 py-10 sm:px-10 sm:py-12 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300 max-w-5xl mx-auto">
-          <h3 className="text-heading-lg font-heading text-center mb-6 sm:mb-8">
+        <div ref={learningRef} className="glass-panel rounded-3xl px-6 py-8 sm:px-10 sm:py-10 border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300 w-full overflow-hidden">
+          <h3 className="text-heading-lg font-heading text-center mb-6">
             <span className="gradient-text-gold">
               Currently Learning
             </span>
           </h3>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-stretch">
             {[
               { name: "Cloud Computing", color: "dark:from-primary-400 dark:to-secondary-600 from-primary-500 to-primary-600" },
               { name: "WebGL", color: "dark:from-secondary-400 dark:to-primary-600 from-primary-500 to-primary-600" },
@@ -331,7 +329,7 @@ const Skills: React.FC = () => {
             ].map((tech, index) => (
               <div
                 key={index}
-                className="learning-badge group flex items-center space-x-3 bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-6 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold cursor-pointer"
+                className="learning-badge group flex w-full items-center justify-center bg-white/70 dark:bg-dark-900/50 backdrop-blur-md rounded-xl px-4 py-3 border border-primary-200/50 dark:border-primary-500/20 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-royal-gold cursor-pointer"
               >
                 <span className={`font-heading font-medium text-transparent bg-gradient-to-r ${tech.color} bg-clip-text`}>
                   {tech.name}

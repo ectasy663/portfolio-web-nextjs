@@ -134,6 +134,7 @@ export function createMouseParallax(container: HTMLElement, elements: HTMLElemen
 export type SplitTextInstance = {
   element: HTMLElement;
   chars: HTMLSpanElement[];
+  refresh?: () => void;
   revert: () => void;
 };
 
@@ -145,7 +146,9 @@ export function createSplitText(
   } = {}
 ): SplitTextInstance {
   const originalHTML = element.innerHTML;
-  const text = element.textContent || '';
+  // Normalize whitespace so repeated mounts / formatting newlines don't create
+  // hidden characters that can break layout/gradient calculations.
+  const text = (element.textContent ?? '').replace(/\s+/g, ' ').trim();
   element.innerHTML = '';
 
   const computed = window.getComputedStyle(element);
@@ -167,10 +170,11 @@ export function createSplitText(
   if (element.classList.contains('gradient-text-name')) gradientClasses.push('gradient-text-name');
 
   const applyContinuousGradient = (targets: HTMLSpanElement[]) => {
+    const currentComputed = window.getComputedStyle(element);
     const parentRect = element.getBoundingClientRect();
     if (!parentRect.width || !parentRect.height) return;
 
-    const bgSizeTokens = computed.backgroundSize.split(/\s+/).filter(Boolean);
+    const bgSizeTokens = currentComputed.backgroundSize.split(/\s+/).filter(Boolean);
     const sizeXToken = bgSizeTokens[0] || '100%';
     const sizeYToken = bgSizeTokens[1] || 'auto';
 
@@ -192,7 +196,7 @@ export function createSplitText(
       const offsetX = spanRect.left - parentRect.left;
       const offsetY = spanRect.top - parentRect.top;
 
-      span.style.backgroundImage = computed.backgroundImage;
+      span.style.backgroundImage = currentComputed.backgroundImage;
       span.style.backgroundRepeat = 'no-repeat';
       span.style.backgroundSize = `${backgroundWidthPx}px ${backgroundHeightPx}px`;
       span.style.backgroundPosition = `${-offsetX}px ${-offsetY}px`;
@@ -246,14 +250,41 @@ export function createSplitText(
     animChars.push(span);
   });
 
-  if (shouldPreserveGradient) {
+  let resizeObserver: ResizeObserver | null = null;
+  const refresh = () => {
+    if (!shouldPreserveGradient) return;
     requestAnimationFrame(() => applyContinuousGradient(animChars));
+  };
+
+  if (shouldPreserveGradient) {
+    // 1) First frame (initial layout)
+    refresh();
+
+    // 2) After fonts settle (prevents occasional “missing/cut” glyphs)
+    if (document.fonts?.ready) {
+      document.fonts.ready
+        .then(() => refresh())
+        .catch(() => {
+          // ignore
+        });
+    }
+
+    // 3) Any size changes (responsive / hydration / layout shifts)
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => {
+        refresh();
+      });
+      resizeObserver.observe(element);
+    }
   }
 
   return {
     element,
     chars: animChars,
+    refresh,
     revert: () => {
+      resizeObserver?.disconnect();
+      resizeObserver = null;
       element.innerHTML = originalHTML;
     }
   };

@@ -418,7 +418,7 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-display-lg font-display text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
+        <h2 ref={titleRef} className="text-display-lg font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Let&apos;s Build Something Amazing
         </h2>
 
@@ -437,7 +437,7 @@ const Contact: React.FC = () => {
             {/* Contact Information */}
             <div ref={contactInfoRef} className="space-y-8">
               <div>
-                <h3 className="text-heading-md font-heading mb-6 text-gray-900 dark:text-white">Get In Touch</h3>
+                <h3 className="text-2xl font-body font-medium mb-6 text-gray-900 dark:text-white">Get In Touch</h3>
                 <p className="text-body-md text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                   Whether you have a project in mind, want to collaborate, or just want to say hello,
                   I&apos;d love to hear from you. Let&apos;s discuss how we can work together.
@@ -484,7 +484,7 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <div className="form-container bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl p-8 rounded-xl border border-primary-200/50 dark:border-primary-500/30 shadow-lg hover:shadow-royal-gold transition-all duration-300 relative overflow-hidden" style={{ transformStyle: 'preserve-3d' }}>
-              <h3 className="text-3xl sm:text-4xl md:text-4xl font-semibold mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
+              <h3 className="text-3xl font-body font-medium mb-6 text-gray-900 dark:text-gray-200">Send a Message</h3>
 
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
