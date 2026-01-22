@@ -210,8 +210,48 @@ export function createSplitText(
 
   const animChars: HTMLSpanElement[] = [];
 
-  Array.from(text).forEach((char) => {
-    if (char === ' ') {
+  // Split into words and wrap each word in a non-breaking inline-block container.
+  // This prevents awkward mid-word line breaks when each character is its own inline element.
+  const words = text.split(' ');
+  words.forEach((word, wordIndex) => {
+    const wordWrap = document.createElement('span');
+    wordWrap.className = 'split-word inline-block';
+    wordWrap.style.display = 'inline-block';
+    wordWrap.style.whiteSpace = 'nowrap';
+    wordWrap.style.lineHeight = 'inherit';
+    wordWrap.style.verticalAlign = 'baseline';
+
+    Array.from(word).forEach((char) => {
+      const span = document.createElement('span');
+      span.className = 'split-char inline-block';
+      span.style.display = 'inline-block';
+      span.style.willChange = 'transform, opacity';
+      span.textContent = char;
+      span.style.lineHeight = 'inherit';
+      span.style.letterSpacing = 'inherit';
+      span.style.verticalAlign = 'baseline';
+      span.style.overflow = 'visible';
+      span.style.position = 'relative';
+
+      if (shouldPreserveGradient) {
+        gradientClasses.forEach((cls) => span.classList.add(cls));
+        span.style.backgroundImage = computed.backgroundImage;
+        span.style.backgroundSize = computed.backgroundSize;
+        span.style.backgroundRepeat = computed.backgroundRepeat;
+        span.style.backgroundClip = 'text';
+        (span.style as any).WebkitBackgroundClip = 'text';
+        span.style.color = 'transparent';
+        (span.style as any).WebkitTextFillColor = 'transparent';
+      }
+
+      wordWrap.appendChild(span);
+      animChars.push(span);
+    });
+
+    element.appendChild(wordWrap);
+
+    // Add spacing + word-level wrap opportunity
+    if (wordIndex < words.length - 1) {
       const spaceSpan = document.createElement('span');
       spaceSpan.className = 'split-space';
       spaceSpan.style.display = 'inline-block';
@@ -221,33 +261,7 @@ export function createSplitText(
       spaceSpan.textContent = '\u00A0';
       element.appendChild(spaceSpan);
       element.appendChild(document.createElement('wbr'));
-      return;
     }
-
-    const span = document.createElement('span');
-    span.className = 'split-char inline-block';
-    span.style.display = 'inline-block';
-    span.style.willChange = 'transform, opacity';
-    span.textContent = char;
-    span.style.lineHeight = 'inherit';
-    span.style.letterSpacing = 'inherit';
-    span.style.verticalAlign = 'baseline';
-    span.style.overflow = 'visible';
-    span.style.position = 'relative';
-
-    if (shouldPreserveGradient) {
-      gradientClasses.forEach((cls) => span.classList.add(cls));
-      span.style.backgroundImage = computed.backgroundImage;
-      span.style.backgroundSize = computed.backgroundSize;
-      span.style.backgroundRepeat = computed.backgroundRepeat;
-      span.style.backgroundClip = 'text';
-      (span.style as any).WebkitBackgroundClip = 'text';
-      span.style.color = 'transparent';
-      (span.style as any).WebkitTextFillColor = 'transparent';
-    }
-
-    element.appendChild(span);
-    animChars.push(span);
   });
 
   let resizeObserver: ResizeObserver | null = null;
