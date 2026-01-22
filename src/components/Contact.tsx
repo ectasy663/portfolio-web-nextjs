@@ -418,7 +418,7 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-display-lg font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
+        <h2 ref={titleRef} className="text-6xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Let&apos;s Build Something Amazing
         </h2>
 

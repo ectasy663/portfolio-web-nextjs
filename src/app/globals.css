@@ -749,7 +749,8 @@ html {
 
 @media (max-width: 768px) {
   .section-padding {
-    padding: 3rem 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 
   .gradient-text {
