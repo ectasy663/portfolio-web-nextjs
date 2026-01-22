@@ -309,7 +309,7 @@ const About: React.FC = () => {
       <div className="container relative z-30">
         <h2
           ref={titleRef}
-          className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
+          className="text-5xl xs:text-6xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
           style={{ opacity: 0 }}
         >
           About Me

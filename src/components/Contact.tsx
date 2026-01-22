@@ -256,8 +256,8 @@ const Contact: React.FC = () => {
           duration: 0.8,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: footer,
-            start: "top 95%",
+            trigger: sectionRef.current,
+            start: "top 80%",
             toggleActions: "play none none reverse"
           }
         });
@@ -418,7 +418,7 @@ const Contact: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
+        <h2 ref={titleRef} className="text-5xl xs:text-6xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
           Let&apos;s Build Something Amazing
         </h2>
 
@@ -589,7 +589,7 @@ const Contact: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="footer-section mt-12 sm:mt-20 pt-8 border-t border-gray-300 dark:border-gray-700 text-center">
+        <div className="footer-section mt-8 sm:mt-16 pt-6 sm:pt-8 border-t border-gray-300 dark:border-gray-700 text-center">
           <p className="text-gray-700 dark:text-gray-400">
             © 2025 Naman Singh Panwar. Built with Next.js, TypeScript, and GSAP.
           </p>

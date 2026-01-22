@@ -921,6 +921,17 @@ html {
 .str-title-char {
   display: inline-block;
   will-change: transform, opacity;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* When SplitText applies gradient classes to individual characters, don't let those
+   classes inject padding/line-height that changes the perceived heading size. */
+.split-char.gradient-text-gold,
+.split-char.gradient-text-name {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: inherit !important;
 }
 
 /* 3D Transform Utilities */
