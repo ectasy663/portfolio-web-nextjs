@@ -1,5 +1,27 @@
 export const projects = [
   {
+    title: "Gyannetra AI Consultancy",
+    tagline: "Live, Google-Discoverable Platform for AI Solutions",
+    description: "Designed and engineered the complete frontend for Gyannetra — a production-grade AI consultancy platform in active company use and discoverable on Google (" +
+      "search: Gyannetra). Delivered a minimalist, conversion-focused UI with a scalable React + TypeScript component system, dockerized deployment, and careful rendering/performance optimizations to keep Core Web Vitals strong. The experience showcases AI tools and solutions through polished, interactive components while staying clean, professional, and SEO-ready.",
+    features: [
+      { text: "Production-grade .com deployment" },
+      { text: "Minimalist, premium UI/UX" },
+      { text: "Scalable React + TypeScript component architecture" },
+      { text: "Dockerized build & deployment workflow" },
+      { text: "Core Web Vitals + rendering optimizations" },
+      { text: "SEO-ready structure & metadata hygiene" }
+    ],
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Docker", "Performance Optimization", "SEO"],
+    liveUrl: "https://gyannetra.com/",
+    githubUrl: "#",
+    stats: { stars: 0, forks: 0, views: 0 },
+    date: "2026",
+    gradient: "dark:from-primary-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600",
+    category: "AI Consultancy",
+    status: "Live Production"
+  },
+  {
     title: "Portfolio Website (Next.js)",
     tagline: "Performance-Optimized Personal Portfolio",
     description: "A production-grade portfolio built with Next.js App Router and a component-driven architecture. Includes a server-side contact API route, dynamic loading for heavy animation dependencies, and a polished UI system with Tailwind CSS. The project is backed by Jest + React Testing Library and includes accessibility checks via axe-core.",

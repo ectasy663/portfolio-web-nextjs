@@ -12,7 +12,7 @@ export const experiences = [
     company: "DRDO (Defence Research and Development Organisation)",
     period: "July 2025 – Sep 2025",
     description: "Contributed to 2 active defense research projects at India's premier R&D organization. Improved ML model accuracy by 12% through feature engineering and data preprocessing. Processed and analyzed 50,000+ data samples for pattern recognition in high-stakes defense applications.",
-    type: "Current",
+    type: "Recent",
     color: "dark:from-primary-500 dark:to-royal-blue-600 from-primary-500 via-primary-400 to-primary-600"
   },
   {
@@ -20,7 +20,7 @@ export const experiences = [
     company: "Gyannetra Pvt Ltd",
     period: "May 2025 – July 2025",
     description: "Built 15+ responsive React components used across 4 AI-driven web applications. Reduced deployment time by 70% using Docker containerization. Achieved 95% code coverage with unit tests and improved API response times by 35% through frontend optimization.",
-    type: "Recent",
+    type: "Past",
     color: "dark:from-primary-500 dark:to-royal-blue-500 from-primary-500 via-primary-400 to-primary-600"
   },
   {
