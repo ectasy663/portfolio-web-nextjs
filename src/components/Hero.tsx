@@ -306,8 +306,8 @@ const Hero: React.FC = () => {
             {/* Left side - Text content */}
             <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-tight relative z-50 mb-5">
-                <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300">
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-5 pb-1">
+                <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300 whitespace-nowrap">
                   Naman Singh Panwar
                 </span>
               </h1>
