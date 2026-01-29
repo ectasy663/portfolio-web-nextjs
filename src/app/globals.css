@@ -941,8 +941,11 @@ html {
 #about h2.gradient-text-gold,
 #achievements h2.gradient-text-gold {
   font-size: 3rem !important; /* text-5xl equivalent */
-  line-height: 1.1 !important;
-  padding: 0 !important;
+  /* Leave room for descenders (e.g. "g") so the glyphs don't get clipped */
+  line-height: 1.2 !important;
+  padding-top: 0.05em !important;
+  padding-bottom: 0.25em !important;
+  overflow: visible !important;
 }
 
 @media (min-width: 375px) {

@@ -315,7 +315,11 @@ const Achievements: React.FC = () => {
       </div>
 
       <div className="container relative z-20">
-        <h2 ref={titleRef} className="text-5xl xs:text-6xl sm:text-6xl md:text-7xl font-display text-center mb-16 gradient-text-gold leading-tight py-2" style={{ opacity: 0 }}>
+        <h2
+          ref={titleRef}
+          className="text-5xl xs:text-6xl sm:text-6xl md:text-7xl font-display text-center mb-16 gradient-text-gold leading-[1.2] pt-2 pb-5 overflow-visible"
+          style={{ opacity: 0 }}
+        >
           Awards & Recognition
         </h2>
 
