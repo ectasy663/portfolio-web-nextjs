@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { skillCategories } from '@/data/skills';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -12,9 +13,12 @@ const Skills: React.FC = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const learningRef = useRef<HTMLDivElement>(null);
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleTextRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -43,17 +47,19 @@ const Skills: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === SKILL CARDS 3D FLIP ENTRANCE ===
       const skillCards = skillsRef.current?.querySelectorAll('.skill-card');
       if (skillCards) {
@@ -208,9 +214,7 @@ const Skills: React.FC = () => {
           });
         });
       }
-    }, sectionRef);
-
-    return () => ctx.revert();
+      }, sectionRef);
       } catch (error) {
         console.error('Failed to initialize Skills animations:', error);
       }
@@ -220,8 +224,9 @@ const Skills: React.FC = () => {
 
     return () => {
       cancelled = true;
+      ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   return (
     <section ref={sectionRef} id="skills" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">

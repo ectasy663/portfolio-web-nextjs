@@ -17,6 +17,7 @@ export type SplitTextAnimationConfig = {
 export type UseSplitTextAnimationOptions = {
   scopeRef: RefObject<HTMLElement>;
   targetRef: RefObject<HTMLElement>;
+  enabled?: boolean;
   desktop: SplitTextAnimationConfig;
   mobile?: SplitTextAnimationConfig;
   breakpoints?: {
@@ -28,6 +29,7 @@ export type UseSplitTextAnimationOptions = {
 export function useSplitTextAnimation({
   scopeRef,
   targetRef,
+  enabled = true,
   desktop,
   mobile,
   breakpoints
@@ -45,6 +47,7 @@ export function useSplitTextAnimation({
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!enabled) return;
 
     const scopeEl = scopeRef.current;
     if (!scopeEl) return;
@@ -87,13 +90,6 @@ export function useSplitTextAnimation({
                 // We reveal it only when the animation begins.
                 gsap.set(targetEl, { visibility: 'hidden' });
 
-              // Kill ALL existing ScrollTriggers on this target to prevent duplicates
-              ScrollTrigger.getAll().forEach((trigger: any) => {
-                if (trigger.trigger === targetEl) {
-                  trigger.kill();
-                }
-              });
-
               // Kill previous tween if exists
               if (tweenRef.current) {
                 tweenRef.current.scrollTrigger?.kill();
@@ -123,6 +119,16 @@ export function useSplitTextAnimation({
                 ? desktopConfigRef.current
                 : (mobileConfigRef.current ?? desktopConfigRef.current);
 
+              const scrollTrigger = config.scrollTrigger
+                ? {
+                    ...(config.scrollTrigger as any),
+                    trigger:
+                      (config.scrollTrigger as any).trigger ||
+                      scopeRef.current ||
+                      targetEl
+                  }
+                : undefined;
+
               // Build fromVars with defaults
               const fromVars = { ...(config.from ?? {
                 opacity: 0,
@@ -145,46 +151,41 @@ export function useSplitTextAnimation({
                 ? ({ each: staggerValue * speedScale, from: 'center' as const })
                 : staggerValue;
 
-              // Double RAF ensures DOM layout is fully settled before gradient calculations
-              // This prevents the 100ms "broken" flash on initial load
+              // Single RAF: allows layout to settle without delaying the start too much.
               requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                  if (cancelled) return;
-                  
-                  // Now that layout is stable, refresh gradient alignment
-                  splitRef.current?.refresh?.();
+                if (cancelled) return;
 
-                  // Animate from hidden state to visible
-                  tweenRef.current = gsap.fromTo(
-                    splitRef.current!.chars,
-                    {
-                      ...fromVars,
-                      opacity: 0
+                // Now that layout is stable, refresh gradient alignment
+                splitRef.current?.refresh?.();
+
+                // Animate from hidden state to visible
+                tweenRef.current = gsap.fromTo(
+                  splitRef.current!.chars,
+                  {
+                    ...fromVars,
+                    opacity: 0
+                  },
+                  {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    transformPerspective: 1000,
+                    duration: (config.duration ?? 1) * speedScale,
+                    stagger,
+                    ease: config.ease ?? 'back.out(1.7)',
+                    delay: config.delay ?? 0,
+                      scrollTrigger,
+                    immediateRender: false,
+                    overwrite: 'auto',
+                    onStart: () => {
+                      // Ensure visibility when animation begins
+                      gsap.set(targetEl, { opacity: 1, visibility: 'visible' });
                     },
-                    {
-                      opacity: 1,
-                      y: 0,
-                      rotateX: 0,
-                      transformPerspective: 1000,
-                      duration: (config.duration ?? 1) * speedScale,
-                      stagger,
-                      ease: config.ease ?? 'back.out(1.7)',
-                      delay: config.delay ?? 0,
-                      scrollTrigger: config.scrollTrigger,
-                      immediateRender: false,
-                      overwrite: 'auto',
-                      onStart: () => {
-                        // Ensure visibility when animation begins
-                        gsap.set(targetEl, { opacity: 1, visibility: 'visible' });
-                      },
-                      onComplete: () => {
-                        // After transforms settle, recompute per-char gradient positions.
-                        // This prevents rare "broken" gradient seams after repeated reloads.
-                        splitRef.current?.refresh?.();
-                      }
+                    onComplete: () => {
+                      splitRef.current?.refresh?.();
                     }
-                  );
-                });
+                  }
+                );
               });
             };
 
@@ -232,5 +233,5 @@ export function useSplitTextAnimation({
       modeRef.current = null;
       if (ctx) ctx.revert();
     };
-  }, [scopeRef, targetRef, breakpoints?.desktop, breakpoints?.mobile]);
+  }, [scopeRef, targetRef, enabled, breakpoints?.desktop, breakpoints?.mobile]);
 }

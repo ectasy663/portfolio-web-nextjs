@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useLayoutEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { LuArrowDown, LuGithub, LuLinkedin, LuMail, LuCode, LuZap, LuRocket, LuSparkles, LuBrain, LuGlobe, LuPalette, LuLightbulb } from 'react-icons/lu';
 import { scrollToId } from '@/utils/scroll';
@@ -52,16 +52,19 @@ const Hero: React.FC = () => {
     }
   });
 
-  // Initialize GSAP immediately (less lag)
-  useLayoutEffect(() => {
+  // Initialize GSAP after first paint (avoid blocking)
+  useEffect(() => {
     let cancelled = false;
+    let mm: any;
+    let mouseRaf = 0;
+    let lastMouseEvent: MouseEvent | null = null;
 
     const initAnimations = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const mm = gsap.matchMedia();
+        mm = gsap.matchMedia();
 
         mm.add("(prefers-reduced-motion: no-preference)", () => {
         // === SUBTITLE ANIMATION ===
@@ -189,11 +192,17 @@ const Hero: React.FC = () => {
 
         // === MOUSE PARALLAX FOR HERO ===
         const handleMouseMove = (e: MouseEvent) => {
+          lastMouseEvent = e;
+          if (mouseRaf) return;
+          mouseRaf = window.requestAnimationFrame(() => {
+            mouseRaf = 0;
+            const evt = lastMouseEvent;
+            if (!evt) return;
           if (!heroRef.current) return;
 
           const rect = heroRef.current.getBoundingClientRect();
-          const x = (e.clientX - rect.left - rect.width / 2) / rect.width;
-          const y = (e.clientY - rect.top - rect.height / 2) / rect.height;
+          const x = (evt.clientX - rect.left - rect.width / 2) / rect.width;
+          const y = (evt.clientY - rect.top - rect.height / 2) / rect.height;
 
           // Parallax on background elements
           const overlays = heroRef.current.querySelectorAll('.parallax-layer');
@@ -216,6 +225,7 @@ const Hero: React.FC = () => {
               ease: "power2.out"
             });
           }
+          });
         };
 
         heroRef.current?.addEventListener('mousemove', handleMouseMove);
@@ -241,11 +251,16 @@ const Hero: React.FC = () => {
       }
     };
 
-    // Run animations immediately once component mounts
-    initAnimations();
+    // Kick off after paint
+    const raf = window.requestAnimationFrame(() => {
+      initAnimations();
+    });
 
     return () => {
       cancelled = true;
+      if (raf) window.cancelAnimationFrame(raf);
+      if (mouseRaf) window.cancelAnimationFrame(mouseRaf);
+      if (mm) mm.revert();
     };
   }, []);
 

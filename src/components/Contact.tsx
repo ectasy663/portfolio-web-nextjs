@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LuMail, LuLinkedin, LuGithub, LuSend, LuCheck, LuSparkles } from 'react-icons/lu';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,9 +22,12 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -52,8 +56,9 @@ const Contact: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
     let ctx: { revert: () => void } | undefined;
@@ -291,10 +296,10 @@ const Contact: React.FC = () => {
       controller.abort();
       ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   // === SUCCESS ANIMATION ===
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!showSuccess || !formRef.current) return;
 
     let cancelled = false;

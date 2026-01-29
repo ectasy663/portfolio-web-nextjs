@@ -1,33 +1,36 @@
 'use client';
 
-import { useLayoutEffect } from 'react';
-import { loadGSAP } from '@/utils/gsapLoader';
+import { useEffect } from 'react';
 
 export default function PageEffects() {
-  useLayoutEffect(() => {
-    // Initialize GSAP with dynamic loading
-    const initGSAP = async () => {
-      try {
-        const { gsap, ScrollTrigger } = await loadGSAP();
+  useEffect(() => {
+    const bar = document.querySelector<HTMLElement>('.scroll-progress');
+    if (!bar) return;
 
-        // Create scroll progress indicator
-        gsap.to(".scroll-progress", {
-          width: "100%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: "body",
-            start: "top top",
-            end: "bottom bottom",
-            scrub: 0.5,
-          }
-        });
-      } catch (error) {
-        console.error('Failed to initialize PageEffects:', error);
-      }
+    let rafId = 0;
+    const update = () => {
+      rafId = 0;
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop || 0;
+      const max = Math.max(1, doc.scrollHeight - doc.clientHeight);
+      const pct = Math.min(100, Math.max(0, (scrollTop / max) * 100));
+      bar.style.width = `${pct}%`;
     };
 
-    // Initialize GSAP immediately to prevent lag
-    initGSAP();
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (

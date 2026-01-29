@@ -36,6 +36,9 @@ export async function loadGSAP() {
       // Register plugins once
       if (typeof window !== 'undefined') {
         gsapInstance.registerPlugin(scrollTriggerInstance);
+
+        // Expose for code paths that check window.gsap (e.g. theme-aware hooks)
+        (window as any).gsap = gsapInstance;
       }
     } catch (error) {
       console.error('Failed to load GSAP:', error);

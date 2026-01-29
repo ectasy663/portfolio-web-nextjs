@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { LuExternalLink, LuGithub, LuArrowRight, LuStar, LuEye, LuGitFork, LuCalendar, LuCode, LuSparkles } from 'react-icons/lu';
 import { loadGSAP } from '@/utils/gsapLoader';
@@ -11,6 +11,7 @@ import {
 } from 'react-icons/si';
 
 import { projects } from '@/data/projects';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -19,9 +20,12 @@ const Projects: React.FC = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleTextRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -50,17 +54,19 @@ const Projects: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === FEATURED BADGE ENTRANCE ===
       const featuredBadge = sectionRef.current?.querySelector('.featured-badge');
       if (featuredBadge) {
@@ -292,8 +298,6 @@ const Projects: React.FC = () => {
       });
 
     }, sectionRef);
-
-    return () => ctx.revert();
       } catch (error) {
         console.error('Failed to initialize Projects animations:', error);
       }
@@ -303,8 +307,9 @@ const Projects: React.FC = () => {
 
     return () => {
       cancelled = true;
+      ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   const getTechIcon = (tech: string) => {
     const iconMap: { [key: string]: React.ReactElement } = {

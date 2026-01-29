@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 import { strengths } from '@/data/about';
 import { LuRocket, LuGraduationCap, LuBot, LuBookOpen, LuShield, LuBanknote, LuStar } from 'react-icons/lu';
 
@@ -15,9 +16,12 @@ const About: React.FC = () => {
   const strengthsRef = useRef<HTMLDivElement>(null);
   const strengthsTitleRef = useRef<HTMLHeadingElement>(null);
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '500px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -46,17 +50,19 @@ const About: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === IMAGE 3D ENTRANCE ===
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
@@ -256,8 +262,6 @@ const About: React.FC = () => {
       }
 
         }, sectionRef);
-
-        return () => ctx.revert();
       } catch (error) {
         console.error('Failed to initialize About animations:', error);
       }
@@ -267,8 +271,9 @@ const About: React.FC = () => {
 
     return () => {
       cancelled = true;
+      ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   return (
     <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">

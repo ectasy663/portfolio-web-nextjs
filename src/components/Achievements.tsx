@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { LuStar } from 'react-icons/lu';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { achievements } from '@/data/achievements';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Achievements: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -13,9 +14,12 @@ const Achievements: React.FC = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -44,17 +48,19 @@ const Achievements: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === ACHIEVEMENT CARDS STAGGERED 3D ENTRANCE ===
       const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
       if (achievementCards) {
@@ -284,8 +290,6 @@ const Achievements: React.FC = () => {
       });
 
     }, sectionRef);
-
-    return () => ctx.revert();
       } catch (error) {
         console.error('Failed to initialize Achievements animations:', error);
       }
@@ -295,8 +299,9 @@ const Achievements: React.FC = () => {
 
     return () => {
       cancelled = true;
+      ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   return (
     <section ref={sectionRef} id="achievements" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300">

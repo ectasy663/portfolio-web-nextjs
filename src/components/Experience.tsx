@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { LuCalendar, LuBuilding, LuBriefcase } from 'react-icons/lu';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { experiences } from '@/data/experience';
+import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Experience: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,9 +15,12 @@ const Experience: React.FC = () => {
   const timelineLineRef = useRef<HTMLDivElement>(null);
   const exploringRef = useRef<HTMLDivElement>(null);
 
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+
   useSplitTextAnimation({
     scopeRef: sectionRef,
     targetRef: titleTextRef,
+    enabled: shouldAnimate,
     desktop: {
       duration: 1,
       stagger: 0.04,
@@ -45,17 +49,19 @@ const Experience: React.FC = () => {
     }
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (typeof window === 'undefined') return;
+    if (!shouldAnimate) return;
 
     let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
 
     const init = async () => {
       try {
         const { gsap, ScrollTrigger } = await loadGSAP();
         if (cancelled) return;
 
-        const ctx = gsap.context(() => {
+        ctx = gsap.context(() => {
       // === TIMELINE LINE DRAW ANIMATION ===
       if (timelineLineRef.current) {
         gsap.fromTo(timelineLineRef.current,
@@ -271,8 +277,6 @@ const Experience: React.FC = () => {
       });
 
     }, sectionRef);
-
-    return () => ctx.revert();
       } catch (error) {
         console.error('Failed to initialize Experience animations:', error);
       }
@@ -282,8 +286,9 @@ const Experience: React.FC = () => {
 
     return () => {
       cancelled = true;
+      ctx?.revert();
     };
-  }, []);
+  }, [shouldAnimate]);
 
   return (
     <section ref={sectionRef} id="experience" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">

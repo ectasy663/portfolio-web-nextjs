@@ -1,7 +1,8 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { Suspense, useState, useCallback } from 'react';
+import { Suspense, useState, useCallback, useEffect } from 'react';
+import { loadGSAP } from '@/utils/gsapLoader';
 
 // Import IntroLoader directly (not dynamically) so it renders immediately
 import IntroLoader from '@/components/IntroLoader';
@@ -38,6 +39,40 @@ const PageEffects = dynamic(() => import('@/components/PageEffects'), {
 
 export default function HomePage() {
   const [introComplete, setIntroComplete] = useState(false);
+
+  // Warm GSAP in the background so animations don't feel "late"
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    let cancelled = false;
+
+    const run = () => {
+      loadGSAP().catch(() => {
+        // Ignore preload failures (user may be offline)
+      });
+    };
+
+    const anyWindow = window as any;
+    const id = typeof anyWindow.requestIdleCallback === 'function'
+      ? anyWindow.requestIdleCallback(() => {
+          if (!cancelled) run();
+        }, { timeout: 1500 })
+      : window.setTimeout(() => {
+          if (!cancelled) run();
+        }, 300);
+
+    return () => {
+      cancelled = true;
+      if (typeof anyWindow.cancelIdleCallback === 'function' && typeof id === 'number') {
+        anyWindow.cancelIdleCallback(id);
+      } else {
+        window.clearTimeout(id as any);
+      }
+    };
+  }, []);
 
   const handleIntroComplete = useCallback(() => {
     setIntroComplete(true);
