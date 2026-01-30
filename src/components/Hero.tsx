@@ -338,11 +338,11 @@ const Hero: React.FC = () => {
                   <Typewriter
                     options={{
                       strings: [
-                        'AI/ML Engineer',
+                        'Web Developer',
                         'Full Stack Developer',
-                        'Mobile App Developer',
-                        'Creative Technologist',
-                        'Problem Solver'
+                        'App Developer',
+                        'AI-Augmented Engineer',
+                        'React Specialist'
                       ],
                       autoStart: true,
                       loop: true,
@@ -356,11 +356,9 @@ const Hero: React.FC = () => {
 
               {/* Description */}
               <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-8">
-                Building intelligent digital experiences at the intersection of{' '}
-                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">artificial intelligence</strong>,{' '}
-                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">modern web development</strong>, and{' '}
-                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">user-centered design</strong>.
-                Transforming complex technical challenges into elegant, high-performance solutions.
+                Crafting exceptional web and mobile applications with <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">modern JavaScript technologies</strong>.{' '}
+                Leveraging <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI as a powerful development tool</strong> to enhance productivity, code quality, and innovation.{' '}
+                Transforming ideas into high-performance, user-centered digital experiences.
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
@@ -427,7 +425,7 @@ const Hero: React.FC = () => {
               <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"
-                  alt="Naman Singh Panwar - AI Engineer and Full Stack Developer"
+                  alt="Naman Singh Panwar - Web Developer and AI-Augmented Engineer"
                   fill
                   loading="eager"
                   priority

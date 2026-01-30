@@ -52,31 +52,31 @@ const PageEffects = dynamic(() => import('@/components/PageEffects'), {
 const faqData = [
   {
     question: 'What technologies does Naman specialize in?',
-    answer: 'Naman specializes in modern web development technologies including React.js, Next.js, TypeScript, and Tailwind CSS for frontend development. For AI/ML work, he uses TensorFlow, PyTorch, NumPy, and Pandas. He also has experience with Node.js, Python, Docker, PostgreSQL, and Git for full-stack development.',
+    answer: 'Naman specializes in modern web and app development technologies including React.js, Next.js, React Native, TypeScript, and Tailwind CSS. He uses AI tools and assistants to enhance his development workflow, improve code quality, and accelerate project delivery. He also has strong experience with Node.js, Docker, PostgreSQL, and Git for full-stack development.',
   },
   {
     question: 'What kind of projects has Naman built?',
-    answer: 'Naman has built production-grade AI consultancy platforms (Gyannetra), high-performance portfolio websites with advanced animations, Web3 DeFi applications with blockchain integration, and immersive real estate platforms with cinema-quality animations. All projects emphasize performance optimization, scalability, and professional user experience.',
+    answer: 'Naman has built production-grade web applications including AI consultancy platforms (Gyannetra), high-performance portfolio websites with advanced animations, Web3 DeFi applications with blockchain integration, immersive real estate platforms, and mobile apps. All projects emphasize performance optimization, scalability, and exceptional user experience, built with AI-enhanced development practices.',
   },
   {
-    question: 'Does Naman have experience with AI and machine learning?',
-    answer: 'Yes, Naman has substantial AI/ML experience. He worked at DRDO improving ML model accuracy by 12%, completed a Microsoft AI internship (top 5% of 10,000+ applicants), and currently works in an AI R&D Division building AI-driven applications. He has hands-on experience with TensorFlow, PyTorch, and processing large datasets for pattern recognition.',
+    question: 'How does Naman use AI in his development work?',
+    answer: 'Naman leverages AI as a powerful development tool to enhance productivity and code quality. He uses AI assistants for code generation, debugging, optimization suggestions, and architectural decisions. This AI-augmented approach allows him to build applications faster while maintaining high quality, achieving measurable improvements like 40% faster load times and 60% fewer bugs.',
   },
   {
     question: 'What is Naman\'s approach to web development?',
-    answer: 'Naman follows a component-driven architecture approach with emphasis on performance optimization, accessibility, and SEO. He implements dynamic code splitting, lazy loading, comprehensive testing with Jest and React Testing Library, and ensures Core Web Vitals compliance. His code is modular, type-safe with TypeScript, and production-ready.',
+    answer: 'Naman follows a component-driven architecture with emphasis on performance optimization, accessibility, and SEO. He implements dynamic code splitting, lazy loading, comprehensive testing with Jest and React Testing Library, and ensures Core Web Vitals compliance. His code is modular, type-safe with TypeScript, production-ready, and built with AI-assisted development for maximum efficiency.',
   },
   {
     question: 'Has Naman worked with any notable organizations?',
-    answer: 'Yes, Naman has worked with several prestigious organizations including DRDO (Defence Research and Development Organisation), Microsoft through the AINSI AI program, Gyannetra Pvt Ltd, and is currently working in an AI R&D Division. He has also won awards judged by industry leaders from Google, Microsoft, Meta, and Oracle.',
+    answer: 'Yes, Naman has worked with several prestigious organizations including DRDO (Defence Research and Development Organisation), Microsoft through the AINSI AI program (top 5% of 10,000+ applicants), Gyannetra Pvt Ltd, and is currently working in an AI R&D Division. He has also won awards judged by industry leaders from Google, Microsoft, Meta, and Oracle.',
   },
   {
     question: 'What makes Naman stand out as a developer?',
-    answer: 'Naman combines deep technical expertise in both AI/ML and full-stack development with proven ability to deliver production-grade applications. He has achieved measurable improvements (40% faster load times, 60% fewer bugs, 12% model accuracy gains) and won national recognition in hackathons. His work demonstrates attention to performance, user experience, and code quality.',
+    answer: 'Naman combines strong web and app development expertise with AI-augmented engineering practices. He delivers production-grade applications with measurable improvements (40% faster load times, 60% fewer bugs) and has won national recognition in hackathons. His unique approach of using AI as a development multiplier allows him to maintain high velocity while ensuring code quality and user experience.',
   },
   {
     question: 'Is Naman available for freelance or collaboration?',
-    answer: 'Naman is open to discussing interesting projects and collaboration opportunities. You can reach out through the contact form on this website, via email, or connect on LinkedIn and GitHub. He is particularly interested in projects involving AI/ML, advanced web applications, and innovative user experiences.',
+    answer: 'Naman is open to discussing interesting web development, app development, and AI-enhanced project opportunities. You can reach out through the contact form on this website, via email, or connect on LinkedIn and GitHub. He is particularly interested in projects involving modern web technologies, mobile apps, and innovative AI-augmented solutions.',
   },
 ];
 

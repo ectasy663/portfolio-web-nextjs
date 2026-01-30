@@ -329,7 +329,7 @@ const About: React.FC = () => {
               <div className="image-container relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]" style={{ transformStyle: 'preserve-3d' }}>
                 <Image
                   src="/assets/black and white different pose.png"
-                  alt="Naman Singh Panwar - Professional portrait showcasing dedication to software engineering and artificial intelligence"
+                  alt="Naman Singh Panwar - Professional web developer and AI-augmented engineer"
                   fill
                   loading="lazy"
                   sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
