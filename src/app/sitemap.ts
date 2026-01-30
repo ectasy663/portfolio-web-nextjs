@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://namansinghpanwar.vercel.app';
+  const baseUrl = 'https://namansinghpanwar.in';
   const lastModified = new Date('2026-01-30');
 
   return [
