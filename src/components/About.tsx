@@ -348,17 +348,17 @@ const About: React.FC = () => {
               <div ref={contentRef} className="space-y-8">
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    I am a Computer Science student with specialized expertise in <strong>Artificial Intelligence</strong> and 
-                    <strong> Machine Learning</strong>. My focus is on developing intelligent systems that address real-world challenges 
-                    through innovative technological solutions. I combine theoretical knowledge with hands-on implementation 
-                    to create impactful, production-ready applications.
+                    I am a <strong>Web Developer</strong> and <strong>AI-Augmented Engineer</strong> specializing in building 
+                    exceptional web and mobile applications with modern JavaScript technologies. I leverage <strong>AI as a powerful 
+                    development tool</strong> to enhance productivity, code quality, and innovation—not just as a research focus, but as 
+                    a practical approach to solving real-world problems and delivering high-performance, user-centered digital experiences.
                   </p>
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    My professional experience includes national defense research at <strong>DRDO</strong>, where I improved 
-                    machine learning model accuracy by 12%, and participation in the <strong>Microsoft AINSI AI Program</strong> 
-                    (selected from top 5% of 10,000+ applicants). I have won first place at Global IDEATHON 2025 judged by 
-                    industry leaders from Google, Microsoft, Meta, and Oracle. My work emphasizes building scalable, high-performance 
-                    systems with measurable improvements in speed, accuracy, and user experience.
+                    My technical expertise spans <strong>React, Next.js, TypeScript, Python, Node.js</strong>, and modern development 
+                    workflows. I've built production applications including an <strong>AI-Powered Job Portal</strong> reducing search time 
+                    by 40%, a <strong>Real-Time Collaboration Platform</strong> handling 100+ concurrent users, and various web solutions 
+                    emphasizing performance optimization and exceptional user experiences. I integrate AI tools like ChatGPT, GitHub Copilot, 
+                    and Claude into my workflow to accelerate development, improve code quality, and solve complex technical challenges efficiently.
                   </p>
                 </div>
               </div>

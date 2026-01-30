@@ -319,13 +319,13 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-20 sm:pt-24">
         <div ref={heroRef} className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-12">
             {/* Left side - Text content */}
             <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-5 pb-1">
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-3 pb-1">
                 <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300 whitespace-nowrap">
                   Naman Singh Panwar
                 </span>
@@ -342,7 +342,9 @@ const Hero: React.FC = () => {
                         'Full Stack Developer',
                         'App Developer',
                         'AI-Augmented Engineer',
-                        'React Specialist'
+                        'React Specialist',
+                        'Problem Solver',
+                        'Creative Technologist'
                       ],
                       autoStart: true,
                       loop: true,
@@ -355,7 +357,7 @@ const Hero: React.FC = () => {
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-8">
+              <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-6">
                 Crafting exceptional web and mobile applications with <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">modern JavaScript technologies</strong>.{' '}
                 Leveraging <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI as a powerful development tool</strong> to enhance productivity, code quality, and innovation.{' '}
                 Transforming ideas into high-performance, user-centered digital experiences.
@@ -375,7 +377,7 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Action buttons */}
-              <nav ref={buttonsRef} className="flex flex-col gap-3 mb-6 max-w-md" aria-label="Primary actions">
+              <nav ref={buttonsRef} className="flex flex-col gap-3 mb-4 max-w-md" aria-label="Primary actions">
                 <div className="flex gap-3 w-full">
                   <button
                     onClick={scrollToProjects}
@@ -442,7 +444,7 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Scroll indicator - Enhanced bounce */}
-          <div className="scroll-indicator flex justify-center mt-12 sm:mt-16" role="navigation" aria-label="Scroll down">
+          <div className="scroll-indicator flex justify-center mt-6 sm:mt-8" role="navigation" aria-label="Scroll down">
             <div className="flex flex-col items-center space-y-2">
               <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 font-medium transition-colors duration-300">Scroll to explore</span>
               <LuArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />
