@@ -93,37 +93,6 @@ const Projects: React.FC = () => {
             );
           }
 
-          // === PROJECT CARDS CINEMATIC REVEAL ===
-          const projectCards = projectsRef.current?.querySelectorAll('.project-card');
-          if (projectCards) {
-            projectCards.forEach((card, index) => {
-              const isEven = index % 2 === 0;
-
-              gsap.fromTo(card,
-                {
-                  opacity: 0,
-                  y: 50,
-                  x: isEven ? -50 : 50,
-                  rotationY: isEven ? -15 : 15,
-                  transformPerspective: 1500
-                },
-                {
-                  opacity: 1,
-                  y: 0,
-                  x: 0,
-                  rotationY: 0,
-                  duration: 0.8,
-                  ease: "power3.out",
-                  scrollTrigger: {
-                    trigger: card,
-                    start: "top 90%",
-                    toggleActions: "play none none reverse"
-                  }
-                }
-              );
-            });
-          }
-
           // === PROJECT IMAGE CONTAINERS - ENHANCED 3D TILT ===
           const tiltContainers = projectsRef.current?.querySelectorAll('.tilt-container');
           tiltContainers?.forEach((container) => {
@@ -166,10 +135,77 @@ const Projects: React.FC = () => {
             });
           });
 
-          // === TECH STACK BADGES WAVE ANIMATION ===
-          const techBadges = projectsRef.current?.querySelectorAll('.tech-badge');
-          if (techBadges) {
-            techBadges.forEach((badge, index) => {
+          // === PROJECT CONTENT SEQUENTIAL REVEAL ===
+          const projectCards = projectsRef.current?.querySelectorAll('.project-card');
+          projectCards?.forEach((card) => {
+            // 1. PROJECT TITLE - Appears first
+            const projectTitle = card.querySelector('.project-title');
+            const projectTagline = card.querySelector('.project-tagline');
+            
+            if (projectTitle) {
+              gsap.set(projectTitle, { opacity: 0, y: 20 });
+              ScrollTrigger.create({
+                trigger: card,
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(projectTitle, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: "power3.out"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(projectTitle, { opacity: 0, y: 20, duration: 0.3 });
+                }
+              });
+            }
+
+            if (projectTagline) {
+              gsap.set(projectTagline, { opacity: 0, y: 20 });
+              ScrollTrigger.create({
+                trigger: card,
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(projectTagline, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: 0.1,
+                    ease: "power3.out"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(projectTagline, { opacity: 0, y: 20, duration: 0.3 });
+                }
+              });
+            }
+
+            // 2. BUILT WITH SECTION - Appears second
+            const techHeader = card.querySelector('.tech-header');
+            const techBadges = card.querySelectorAll('.tech-badge');
+            
+            if (techHeader) {
+              gsap.set(techHeader, { opacity: 0, y: 20 });
+              ScrollTrigger.create({
+                trigger: card,
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(techHeader, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: 0.3,
+                    ease: "power3.out"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(techHeader, { opacity: 0, y: 20, duration: 0.3 });
+                }
+              });
+            }
+
+            techBadges?.forEach((badge, index) => {
               gsap.set(badge, {
                 opacity: 0,
                 scale: 0.5,
@@ -177,7 +213,7 @@ const Projects: React.FC = () => {
               });
 
               ScrollTrigger.create({
-                trigger: badge.closest('.project-card'),
+                trigger: card,
                 start: "top 70%",
                 onEnter: () => {
                   gsap.to(badge, {
@@ -185,7 +221,7 @@ const Projects: React.FC = () => {
                     scale: 1,
                     y: 0,
                     duration: 0.5,
-                    delay: index * 0.05,
+                    delay: 0.4 + (index * 0.05),
                     ease: "back.out(1.7)"
                   });
                 },
@@ -199,7 +235,29 @@ const Projects: React.FC = () => {
                 }
               });
             });
-          }
+
+            // 3. DESCRIPTION AND REST - Appears last
+            const projectDescription = card.querySelector('.project-description');
+            if (projectDescription) {
+              gsap.set(projectDescription, { opacity: 0, y: 20 });
+              ScrollTrigger.create({
+                trigger: card,
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(projectDescription, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: 0.7,
+                    ease: "power3.out"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(projectDescription, { opacity: 0, y: 20, duration: 0.3 });
+                }
+              });
+            }
+          });
 
           // === FEATURE ITEMS STAGGER REVEAL ===
           const featureItems = projectsRef.current?.querySelectorAll('.feature-item');
@@ -483,17 +541,17 @@ const Projects: React.FC = () => {
 
                   {/* Title and tagline */}
                   <div>
-                    <h3 className="text-2xl font-body font-medium text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="project-title text-2xl font-body font-medium text-gray-900 dark:text-white mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary-400 group-hover:to-secondary-500 group-hover:bg-clip-text transition-all duration-300">
                       {project.title}
                     </h3>
-                    <p className={`text-body-md font-body font-medium bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
+                    <p className={`project-tagline text-body-md font-body font-medium bg-gradient-to-r ${project.gradient} bg-clip-text text-transparent`}>
                       {project.tagline}
                     </p>
                   </div>
 
                   {/* Tech stack */}
                   <div>
-                    <h4 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Built with</h4>
+                    <h4 className="tech-header text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">Built with</h4>
                     <div className="flex flex-wrap gap-3">
                       {project.techStack.map((tech, techIndex) => (
                         <div
@@ -508,7 +566,7 @@ const Projects: React.FC = () => {
                   </div>
 
                   {/* Description */}
-                  <p className="text-body-md text-gray-700 dark:text-gray-400 leading-relaxed">
+                  <p className="project-description text-body-md text-gray-700 dark:text-gray-400 leading-relaxed">
                     {project.description}
                   </p>
 
