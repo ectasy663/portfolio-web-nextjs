@@ -32,10 +32,10 @@ const AISummary: React.FC = () => {
             {/* Core Identity */}
             <p className="text-lg leading-relaxed mb-6" itemProp="description">
               <span itemProp="name" className="font-semibold">Naman Singh Panwar</span> is a 
-              <span itemProp="jobTitle"> Full Stack Web Developer and App Developer</span> who leverages 
-              artificial intelligence as a powerful development tool. He specializes in building production-grade 
-              web and mobile applications using modern JavaScript frameworks, with AI-enhanced workflows that 
-              significantly improve development velocity and code quality.
+              <span itemProp="jobTitle"> Web Developer and AI-Augmented Engineer</span> specializing in building 
+              exceptional web and mobile applications with modern JavaScript technologies. He leverages AI tools 
+              like ChatGPT, GitHub Copilot, and Claude to enhance productivity, code quality, and innovation—using 
+              AI as a practical development tool rather than a research focus.
             </p>
 
             {/* Technical Expertise */}
@@ -56,9 +56,10 @@ const AISummary: React.FC = () => {
                 and smooth user experiences. Focuses on reusable components and efficient state management.
               </p>
               <p className="leading-relaxed mt-3">
-                <strong>AI-Augmented Engineering:</strong> Uses AI tools and assistants to enhance development workflows, 
-                improve code generation, accelerate debugging, and optimize architecture decisions. This approach has 
-                resulted in 40% faster development cycles and 60% reduction in bugs through AI-powered code review and testing.
+                <strong>AI-Augmented Engineering:</strong> Uses AI tools (ChatGPT, GitHub Copilot, Claude) as 
+                development assistants to enhance workflows, accelerate problem-solving, improve code generation, 
+                and optimize architecture decisions. This practical AI integration improves development efficiency 
+                while maintaining high code quality standards.
               </p>
               <p className="leading-relaxed mt-3">
                 <strong>Backend & DevOps:</strong> Proficient in <span itemProp="knowsAbout">Node.js</span>, 
@@ -78,28 +79,28 @@ const AISummary: React.FC = () => {
                 <li className="leading-relaxed">
                   <strong itemProp="worksFor" itemScope itemType="https://schema.org/Organization">
                     <span itemProp="name">AI R&D Division</span>
-                  </strong> (September 2025 - Present): Frontend Developer building AI-driven applications 
-                  with 40% faster load times and 60% fewer UI bugs. Develops interactive dashboards 
-                  visualizing over 100,000 data points in real-time.
+                  </strong> (September 2025 - Present): Frontend Developer working on AI-driven web applications 
+                  and interactive dashboards. Focuses on building responsive, high-performance user interfaces 
+                  for data visualization and analytics platforms.
                 </li>
                 <li className="leading-relaxed">
                   <strong itemProp="alumniOf" itemScope itemType="https://schema.org/Organization">
                     <span itemProp="name">DRDO</span> (Defence Research and Development Organisation)
-                  </strong> (July 2025 - September 2025): Contributed to defense research projects, 
-                  improving ML model accuracy by 12% through feature engineering. Processed and analyzed 
-                  50,000+ data samples for pattern recognition applications.
+                  </strong> (July 2025 - September 2025): Contributed to research projects involving data analysis 
+                  and machine learning applications. Worked with defense technology datasets and pattern recognition systems.
                 </li>
                 <li className="leading-relaxed">
                   <strong itemProp="alumniOf" itemScope itemType="https://schema.org/Organization">
                     <span itemProp="name">Gyannetra Pvt Ltd</span>
-                  </strong> (May 2025 - July 2025): Built 15+ React components, reduced deployment time 
-                  by 70% using Docker, achieved 95% code coverage with unit tests.
+                  </strong> (May 2025 - July 2025): Full Stack Developer building React-based web applications. 
+                  Implemented containerized deployments with Docker and maintained comprehensive test coverage 
+                  for production code.
                 </li>
                 <li className="leading-relaxed">
                   <strong itemProp="alumniOf" itemScope itemType="https://schema.org/Organization">
                     <span itemProp="name">Microsoft AINSI AI Program</span>
-                  </strong> (April 2025 - May 2025): Selected from top 5% of 10,000+ applicants. 
-                  Developed predictive models with 85%+ accuracy for industry problems.
+                  </strong> (April 2025 - May 2025): Selected from top 5% of 10,000+ applicants. Completed 
+                  coursework in machine learning fundamentals and developed predictive models for industry use cases.
                 </li>
               </ul>
             </div>
@@ -130,12 +131,13 @@ const AISummary: React.FC = () => {
                 Notable Projects
               </h3>
               <p className="leading-relaxed">
-                Naman has built production-deployed web and mobile applications including <strong>Gyannetra</strong> 
-                (AI consultancy platform discoverable on Google), high-performance <strong>portfolio websites</strong> 
-                with advanced GSAP animations, <strong>Web3 DeFi platforms</strong> with Solana blockchain integration, 
-                <strong>immersive real estate applications</strong> with cinema-grade user experiences, and 
-                <strong>mobile apps</strong> using React Native. All projects emphasize performance optimization, 
-                accessibility, SEO readiness, and pixel-perfect design, built with AI-augmented development workflows.
+                Naman has built production web and mobile applications including <strong>Gyannetra</strong> 
+                (AI consultancy platform with full-stack implementation), <strong>DecentraFund</strong> 
+                (Web3 DeFi platform with Solana blockchain integration and real-time transaction tracking), 
+                <strong>ImmerSpace</strong> (immersive real estate application with cinema-grade UX and advanced 
+                GSAP animations), high-performance <strong>portfolio websites</strong> optimized for SEO and Core 
+                Web Vitals, and various <strong>React Native mobile apps</strong>. All projects emphasize modern 
+                development practices, responsive design, accessibility, and performance optimization using AI-augmented workflows.
               </p>
             </div>
 

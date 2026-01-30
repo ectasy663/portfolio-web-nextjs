@@ -350,15 +350,16 @@ const About: React.FC = () => {
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
                     I am a <strong>Web Developer</strong> and <strong>AI-Augmented Engineer</strong> specializing in building 
                     exceptional web and mobile applications with modern JavaScript technologies. I leverage <strong>AI as a powerful 
-                    development tool</strong> to enhance productivity, code quality, and innovation—not just as a research focus, but as 
-                    a practical approach to solving real-world problems and delivering high-performance, user-centered digital experiences.
+                    development tool</strong> to enhance productivity, code quality, and innovation—using AI assistants to accelerate 
+                    development, improve code quality, and solve complex technical challenges efficiently.
                   </p>
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
                     My technical expertise spans <strong>React, Next.js, TypeScript, Python, Node.js</strong>, and modern development 
-                    workflows. I've built production applications including an <strong>AI-Powered Job Portal</strong> reducing search time 
-                    by 40%, a <strong>Real-Time Collaboration Platform</strong> handling 100+ concurrent users, and various web solutions 
-                    emphasizing performance optimization and exceptional user experiences. I integrate AI tools like ChatGPT, GitHub Copilot, 
-                    and Claude into my workflow to accelerate development, improve code quality, and solve complex technical challenges efficiently.
+                    workflows. I've built production applications including <strong>Gyannetra AI Consultancy</strong> (live production platform), 
+                    <strong>Magma Real Estate</strong> (immersive 3D experience with GSAP animations), <strong>Tokenarium</strong> (Web3 DeFi wallet), 
+                    and <strong>Gifting Muse Oracle</strong> (AI-powered gift discovery). I gained practical experience through internships at 
+                    <strong>DRDO</strong> (working on defense research projects) and <strong>Microsoft AINSI AI Program</strong> (selected from 10,000+ applicants), 
+                    where I contributed to various development and research initiatives.
                   </p>
                 </div>
               </div>
