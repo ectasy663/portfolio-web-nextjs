@@ -7,6 +7,8 @@ export { default as Experience } from './Experience';
 export { default as Projects } from './Projects';
 export { default as Achievements } from './Achievements';
 export { default as Contact } from './Contact';
+export { default as FAQ } from './FAQ';
+export { default as AISummary } from './AISummary';
 export { default as ThemeToggleButton } from './ThemeToggleButton';
 export { default as ResumeButton } from './ResumeButton';
 export { default as ErrorBoundary } from './ErrorBoundary';

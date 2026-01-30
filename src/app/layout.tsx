@@ -14,29 +14,79 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Naman Singh Panwar - Portfolio',
-  description: 'AI/ML Engineer & Full Stack Developer crafting intelligent digital experiences',
-  keywords: ['AI', 'ML', 'Full Stack', 'React', 'Next.js', 'TypeScript', 'Portfolio'],
-  authors: [{ name: 'Naman Singh Panwar' }],
+  metadataBase: new URL('https://namansinghpanwar.vercel.app'),
+  title: {
+    default: 'Naman Singh Panwar | AI Engineer & Full Stack Developer',
+    template: '%s | Naman Singh Panwar',
+  },
+  description: 'Naman Singh Panwar is an AI/ML Engineer and Full Stack Developer specializing in React, Next.js, TypeScript, and machine learning. Experienced in building production-grade web applications with TensorFlow, PyTorch, and modern JavaScript frameworks.',
+  keywords: [
+    'Naman Singh Panwar',
+    'AI Engineer',
+    'Machine Learning Developer',
+    'Full Stack Developer',
+    'React Developer',
+    'Next.js',
+    'TypeScript',
+    'TensorFlow',
+    'PyTorch',
+    'DRDO Intern',
+    'Frontend Developer',
+    'Web Development',
+    'AI Research',
+    'Portfolio',
+    'Software Engineer'
+  ],
+  authors: [{ name: 'Naman Singh Panwar', url: 'https://namansinghpanwar.vercel.app' }],
+  creator: 'Naman Singh Panwar',
+  publisher: 'Naman Singh Panwar',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   icons: {
     icon: '/assets/Name-logo-without-bg.png',
     apple: '/assets/Name-logo-without-bg.png',
   },
   openGraph: {
-    title: 'Naman Singh Panwar - Portfolio',
-    description: 'AI/ML Engineer & Full Stack Developer crafting intelligent digital experiences',
     type: 'website',
     locale: 'en_US',
+    url: 'https://namansinghpanwar.vercel.app',
+    siteName: 'Naman Singh Panwar Portfolio',
+    title: 'Naman Singh Panwar | AI Engineer & Full Stack Developer',
+    description: 'AI/ML Engineer and Full Stack Developer with expertise in React, Next.js, TypeScript, TensorFlow, and PyTorch. Building intelligent web applications and machine learning solutions.',
+    images: [
+      {
+        url: '/assets/Name-logo-without-bg.png',
+        width: 1200,
+        height: 630,
+        alt: 'Naman Singh Panwar - AI Engineer & Full Stack Developer',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Naman Singh Panwar - Portfolio',
-    description: 'AI/ML Engineer & Full Stack Developer crafting intelligent digital experiences',
+    title: 'Naman Singh Panwar | AI Engineer & Full Stack Developer',
+    description: 'AI/ML Engineer and Full Stack Developer specializing in React, Next.js, TypeScript, and machine learning technologies.',
+    images: ['/assets/Name-logo-without-bg.png'],
+    creator: '@namansinghpanwar',
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+  alternates: {
+    canonical: 'https://namansinghpanwar.vercel.app',
+  },
+  category: 'technology',
 };
 
 export default function RootLayout({

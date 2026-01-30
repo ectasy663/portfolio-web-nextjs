@@ -368,7 +368,7 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="contact" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300">
+    <section ref={sectionRef} id="contact" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300" aria-labelledby="contact-title">
       {/* Light theme background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 
@@ -402,7 +402,7 @@ const Contact: React.FC = () => {
             {/* Contact Information */}
             <div ref={contactInfoRef} className="space-y-8">
               <div>
-                <h3 className="text-2xl font-body font-medium mb-6 text-gray-900 dark:text-white">Get In Touch</h3>
+                <h3 id="contact-title" className="text-2xl font-body font-medium mb-6 text-gray-900 dark:text-white">Get In Touch</h3>
                 <p className="text-body-md text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                   Whether you have a project in mind, want to collaborate, or just want to say hello,
                   I&apos;d love to hear from you. Let&apos;s discuss how we can work together.

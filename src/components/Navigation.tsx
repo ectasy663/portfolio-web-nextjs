@@ -286,7 +286,8 @@ const Navigation: React.FC = () => {
 
         <nav
           ref={navRef}
-
+          aria-label="Main navigation"
+          role="navigation"
           className={`
           pointer-events-auto
           relative flex items-center justify-between

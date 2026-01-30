@@ -285,7 +285,11 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+    <section 
+      id="home" 
+      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300"
+      aria-label="Hero section"
+    >
       {/* Background Video - Only visible in dark theme - Extended to cover all borders */}
       <video
         id="heroVideo"
@@ -301,16 +305,16 @@ const Hero: React.FC = () => {
       </video>
 
       {/* Light theme background - Full viewport */}
-      <div className="absolute inset-0 h-full bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+      <div className="absolute inset-0 h-full bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0" aria-hidden="true"></div>
 
       {/* Light Rays Effect */}
-      <div className="light-ray z-0"></div>
+      <div className="light-ray z-0" aria-hidden="true"></div>
 
       {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="pointer-events-none absolute inset-0 h-full bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="pointer-events-none absolute inset-0 h-full bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10" aria-hidden="true"></div>
 
       {/* Subtle glow overlay (no blob/ball shapes) */}
-      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300">
+      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300" aria-hidden="true">
         <div className="absolute inset-0 bg-gradient-to-tr from-primary-500/10 via-transparent to-secondary-500/10" />
       </div>
 
@@ -329,7 +333,7 @@ const Hero: React.FC = () => {
 
               {/* Subtitle with typewriter effect */}
               <h2 ref={subtitleRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700/90 dark:text-gray-200/90 transition-colors duration-300 flex items-center gap-2.5 sm:gap-3 flex-wrap mb-5">
-                <LuRocket className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-orange-500/90 animate-pulse-slow flex-shrink-0" />
+                <LuRocket className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-orange-500/90 animate-pulse-slow flex-shrink-0" aria-hidden="true" />
                 <span className="min-w-0">
                   <Typewriter
                     options={{
@@ -352,18 +356,19 @@ const Hero: React.FC = () => {
 
               {/* Description */}
               <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-8">
-                Crafting intelligent digital experiences at the intersection of{' '}
-                <span className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI/ML</span>,{' '}
-                <span>web development</span>, and{' '}
-                <span>creative design</span>.
-                Transforming complex ideas into elegant, user-centered solutions.
+                Building intelligent digital experiences at the intersection of{' '}
+                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">artificial intelligence</strong>,{' '}
+                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">modern web development</strong>, and{' '}
+                <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">user-centered design</strong>.
+                Transforming complex technical challenges into elegant, high-performance solutions.
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
-              <div ref={techBadgesRef} className="flex flex-wrap gap-2.5 xs:gap-3 sm:gap-4 mb-2">
+              <div ref={techBadgesRef} className="flex flex-wrap gap-2.5 xs:gap-3 sm:gap-4 mb-2" role="list" aria-label="Primary technologies">
                 {technologyStack.slice(0, 4).map((tech, index) => (
                   <div
                     key={index}
+                    role="listitem"
                     className="tech-badge group flex items-center bg-white/80 dark:bg-dark-800/50 backdrop-blur-xl border border-primary-200/50 dark:border-primary-500/30 rounded-full px-2.5 xs:px-3 sm:px-5 py-1.5 xs:py-2 sm:py-2.5 hover:border-primary-400 dark:hover:border-primary-400 hover:shadow-royal-gold transition-all duration-300 will-change-transform cursor-pointer"
                   >
                     <span className={`text-[10px] xs:text-xs sm:text-sm font-medium tracking-[0.02em] ${tech.color} transition-colors duration-300`}>{tech.name}</span>
@@ -372,11 +377,12 @@ const Hero: React.FC = () => {
               </div>
 
               {/* Action buttons */}
-              <div ref={buttonsRef} className="flex flex-col gap-3 mb-6 max-w-md">
+              <nav ref={buttonsRef} className="flex flex-col gap-3 mb-6 max-w-md" aria-label="Primary actions">
                 <div className="flex gap-3 w-full">
                   <button
                     onClick={scrollToProjects}
                     className="flex-1 group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
+                    aria-label="View my portfolio projects"
                   >
                     <LuCode size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                     <span className="text-sm sm:text-base">View Work</span>
@@ -388,18 +394,19 @@ const Hero: React.FC = () => {
                 <button
                   onClick={scrollToContact}
                   className="w-full group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
+                  aria-label="Navigate to contact section"
                 >
                   <LuZap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
                   <span className="text-sm sm:text-base">Let's Connect</span>
                 </button>
-              </div>
+              </nav>
 
               {/* Social links */}
-              <div ref={socialRef} className="flex items-center gap-3 sm:gap-4">
+              <nav ref={socialRef} className="flex items-center gap-3 sm:gap-4" aria-label="Social media links">
                 {[
-                  { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'GitHub' },
-                  { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'LinkedIn' },
-                  { icon: LuMail, href: 'mailto:namansingh4680@gmail.com', label: 'Email' }
+                  { icon: LuGithub, href: 'https://github.com/ectasy663', label: 'Visit GitHub profile' },
+                  { icon: LuLinkedin, href: 'https://www.linkedin.com/in/naman-singh-panwar7/', label: 'Connect on LinkedIn' },
+                  { icon: LuMail, href: 'mailto:namansingh4680@gmail.com', label: 'Send an email' }
                 ].map((social, index) => (
                   <a
                     key={index}
@@ -412,31 +419,32 @@ const Hero: React.FC = () => {
                     <social.icon size={32} className="sm:w-9 sm:h-9" aria-hidden="true" />
                   </a>
                 ))}
-              </div>
+              </nav>
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <div ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] mx-auto lg:ml-24 lg:mr-0 perspective-1000">
+            <aside ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] mx-auto lg:ml-24 lg:mr-0 perspective-1000">
               <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
                   src="/assets/black and white aesthetic image right.png"
-                  alt="Naman Singh Panwar - Professional"
+                  alt="Naman Singh Panwar - AI Engineer and Full Stack Developer"
                   fill
                   loading="eager"
+                  priority
                   sizes="(max-width: 640px) 20rem, (max-width: 768px) 24rem, 26rem"
                   className="object-cover rounded-2xl shadow-xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-2xl"
                 />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none"></div>
-                <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none" aria-hidden="true"></div>
+                <div className="absolute bottom-6 left-6 right-6 text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0" aria-hidden="true">
                   <p className="text-lg font-bold mb-1">Turning ideas into reality</p>
                   <p className="text-sm text-gray-200 flex items-center gap-2">One line of code at a time <LuSparkles className="w-4 h-4 text-yellow-300" /></p>
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
 
           {/* Scroll indicator - Enhanced bounce */}
-          <div className="scroll-indicator flex justify-center mt-12 sm:mt-16">
+          <div className="scroll-indicator flex justify-center mt-12 sm:mt-16" role="navigation" aria-label="Scroll down">
             <div className="flex flex-col items-center space-y-2">
               <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 font-medium transition-colors duration-300">Scroll to explore</span>
               <LuArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />

@@ -276,7 +276,7 @@ const About: React.FC = () => {
   }, [shouldAnimate]);
 
   return (
-    <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+    <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300" aria-labelledby="about-title">
       {/* Background Video - Only visible in dark theme */}
       <video
         autoPlay
@@ -313,6 +313,7 @@ const About: React.FC = () => {
 
       <div className="container relative z-30">
         <h2
+          id="about-title"
           ref={titleRef}
           className="text-5xl xs:text-6xl sm:text-6xl md:text-7xl font-display font-normal text-center mb-16 gradient-text-gold leading-tight py-2 transition-colors duration-300"
           style={{ opacity: 0 }}
@@ -328,8 +329,9 @@ const About: React.FC = () => {
               <div className="image-container relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]" style={{ transformStyle: 'preserve-3d' }}>
                 <Image
                   src="/assets/black and white different pose.png"
-                  alt="Naman Singh Panwar - Professional Style"
+                  alt="Naman Singh Panwar - Professional portrait showcasing dedication to software engineering and artificial intelligence"
                   fill
+                  loading="lazy"
                   sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
                   className="object-cover rounded-2xl shadow-xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-2xl"
                 />
@@ -346,14 +348,17 @@ const About: React.FC = () => {
               <div ref={contentRef} className="space-y-8">
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    I'm a passionate and driven Computer Science student with a deep fascination for Artificial Intelligence
-                    and its power to solve real-world problems. My journey is fueled by a constant curiosity to learn and a
-                    desire to build things that matter.
+                    I am a Computer Science student with specialized expertise in <strong>Artificial Intelligence</strong> and 
+                    <strong> Machine Learning</strong>. My focus is on developing intelligent systems that address real-world challenges 
+                    through innovative technological solutions. I combine theoretical knowledge with hands-on implementation 
+                    to create impactful, production-ready applications.
                   </p>
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    From contributing to national defense projects at DRDO to innovating in the FinTech space, I thrive on
-                    challenges that push the boundaries of technology. My goal is to not just write code, but to architect
-                    elegant, efficient, and intelligent systems that leave a lasting impact.
+                    My professional experience includes national defense research at <strong>DRDO</strong>, where I improved 
+                    machine learning model accuracy by 12%, and participation in the <strong>Microsoft AINSI AI Program</strong> 
+                    (selected from top 5% of 10,000+ applicants). I have won first place at Global IDEATHON 2025 judged by 
+                    industry leaders from Google, Microsoft, Meta, and Oracle. My work emphasizes building scalable, high-performance 
+                    systems with measurable improvements in speed, accuracy, and user experience.
                   </p>
                 </div>
               </div>
@@ -367,7 +372,7 @@ const About: React.FC = () => {
             ref={strengthsTitleRef}
             className="text-heading-lg font-display font-normal text-center mb-16 gradient-text-gold transition-colors duration-300"
           >
-            Key Strengths
+            Core Competencies
           </h3>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">

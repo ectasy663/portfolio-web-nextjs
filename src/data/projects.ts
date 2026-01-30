@@ -1,9 +1,8 @@
 export const projects = [
   {
     title: "Gyannetra AI Consultancy",
-    tagline: "Live, Google-Discoverable Platform for AI Solutions",
-    description: "Designed and engineered the complete frontend for Gyannetra — a production-grade AI consultancy platform in active company use and discoverable on Google (" +
-      "search: Gyannetra). Delivered a minimalist, conversion-focused UI with a scalable React + TypeScript component system, dockerized deployment, and careful rendering/performance optimizations to keep Core Web Vitals strong. The experience showcases AI tools and solutions through polished, interactive components while staying clean, professional, and SEO-ready.",
+    tagline: "Live Production AI Consultancy Platform",
+    description: "Production-grade AI consultancy platform currently live and discoverable on Google search. Engineered complete frontend architecture using React and TypeScript with component-based design. Implemented dockerized deployment pipeline for consistent builds across environments. Achieved strong Core Web Vitals scores through strategic code-splitting, lazy loading, and rendering optimizations. Platform serves as primary digital presence for AI consulting services, showcasing tools and solutions through polished, interactive components. Focused on conversion-optimized UI/UX while maintaining clean, professional aesthetics and SEO-ready structure.",
     features: [
       { text: "Production-grade .com deployment" },
       { text: "Minimalist, premium UI/UX" },
@@ -23,8 +22,8 @@ export const projects = [
   },
   {
     title: "Portfolio Website (Next.js)",
-    tagline: "Performance-Optimized Personal Portfolio",
-    description: "A production-grade portfolio built with Next.js App Router and a component-driven architecture. Includes a server-side contact API route, dynamic loading for heavy animation dependencies, and a polished UI system with Tailwind CSS. The project is backed by Jest + React Testing Library and includes accessibility checks via axe-core.",
+    tagline: "High-Performance Personal Portfolio",
+    description: "Production-ready portfolio built with Next.js 14+ App Router architecture demonstrating advanced frontend engineering practices. Implements component-driven architecture with reusable, type-safe components using TypeScript. Features server-side API routes for contact form handling with Nodemailer integration. Achieved significant performance gains through dynamic imports for heavy dependencies (GSAP animations), code-splitting, and lazy loading strategies. Comprehensive testing suite using Jest and React Testing Library with accessibility validation via axe-core. Optimized for Core Web Vitals with strategic resource loading and minimal render-blocking. Demonstrates professional-grade code organization, error boundaries, and production deployment best practices.",
     features: [
       { text: "Next.js App Router architecture" },
       { text: "Reusable section components" },
@@ -44,8 +43,8 @@ export const projects = [
   },
   {
     title: "Gifting Muse Oracle",
-    tagline: "Creative Gift Discovery Platform",
-    description: "An innovative gift discovery platform that combines intuitive design with smart curation to provide personalized gift recommendations. Features a beautiful interface with creative filtering and curated suggestions for every occasion and recipient.",
+    tagline: "AI-Powered Gift Discovery Platform",
+    description: "Intelligent gift recommendation platform combining curated collections with smart filtering algorithms. Built with React and TypeScript implementing type-safe component architecture. Features advanced search engine with multi-criteria filtering (occasion, recipient, price range, category). Implements personalized suggestion system based on user preferences and browsing patterns. Designed with conversion-focused UX emphasizing quick discovery and decision-making. Responsive design ensures optimal experience across all device sizes. Project demonstrates ability to create consumer-facing applications with emphasis on user engagement and practical utility.",
     features: [
       { text: "Curated Gift Collections" },
       { text: "Personalized Suggestions" },
@@ -65,8 +64,8 @@ export const projects = [
   },
   {
     title: "Magma Real Estate",
-    tagline: "Cinematic 3D Real Estate Platform",
-    description: "A high-performance, immersive real estate platform built with Next.js 16 and React 19. Features cinema-grade GSAP animations, Locomotive Smooth Scroll, and a premium 3D-feeling UI to redefine property discovery.",
+    tagline: "Immersive 3D Real Estate Experience",
+    description: "High-performance real estate platform leveraging latest Next.js 16 and React 19 features for optimal rendering performance. Implements cinema-quality animations using GSAP (GreenSock Animation Platform) with hardware-accelerated transforms. Integrates Locomotive Smooth Scroll for native-feeling scroll interactions and parallax effects. Built with Tailwind CSS 4 for maintainable, utility-first styling. Creates immersive 3D-feeling user interface through strategic use of depth, perspective, and motion design. Optimized rendering pipeline ensures smooth 60fps animations while maintaining low memory footprint. Demonstrates advanced frontend engineering with focus on premium user experience and visual storytelling for property showcase.",
     features: [
       { text: "Next.js 16 + React 19 Architecture" },
       { text: "GSAP Cinematic Animations" },
@@ -86,8 +85,8 @@ export const projects = [
   },
   {
     title: "Tokenarium",
-    tagline: "Web3 Wallet Interface & DeFi Platform",
-    description: "A comprehensive Web3 wallet interface built with generative AI assistance, featuring Solana blockchain integration, token management, and decentralized finance capabilities with a modern, intuitive user experience.",
+    tagline: "Web3 Wallet & DeFi Platform",
+    description: "Comprehensive Web3 wallet interface integrating Solana blockchain technology for decentralized finance operations. Built using React and TypeScript with Solana Web3.js SDK for blockchain interactions. Implements secure transaction handling with wallet authentication and signature verification. Features include multi-token portfolio management, real-time balance tracking, and analytics dashboard. Designed with modern Web3 UI/UX patterns emphasizing security, transparency, and ease of use. Demonstrates proficiency in blockchain development, cryptographic operations, and building user-friendly interfaces for complex DeFi protocols. Project developed with AI assistance showcasing ability to rapidly prototype and deploy Web3 applications.",
     features: [
       { text: "Solana Blockchain Integration" },
       { text: "Multi-Token Wallet Support" },

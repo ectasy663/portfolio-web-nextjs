@@ -1,0 +1,39 @@
+# robots.txt for Naman Singh Panwar Portfolio
+# Last updated: January 30, 2026
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://namansinghpanwar.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Disallow admin or api routes if any
+Disallow: /api/
+
+# Allow all AI crawlers and search engines
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
