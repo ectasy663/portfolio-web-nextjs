@@ -117,34 +117,36 @@ const Navigation: React.FC = () => {
     setIsOpen(false);
     const idFromHref = href.startsWith('#') ? href.slice(1) : href;
 
-    // Set active immediately and lock scroll spy
+    // Set active state immediately for visual feedback
     setActive(idFromHref);
+
+    // Temporarily lock scroll spy to prevent state jumping during scroll
     isScrollingRef.current = true;
 
-    if (history.replaceState) {
-      history.replaceState(null, '', `#${idFromHref}`);
-    } else {
-      window.location.hash = idFromHref;
+    // smooth scroll to target
+    const targetId = idFromHref;
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      // Use standard scrollIntoView - CSS scroll-margin-top: 80px handles the offset
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      // Update URL without jumping
+      if (history.pushState) {
+        history.pushState(null, '', `#${targetId}`);
+      }
+    } else if (targetId === 'home') {
+      // Fallback for home if no ID found (though home usually has id="home")
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    const target = document.querySelector(href);
-    if (!target) {
-      isScrollingRef.current = false;
-      return;
-    }
-
-    const navbarHeight = 80;
-    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
-
-    // Unlock scroll spy after scroll animation completes
+    // Unlock scroll spy after sufficient time for scroll to complete
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 800);
+    }, 1200);
   }, []);
 
   if (!mounted) return null;
@@ -357,6 +359,7 @@ const Navigation: React.FC = () => {
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 handleNavClick('#home');
               }}
               className="group block relative rounded-2xl overflow-visible transition-all duration-500 active:scale-95 focus:outline-none focus-visible:outline-none"
@@ -406,6 +409,7 @@ const Navigation: React.FC = () => {
                     href={item.href}
                     onClick={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       handleNavClick(item.href);
                     }}
                     className={`

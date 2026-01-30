@@ -22,7 +22,7 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
-  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '0px', threshold: 0.2 });
 
   useSplitTextAnimation({
     scopeRef: sectionRef,
@@ -32,11 +32,6 @@ const Contact: React.FC = () => {
       duration: 1,
       stagger: 0.04,
       ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
       from: {
         y: 28
       }
@@ -45,11 +40,6 @@ const Contact: React.FC = () => {
       duration: 0.9,
       stagger: 0.035,
       ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
-      },
       from: {
         y: 20
       }
@@ -66,224 +56,190 @@ const Contact: React.FC = () => {
 
     const init = async () => {
       try {
-        const { gsap, ScrollTrigger } = await loadGSAP();
+        const { gsap } = await loadGSAP();
         if (cancelled) return;
 
         ctx = gsap.context(() => {
-      // === INTRO TEXT FADE IN ===
-      const introText = contentRef.current?.querySelector('.intro-text');
-      if (introText) {
-        gsap.fromTo(introText,
-          {
-            opacity: 0,
-            y: 30
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: introText,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            }
+          // === INTRO TEXT FADE IN ===
+          const introText = contentRef.current?.querySelector('.intro-text');
+          if (introText) {
+            gsap.fromTo(introText,
+              {
+                opacity: 0,
+                y: 30
+              },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+              }
+            );
           }
-        );
-      }
 
-      // === CONTACT INFO CARDS STAGGERED ENTRANCE ===
-      const contactCards = contactInfoRef.current?.querySelectorAll('.contact-card');
-      if (contactCards) {
-        contactCards.forEach((card, index) => {
-          gsap.fromTo(card,
-            {
+          // === CONTACT INFO CARDS STAGGERED ENTRANCE ===
+          const contactCards = contactInfoRef.current?.querySelectorAll('.contact-card');
+          if (contactCards) {
+            contactCards.forEach((card, index) => {
+              gsap.fromTo(card,
+                {
+                  opacity: 0,
+                  x: -30
+                },
+                {
+                  opacity: 1,
+                  x: 0,
+                  duration: 0.8,
+                  delay: index * 0.15,
+                  ease: "back.out(1.5)"
+                }
+              );
+            });
+          }
+
+          // === CONTACT ICONS BOUNCE ===
+          const contactIcons = contactInfoRef.current?.querySelectorAll('.contact-icon');
+          contactIcons?.forEach((icon, index) => {
+            gsap.to(icon, {
+              y: -5,
+              duration: 1 + index * 0.2,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: index * 0.3
+            });
+          });
+
+          // === RESPONSE TIME STATS COUNTER ===
+          const responseStats = contactInfoRef.current?.querySelectorAll('.response-stat');
+          if (responseStats) {
+            responseStats.forEach((stat, index) => {
+              gsap.fromTo(stat,
+                {
+                  opacity: 0,
+                  scale: 0.5
+                },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.6,
+                  delay: 0.3 + index * 0.1,
+                  ease: "back.out(2)"
+                }
+              );
+            });
+          }
+
+          // === FORM CONTAINER OPTIMIZED ENTRANCE ===
+          const formContainer = formRef.current?.closest('.form-container');
+          if (formContainer) {
+            gsap.fromTo(formContainer,
+              {
+                opacity: 0,
+                x: 30
+              },
+              {
+                opacity: 1,
+                x: 0,
+                duration: 0.8,
+                ease: "power3.out"
+              }
+            );
+          }
+
+          // === FORM INPUTS FOCUS ANIMATION ===
+          const formInputs = formRef.current?.querySelectorAll('input, textarea');
+          formInputs?.forEach((input) => {
+            input.addEventListener('focus', () => {
+              gsap.to(input, {
+                scale: 1.02,
+                borderColor: 'rgba(59, 130, 246, 0.5)',
+                boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)',
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            }, { signal: controller.signal });
+
+            input.addEventListener('blur', () => {
+              gsap.to(input, {
+                scale: 1,
+                borderColor: '',
+                boxShadow: 'none',
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            }, { signal: controller.signal });
+          });
+
+          // === SUBMIT BUTTON HOVER EFFECT ===
+          const submitBtn = formRef.current?.querySelector('.submit-btn');
+          if (submitBtn) {
+            submitBtn.addEventListener('mouseenter', () => {
+              gsap.to(submitBtn, {
+                scale: 1.05,
+                boxShadow: '0 10px 40px rgba(59, 130, 246, 0.4)',
+                duration: 0.3,
+                ease: "power2.out"
+              });
+
+              const icon = submitBtn.querySelector('.btn-icon');
+              if (icon) {
+                gsap.to(icon, {
+                  x: 5,
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              }
+            }, { signal: controller.signal });
+
+            submitBtn.addEventListener('mouseleave', () => {
+              gsap.to(submitBtn, {
+                scale: 1,
+                boxShadow: '',
+                duration: 0.3,
+                ease: "power2.out"
+              });
+
+              const icon = submitBtn.querySelector('.btn-icon');
+              if (icon) {
+                gsap.to(icon, {
+                  x: 0,
+                  duration: 0.3,
+                  ease: "power2.out"
+                });
+              }
+            }, { signal: controller.signal });
+          }
+
+          // === FOOTER ENTRANCE ===
+          const footer = sectionRef.current?.querySelector('.footer-section');
+          if (footer) {
+            gsap.set(footer, {
               opacity: 0,
-              x: -60,
-              rotateY: -30,
-              transformPerspective: 1000
-            },
-            {
+              y: 30
+            });
+
+            gsap.to(footer, {
               opacity: 1,
-              x: 0,
-              rotateY: 0,
+              y: 0,
               duration: 0.8,
-              delay: index * 0.15,
-              ease: "back.out(1.5)",
-              scrollTrigger: {
-                trigger: contactInfoRef.current,
-                start: "top 80%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
-
-      // === CONTACT ICONS BOUNCE ===
-      const contactIcons = contactInfoRef.current?.querySelectorAll('.contact-icon');
-      contactIcons?.forEach((icon, index) => {
-        gsap.to(icon, {
-          y: -5,
-          duration: 1 + index * 0.2,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: index * 0.3
-        });
-      });
-
-      // === RESPONSE TIME STATS COUNTER ===
-      const responseStats = contactInfoRef.current?.querySelectorAll('.response-stat');
-      if (responseStats) {
-        responseStats.forEach((stat, index) => {
-          gsap.fromTo(stat,
-            {
-              opacity: 0,
-              scale: 0.5
-            },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.6,
-              delay: 0.3 + index * 0.1,
-              ease: "back.out(2)",
-              scrollTrigger: {
-                trigger: contactInfoRef.current,
-                start: "top 75%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
-
-      // === FORM CONTAINER ENTRANCE ===
-      const formContainer = formRef.current?.closest('.form-container');
-      if (formContainer) {
-        gsap.fromTo(formContainer,
-          {
-            opacity: 0,
-            x: 60,
-            rotateY: 15,
-            transformPerspective: 1500
-          },
-          {
-            opacity: 1,
-            x: 0,
-            rotateY: 0,
-            duration: 1,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: formContainer,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      }
-
-      // === FORM INPUTS FOCUS ANIMATION ===
-      const formInputs = formRef.current?.querySelectorAll('input, textarea');
-      formInputs?.forEach((input) => {
-        input.addEventListener('focus', () => {
-          gsap.to(input, {
-            scale: 1.02,
-            borderColor: 'rgba(59, 130, 246, 0.5)',
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.2)',
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }, { signal: controller.signal });
-
-        input.addEventListener('blur', () => {
-          gsap.to(input, {
-            scale: 1,
-            borderColor: '',
-            boxShadow: 'none',
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        }, { signal: controller.signal });
-      });
-
-      // === SUBMIT BUTTON HOVER EFFECT ===
-      const submitBtn = formRef.current?.querySelector('.submit-btn');
-      if (submitBtn) {
-        submitBtn.addEventListener('mouseenter', () => {
-          gsap.to(submitBtn, {
-            scale: 1.05,
-            boxShadow: '0 10px 40px rgba(59, 130, 246, 0.4)',
-            duration: 0.3,
-            ease: "power2.out"
-          });
-
-          const icon = submitBtn.querySelector('.btn-icon');
-          if (icon) {
-            gsap.to(icon, {
-              x: 5,
-              duration: 0.3,
-              ease: "power2.out"
+              ease: "power3.out"
             });
           }
-        }, { signal: controller.signal });
 
-        submitBtn.addEventListener('mouseleave', () => {
-          gsap.to(submitBtn, {
-            scale: 1,
-            boxShadow: '',
-            duration: 0.3,
-            ease: "power2.out"
+          // === BACKGROUND PARALLAX ===
+          const overlays = sectionRef.current?.querySelectorAll('.contact-overlay');
+          overlays?.forEach((el, i) => {
+            gsap.to(el, {
+              y: i % 2 === 0 ? -20 : -10,
+              duration: 3,
+              repeat: -1,
+              yoyo: true,
+              ease: 'sine.inOut'
+            });
           });
 
-          const icon = submitBtn.querySelector('.btn-icon');
-          if (icon) {
-            gsap.to(icon, {
-              x: 0,
-              duration: 0.3,
-              ease: "power2.out"
-            });
-          }
-        }, { signal: controller.signal });
-      }
-
-      // === FOOTER ENTRANCE ===
-      const footer = sectionRef.current?.querySelector('.footer-section');
-      if (footer) {
-        gsap.set(footer, {
-          opacity: 0,
-          y: 30
-        });
-
-        gsap.to(footer, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
-      // === BACKGROUND PARALLAX ===
-      const overlays = sectionRef.current?.querySelectorAll('.contact-overlay');
-      overlays?.forEach((el, i) => {
-        gsap.to(el, {
-          y: i % 2 === 0 ? -60 : -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5
-          }
-        });
-      });
-
-    }, sectionRef);
+        }, sectionRef);
       } catch (error) {
         console.error('Failed to initialize Contact animations:', error);
       }

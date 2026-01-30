@@ -14,7 +14,7 @@ const Achievements: React.FC = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
 
-  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '600px', threshold: 0.1 });
+  const shouldAnimate = useInViewOnce(sectionRef, { rootMargin: '0px', threshold: 0.2 });
 
   useSplitTextAnimation({
     scopeRef: sectionRef,
@@ -24,11 +24,6 @@ const Achievements: React.FC = () => {
       duration: 1,
       stagger: 0.04,
       ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      },
       from: {
         y: 28
       }
@@ -37,11 +32,6 @@ const Achievements: React.FC = () => {
       duration: 0.9,
       stagger: 0.035,
       ease: 'back.out(1.7)',
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse'
-      },
       from: {
         y: 20
       }
@@ -57,136 +47,106 @@ const Achievements: React.FC = () => {
 
     const init = async () => {
       try {
-        const { gsap, ScrollTrigger } = await loadGSAP();
+        const { gsap } = await loadGSAP();
         if (cancelled) return;
 
         ctx = gsap.context(() => {
-      // === ACHIEVEMENT CARDS STAGGERED 3D ENTRANCE ===
-      const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
-      if (achievementCards) {
-        achievementCards.forEach((card, index) => {
-          const row = Math.floor(index / 3);
-          const col = index % 3;
-          const delay = (row + col) * 0.05;
+          // === ACHIEVEMENT CARDS OPTIMIZED ENTRANCE ===
+          const achievementCards = achievementsRef.current?.querySelectorAll('.achievement-card');
+          if (achievementCards) {
+            gsap.set(achievementCards, { opacity: 0, y: 30, scale: 0.95 });
 
-          gsap.fromTo(card,
-            {
-              opacity: 0,
-              scale: 0.8,
-              rotationY: -30,
-              transformPerspective: 1500
-            },
-            {
+            gsap.to(achievementCards, {
               opacity: 1,
+              y: 0,
               scale: 1,
-              rotationY: 0,
-              duration: 0.8,
-              delay: delay,
-              ease: "back.out(1.7)",
-              scrollTrigger: {
-                trigger: achievementsRef.current,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
+              duration: 0.6,
+              stagger: 0.1,
+              ease: "power2.out",
+              overwrite: true
+            });
+          }
 
-      // === RANK BADGES POP-IN ===
-      const rankBadges = achievementsRef.current?.querySelectorAll('.rank-badge');
-      if (rankBadges) {
-        rankBadges.forEach((badge, index) => {
-          gsap.fromTo(badge,
-            {
-              opacity: 0,
-              scale: 0,
-              rotation: -180
-            },
-            {
-              opacity: 1,
-              scale: 1,
-              rotation: 0,
-              duration: 0.5,
-              delay: 0.1 + index * 0.05,
-              ease: "back.out(2)",
-              scrollTrigger: {
-                trigger: badge.closest('.achievement-card'),
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
+          // === RANK BADGES POP-IN ===
+          const rankBadges = achievementsRef.current?.querySelectorAll('.rank-badge');
+          if (rankBadges) {
+            rankBadges.forEach((badge, index) => {
+              gsap.fromTo(badge,
+                {
+                  opacity: 0,
+                  scale: 0,
+                  rotation: -180
+                },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  rotation: 0,
+                  duration: 0.5,
+                  delay: 0.1 + index * 0.05,
+                  ease: "back.out(2)"
+                }
+              );
+            });
+          }
 
-      // === ACHIEVEMENT ICONS GLOW PULSE ===
-      const achievementIcons = achievementsRef.current?.querySelectorAll('.achievement-icon');
-      achievementIcons?.forEach((icon, index) => {
-        gsap.to(icon, {
-          boxShadow: "0 0 20px rgba(255, 215, 0, 0.4)",
-          duration: 1.5,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: index * 0.3
-        });
-      });
-
-      // === DECORATIVE STARS TWINKLE ===
-      const decorativeStars = achievementsRef.current?.querySelectorAll('.decorative-star');
-      decorativeStars?.forEach((star, index) => {
-        gsap.to(star, {
-          opacity: gsap.utils.random(0.3, 1),
-          scale: gsap.utils.random(0.8, 1.2),
-          rotation: gsap.utils.random(-20, 20),
-          duration: 1 + Math.random() * 2,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: index * 0.2
-        });
-      });
-
-      // === STATS COUNTER ANIMATION ===
-      const stats = statsRef.current?.querySelectorAll('.stat-item');
-      if (stats) {
-        stats.forEach((stat, index) => {
-          const numberEl = stat.querySelector('.stat-number');
-          const labelEl = stat.querySelector('.stat-label');
-
-          gsap.set(stat, {
-            opacity: 0,
-            y: 50,
-            scale: 0.8
+          // === ACHIEVEMENT ICONS GLOW PULSE ===
+          const achievementIcons = achievementsRef.current?.querySelectorAll('.achievement-icon');
+          achievementIcons?.forEach((icon, index) => {
+            gsap.to(icon, {
+              boxShadow: "0 0 20px rgba(255, 215, 0, 0.4)",
+              duration: 1.5,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: index * 0.3
+            });
           });
 
-          gsap.to(stat, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            delay: index * 0.15,
-            ease: "back.out(1.5)",
-            scrollTrigger: {
-              trigger: statsRef.current,
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            }
+          // === DECORATIVE STARS TWINKLE ===
+          const decorativeStars = achievementsRef.current?.querySelectorAll('.decorative-star');
+          decorativeStars?.forEach((star, index) => {
+            gsap.to(star, {
+              opacity: gsap.utils.random(0.3, 1),
+              scale: gsap.utils.random(0.8, 1.2),
+              rotation: gsap.utils.random(-20, 20),
+              duration: 1 + Math.random() * 2,
+              ease: "sine.inOut",
+              yoyo: true,
+              repeat: -1,
+              delay: index * 0.2
+            });
           });
 
-          // Counter animation for numbers
-          if (numberEl && numberEl.textContent) {
-            const originalText = numberEl.textContent;
-            const numericMatch = originalText.match(/[\d.]+/);
-            const numericValue = numericMatch ? parseFloat(numericMatch[0]) : 0;
-            const prefix = originalText.charAt(0) === '<' ? '< ' : '';
-            const suffix = originalText.includes('+') ? '+' : originalText.includes('%') ? '%' : originalText.includes('K') ? 'K+' : '';
+          // === STATS COUNTER ANIMATION ===
+          const stats = statsRef.current?.querySelectorAll('.stat-item');
+          if (stats) {
+            stats.forEach((stat, index) => {
+              const numberEl = stat.querySelector('.stat-number');
+              const labelEl = stat.querySelector('.stat-label');
 
-            ScrollTrigger.create({
-              trigger: stat,
-              start: "top 85%",
-              onEnter: () => {
+              gsap.set(stat, {
+                opacity: 0,
+                y: 50,
+                scale: 0.8
+              });
+
+              gsap.to(stat, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: "back.out(1.5)"
+              });
+
+              // Counter animation for numbers
+              if (numberEl && numberEl.textContent) {
+                const originalText = numberEl.textContent;
+                const numericMatch = originalText.match(/[\d.]+/);
+                const numericValue = numericMatch ? parseFloat(numericMatch[0]) : 0;
+                const prefix = originalText.charAt(0) === '<' ? '< ' : '';
+                const suffix = originalText.includes('+') ? '+' : originalText.includes('%') ? '%' : originalText.includes('K') ? 'K+' : '';
+
                 const counter = { value: 0 };
                 gsap.to(counter, {
                   value: numericValue,
@@ -207,41 +167,29 @@ const Achievements: React.FC = () => {
               }
             });
           }
-        });
-      }
 
-      // === QUOTE SECTION ENTRANCE ===
-      if (quoteRef.current) {
-        const quote = quoteRef.current.querySelector('blockquote');
-        const author = quoteRef.current.querySelector('.quote-author');
+          // === QUOTE SECTION ENTRANCE ===
+          if (quoteRef.current) {
+            const quote = quoteRef.current.querySelector('blockquote');
+            const author = quoteRef.current.querySelector('.quote-author');
 
-        gsap.set(quoteRef.current, {
-          opacity: 0,
-          y: 60,
-          scale: 0.95
-        });
+            gsap.set(quoteRef.current, {
+              opacity: 0,
+              y: 60,
+              scale: 0.95
+            });
 
-        gsap.to(quoteRef.current, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: quoteRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        });
+            gsap.to(quoteRef.current, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 1,
+              ease: "power3.out"
+            });
 
-        // Quote text scramble effect
-        if (quote && quote.textContent) {
-          const originalText = quote.textContent;
-
-          ScrollTrigger.create({
-            trigger: quoteRef.current,
-            start: "top 80%",
-            onEnter: () => {
+            // Quote text scramble effect
+            if (quote && quote.textContent) {
+              const originalText = quote.textContent;
               const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
               let frame = 0;
               const totalFrames = 60;
@@ -270,26 +218,21 @@ const Achievements: React.FC = () => {
 
               animate();
             }
-          });
-        }
-      }
-
-      // === BACKGROUND PARALLAX ===
-      const overlays = sectionRef.current?.querySelectorAll('.ach-overlay');
-      overlays?.forEach((el, i) => {
-        gsap.to(el, {
-          y: i % 2 === 0 ? -70 : -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5
           }
-        });
-      });
 
-    }, sectionRef);
+          // === BACKGROUND PARALLAX ===
+          const overlays = sectionRef.current?.querySelectorAll('.ach-overlay');
+          overlays?.forEach((el, i) => {
+            gsap.to(el, {
+              y: i % 2 === 0 ? -20 : -10, // Reduced movement since no scrub
+              duration: 2,
+              repeat: -1,
+              yoyo: true,
+              ease: 'sine.inOut'
+            });
+          });
+
+        }, sectionRef);
       } catch (error) {
         console.error('Failed to initialize Achievements animations:', error);
       }

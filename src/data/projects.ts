@@ -64,25 +64,25 @@ export const projects = [
     status: "Live Production"
   },
   {
-    title: "User-Centric Property Platform",
-    tagline: "Next-Gen Real Estate Discovery",
-    description: "An intelligent property discovery platform that leverages advanced filtering algorithms and modern UX principles to transform how users find their perfect property.",
+    title: "Magma Real Estate",
+    tagline: "Cinematic 3D Real Estate Platform",
+    description: "A high-performance, immersive real estate platform built with Next.js 16 and React 19. Features cinema-grade GSAP animations, Locomotive Smooth Scroll, and a premium 3D-feeling UI to redefine property discovery.",
     features: [
-      { text: "Progressive Web App" },
-      { text: "AI-Powered Search" },
-      { text: "Optimized Performance" },
-      { text: "Modern UI/UX Design" },
-      { text: "SEO Excellence" },
-      { text: "Real-Time Updates" }
+      { text: "Next.js 16 + React 19 Architecture" },
+      { text: "GSAP Cinematic Animations" },
+      { text: "Locomotive Smooth Scroll" },
+      { text: "Tailwind CSS 4" },
+      { text: "Immersive 3D Experience" },
+      { text: "High-Performance Rendering" }
     ],
-    techStack: ["React", "JavaScript", "CSS"],
-    liveUrl: "https://modernwebshowcase.netlify.app",
-    githubUrl: "https://github.com/ectasy663/RealEstateWebShowcase.git",
-    stats: { stars: 8, forks: 2, views: 189 },
-    date: "2024",
+    techStack: ["Next.js 16", "React 19", "GSAP", "Locomotive Scroll", "Tailwind CSS 4", "TypeScript"],
+    liveUrl: "https://magma-website-swart.vercel.app/",
+    githubUrl: "https://github.com/ectasy663/magma-website",
+    stats: { stars: 12, forks: 3, views: 450 },
+    date: "2026",
     gradient: "dark:from-primary-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600",
-    category: "Frontend Application",
-    status: "Active"
+    category: "Immersive Web App",
+    status: "Live Production"
   },
   {
     title: "Tokenarium",

@@ -7,13 +7,15 @@ import { loadGSAP } from '@/utils/gsapLoader';
 import { scrollToId } from '@/utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
-  SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs, SiJest
+  SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs, SiJest,
+  SiGreensock, SiWebgl
 } from 'react-icons/si';
 
 import { projects } from '@/data/projects';
 import { useInViewOnce } from '@/hooks/useInViewOnce';
 
 const Projects: React.FC = () => {
+  // ... helper logic ...
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const titleTextRef = useRef<HTMLSpanElement>(null);
@@ -67,237 +69,237 @@ const Projects: React.FC = () => {
         if (cancelled) return;
 
         ctx = gsap.context(() => {
-      // === FEATURED BADGE ENTRANCE ===
-      const featuredBadge = sectionRef.current?.querySelector('.featured-badge');
-      if (featuredBadge) {
-        gsap.fromTo(featuredBadge,
-          {
-            opacity: 0,
-            scale: 0,
-            rotation: -180
-          },
-          {
-            opacity: 1,
-            scale: 1,
-            rotation: 0,
-            duration: 0.8,
-            ease: "back.out(2)",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      }
-
-      // === PROJECT CARDS CINEMATIC REVEAL ===
-      const projectCards = projectsRef.current?.querySelectorAll('.project-card');
-      if (projectCards) {
-        projectCards.forEach((card, index) => {
-          const isEven = index % 2 === 0;
-
-          gsap.fromTo(card,
-            {
-              opacity: 0,
-              y: 50,
-              x: isEven ? -50 : 50,
-              rotationY: isEven ? -15 : 15,
-              transformPerspective: 1500
-            },
-            {
-              opacity: 1,
-              y: 0,
-              x: 0,
-              rotationY: 0,
-              duration: 0.8,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
-
-      // === PROJECT IMAGE CONTAINERS - ENHANCED 3D TILT ===
-      const tiltContainers = projectsRef.current?.querySelectorAll('.tilt-container');
-      tiltContainers?.forEach((container) => {
-        const containerEl = container as HTMLElement;
-
-        containerEl.addEventListener('mouseenter', () => {
-          gsap.to(containerEl, {
-            scale: 1.02,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
-
-        containerEl.addEventListener('mouseleave', () => {
-          gsap.to(containerEl, {
-            scale: 1,
-            rotationX: 0,
-            rotationY: 0,
-            duration: 0.5,
-            ease: "power2.out"
-          });
-        });
-
-        containerEl.addEventListener('mousemove', (e: MouseEvent) => {
-          const rect = containerEl.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = (y - centerY) / centerY * -15;
-          const rotateY = (x - centerX) / centerX * 15;
-
-          gsap.to(containerEl, {
-            rotationX: rotateX,
-            rotationY: rotateY,
-            transformPerspective: 1000,
-            duration: 0.3,
-            ease: "power2.out"
-          });
-        });
-      });
-
-      // === TECH STACK BADGES WAVE ANIMATION ===
-      const techBadges = projectsRef.current?.querySelectorAll('.tech-badge');
-      if (techBadges) {
-        techBadges.forEach((badge, index) => {
-          gsap.set(badge, {
-            opacity: 0,
-            scale: 0.5,
-            y: 20
-          });
-
-          ScrollTrigger.create({
-            trigger: badge.closest('.project-card'),
-            start: "top 70%",
-            onEnter: () => {
-              gsap.to(badge, {
+          // === FEATURED BADGE ENTRANCE ===
+          const featuredBadge = sectionRef.current?.querySelector('.featured-badge');
+          if (featuredBadge) {
+            gsap.fromTo(featuredBadge,
+              {
+                opacity: 0,
+                scale: 0,
+                rotation: -180
+              },
+              {
                 opacity: 1,
                 scale: 1,
-                y: 0,
-                duration: 0.5,
-                delay: index * 0.05,
-                ease: "back.out(1.7)"
+                rotation: 0,
+                duration: 0.8,
+                ease: "back.out(2)",
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: "top 80%",
+                  toggleActions: "play none none reverse"
+                }
+              }
+            );
+          }
+
+          // === PROJECT CARDS CINEMATIC REVEAL ===
+          const projectCards = projectsRef.current?.querySelectorAll('.project-card');
+          if (projectCards) {
+            projectCards.forEach((card, index) => {
+              const isEven = index % 2 === 0;
+
+              gsap.fromTo(card,
+                {
+                  opacity: 0,
+                  y: 50,
+                  x: isEven ? -50 : 50,
+                  rotationY: isEven ? -15 : 15,
+                  transformPerspective: 1500
+                },
+                {
+                  opacity: 1,
+                  y: 0,
+                  x: 0,
+                  rotationY: 0,
+                  duration: 0.8,
+                  ease: "power3.out",
+                  scrollTrigger: {
+                    trigger: card,
+                    start: "top 90%",
+                    toggleActions: "play none none reverse"
+                  }
+                }
+              );
+            });
+          }
+
+          // === PROJECT IMAGE CONTAINERS - ENHANCED 3D TILT ===
+          const tiltContainers = projectsRef.current?.querySelectorAll('.tilt-container');
+          tiltContainers?.forEach((container) => {
+            const containerEl = container as HTMLElement;
+
+            containerEl.addEventListener('mouseenter', () => {
+              gsap.to(containerEl, {
+                scale: 1.02,
+                duration: 0.3,
+                ease: "power2.out"
               });
-            },
-            onLeaveBack: () => {
-              gsap.to(badge, {
+            });
+
+            containerEl.addEventListener('mouseleave', () => {
+              gsap.to(containerEl, {
+                scale: 1,
+                rotationX: 0,
+                rotationY: 0,
+                duration: 0.5,
+                ease: "power2.out"
+              });
+            });
+
+            containerEl.addEventListener('mousemove', (e: MouseEvent) => {
+              const rect = containerEl.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const centerX = rect.width / 2;
+              const centerY = rect.height / 2;
+              const rotateX = (y - centerY) / centerY * -15;
+              const rotateY = (x - centerX) / centerX * 15;
+
+              gsap.to(containerEl, {
+                rotationX: rotateX,
+                rotationY: rotateY,
+                transformPerspective: 1000,
+                duration: 0.3,
+                ease: "power2.out"
+              });
+            });
+          });
+
+          // === TECH STACK BADGES WAVE ANIMATION ===
+          const techBadges = projectsRef.current?.querySelectorAll('.tech-badge');
+          if (techBadges) {
+            techBadges.forEach((badge, index) => {
+              gsap.set(badge, {
                 opacity: 0,
                 scale: 0.5,
-                y: 20,
-                duration: 0.3
+                y: 20
               });
-            }
-          });
-        });
-      }
 
-      // === FEATURE ITEMS STAGGER REVEAL ===
-      const featureItems = projectsRef.current?.querySelectorAll('.feature-item');
-      if (featureItems) {
-        featureItems.forEach((item) => {
-          gsap.set(item, {
-            opacity: 0,
-            x: -20,
-            scale: 0.9
-          });
-
-          ScrollTrigger.create({
-            trigger: item.closest('.project-card'),
-            start: "top 65%",
-            onEnter: () => {
-              gsap.to(item, {
-                opacity: 1,
-                x: 0,
-                scale: 1,
-                duration: 0.6,
-                ease: "power3.out"
+              ScrollTrigger.create({
+                trigger: badge.closest('.project-card'),
+                start: "top 70%",
+                onEnter: () => {
+                  gsap.to(badge, {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: index * 0.05,
+                    ease: "back.out(1.7)"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(badge, {
+                    opacity: 0,
+                    scale: 0.5,
+                    y: 20,
+                    duration: 0.3
+                  });
+                }
               });
-            },
-            onLeaveBack: () => {
-              gsap.to(item, {
+            });
+          }
+
+          // === FEATURE ITEMS STAGGER REVEAL ===
+          const featureItems = projectsRef.current?.querySelectorAll('.feature-item');
+          if (featureItems) {
+            featureItems.forEach((item) => {
+              gsap.set(item, {
                 opacity: 0,
                 x: -20,
-                scale: 0.9,
-                duration: 0.3
+                scale: 0.9
               });
-            }
+
+              ScrollTrigger.create({
+                trigger: item.closest('.project-card'),
+                start: "top 65%",
+                onEnter: () => {
+                  gsap.to(item, {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power3.out"
+                  });
+                },
+                onLeaveBack: () => {
+                  gsap.to(item, {
+                    opacity: 0,
+                    x: -20,
+                    scale: 0.9,
+                    duration: 0.3
+                  });
+                }
+              });
+            });
+          }
+
+          // === PROJECT STATS COUNTER ANIMATION ===
+          const stats = projectsRef.current?.querySelectorAll('.stat-number');
+          stats?.forEach((stat) => {
+            const statEl = stat as HTMLElement;
+            const originalText = statEl.textContent || '0';
+            const numericValue = parseInt(originalText.replace(/\D/g, '')) || 0;
+
+            ScrollTrigger.create({
+              trigger: stat.closest('.project-card'),
+              start: "top 70%",
+              onEnter: () => {
+                const counter = { value: 0 };
+                gsap.to(counter, {
+                  value: numericValue,
+                  duration: 1.5,
+                  ease: "power2.out",
+                  onUpdate: () => {
+                    statEl.textContent = Math.round(counter.value).toString();
+                  },
+                  onComplete: () => {
+                    statEl.textContent = originalText;
+                  }
+                });
+              }
+            });
           });
-        });
-      }
 
-      // === PROJECT STATS COUNTER ANIMATION ===
-      const stats = projectsRef.current?.querySelectorAll('.stat-number');
-      stats?.forEach((stat) => {
-        const statEl = stat as HTMLElement;
-        const originalText = statEl.textContent || '0';
-        const numericValue = parseInt(originalText.replace(/\D/g, '')) || 0;
+          // === CTA SECTION ENTRANCE ===
+          if (ctaRef.current) {
+            gsap.set(ctaRef.current, {
+              opacity: 0,
+              y: 60,
+              scale: 0.95
+            });
 
-        ScrollTrigger.create({
-          trigger: stat.closest('.project-card'),
-          start: "top 70%",
-          onEnter: () => {
-            const counter = { value: 0 };
-            gsap.to(counter, {
-              value: numericValue,
-              duration: 1.5,
-              ease: "power2.out",
-              onUpdate: () => {
-                statEl.textContent = Math.round(counter.value).toString();
-              },
-              onComplete: () => {
-                statEl.textContent = originalText;
+            gsap.to(ctaRef.current, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: ctaRef.current,
+                start: "top 85%",
+                toggleActions: "play none none reverse"
               }
             });
           }
-        });
-      });
 
-      // === CTA SECTION ENTRANCE ===
-      if (ctaRef.current) {
-        gsap.set(ctaRef.current, {
-          opacity: 0,
-          y: 60,
-          scale: 0.95
-        });
+          // === BACKGROUND PARALLAX ===
+          const bgElements = sectionRef.current?.querySelectorAll('.bg-parallax');
+          bgElements?.forEach((el, i) => {
+            gsap.to(el, {
+              y: (i + 1) * -50,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current!,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 1.5
+              }
+            });
+          });
 
-        gsap.to(ctaRef.current, {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
-      // === BACKGROUND PARALLAX ===
-      const bgElements = sectionRef.current?.querySelectorAll('.bg-parallax');
-      bgElements?.forEach((el, i) => {
-        gsap.to(el, {
-          y: (i + 1) * -50,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current!,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5
-          }
-        });
-      });
-
-    }, sectionRef);
+        }, sectionRef);
       } catch (error) {
         console.error('Failed to initialize Projects animations:', error);
       }
@@ -312,12 +314,19 @@ const Projects: React.FC = () => {
   }, [shouldAnimate]);
 
   const getTechIcon = (tech: string) => {
+    // Normalization helper to handle versions (e.g. "Next.js 16" -> "Next.js")
+    const normalize = (t: string) => t.split(' ')[0];
+
+    // Direct matches or startsWith checks
+    if (tech.includes('Next.js')) return <SiNextdotjs className="text-gray-900 dark:text-gray-100" aria-hidden="true" />;
+    if (tech.includes('React')) return <SiReact className="text-cyan-400" aria-hidden="true" />;
+    if (tech.includes('TypeScript')) return <SiTypescript className="text-blue-400" aria-hidden="true" />;
+    if (tech.includes('Tailwind')) return <SiTailwindcss className="text-teal-400" aria-hidden="true" />;
+    if (tech.includes('GSAP')) return <SiGreensock className="text-green-500" aria-hidden="true" />;
+    if (tech.includes('Locomotive')) return <SiWebgl className="text-pink-500" aria-hidden="true" />; // Proximate icon for webgl/scroll
+
     const iconMap: { [key: string]: React.ReactElement } = {
-      'Next.js': <SiNextdotjs className="text-gray-900 dark:text-gray-100" aria-hidden="true" />,
-      'React': <SiReact className="text-cyan-400" aria-hidden="true" />,
-      'TypeScript': <SiTypescript className="text-blue-400" aria-hidden="true" />,
       'JavaScript': <SiJavascript className="text-yellow-400" aria-hidden="true" />,
-      'Tailwind CSS': <SiTailwindcss className="text-teal-400" aria-hidden="true" />,
       'CSS': <SiCss3 className="text-blue-500" aria-hidden="true" />,
       'HTML': <SiHtml5 className="text-orange-500" aria-hidden="true" />,
       'Supabase': <SiSupabase className="text-emerald-400" aria-hidden="true" />,
