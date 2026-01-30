@@ -319,7 +319,7 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-20 sm:pt-24">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
         <div ref={heroRef} className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-12">
             {/* Left side - Text content */}
