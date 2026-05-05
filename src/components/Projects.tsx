@@ -7,8 +7,8 @@ import { loadGSAP } from '@/utils/gsapLoader';
 import { scrollToId } from '@/utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
-  SiCss3, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs, SiJest,
-  SiGreensock, SiWebgl
+  SiCss, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs,
+  SiGreensock, SiWebgl, SiJest
 } from 'react-icons/si';
 
 import { projects } from '@/data/projects';
@@ -385,7 +385,7 @@ const Projects: React.FC = () => {
 
     const iconMap: { [key: string]: React.ReactElement } = {
       'JavaScript': <SiJavascript className="text-yellow-400" aria-hidden="true" />,
-      'CSS': <SiCss3 className="text-blue-500" aria-hidden="true" />,
+      'CSS': <SiCss className="text-blue-500" aria-hidden="true" />,
       'HTML': <SiHtml5 className="text-orange-500" aria-hidden="true" />,
       'Supabase': <SiSupabase className="text-emerald-400" aria-hidden="true" />,
       'Node.js': <SiNodedotjs className="text-green-500" aria-hidden="true" />,

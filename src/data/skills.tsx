@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   SiReact, SiTypescript, SiJavascript, SiPython, SiCplusplus,
-  SiHtml5, SiCss3, SiTailwindcss, SiGit, SiGithub, SiDocker, SiFigma,
+  SiHtml5, SiCss, SiTailwindcss, SiGit, SiGithub, SiDocker, SiFigma,
   SiNodedotjs, SiPostgresql, SiSupabase, SiNextdotjs,
   SiTensorflow, SiPytorch, SiNumpy, SiPandas, SiJupyter, SiExpo
 } from 'react-icons/si';
@@ -22,7 +22,7 @@ export const skillCategories = [
       { name: "TypeScript", icon: React.createElement(SiTypescript, { className: "text-2xl text-blue-400", "aria-hidden": "true" }), level: 90 },
       { name: "JavaScript", icon: React.createElement(SiJavascript, { className: "text-2xl text-yellow-400", "aria-hidden": "true" }), level: 92 },
       { name: "HTML5", icon: React.createElement(SiHtml5, { className: "text-2xl text-orange-500", "aria-hidden": "true" }), level: 95 },
-      { name: "CSS3", icon: React.createElement(SiCss3, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 90 },
+      { name: "CSS3", icon: React.createElement(SiCss, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 90 },
       { name: "Tailwind CSS", icon: React.createElement(SiTailwindcss, { className: "text-2xl text-teal-400", "aria-hidden": "true" }), level: 88 },
     ],
     gradient: "dark:from-royal-blue-500 dark:via-royal-blue-600 dark:to-royal-purple-600 from-primary-500 via-primary-400 to-primary-600"
