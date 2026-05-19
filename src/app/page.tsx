@@ -15,6 +15,7 @@ import IntroLoader from '@/components/IntroLoader';
 // Critical above-the-fold components - load immediately
 import Hero from '@/components/Hero';
 import Navigation from '@/components/Navigation';
+import GlobalVideoBackground from '@/components/GlobalVideoBackground';
 
 // Minimal loading placeholder
 const LoadingPlaceholder = () => <div className="min-h-[50vh]" />;
@@ -30,6 +31,9 @@ const Experience = dynamic(() => import('@/components/Experience'), {
   loading: LoadingPlaceholder,
 });
 const Projects = dynamic(() => import('@/components/Projects'), {
+  loading: LoadingPlaceholder,
+});
+const AIStudio = dynamic(() => import('@/components/AIStudio'), {
   loading: LoadingPlaceholder,
 });
 const Achievements = dynamic(() => import('@/components/Achievements'), {
@@ -144,6 +148,10 @@ export default function HomePage() {
       <div className={`App ${introComplete ? 'app-content--ready' : 'app-content--loading'}`}>
         <Navigation />
         <main className="relative z-0" role="main">
+          {/* Global Cinematic Background applied across all sections in dark mode */}
+          <div className="hidden dark:block">
+            <GlobalVideoBackground />
+          </div>
           <Hero />
           <Suspense fallback={<LoadingPlaceholder />}>
             <About />
@@ -156,6 +164,9 @@ export default function HomePage() {
           </Suspense>
           <Suspense fallback={<LoadingPlaceholder />}>
             <Projects />
+          </Suspense>
+          <Suspense fallback={<LoadingPlaceholder />}>
+            <AIStudio />
           </Suspense>
           <Suspense fallback={<LoadingPlaceholder />}>
             <Achievements />

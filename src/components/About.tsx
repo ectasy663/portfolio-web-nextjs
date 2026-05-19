@@ -276,42 +276,19 @@ const About: React.FC = () => {
   }, [shouldAnimate]);
 
   return (
-    <section ref={sectionRef} id="about" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300" aria-labelledby="about-title">
-      {/* Background Video - Only visible in dark theme */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-0 dark:opacity-100 transition-opacity duration-300 will-change-transform dark:brightness-75 dark:contrast-125"
-        style={{
-          minWidth: '100%',
-          minHeight: '100%',
-          width: 'auto',
-          height: 'auto',
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%) scale(1.08)'
-        }}
-        aria-hidden="true"
-      >
-        <source src="/videos/metaverse.mp4" type="video/mp4" />
-      </video>
+    <section ref={sectionRef} id="about" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300" aria-labelledby="about-title">
 
       {/* Light theme background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
-
-      {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-[3]"></div>
 
       {/* Dynamic gradient background overlay */}
-      <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
+      <div className="absolute inset-0 z-[4] opacity-10 dark:opacity-30 transition-opacity duration-300">
         <div className="about-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-blue-500/20 to-primary-500/20 rounded-full blur-3xl"></div>
         <div className="about-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container relative z-30">
+      <div className="video-scrub-content container relative z-30">
+        {/* 'About Me' heading */}
         <h2
           id="about-title"
           ref={titleRef}
@@ -328,8 +305,8 @@ const About: React.FC = () => {
             <div ref={imageRef} className="flex-shrink-0" style={{ perspective: '1500px' }}>
               <div className="image-container relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]" style={{ transformStyle: 'preserve-3d' }}>
                 <Image
-                  src="/assets/black and white different pose.png"
-                  alt="Naman Singh Panwar - Professional web developer and AI-augmented engineer"
+                  src="/assets/about section image .png"
+                  alt="Naman Singh Panwar - AI Engineer and Full-Stack Web Developer"
                   fill
                   loading="lazy"
                   sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, 20rem"
@@ -348,18 +325,18 @@ const About: React.FC = () => {
               <div ref={contentRef} className="space-y-8">
                 <div className="prose prose-xl lg:prose-2xl dark:prose-invert">
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    I am a <strong>Web Developer</strong> and <strong>AI-Augmented Engineer</strong> specializing in building 
-                    exceptional web and mobile applications with modern JavaScript technologies. I leverage <strong>AI as a powerful 
-                    development tool</strong> to enhance productivity, code quality, and innovation—using AI assistants to accelerate 
-                    development, improve code quality, and solve complex technical challenges efficiently.
+                    I am an <strong>AI Engineer</strong> and <strong>Full-Stack Web Developer</strong> specializing in creating 
+                    intelligent, production-ready applications. I merge advanced AI paradigms—like Large Language Models (LLMs), RAG architectures, 
+                    and autonomous agents—with robust full-stack web and mobile paradigms. Using modern technologies like React, Next.js, and Python, 
+                    I transform complex technical challenges into scalable, high-performance solutions.
                   </p>
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
-                    My technical expertise spans <strong>React, Next.js, TypeScript, Python, Node.js</strong>, and modern development 
-                    workflows. I've built production applications including <strong>Gyannetra AI Consultancy</strong> (live production platform), 
+                    My technical expertise spans <strong>React, Next.js, TypeScript, Python, Node.js</strong>, and modern AI 
+                    workflows. I've built production platforms including <strong>Gyannetra AI Consultancy</strong> (live production platform), 
                     <strong>Magma Real Estate</strong> (immersive 3D experience with GSAP animations), <strong>Tokenarium</strong> (Web3 DeFi wallet), 
                     and <strong>Gifting Muse Oracle</strong> (AI-powered gift discovery). I gained practical experience through internships at 
-                    <strong>DRDO</strong> (working on defense research projects) and <strong>Microsoft AINSI AI Program</strong> (selected from 10,000+ applicants), 
-                    where I contributed to various development and research initiatives.
+                    <strong>DRDO</strong> (working on defense research projects) and the <strong>Microsoft AINSI AI Program</strong> (selected from 10,000+ applicants), 
+                    where I contributed to complex development and research initiatives.
                   </p>
                 </div>
               </div>

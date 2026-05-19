@@ -1,0 +1,89 @@
+{
+  "documents": [
+    {
+      "id": "about-1",
+      "title": "AI Engineer and Full-Stack Web Developer",
+      "section": "about",
+      "text": "Naman Singh Panwar is an AI Engineer and Full-Stack Web Developer. He builds production ready web and mobile applications using React, Next.js, TypeScript, and Python. He focuses on LLM applications, RAG pipelines, and agentic AI systems that deliver measurable business impact.",
+      "tags": ["ai", "full-stack", "llm", "rag", "react", "next.js", "python"],
+      "url": "https://namansinghpanwar.vercel.app/#about"
+    },
+    {
+      "id": "skill-1",
+      "title": "LLM Orchestration",
+      "section": "skill",
+      "text": "Designs multi agent systems, prompt strategies, and production LLM pipelines. Experienced with agent routing, tool use, and guardrails.",
+      "tags": ["llm", "agents", "prompting", "orchestration"]
+    },
+    {
+      "id": "skill-2",
+      "title": "RAG Pipelines",
+      "section": "skill",
+      "text": "Builds retrieval augmented generation pipelines using vector search, chunking strategies, and relevance scoring to ground LLM outputs.",
+      "tags": ["rag", "vector", "retrieval"]
+    },
+    {
+      "id": "skill-3",
+      "title": "Full-Stack Web Development",
+      "section": "skill",
+      "text": "Delivers full stack applications with React, Next.js, TypeScript, Node.js, and modern CI and deployment workflows.",
+      "tags": ["react", "next.js", "typescript", "node", "frontend", "backend"]
+    },
+    {
+      "id": "skill-4",
+      "title": "AI and ML Engineering",
+      "section": "skill",
+      "text": "Applies machine learning tooling including Python, TensorFlow, and PyTorch to build intelligent features and optimize models.",
+      "tags": ["ml", "python", "tensorflow", "pytorch"]
+    },
+    {
+      "id": "experience-1",
+      "title": "AI Engineer at GyanNetra",
+      "section": "experience",
+      "text": "Works as an AI Engineer building AI driven systems, optimizing models, and shipping scalable infrastructure for production use.",
+      "tags": ["ai", "ml", "infrastructure"]
+    },
+    {
+      "id": "experience-2",
+      "title": "Frontend Developer at AI R and D Division",
+      "section": "experience",
+      "text": "Spearheaded frontend development for AI driven applications, improving performance and reducing UI bugs through testing and optimization.",
+      "tags": ["frontend", "react", "performance"]
+    },
+    {
+      "id": "project-1",
+      "title": "Gyannetra AI Consultancy",
+      "section": "project",
+      "text": "Live production AI consultancy platform with React and TypeScript, optimized for performance, SEO, and conversion focused UI.",
+      "tags": ["react", "typescript", "seo", "ai", "production"]
+    },
+    {
+      "id": "project-2",
+      "title": "Portfolio Website (Next.js)",
+      "section": "project",
+      "text": "Next.js portfolio with GSAP animations, dynamic imports, accessibility testing, and production grade performance tuning.",
+      "tags": ["next.js", "gsap", "performance", "testing"]
+    },
+    {
+      "id": "project-3",
+      "title": "Gifting Muse Oracle",
+      "section": "project",
+      "text": "AI powered gift discovery platform with smart filtering, personalized suggestions, and conversion focused UX.",
+      "tags": ["ai", "recommendations", "react"]
+    },
+    {
+      "id": "project-4",
+      "title": "Magma Real Estate",
+      "section": "project",
+      "text": "Immersive real estate experience with cinematic GSAP animations, 3D depth, and high performance rendering.",
+      "tags": ["gsap", "animations", "next.js", "ux"]
+    },
+    {
+      "id": "project-5",
+      "title": "Tokenarium",
+      "section": "project",
+      "text": "Web3 DeFi wallet interface with Solana integration, portfolio analytics, and secure transaction handling.",
+      "tags": ["web3", "solana", "defi", "react"]
+    }
+  ]
+}

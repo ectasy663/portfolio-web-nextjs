@@ -229,20 +229,22 @@ const Skills: React.FC = () => {
   }, [shouldAnimate]);
 
   return (
-    <section ref={sectionRef} id="skills" className="section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+    <section ref={sectionRef} id="skills" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+
+
       {/* Light theme background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-[3]"></div>
 
       {/* Dynamic gradient background overlay */}
-      <div className="absolute inset-0 z-20 opacity-10 dark:opacity-30 transition-opacity duration-300">
+      <div className="absolute inset-0 z-[4] opacity-10 dark:opacity-30 transition-opacity duration-300">
         <div className="skills-overlay absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-royal-blue-500/20 to-royal-purple-500/20 rounded-full blur-3xl"></div>
         <div className="skills-overlay absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-royal-purple-500/20 to-royal-blue-500/20 rounded-full blur-3xl"></div>
       </div>
 
       {/* Background gradient mesh */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-3 dark:opacity-5 z-30 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-3 dark:opacity-5 z-[5] transition-opacity duration-300"></div>
 
-      <div className="container relative z-40">
+      <div className="video-scrub-content container relative z-[10]">
         <div className="text-center mb-16">
           <h2 ref={titleRef} className="text-display-lg font-display font-normal mb-6 leading-tight py-2">
             <span ref={titleTextRef} className="gradient-text-gold transition-colors duration-300" style={{ opacity: 0 }}>

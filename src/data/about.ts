@@ -3,8 +3,8 @@ import { LuBrain, LuCode, LuUsers } from 'react-icons/lu';
 export const strengths = [
   {
     icon: LuBrain,
-    title: "AI-Augmented Development",
-    description: "Expert at leveraging artificial intelligence as a development tool to enhance productivity, code quality, and problem-solving speed. Uses AI assistants, code generation, and automation to build better applications faster. Demonstrated ability to improve development velocity by 40% and reduce bugs by 60% through AI-enhanced workflows."
+    title: "Agentic AI & LLM Engineering",
+    description: "Expert at designing and deploying autonomous AI agents, multi-agent systems, and production-ready RAG architectures. Deeply experienced with LangChain, LLM orchestration, and advanced prompt engineering to build intelligent models that solve complex, real-world industry problems."
   },
   {
     icon: LuCode,

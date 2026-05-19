@@ -274,52 +274,49 @@ const Hero: React.FC = () => {
 
   // Tech stack for displaying technology badges
   const technologyStack: TechStackItem[] = [
-    { color: 'text-cyan-400', name: 'React' },
-    { color: 'text-blue-400', name: 'TypeScript' },
+    { color: 'text-purple-400', name: 'Agentic AI' },
+    { color: 'text-cyan-400', name: 'LLMs & RAG' },
     { color: 'text-yellow-400', name: 'Python' },
-    { color: 'text-yellow-300', name: 'JavaScript' },
-    { color: 'text-green-400', name: 'Node.js' },
-    { color: 'text-blue-500', name: 'Docker' },
-    { color: 'text-orange-500', name: 'Git' },
+    { color: 'text-blue-500', name: 'LangChain' },
     { color: 'text-orange-400', name: 'TensorFlow' },
+    { color: 'text-emerald-400', name: 'Vector DBs' },
+    { color: 'text-blue-400', name: 'TypeScript' },
+    { color: 'text-cyan-300', name: 'React' },
   ];
 
   return (
     <section 
       id="home" 
-      className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300"
+      className="video-scrub-section min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300"
       aria-label="Hero section"
     >
-      {/* Background Video - Only visible in dark theme - Extended to cover all borders */}
-      <video
-        id="heroVideo"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        className="absolute inset-0 z-0 h-full w-full object-cover opacity-0 transition-opacity duration-300 will-change-transform transform-gpu scale-110 dark:opacity-100 dark:brightness-75 dark:contrast-125"
-        aria-hidden="true"
-      >
-        <source src="/videos/hero-video.mp4" type="video/mp4" />
-      </video>
+      {/* Hero Video Background */}
+      <div className="absolute inset-0 z-[2] overflow-hidden pointer-events-none">
+        <video 
+          src="/Animations/Video Project 9.mp4" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="w-full h-full object-cover opacity-20 dark:opacity-40"
+        />
+        {/* Soft fade at the bottom to transition smoothly to the next section */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-gray-50 dark:from-dark-950/50 dark:via-transparent dark:to-transparent"></div>
+      </div>
 
       {/* Light theme background - Full viewport */}
-      <div className="absolute inset-0 h-full bg-gradient-to-br from-gray-50 via-blue-50 to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0" aria-hidden="true"></div>
+      <div className="absolute inset-0 h-full bg-gradient-to-br from-gray-50/90 via-blue-50/90 to-cyan-50/90 dark:opacity-0 opacity-100 transition-opacity duration-300 z-[3]" aria-hidden="true"></div>
 
       {/* Light Rays Effect */}
-      <div className="light-ray z-0" aria-hidden="true"></div>
-
-      {/* Video overlay for better text readability - Only in dark theme */}
-      <div className="pointer-events-none absolute inset-0 h-full bg-gradient-to-b from-black/60 via-black/35 to-black/70 backdrop-blur-[2px] dark:opacity-100 opacity-0 transition-opacity duration-300 z-10" aria-hidden="true"></div>
+      <div className="light-ray z-[3]" aria-hidden="true"></div>
 
       {/* Subtle glow overlay (no blob/ball shapes) */}
-      <div className="absolute inset-0 z-20 pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300" aria-hidden="true">
+      <div className="absolute inset-0 z-[4] pointer-events-none opacity-10 dark:opacity-15 transition-opacity duration-300" aria-hidden="true">
         <div className="absolute inset-0 bg-gradient-to-tr from-primary-500/10 via-transparent to-secondary-500/10" />
       </div>
 
       {/* Main content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
+      <div className="video-scrub-content container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
         <div ref={heroRef} className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-12">
             {/* Left side - Text content */}
@@ -338,13 +335,11 @@ const Hero: React.FC = () => {
                   <Typewriter
                     options={{
                       strings: [
-                        'Web Developer',
-                        'Full Stack Developer',
+                        'AI Engineer @ GyanNetra',
+                        'Full-Stack Developer',
+                        'LLM & RAG Specialist',
                         'App Developer',
-                        'AI-Augmented Engineer',
-                        'React Specialist',
-                        'Problem Solver',
-                        'Creative Technologist'
+                        'Agentic AI Architect',
                       ],
                       autoStart: true,
                       loop: true,
@@ -358,9 +353,9 @@ const Hero: React.FC = () => {
 
               {/* Description */}
               <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-6">
-                Crafting exceptional web and mobile applications with <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">modern JavaScript technologies</strong>.{' '}
-                Leveraging <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI as a powerful development tool</strong> to enhance productivity, code quality, and innovation.{' '}
-                Transforming ideas into high-performance, user-centered digital experiences.
+                Currently working as an <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI Engineer at GyanNetra</strong>, crafting exceptional AI-driven applications and scalable multi-agent systems. 
+                Leveraging <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">Full-Stack Web Development</strong> expertise and advanced machine learning to build intelligent, production-ready applications. 
+                Transforming complex ideas into high-performance, user-centered digital experiences.
               </p>
 
               {/* Tech highlights - Enhanced with floating animation */}
@@ -426,8 +421,8 @@ const Hero: React.FC = () => {
             <aside ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] mx-auto lg:ml-24 lg:mr-0 perspective-1000">
               <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
                 <Image
-                  src="/assets/black and white aesthetic image right.png"
-                  alt="Naman Singh Panwar - Web Developer and AI-Augmented Engineer"
+                  src="/assets/hero section image.png"
+                  alt="Naman Singh Panwar - AI Engineer and Full-Stack Web Developer"
                   fill
                   loading="eager"
                   priority

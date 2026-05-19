@@ -5,6 +5,7 @@ export { default as About } from './About';
 export { default as Skills } from './Skills';
 export { default as Experience } from './Experience';
 export { default as Projects } from './Projects';
+export { default as AIStudio } from './AIStudio';
 export { default as Achievements } from './Achievements';
 export { default as Contact } from './Contact';
 export { default as FAQ } from './FAQ';
@@ -12,4 +13,5 @@ export { default as AISummary } from './AISummary';
 export { default as ThemeToggleButton } from './ThemeToggleButton';
 export { default as ResumeButton } from './ResumeButton';
 export { default as ErrorBoundary } from './ErrorBoundary';
-
+export { default as KnockoutText } from './KnockoutText';
+export { default as GlobalVideoBackground } from './GlobalVideoBackground';

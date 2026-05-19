@@ -15,8 +15,8 @@ export type SplitTextAnimationConfig = {
 };
 
 export type UseSplitTextAnimationOptions = {
-  scopeRef: RefObject<HTMLElement>;
-  targetRef: RefObject<HTMLElement>;
+  scopeRef: RefObject<HTMLElement | null>;
+  targetRef: RefObject<HTMLElement | null>;
   enabled?: boolean;
   desktop: SplitTextAnimationConfig;
   mobile?: SplitTextAnimationConfig;

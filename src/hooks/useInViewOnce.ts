@@ -10,7 +10,7 @@ export type UseInViewOnceOptions = {
 };
 
 export function useInViewOnce<T extends Element>(
-  ref: RefObject<T>,
+  ref: RefObject<T | null>,
   { rootMargin = '400px', threshold = 0.1, disabled = false }: UseInViewOnceOptions = {}
 ) {
   const [inView, setInView] = useState(false);

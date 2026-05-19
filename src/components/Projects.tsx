@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { LuExternalLink, LuGithub, LuArrowRight, LuStar, LuEye, LuGitFork, LuCalendar, LuCode, LuSparkles } from 'react-icons/lu';
 import { loadGSAP } from '@/utils/gsapLoader';
@@ -398,11 +399,12 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white dark:bg-dark-950">
+    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white/90 dark:bg-dark-950/80 transition-colors duration-300">
+
       {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none" aria-hidden="true"></div>
-      <div className="bg-parallax absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
-      <div className="bg-parallax absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none z-0" aria-hidden="true"></div>
+      <div className="bg-parallax absolute top-1/4 right-1/4 w-72 h-72 bg-gradient-to-r from-royal-red-500/10 to-primary-500/10 rounded-full blur-3xl pointer-events-none z-0" aria-hidden="true"></div>
+      <div className="bg-parallax absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-royal-red-500/10 rounded-full blur-3xl pointer-events-none z-0" aria-hidden="true"></div>
 
       <div className="container relative z-10">
         {/* Header */}
@@ -424,7 +426,23 @@ const Projects: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
-        <div ref={projectsRef} className="space-y-20">
+        <div ref={projectsRef} className="space-y-20 relative py-10">
+          {/* Portrait Background Image Layer for Projects - Fixed Viewport */}
+          <div className="absolute inset-0 z-[-1] pointer-events-none" style={{ clipPath: 'inset(0 round 3rem)' }}>
+            <div 
+              className="absolute inset-0 opacity-20 dark:opacity-30"
+              style={{
+                backgroundImage: 'url("/Animations/image.png")',
+                backgroundAttachment: 'fixed',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            />
+            {/* Soft fade at the top and bottom of the section to blend nicely */}
+            <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-transparent to-white/90 dark:from-dark-950/80 dark:via-transparent dark:to-dark-950/80"></div>
+          </div>
+
           {projects.map((project, index) => (
             <div
               key={index}

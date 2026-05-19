@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV === 'development';
+
 const nextConfig = {
   // Disable React Strict Mode for faster rendering
   reactStrictMode: false,
@@ -33,7 +35,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 1080, 1920],
     imageSizes: [16, 32, 64, 128, 256],
-    minimumCacheTTL: 31536000,
+    minimumCacheTTL: isDev ? 0 : 31536000,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
@@ -44,10 +46,22 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-
-
-  // Aggressive caching headers
   async headers() {
+    // In dev mode: no caching so changes are instantly visible
+    if (isDev) {
+      return [
+        {
+          source: '/:path*',
+          headers: [
+            { key: 'Cache-Control', value: 'no-store, no-cache, must-revalidate' },
+            { key: 'X-DNS-Prefetch-Control', value: 'on' },
+            { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          ],
+        },
+      ];
+    }
+
+    // Production caching headers
     return [
       // Static assets - 1 year cache
       {
@@ -76,6 +90,14 @@ const nextConfig = {
         source: '/resume/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // Animation frames (video scrubbing JPEGs)
+      {
+        source: '/Animations/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
         ],
       },
       // Next.js static files
