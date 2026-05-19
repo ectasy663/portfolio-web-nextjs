@@ -17,36 +17,36 @@ import Hero from '@/components/Hero';
 import Navigation from '@/components/Navigation';
 import GlobalVideoBackground from '@/components/GlobalVideoBackground';
 
-// Minimal loading placeholder
-const LoadingPlaceholder = () => <div className="min-h-[50vh]" />;
+// Minimal loading placeholder with optional ID to ensure anchor links work before lazy-load
+const LoadingPlaceholder = ({ id }: { id?: string }) => <div id={id} className="min-h-[50vh] w-full" />;
 
 // Lazy load below-the-fold components
 const About = dynamic(() => import('@/components/About'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="about" />,
 });
 const Skills = dynamic(() => import('@/components/Skills'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="skills" />,
 });
 const Experience = dynamic(() => import('@/components/Experience'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="experience" />,
 });
 const Projects = dynamic(() => import('@/components/Projects'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="projects" />,
 });
 const AIStudio = dynamic(() => import('@/components/AIStudio'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="ai-studio" />,
 });
 const Achievements = dynamic(() => import('@/components/Achievements'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="achievements" />,
 });
 const FAQ = dynamic(() => import('@/components/FAQ'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="faq" />,
 });
 const AISummary = dynamic(() => import('@/components/AISummary'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="ai-summary" />,
 });
 const Contact = dynamic(() => import('@/components/Contact'), {
-  loading: LoadingPlaceholder,
+  loading: () => <LoadingPlaceholder id="contact" />,
 });
 const PageEffects = dynamic(() => import('@/components/PageEffects'), {
   ssr: false,
@@ -153,31 +153,31 @@ export default function HomePage() {
             <GlobalVideoBackground />
           </div>
           <Hero />
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="about" />}>
             <About />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="skills" />}>
             <Skills />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="experience" />}>
             <Experience />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="projects" />}>
             <Projects />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="ai-studio" />}>
             <AIStudio />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="achievements" />}>
             <Achievements />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="faq" />}>
             <FAQ />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="ai-summary" />}>
             <AISummary />
           </Suspense>
-          <Suspense fallback={<LoadingPlaceholder />}>
+          <Suspense fallback={<LoadingPlaceholder id="contact" />}>
             <Contact />
           </Suspense>
         </main>

@@ -375,25 +375,35 @@ const Hero: React.FC = () => {
               <nav ref={buttonsRef} className="flex flex-col gap-3 mb-4 max-w-md" aria-label="Primary actions">
                 <div className="flex gap-3 w-full">
                   <button
-                    onClick={scrollToProjects}
-                    className="flex-1 group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
-                    aria-label="View my portfolio projects"
+                    onClick={() => scrollToId('#ai-studio')}
+                    className="flex-1 group font-body font-medium bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl shadow-lg hover:shadow-cyan-500/30 hover:scale-[1.02] transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2 border border-cyan-400/20"
+                    aria-label="Interact with AI Assistant"
                   >
-                    <LuCode size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
-                    <span className="text-sm sm:text-base">View Work</span>
+                    <LuBrain size={18} className="sm:w-5 sm:h-5 animate-pulse text-white group-hover:rotate-12 transition-transform" aria-hidden="true" />
+                    <span className="text-sm sm:text-base font-semibold tracking-wide">Ask AI Assistant</span>
                   </button>
 
-                  <ResumeButton variant="secondary" className="flex-1 font-body font-medium py-3 px-4 text-sm sm:text-base justify-center" />
+                  <ResumeButton variant="secondary" className="flex-1 font-body font-medium py-3 px-4 text-sm sm:text-base justify-center ring-1 ring-gray-200/50 dark:ring-white/20" />
                 </div>
 
-                <button
-                  onClick={scrollToContact}
-                  className="w-full group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
-                  aria-label="Navigate to contact section"
-                >
-                  <LuZap size={18} className="sm:w-5 sm:h-5" aria-hidden="true" />
-                  <span className="text-sm sm:text-base">Let's Connect</span>
-                </button>
+                <div className="flex gap-3 w-full">
+                  <button
+                    onClick={scrollToProjects}
+                    className="flex-[0.8] group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
+                    aria-label="View my portfolio projects"
+                  >
+                    <LuCode size={18} className="sm:w-5 sm:h-5 text-gray-600 dark:text-gray-300 group-hover:text-cyan-500 transition-colors" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">View Work</span>
+                  </button>
+                  <button
+                    onClick={scrollToContact}
+                    className="flex-1 group font-body font-medium bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-200/50 dark:border-white/20 text-gray-800 dark:text-white rounded-xl hover:border-gray-300 dark:hover:border-white/40 hover:shadow-md transition-all duration-300 py-3 px-4 flex items-center justify-center space-x-2"
+                    aria-label="Navigate to contact section"
+                  >
+                    <LuZap size={18} className="sm:w-5 sm:h-5 text-orange-400 group-hover:text-yellow-400 transition-colors" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">Let's Connect</span>
+                  </button>
+                </div>
               </nav>
 
               {/* Social links */}

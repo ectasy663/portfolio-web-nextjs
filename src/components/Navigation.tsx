@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import ThemeToggleButton from './ThemeToggleButton';
 import { useTheme } from '../contexts/ThemeContext';
+import { scrollToId } from '@/utils/scroll';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +41,7 @@ const Navigation: React.FC = () => {
   useEffect(() => {
     if (!mounted) return;
 
-    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'achievements', 'contact'];
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'ai-studio', 'achievements', 'contact'];
 
     const handleScroll = () => {
       // Skip scroll spy during programmatic scrolling
@@ -109,6 +110,7 @@ const Navigation: React.FC = () => {
     { href: '#skills', label: 'Skills' },
     { href: '#experience', label: 'Experience' },
     { href: '#projects', label: 'Projects' },
+    { href: '#ai-studio', label: 'AI Studio' },
     { href: '#achievements', label: 'Awards' },
     { href: '#contact', label: 'Contact' },
   ];
@@ -128,11 +130,8 @@ const Navigation: React.FC = () => {
     const targetElement = document.getElementById(targetId);
 
     if (targetElement) {
-      // Use standard scrollIntoView - CSS scroll-margin-top: 80px handles the offset
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+      // Use robust scrollToId to overcome lazy-loaded content shifting layout
+      scrollToId(`#${targetId}`);
 
       // Update URL without jumping
       if (history.pushState) {
@@ -146,7 +145,7 @@ const Navigation: React.FC = () => {
     // Unlock scroll spy after sufficient time for scroll to complete
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 1200);
+    }, 2500);
   }, []);
 
   if (!mounted) return null;
@@ -297,7 +296,7 @@ const Navigation: React.FC = () => {
           rounded-[28px]
         `}
           style={{
-            width: 'min(90%, 800px)',
+            width: 'min(95%, 900px)',
             maxWidth: '100%',
             // Advanced Apple Liquid Glass Effect
             background: isDark
@@ -414,7 +413,7 @@ const Navigation: React.FC = () => {
                       handleNavClick(item.href);
                     }}
                     className={`
-                    relative px-4 py-1.5 text-sm font-medium rounded-full 
+                    relative px-3 lg:px-4 py-1.5 text-sm font-medium rounded-full whitespace-nowrap
                     transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]
                     flex items-center justify-center
                     focus:outline-none focus-visible:outline-none
