@@ -9,27 +9,20 @@ export function scrollToId(id: string, offset: number = NAV_OFFSET) {
   let targetTop = el.getBoundingClientRect().top + window.pageYOffset - offset;
   window.scrollTo({ top: targetTop, behavior: 'smooth' });
 
-  // Robust check to handle layout shifts from lazy-loaded components
-  const checkInterval = setInterval(() => {
+  // Quick re-checks to correct layout shifts without repeated smooth crawling
+  const settle = () => {
     const currentEl = document.querySelector(id);
-    if (!currentEl) {
-      clearInterval(checkInterval);
-      return;
-    }
-    
+    if (!currentEl) return;
     const newTargetTop = currentEl.getBoundingClientRect().top + window.pageYOffset - offset;
-    
-    // If the target position shifts significantly, update the scroll
-    if (Math.abs(newTargetTop - targetTop) > 10) {
+    if (Math.abs(newTargetTop - targetTop) > 6) {
       targetTop = newTargetTop;
-      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+      window.scrollTo({ top: targetTop, behavior: 'auto' });
     }
-  }, 200);
+  };
 
-  // Clear monitoring after 2 seconds
-  setTimeout(() => {
-    clearInterval(checkInterval);
-  }, 2500);
+  window.setTimeout(settle, 200);
+  window.setTimeout(settle, 600);
+  window.setTimeout(settle, 1200);
 }
 
 export function scrollToElement(el: Element, offset: number = NAV_OFFSET) {
