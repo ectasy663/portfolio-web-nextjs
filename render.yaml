@@ -14,3 +14,5 @@ services:
         value: "https://namansinghpanwar.in,https://www.namansinghpanwar.in"
       - key: MOCK_LLM
         value: "false"
+      - key: PYTHON_VERSION
+        value: "3.12.7"
