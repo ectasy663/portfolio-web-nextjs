@@ -1,7 +1,7 @@
 import json
 import os
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import numpy as np
 from fastapi import FastAPI, HTTPException
@@ -48,7 +48,7 @@ class ContentDoc(BaseModel):
     url: Optional[str] = None
 
 
-def _load_content(content_path: Path) -> List[ContentDoc]:
+def _load_content(content_path: Path) -> Tuple[List[ContentDoc], Optional[str]]:
     if not content_path.exists():
         raise FileNotFoundError(f"Missing content file at {content_path}")
 
@@ -59,7 +59,8 @@ def _load_content(content_path: Path) -> List[ContentDoc]:
     if not docs:
         raise ValueError("Content file does not contain any documents")
 
-    return docs
+    profile_summary = payload.get("profile_summary", None)
+    return docs, profile_summary
 
 
 def _embed_docs(model: SentenceTransformer, docs: List[ContentDoc]) -> np.ndarray:
@@ -74,7 +75,7 @@ def _ensure_llm_ready(api_key: str | None, mock_llm: bool) -> None:
         raise HTTPException(status_code=503, detail="Missing GROQ_API_KEY for LLM requests")
 
 
-def _groq_answer(client: Groq, model: str, question: str, sources: List[ContentDoc]) -> str:
+def _groq_answer(client: Groq, model: str, question: str, sources: List[ContentDoc], profile_summary: Optional[str] = None) -> str:
     context = "\n\n".join(
         [
             f"[{doc.section}] {doc.title}\n{doc.text}"
@@ -83,15 +84,26 @@ def _groq_answer(client: Groq, model: str, question: str, sources: List[ContentD
     )
 
     system_prompt = (
-        "You are a portfolio assistant. Answer succinctly, cite relevant facts, "
-        "and avoid inventing details. If the answer is not in the context, say "
-        "you do not have that information."
+        "You are Naman Singh Panwar's AI Portfolio Assistant, an expert AI agent designed to answer questions about Naman's work, experience, education, skills, and background.\n\n"
+    )
+    if profile_summary:
+        system_prompt += (
+            "Here is Naman's global profile summary for quick reference:\n"
+            f"{profile_summary}\n\n"
+        )
+    system_prompt += (
+        "Guidelines:\n"
+        "- Answer accurately and professionally using the context and global profile summary.\n"
+        "- Cite relevant facts and project details when appropriate.\n"
+        "- If a user asks about months or years of work experience, use the detailed timeline in the global profile to calculate and state it accurately (e.g., GyanNetra AI Engineer is current from May 2026, AI R&D is 8 months, DRDO is 2 months, Gyannetra Pvt Ltd is 2 months, Microsoft is 1 month, Ideaforage is 6 months, totaling ~20 months or 1.6+ years).\n"
+        "- Do not invent details or assume information not supported by the context or profile summary.\n"
+        "- If the answer is not in the context or profile summary, politely state that you do not have that information."
     )
 
     user_prompt = (
         "Question:\n"
         f"{question}\n\n"
-        "Context:\n"
+        "Retrieved Context Chunks:\n"
         f"{context}"
     )
 
@@ -199,12 +211,13 @@ def create_app() -> FastAPI:
 
         embed_model = os.getenv("EMBED_MODEL", "all-MiniLM-L6-v2")
         embedder = SentenceTransformer(embed_model)
-        docs = _load_content(content_path)
+        docs, profile_summary = _load_content(content_path)
         embeddings = _embed_docs(embedder, docs)
 
         app_instance.state.embedder = embedder
         app_instance.state.docs = docs
         app_instance.state.doc_embeddings = embeddings
+        app_instance.state.profile_summary = profile_summary
 
     @app_instance.get("/health")
     def health() -> dict:
@@ -219,6 +232,8 @@ def create_app() -> FastAPI:
         embedder: SentenceTransformer = app_instance.state.embedder
         docs: List[ContentDoc] = app_instance.state.docs
         doc_embeddings: np.ndarray = app_instance.state.doc_embeddings
+        profile_summary: Optional[str] = getattr(app_instance.state, "profile_summary", None)
+        
         sources = _retrieve(embedder, docs, doc_embeddings, request.question, top_k=4)
         source_docs = [doc for doc in docs if doc.title in {s.title for s in sources}]
 
@@ -227,7 +242,7 @@ def create_app() -> FastAPI:
         else:
             client = Groq(api_key=api_key)
             model = os.getenv("GROQ_MODEL", "llama-3.1-70b-versatile")
-            answer = _groq_answer(client, model, request.question, source_docs)
+            answer = _groq_answer(client, model, request.question, source_docs, profile_summary)
 
         return AskResponse(answer=answer, sources=sources)
 
