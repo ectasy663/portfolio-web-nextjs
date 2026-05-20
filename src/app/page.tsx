@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Suspense, useState, useCallback, useEffect } from 'react';
 import { loadGSAP } from '@/utils/gsapLoader';
+import { scrollToId } from '@/utils/scroll';
 import { 
   generatePersonSchema, 
   generateWebSiteSchema, 
@@ -124,6 +125,21 @@ export default function HomePage() {
   const handleIntroComplete = useCallback(() => {
     setIntroComplete(true);
   }, []);
+
+  // Handle automatic scrolling to anchor links on mount after the intro animation finishes
+  useEffect(() => {
+    if (introComplete && typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash;
+      const targetId = hash.replace('#', '');
+      const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'ai-studio', 'achievements', 'faq', 'ai-summary', 'contact'];
+      
+      if (sectionIds.includes(targetId)) {
+        setTimeout(() => {
+          scrollToId(hash);
+        }, 200); // Eager 200ms delay - the robust observers in scrollToId will handle dynamic layouts shifts perfectly
+      }
+    }
+  }, [introComplete]);
 
   return (
     <>
