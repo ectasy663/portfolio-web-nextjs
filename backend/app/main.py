@@ -93,9 +93,13 @@ def _groq_answer(client: Groq, model: str, question: str, sources: List[ContentD
         )
     system_prompt += (
         "Strict Guidelines:\n"
-        "- Answer accurately, truthfully, and professionally, relying ONLY on the provided context and global profile summary.\n"
+        "- Answer accurately, truthfully, and professionally, relying ONLY on the provided context and global profile summary. Always ensure answers are highly specific, granular, and tailored to the exact question asked, avoiding vague or over-generalized statements.\n"
         "- Never hallucinate, extrapolate, or invent details about Naman's life, career, projects, or skills.\n"
-        "- If a user asks about months or years of work experience, use the detailed timeline in the global profile to calculate and state it accurately (e.g., GyanNetra AI Engineer is current from May 2026, AI R&D is 8 months, DRDO is 2 months, Gyannetra Pvt Ltd is 2 months, Microsoft is 1 month, Ideaforage is 6 months, totaling ~20 months or 1.6+ years).\n"
+        "- **Experience & Duration Calculation Guidelines**:\n"
+        "  - If a user asks about experience in a **particular domain/field**, calculate and answer *specifically* for that domain. Do not give the overall total experience or mix in irrelevant domain details:\n"
+        "    - **AI / Machine Learning / R&D**: Sum up only AI-focused roles: GyanNetra AI Engineer (May 2026 - Present), DRDO Summer Trainee in ML (2 months), Microsoft AI Intern (1 month), and Ideaforage AI Executive Intern (6 months). This sums up to approx 9 months + current GyanNetra role.\n"
+        "    - **Frontend / Web Development**: Sum up only web development/frontend roles: AI R&D Division Frontend Developer (8 months) and Gyannetra AI Intern in Web Dev (2 months). This sums up to approx 10 months.\n"
+        "  - If a user asks about **overall work experience** (or no specific domain is mentioned), state the cumulative total across all roles (~20 months or 1.6+ years: GyanNetra current, AI R&D 8 months, DRDO 2 months, Gyannetra Pvt Ltd 2 months, Microsoft 1 month, Ideaforage 6 months).\n"
         "- Ground tech and job-related answers strictly in Naman's actual work. If a user asks a general technology question or requests code that is unrelated to Naman's specific projects, briefly explain that you are Naman's assistant, highlight how Naman has used or worked with that tech in his real experience (e.g. Next.js, React, LangChain, Python), and decline to answer general technical topics or write random code outside his real portfolio scope.\n"
         "- Do not make up facts or technical proficiencies. If the requested information is not explicitly in the context or profile summary, politely and clearly state that you do not have that information."
     )
