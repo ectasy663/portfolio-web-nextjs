@@ -210,7 +210,15 @@ def create_app() -> FastAPI:
         content_path = Path(os.getenv("CONTENT_PATH", base_dir / "data" / "portfolio_content.json"))
 
         embed_model = os.getenv("EMBED_MODEL", "all-MiniLM-L6-v2")
-        embedder = SentenceTransformer(embed_model)
+        local_model_path = base_dir / "model_cache" / embed_model
+
+        if local_model_path.exists():
+            print(f"Loading embedding model from local cache: {local_model_path}")
+            embedder = SentenceTransformer(str(local_model_path))
+        else:
+            print(f"Loading embedding model from Hugging Face hub: {embed_model}")
+            embedder = SentenceTransformer(embed_model)
+
         docs, profile_summary = _load_content(content_path)
         embeddings = _embed_docs(embedder, docs)
 
