@@ -1,11 +1,11 @@
 {
-  "profile_summary": "Naman Singh Panwar is a highly skilled AI Engineer and Full-Stack Web Developer with approximately 20 months (1.6+ years) of cumulative professional experience across multiple full-time roles and high-impact internships.\n\n### WORK EXPERIENCE SUMMARY (~20 Months Total):\n1. GyanNetra Private Limited | AI Engineer | May 2026 - Present (Full-time, Remote)\n   - Description: Engineering advanced AI systems, optimizing machine learning models, and building scalable production-ready infrastructure for innovative AI solutions.\n2. AI R&D Division | Frontend Developer | Sep 2025 - Apr 2026 (8 months)\n   - Description: Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times. Reduced UI bugs by 60% through unit testing and built real-time data dashboards for 100K+ data points.\n3. DRDO (Defence Research and Development Organisation) | Summer Trainee | July 2025 – Sep 2025 (2 months)\n   - Description: Worked on 2 active defense research projects, improving ML model accuracy by 12% through feature engineering and data preprocessing on 50,000+ data samples.\n4. Gyannetra Pvt Ltd | AI Intern (Web Development) | May 2025 – July 2025 (2 months)\n   - Description: Built 15+ responsive React components across 4 AI applications. Reduced deployment time by 70% using Docker, and improved API response times by 35%.\n5. Microsoft (in collaboration with AICTE) | MS AINSI AI Intern | Apr 2025 – May 2025 (1 month)\n   - Description: Selected among top 5% of 10,000+ applicants. Developed 3 predictive models with 85%+ accuracy for real-world problems.\n6. Ideaforage | AI Executive Intern | June 2024 – Dec 2024 (6 months)\n   - Description: Researched and implemented 5+ emerging AI technologies, increasing client engagement by 25% and maintaining a 98% code quality score across 8 scheduled releases.\n\n### KEY ACHIEVEMENTS:\n- **1st Place** - FinTech Revolution Thematic Award at Global IDEATHON 2025 (FIU), judged by executives from Google, Microsoft, Meta, and Oracle.\n- **Top 20% Finalist** - 'Build with India' National Hackathon (placing top 5,000 out of 25,000 teams).\n- **Top 30 National Placement** - Web-A-Thon MNIT Jaipur (placing top 30 out of 100+ teams).\n\n### CORE TECH STACK:\n- Agentic AI & LLMs: LangChain, LLM Orchestration, RAG Pipelines, Autonomous Agents, Prompt Engineering, Python, Vector DBs.\n- Machine Learning: TensorFlow, PyTorch, NumPy, Pandas, Predictive Modeling.\n- Frontend & Full-Stack: React, Next.js, React Native, TypeScript, Tailwind CSS, JavaScript.\n- Backend & Infra: Node.js, PostgreSQL, Supabase, Docker, C++, Git & CI/CD.",
+  "profile_summary": "Naman Singh Panwar is a highly skilled AI Engineer and Full-Stack Web Developer with approximately 20 months (1.6+ years) of cumulative professional experience across multiple full-time roles and high-impact internships.\n\n### WORK EXPERIENCE SUMMARY (~20 Months Total):\n1. GyanNetra Private Limited | AI Engineer | May 2026 - Present (Full-time, Remote)\n   - Description: Engineering advanced AI systems, optimizing machine learning models, and building scalable production-ready infrastructure for innovative AI solutions.\n2. AI R&D Division | Frontend Developer | Sep 2025 - Apr 2026 (8 months)\n   - Description: Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times. Reduced UI bugs by 60% through unit testing and built real-time data dashboards for 100K+ data points.\n3. DRDO (Defence Research and Development Organisation) | Summer Trainee | July 2025 – Sep 2025 (2 months)\n   - Description: Worked on 2 active defense research projects, improving ML model accuracy by 12% through feature engineering and data preprocessing on 50,000+ data samples.\n4. Gyannetra Pvt Ltd | AI Intern (Web Development) | May 2025 – July 2025 (2 months)\n   - Description: Built 15+ responsive React components across 4 AI applications. Reduced deployment time by 70% using Docker, and improved API response times by 35%.\n5. Microsoft (in collaboration with AICTE) | MS AINSI AI Intern | Apr 2025 – May 2025 (1 month)\n   - Description: Selected among top 5% of 10,000+ applicants. Developed 3 predictive models with 85%+ accuracy for real-world problems.\n6. Ideaforage | AI Executive Intern | June 2024 – Dec 2024 (6 months)\n   - Description: Researched and implemented 5+ emerging AI technologies (specifically LLMs, RAG, and agentic systems), increasing client engagement by 25% and maintaining a 98% code quality score across 8 scheduled releases.\n\n### KEY ACHIEVEMENTS:\n- **1st Place** - FinTech Revolution Thematic Award at Global IDEATHON 2025 (FIU), judged by executives from Google, Microsoft, Meta, and Oracle.\n- **Top 20% Finalist** - 'Build with India' National Hackathon (placing top 5,000 out of 25,000 teams).\n- **Top 30 National Placement** - Web-A-Thon MNIT Jaipur (placing top 30 out of 100+ teams).\n\n### CORE TECH STACK:\n- Agentic AI & LLMs: LangChain, LLM Orchestration, RAG Pipelines, Autonomous Agents, Prompt Engineering, Python, Vector DBs.\n- Machine Learning: TensorFlow, PyTorch, NumPy, Pandas, Predictive Modeling.\n- Frontend & Full-Stack: React, Next.js, React Native, TypeScript, Tailwind CSS, JavaScript.\n- Backend & Infra: Node.js, PostgreSQL, Supabase, Docker, C++, Git & CI/CD.\n\n### SKILLS NOT IN PORTFOLIO (NO DOCUMENTED EXPERIENCE):\nThe following skills and domains are NOT part of Naman's documented experience and must never be claimed:\n- Digital Marketing, SEO Marketing, Social Media Marketing, Content Marketing, PPC/Ad campaigns\n- Quantum Computing, Quantum Algorithms, Qiskit, Quantum ML\n- Corporate Training, Training & Development, L&D (Learning & Development), Public Speaking as a corporate trainer\n- Blockchain smart contract development (Note: Tokenarium is a UI/frontend project integrating a Solana wallet — it is NOT professional blockchain/smart contract engineering experience)\n- Data Engineering / ETL pipelines\n- Cybersecurity / Penetration Testing\n- Cloud Architecture (AWS/GCP/Azure) as a primary skill\n- AR/VR/XR development\n- Game development\n- Hardware / Embedded systems (beyond DRDO's ML work on datasets)\n\nIf a user or job description asks about ANY of these areas, the response must clearly state that Naman does not have documented professional experience in those domains.",
   "documents": [
     {
       "id": "about-1",
       "title": "AI Engineer and Full-Stack Web Developer",
       "section": "about",
-      "text": "Naman Singh Panwar is an AI Engineer and Full-Stack Web Developer. He builds production ready web and mobile applications using React, Next.js, TypeScript, and Python. He focuses on LLM applications, RAG pipelines, and agentic AI systems that deliver measurable business impact. He has won national awards (Global IDEATHON 2025 1st place) and accumulated over 1.6 years of professional experience.",
+      "text": "Naman Singh Panwar is an AI Engineer and Full-Stack Web Developer. He builds production ready web and mobile applications using React, Next.js, TypeScript, and Python. He focuses on LLM applications, RAG pipelines, and agentic AI systems that deliver measurable business impact. He has won national awards (Global IDEATHON 2025 1st place) and accumulated over 1.6 years of professional experience. He does NOT have experience in digital marketing, quantum computing, blockchain engineering, corporate training, or cloud architecture.",
       "tags": ["ai", "full-stack", "llm", "rag", "react", "next.js", "python"],
       "url": "https://namansinghpanwar.vercel.app/#about"
     },
@@ -13,127 +13,134 @@
       "id": "skill-1",
       "title": "Agentic AI and LLM Orchestration",
       "section": "skill",
-      "text": "Designs autonomous agents, multi agent systems, prompt strategies, and production LLM pipelines. Expert at LangChain, LLM orchestration, RAG pipelines, model fine-tuning, prompt engineering, Python, and Vector DBs.",
-      "tags": ["llm", "agents", "prompting", "orchestration", "python", "langchain"]
+      "text": "Designs autonomous agents, multi agent systems, prompt strategies, and production LLM pipelines. Expert at LangChain, LLM orchestration, RAG pipelines, model fine-tuning, prompt engineering, Python, and Vector DBs. This is Naman's primary AI specialty.",
+      "tags": ["llm", "agents", "prompting", "orchestration", "python", "langchain", "rag", "ai"]
     },
     {
       "id": "skill-2",
       "title": "Machine Learning and Data Science",
       "section": "skill",
-      "text": "Applies machine learning tooling including TensorFlow, PyTorch, NumPy, Pandas, and Jupyter to build intelligent features, optimize models, and perform predictive modeling.",
-      "tags": ["ml", "python", "tensorflow", "pytorch", "pandas", "numpy"]
+      "text": "Applies machine learning tooling including TensorFlow, PyTorch, NumPy, Pandas, and Jupyter to build intelligent features, optimize models, and perform predictive modeling. Experience in feature engineering and data preprocessing at scale (50,000+ samples at DRDO).",
+      "tags": ["ml", "python", "tensorflow", "pytorch", "pandas", "numpy", "data-science"]
     },
     {
       "id": "skill-3",
       "title": "Frontend and Full-Stack Web Development",
       "section": "skill",
-      "text": "Delivers full stack applications with React, Next.js, TypeScript, React Native, Tailwind CSS, JavaScript, and modern CI/CD and deployment workflows.",
-      "tags": ["react", "next.js", "typescript", "node", "frontend", "backend", "tailwind"]
+      "text": "Delivers full stack applications with React, Next.js, TypeScript, React Native, Tailwind CSS, JavaScript, and modern CI/CD and deployment workflows. 10+ months of documented frontend development experience across professional roles.",
+      "tags": ["react", "next.js", "typescript", "node", "frontend", "backend", "tailwind", "javascript"]
     },
     {
       "id": "skill-4",
       "title": "Backend and Infrastructure",
       "section": "skill",
       "text": "Builds robust backend services and scalable infrastructure using Node.js, PostgreSQL, Supabase, Docker containerization, C++, and Git & CI/CD workflows.",
-      "tags": ["node.js", "postgresql", "supabase", "docker", "c++", "git", "backend"]
+      "tags": ["node.js", "postgresql", "supabase", "docker", "c++", "git", "backend", "infrastructure"]
+    },
+    {
+      "id": "skill-out-of-scope",
+      "title": "Skills Outside Naman's Portfolio Scope",
+      "section": "scope",
+      "text": "Naman Singh Panwar does NOT have professional experience in the following areas: digital marketing, SEO campaigns, social media marketing, quantum computing, quantum algorithms, corporate training or L&D facilitation, professional blockchain smart contract engineering, cybersecurity, AR/VR development, game development, cloud architecture (AWS/GCP/Azure primary), or data engineering/ETL pipelines. Any question about these domains must be answered with a clear 'no documented experience' response.",
+      "tags": ["out-of-scope", "no-experience", "digital-marketing", "quantum-computing", "corporate-training", "blockchain", "cybersecurity"]
     },
     {
       "id": "experience-1",
       "title": "AI Engineer at GyanNetra Private Limited",
       "section": "experience",
-      "text": "Appointed as a full-time remote AI Engineer (May 2026 - Present). Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for innovative artificial intelligence solutions.",
-      "tags": ["ai", "ml", "infrastructure", "full-time", "remote"]
+      "text": "Appointed as a full-time remote AI Engineer (May 2026 - Present). Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for innovative artificial intelligence solutions. Domain: AI/ML engineering.",
+      "tags": ["ai", "ml", "infrastructure", "full-time", "remote", "gyannetra"]
     },
     {
       "id": "experience-2",
       "title": "Frontend Developer at AI R&D Division",
       "section": "experience",
-      "text": "Frontend Developer from Sep 2025 - Apr 2026 (8 months). Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time.",
-      "tags": ["frontend", "react", "performance", "testing", "dashboard"]
+      "text": "Frontend Developer from Sep 2025 - Apr 2026 (8 months). Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time. Domain: Frontend Web Development.",
+      "tags": ["frontend", "react", "performance", "testing", "dashboard", "web-development"]
     },
     {
       "id": "experience-3",
       "title": "Summer Trainee at DRDO",
       "section": "experience",
-      "text": "Summer Trainee at Defence Research and Development Organisation (July 2025 – Sep 2025, 2 months). Contributed to 2 active defense research projects at India's premier R&D organization. Improved ML model accuracy by 12% through feature engineering and data preprocessing. Processed and analyzed 50,000+ data samples for pattern recognition in high-stakes defense applications.",
-      "tags": ["drdo", "defense", "ml", "data-science", "internship"]
+      "text": "Summer Trainee at Defence Research and Development Organisation (July 2025 – Sep 2025, 2 months). Contributed to 2 active defense research projects at India's premier R&D organization. Improved ML model accuracy by 12% through feature engineering and data preprocessing. Processed and analyzed 50,000+ data samples for pattern recognition in high-stakes defense applications. Domain: Machine Learning / Data Science. This was not a digital marketing, corporate training, or quantum computing role.",
+      "tags": ["drdo", "defense", "ml", "data-science", "internship", "machine-learning"]
     },
     {
       "id": "experience-4",
       "title": "AI Intern (Web Development) at Gyannetra Pvt Ltd",
       "section": "experience",
-      "text": "AI Intern (Web Development) at Gyannetra Pvt Ltd (May 2025 – July 2025, 2 months). Built 15+ responsive React components used across 4 AI-driven web applications. Reduced deployment time by 70% using Docker containerization. Achieved 95% code coverage with unit tests and improved API response times by 35% through frontend optimization.",
-      "tags": ["react", "docker", "testing", "api", "optimization", "internship"]
+      "text": "AI Intern (Web Development) at Gyannetra Pvt Ltd (May 2025 – July 2025, 2 months). Built 15+ responsive React components used across 4 AI-driven web applications. Reduced deployment time by 70% using Docker containerization. Achieved 95% code coverage with unit tests and improved API response times by 35% through frontend optimization. Domain: Web Development / AI applications.",
+      "tags": ["react", "docker", "testing", "api", "optimization", "internship", "web-development"]
     },
     {
       "id": "experience-5",
       "title": "MS AINSI AI Intern at Microsoft (AICTE)",
       "section": "experience",
-      "text": "MS AINSI AI Intern at Microsoft in collaboration with AICTE (Apr 2025 – May 2025, 1 month). Selected among top 5% of 10,000+ applicants nationwide for this prestigious AI internship. Developed 3 predictive models with 85%+ accuracy for real-world industry problems. Completed end-to-end AI project lifecycle including data collection, model training, and deployment.",
-      "tags": ["microsoft", "aicte", "ai", "predictive-modeling", "internship"]
+      "text": "MS AINSI AI Intern at Microsoft in collaboration with AICTE (Apr 2025 – May 2025, 1 month). Selected among top 5% of 10,000+ applicants nationwide for this prestigious AI internship. Developed 3 predictive models with 85%+ accuracy for real-world industry problems. Completed end-to-end AI project lifecycle including data collection, model training, and deployment. Domain: AI / Predictive Modeling.",
+      "tags": ["microsoft", "aicte", "ai", "predictive-modeling", "internship", "machine-learning"]
     },
     {
       "id": "experience-6",
       "title": "AI Executive Intern at Ideaforage",
       "section": "experience",
-      "text": "AI Executive Intern at Ideaforage (June 2024 – Dec 2024, 6 months). Researched and implemented 5+ emerging AI technologies for production applications. Contributed to solutions that increased client engagement by 25%. Delivered 8 feature releases on schedule while maintaining 98% code quality score in team reviews.",
-      "tags": ["ai", "research", "engagement", "release", "internship"]
+      "text": "AI Executive Intern at Ideaforage (June 2024 – Dec 2024, 6 months). Researched and implemented 5+ emerging AI technologies — specifically large language models (LLMs), RAG pipelines, and agentic AI systems — for production applications. Contributed to solutions that increased client engagement by 25%. Delivered 8 feature releases on schedule while maintaining 98% code quality score in team reviews. NOTE: 'emerging AI technologies' here refers strictly to LLMs, RAG, and agents — NOT quantum computing, digital marketing, or corporate training.",
+      "tags": ["ai", "research", "engagement", "release", "internship", "llm", "rag", "agentic"]
     },
     {
       "id": "project-1",
-      "title": "Gyannetra AI Consultancy",
+      "title": "Gyannetra AI Consultancy Platform",
       "section": "project",
-      "text": "Live production AI consultancy platform built with React and TypeScript, optimized for performance, SEO, and conversion-focused UI.",
-      "tags": ["react", "typescript", "seo", "ai", "production"]
+      "text": "Live production AI consultancy platform built with React and TypeScript, optimized for performance, SEO, and conversion-focused UI. Demonstrates full-stack web development and AI integration skills.",
+      "tags": ["react", "typescript", "seo", "ai", "production", "web-development"]
     },
     {
       "id": "project-2",
       "title": "Portfolio Website (Next.js)",
       "section": "project",
-      "text": "Next.js portfolio with GSAP cinematic animations, dynamic imports, accessibility testing, and production grade performance tuning.",
-      "tags": ["next.js", "gsap", "performance", "testing", "animations"]
+      "text": "Next.js portfolio with GSAP cinematic animations, dynamic imports, accessibility testing, and production grade performance tuning. Features an embedded AI assistant (RAG pipeline) and a job match analyzer.",
+      "tags": ["next.js", "gsap", "performance", "testing", "animations", "rag", "ai"]
     },
     {
       "id": "project-3",
       "title": "Gifting Muse Oracle",
       "section": "project",
-      "text": "AI powered gift discovery platform with smart filtering, personalized suggestions, and conversion focused UX. Features advanced search engine with multi-criteria filtering (occasion, recipient, price range, category).",
-      "tags": ["ai", "recommendations", "react", "filtering"]
+      "text": "AI powered gift discovery platform with smart filtering, personalized suggestions, and conversion focused UX. Features advanced search engine with multi-criteria filtering (occasion, recipient, price range, category). Built with React and AI recommendation logic.",
+      "tags": ["ai", "recommendations", "react", "filtering", "ux"]
     },
     {
       "id": "project-4",
       "title": "Magma Real Estate",
       "section": "project",
-      "text": "Immersive real estate experience with cinema-quality GSAP animations, 3D depth, and high performance rendering. Integrates Locomotive Smooth Scroll for native scroll parallax effects.",
-      "tags": ["gsap", "animations", "next.js", "ux", "3d"]
+      "text": "Immersive real estate experience with cinema-quality GSAP animations, 3D depth, and high performance rendering. Integrates Locomotive Smooth Scroll for native scroll parallax effects. Showcases advanced frontend animation and UX design skills.",
+      "tags": ["gsap", "animations", "next.js", "ux", "3d", "frontend"]
     },
     {
       "id": "project-5",
-      "title": "Tokenarium",
+      "title": "Tokenarium Web3 Wallet UI",
       "section": "project",
-      "text": "Web3 DeFi wallet interface with Solana integration, portfolio analytics, and secure transaction handling.",
-      "tags": ["web3", "solana", "defi", "react", "blockchain"]
+      "text": "Frontend UI project: a Web3 DeFi wallet interface with Solana wallet integration, portfolio analytics display, and secure transaction handling UI. IMPORTANT: This is a frontend/UI development project demonstrating React and Web3 UI integration skills. It is NOT evidence of professional blockchain engineering, smart contract development, or blockchain architecture expertise.",
+      "tags": ["web3", "solana", "defi", "react", "frontend", "ui", "wallet"]
     },
     {
       "id": "achievement-1",
       "title": "FinTech Revolution Thematic Award at Global IDEATHON 2025",
       "section": "achievement",
-      "text": "Secured top honors (1st Place) at Global IDEATHON 2025 (FIU) from a judging panel of industry leaders from Google, Microsoft, Meta, and Oracle for an innovative FinTech solution.",
-      "tags": ["award", "ideathon", "fintech", "google", "microsoft"]
+      "text": "Secured top honors (1st Place) at Global IDEATHON 2025 (FIU) from a judging panel of industry leaders from Google, Microsoft, Meta, and Oracle for an innovative FinTech solution. This demonstrates problem-solving and innovation in AI/FinTech.",
+      "tags": ["award", "ideathon", "fintech", "google", "microsoft", "achievement"]
     },
     {
       "id": "achievement-2",
       "title": "Top 20% Finalist at 'Build with India' National Hackathon",
       "section": "achievement",
-      "text": "Excelled in a high-stakes environment, placing in the top 5,000 out of 25,000 competing teams (Top 20%) in a demanding national hackathon.",
-      "tags": ["hackathon", "finalist", "national"]
+      "text": "Excelled in a high-stakes environment, placing in the top 5,000 out of 25,000 competing teams (Top 20%) in a demanding national hackathon. Demonstrates competitive engineering and rapid prototyping skills.",
+      "tags": ["hackathon", "finalist", "national", "achievement"]
     },
     {
       "id": "achievement-3",
       "title": "Top 30 National Placement at Web-A-Thon MNIT Jaipur",
       "section": "achievement",
-      "text": "Placed among the top 30 teams (Top 30) out of over 100 teams from across the nation in a competitive web development marathon.",
-      "tags": ["webathon", "placement", "national"]
+      "text": "Placed among the top 30 teams (Top 30) out of over 100 teams from across the nation in a competitive web development marathon. Demonstrates frontend and full-stack web development excellence.",
+      "tags": ["webathon", "placement", "national", "achievement", "web-development"]
     }
   ]
 }
