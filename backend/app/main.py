@@ -63,7 +63,7 @@ def _load_content(content_path: Path) -> List[ContentDoc]:
 
 
 def _embed_docs(model: SentenceTransformer, docs: List[ContentDoc]) -> np.ndarray:
-    texts = [doc.text for doc in docs]
+    texts = [f"{doc.title}. {doc.text}" for doc in docs]
     return model.encode(texts, normalize_embeddings=True)
 
 
