@@ -24,10 +24,7 @@ interface JobMatchResponse {
 }
 
 const AIStudio: React.FC = () => {
-  const apiBase = useMemo(() => {
-    const env = process.env.NEXT_PUBLIC_AI_API_URL || 'http://localhost:8000';
-    return env.replace(/\/$/, '');
-  }, []);
+
 
   const [question, setQuestion] = useState('');
   const [askResult, setAskResult] = useState<AskResponse | null>(null);
@@ -52,7 +49,7 @@ const AIStudio: React.FC = () => {
     setAskResult(null);
 
     try {
-      const response = await fetch(`${apiBase}/api/ask`, {
+      const response = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: question.trim() }),
@@ -84,7 +81,7 @@ const AIStudio: React.FC = () => {
     setJobResult(null);
 
     try {
-      const response = await fetch(`${apiBase}/api/job-match`, {
+      const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ job_description: jobDescription.trim() }),
