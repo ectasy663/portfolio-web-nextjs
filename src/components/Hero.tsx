@@ -318,18 +318,18 @@ const Hero: React.FC = () => {
       {/* Main content */}
       <div className="video-scrub-content container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
         <div ref={heroRef} className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
             {/* Left side - Text content */}
             <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
               {/* Main heading with gradient text - SplitText Animation */}
-              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-3 pb-1">
+              <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-1">
                 <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300 whitespace-nowrap">
                   Naman Singh Panwar
                 </span>
               </h1>
 
               {/* Subtitle with typewriter effect */}
-              <h2 ref={subtitleRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700/90 dark:text-gray-200/90 transition-colors duration-300 flex items-center gap-2.5 sm:gap-3 flex-wrap mb-5">
+              <h2 ref={subtitleRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700/90 dark:text-gray-200/90 transition-colors duration-300 flex items-center gap-2.5 sm:gap-3 flex-wrap mb-3.5">
                 <LuRocket className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-orange-500/90 animate-pulse-slow flex-shrink-0" aria-hidden="true" />
                 <span className="min-w-0">
                   <Typewriter
@@ -352,7 +352,7 @@ const Hero: React.FC = () => {
               </h2>
 
               {/* Description */}
-              <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.8] transition-colors duration-300 max-w-[60ch] mb-6">
+              <p ref={descriptionRef} className="font-body font-normal text-base xs:text-lg sm:text-xl md:text-[1.375rem] text-gray-700 dark:text-gray-200 leading-[1.65] transition-colors duration-300 max-w-[60ch] mb-4">
                 Currently working as an <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">AI Engineer at GyanNetra</strong>, crafting exceptional AI-driven applications and scalable multi-agent systems. 
                 Leveraging <strong className="text-gray-900 dark:text-gray-100 font-medium transition-colors duration-300">Full-Stack Web Development</strong> expertise and advanced machine learning to build intelligent, production-ready applications. 
                 Transforming complex ideas into high-performance, user-centered digital experiences.
