@@ -131,11 +131,10 @@ const AISummary: React.FC = () => {
                 Notable Projects
               </h3>
               <p className="leading-relaxed">
-                Naman has built production web and mobile applications including <strong>Gyannetra</strong> 
-                (AI consultancy platform with full-stack implementation), <strong>Tokenarium</strong> 
-                (Web3 DeFi platform with Solana blockchain integration and real-time transaction tracking), 
-                <strong>Magma Real Estate</strong> (immersive 3D real estate application with cinema-grade UX and advanced 
-                GSAP animations), high-performance <strong>portfolio websites</strong> optimized for SEO and Core 
+                Naman has built production web applications including <strong>Gyannetra</strong> 
+                (AI consultancy platform with full-stack implementation), <strong>Enterprise LMS & CRM System</strong> 
+                (live commercial platform for 525+ active users with Dockerized PostgreSQL backend and automated invoicing), 
+                high-performance <strong>portfolio & AI web platforms</strong> optimized for SEO and Core 
                 Web Vitals, and various <strong>React Native mobile apps</strong>. All projects emphasize modern 
                 development practices, responsive design, accessibility, and performance optimization using AI-augmented workflows.
               </p>

@@ -1,6 +1,6 @@
 export const experiences = [
   {
-    role: "AI Engineer-1",
+    role: "AI Engineer",
     company: "GyanNetra Private Limited",
     period: "May 2026 - Present",
     description: "Secured an early full-time appointment during final-year B.Tech following exceptional performance as an intern. Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for enterprise artificial intelligence solutions.",

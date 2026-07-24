@@ -336,8 +336,8 @@ const About: React.FC = () => {
                   <p className="text-body-lg font-body font-normal text-gray-700 dark:text-gray-100 leading-[1.8] transition-colors duration-300">
                     My technical expertise spans <strong>React, Next.js, TypeScript, Python, Node.js</strong>, and modern AI 
                     workflows. I've built production platforms including <strong>Gyannetra AI Consultancy</strong> (live production platform), 
-                    <strong>Magma Real Estate</strong> (immersive 3D experience with GSAP animations), <strong>Tokenarium</strong> (Web3 DeFi wallet), 
-                    and <strong>Gifting Muse Oracle</strong> (AI-powered gift discovery). I gained practical experience through internships at 
+                    <strong>Enterprise LMS & CRM System</strong> (live commercial platform for 525+ active users with containerized PostgreSQL workers), 
+                    and high-performance <strong>portfolio web platforms</strong>. I gained practical experience through internships at 
                     <strong>DRDO</strong> (working on defense research projects) and the <strong>Microsoft AINSI AI Program</strong> (selected from 10,000+ applicants), 
                     where I contributed to complex development and research initiatives.
                   </p>
