@@ -136,27 +136,9 @@ const Projects: React.FC = () => {
             });
           });
 
-          // === PROJECT CONTENT SEQUENTIAL REVEAL & STICKY SCALE ===
+          // === PROJECT CONTENT SEQUENTIAL REVEAL ===
           const projectCards = projectsRef.current?.querySelectorAll('.project-card');
-          projectCards?.forEach((card, index) => {
-            const cardEl = card as HTMLElement;
-
-            // STICKY SCALE-DOWN EFFECT (If not the last card)
-            if (index < projectCards.length - 1) {
-              gsap.to(cardEl, {
-                scale: 0.95 - (projectCards.length - 1 - index) * 0.01,
-                opacity: 0.4,
-                filter: "blur(4px)",
-                scrollTrigger: {
-                  trigger: cardEl,
-                  start: `top ${100 + index * 20}px`,
-                  endTrigger: projectCards[index + 1],
-                  end: `top ${100 + (index + 1) * 20}px`,
-                  scrub: true,
-                }
-              });
-            }
-
+          projectCards?.forEach((card) => {
             // 1. PROJECT TITLE - Appears first
             const projectTitle = card.querySelector('.project-title');
             const projectTagline = card.querySelector('.project-tagline');
@@ -419,7 +401,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="section-padding relative overflow-clip bg-white/90 dark:bg-dark-950/80 transition-colors duration-300 scroll-mt-28">
+    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white/90 dark:bg-dark-950/80 transition-colors duration-300 scroll-mt-28">
 
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none z-0" aria-hidden="true"></div>
@@ -466,14 +448,8 @@ const Projects: React.FC = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              className="project-card group sticky w-full mx-auto"
-              style={{ 
-                top: `calc(100px + ${index * 20}px)`, 
-                isolation: 'isolate', 
-                transformStyle: 'preserve-3d',
-                zIndex: index,
-                marginBottom: index === projects.length - 1 ? '0' : '150px' // Add scroll space between cards
-              }}
+              className="project-card group relative"
+              style={{ isolation: 'isolate', transformStyle: 'preserve-3d' }}
             >
               <div className={`grid lg:grid-cols-12 gap-8 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
                 }`}>

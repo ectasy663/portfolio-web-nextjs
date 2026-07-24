@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { loadGSAP } from '@/utils/gsapLoader';
 import { useSplitTextAnimation } from '@/hooks/useSplitTextAnimation';
 import { useInViewOnce } from '@/hooks/useInViewOnce';
-import { createSplitText } from '@/utils/gsapEffects';
 import { strengths } from '@/data/about';
 import { LuRocket, LuGraduationCap, LuBot, LuBookOpen, LuShield, LuBanknote, LuStar } from 'react-icons/lu';
 
@@ -134,23 +133,21 @@ const About: React.FC = () => {
         const paragraphs = contentRef.current.querySelectorAll('p');
 
         paragraphs.forEach((p, pIndex) => {
-          // Split the paragraph into characters
-          const split = createSplitText(p as HTMLElement, { preserveGradient: false });
-
-          // Animate opacity based on scroll position
-          gsap.fromTo(split.chars,
+          gsap.fromTo(p,
             {
-              opacity: 0.2
+              opacity: 0,
+              y: 30
             },
             {
               opacity: 1,
-              stagger: 0.1,
-              ease: "none",
+              y: 0,
+              duration: 1,
+              delay: pIndex * 0.2,
+              ease: "power3.out",
               scrollTrigger: {
                 trigger: p,
-                start: "top 80%",
-                end: "bottom 60%",
-                scrub: 1
+                start: "top 85%",
+                toggleActions: "play none none reverse"
               }
             }
           );
