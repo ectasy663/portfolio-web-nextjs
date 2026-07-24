@@ -51,13 +51,11 @@ export function scrollToId(id: string, offset: number = NAV_OFFSET) {
 function performScroll(selector: string, initialEl: Element, offset: number) {
   let observedEl = initialEl;
   let targetTop = observedEl.getBoundingClientRect().top + window.pageYOffset - offset;
-  
-  // First attempt native scrollIntoView so browser triggers smooth scroll directly
-  if (typeof observedEl.scrollIntoView === 'function') {
-    observedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    window.scrollTo({ top: targetTop, behavior: 'smooth' });
-  }
+
+  // Use window.scrollTo with the explicit offset — this is the ONLY scroll call that
+  // correctly accounts for the floating navbar height. scrollIntoView({block:'start'})
+  // ignores scroll-padding-top and NAV_OFFSET entirely, landing the element under the navbar.
+  window.scrollTo({ top: targetTop, behavior: 'smooth' });
 
   let observer: ResizeObserver | null = null;
   let mutationObserver: MutationObserver | null = null;

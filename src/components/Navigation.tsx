@@ -125,15 +125,13 @@ const Navigation: React.FC = () => {
     // Set active state immediately for visual feedback
     setActive(targetId);
 
-    // Temporarily lock scroll spy to prevent state jumping during scroll
+    // Lock scroll spy so it doesn't fight the programmatic scroll
     isScrollingRef.current = true;
 
-    // 1-Click Forced Scroll: Immediate native scrollIntoView fallback & robust scrollToId
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      scrollToId(`#${targetId}`);
-    } else if (targetId === 'home') {
+    // Single, authoritative scroll call — scrollToId handles offset + layout-shift correction.
+    // Do NOT also call scrollIntoView here; two competing scroll APIs fight each other
+    // and the one that fires last (scrollIntoView) ignores the navbar offset entirely.
+    if (targetId === 'home') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       scrollToId(`#${targetId}`);
@@ -144,10 +142,12 @@ const Navigation: React.FC = () => {
       window.history.pushState(null, '', `#${targetId}`);
     }
 
-    // Unlock scroll spy after smooth scroll finishes
+    // Unlock scroll spy after scroll settles. Must be longer than performScroll's last
+    // adjustment timeout (currently 1600ms in scroll.ts) to prevent the spy re-enabling
+    // mid-correction and jumping active state.
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 800);
+    }, 1800);
   }, []);
 
   if (!mounted) return null;
