@@ -97,18 +97,26 @@ function performScroll(selector: string, initialEl: Element, offset: number) {
 
   activeScrollCancel = cleanup;
 
-  // Calculates current position and smooth scrolls if shifted
+  let lastPageY = window.pageYOffset;
+
+  // Calculates current position and smooth scrolls if shifted or interrupted
   const adjustScroll = () => {
     const currentEl = document.querySelector(selector);
     if (!currentEl) return;
     
     const newTargetTop = currentEl.getBoundingClientRect().top + window.pageYOffset - offset;
     
-    // Correct position if shifted by more than 4px
-    if (Math.abs(newTargetTop - targetTop) > 4) {
+    const targetShifted = Math.abs(newTargetTop - targetTop) > 4;
+    // If scrollY hasn't changed since the last check, but we aren't at the target, 
+    // the smooth scroll was likely killed by GSAP or another instant scroll event.
+    const isStuck = window.pageYOffset === lastPageY && Math.abs(window.pageYOffset - newTargetTop) > 4;
+    
+    if (targetShifted || isStuck) {
       targetTop = newTargetTop;
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
     }
+    
+    lastPageY = window.pageYOffset;
   };
 
   // 4. ResizeObserver: High performance tracking of shifts and size changes
