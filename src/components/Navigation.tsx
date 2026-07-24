@@ -299,59 +299,33 @@ const Navigation: React.FC = () => {
           style={{
             width: 'min(95%, 900px)',
             maxWidth: '100%',
-            // Advanced Apple Liquid Glass Effect
+            // Wandor Liquid Glass Effect
             background: isDark
-              ? `linear-gradient(
-                  180deg,
-                  rgba(40, 40, 50, 0.5) 0%,
-                  rgba(20, 20, 28, 0.6) 100%
-                )`
-              : `linear-gradient(
-                  180deg,
-                  rgba(255, 255, 255, 0.85) 0%,
-                  rgba(245, 245, 250, 0.75) 100%
-                )`,
-            backdropFilter: 'blur(40px) saturate(200%) contrast(1.05) brightness(1.02)',
-            WebkitBackdropFilter: 'blur(40px) saturate(200%) contrast(1.05) brightness(1.02)',
-            // Crisp outer border with subtle inner glow
-            border: isDark
-              ? '0.5px solid rgba(255, 255, 255, 0.12)'
-              : '0.5px solid rgba(255, 255, 255, 0.6)',
-            // Multi-layer shadow for realistic depth
+              ? 'rgba(255, 255, 255, 0.02)'
+              : 'rgba(255, 255, 255, 0.6)',
+            backgroundBlendMode: 'luminosity',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: 'none',
             boxShadow: isDark
-              ? `0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                 0 12px 24px -8px rgba(0, 0, 0, 0.3),
-                 0 0 0 0.5px rgba(255, 255, 255, 0.08),
-                 inset 0 1px 1px rgba(255, 255, 255, 0.08),
-                 inset 0 -1px 1px rgba(0, 0, 0, 0.1)`
-              : `0 25px 50px -12px rgba(0, 0, 0, 0.08),
-                 0 12px 24px -8px rgba(0, 0, 0, 0.04),
-                 0 0 0 0.5px rgba(0, 0, 0, 0.03),
-                 inset 0 1px 2px rgba(255, 255, 255, 0.9),
-                 inset 0 -1px 1px rgba(0, 0, 0, 0.02)`,
+              ? 'inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.4)'
+              : 'inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 8px 32px rgba(0, 0, 0, 0.08)',
           }}
         >
 
-          {/* Top highlight edge - Glossy reflection */}
+          {/* Liquid Glass Border Mask */}
           <div
-            className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
+            className="absolute inset-0 rounded-[inherit] pointer-events-none z-0"
             style={{
+              padding: '1.4px',
               background: isDark
-                ? 'linear-gradient(90deg, transparent 5%, rgba(255, 255, 255, 0.15) 30%, rgba(255, 255, 255, 0.25) 50%, rgba(255, 255, 255, 0.15) 70%, transparent 95%)'
-                : 'linear-gradient(90deg, transparent 5%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0.8) 70%, transparent 95%)',
+                ? 'linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%)'
+                : 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.02) 20%, rgba(0,0,0,0) 40%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.02) 80%, rgba(0,0,0,0.1) 100%)',
+              WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+              WebkitMaskComposite: 'xor',
+              maskComposite: 'exclude',
             }}
           />
-
-          {/* Secondary glow layer for extra gloss */}
-          <div
-            className="absolute top-0 left-0 right-0 h-8 pointer-events-none rounded-t-[28px]"
-            style={{
-              background: isDark
-                ? 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%)'
-                : 'linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 100%)',
-            }}
-          />
-
 
 
           {/* Logo Section - Removed hover effects */}

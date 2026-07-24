@@ -28,6 +28,8 @@ const Hero: React.FC = () => {
   const imageRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
   const techBadgesRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
 
   useSplitTextAnimation({
     scopeRef: heroRef,
@@ -225,10 +227,18 @@ const Hero: React.FC = () => {
               ease: "power2.out"
             });
           }
+            // Spotlight tracking
+            if (spotlightRef.current && sectionRef.current) {
+              const secRect = sectionRef.current.getBoundingClientRect();
+              const sx = evt.clientX - secRect.left;
+              const sy = evt.clientY - secRect.top;
+              spotlightRef.current.style.setProperty('--mouse-x', `${sx}px`);
+              spotlightRef.current.style.setProperty('--mouse-y', `${sy}px`);
+            }
           });
         };
 
-        heroRef.current?.addEventListener('mousemove', handleMouseMove);
+        sectionRef.current?.addEventListener('mousemove', handleMouseMove);
 
         // === SCROLL INDICATOR BOUNCE ===
         const scrollIndicator = document.querySelector('.scroll-indicator');
@@ -243,7 +253,7 @@ const Hero: React.FC = () => {
         }
 
         return () => {
-          heroRef.current?.removeEventListener('mousemove', handleMouseMove);
+          sectionRef.current?.removeEventListener('mousemove', handleMouseMove);
         };
       });
       } catch (error) {
@@ -287,7 +297,8 @@ const Hero: React.FC = () => {
   return (
     <section 
       id="home" 
-      className="video-scrub-section min-h-[100dvh] flex items-end justify-start relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28"
+      ref={sectionRef} 
+      className="relative w-full overflow-hidden min-h-[100svh] flex flex-col justify-center bg-transparent transition-colors duration-300 scroll-mt-28"
       aria-label="Hero section"
     >
       {/* Hero Video Background */}
@@ -295,13 +306,24 @@ const Hero: React.FC = () => {
         <video 
           src="/Animations/Video Project 9.mp4" 
           autoPlay 
-          loop 
           muted 
+          loop 
           playsInline 
-          className="w-full h-full object-cover opacity-20 dark:opacity-40"
+          className="w-full h-full object-cover opacity-20 dark:opacity-40 relative z-1"
         />
+
+        {/* Cursor Spotlight Reveal Layer */}
+        <div 
+          ref={spotlightRef}
+          className="spotlight-reveal-layer bg-grid-pattern opacity-80" 
+          aria-hidden="true"
+        >
+          {/* A soft blue/cyan tint over the grid for the "AI/Code" feel */}
+          <div className="absolute inset-0 bg-cyan-900/40 mix-blend-overlay"></div>
+        </div>
+
         {/* Soft fade at the bottom to transition smoothly to the next section */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-gray-50 dark:from-dark-950/50 dark:via-transparent dark:to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-gray-50 dark:from-dark-950/50 dark:via-transparent dark:to-transparent z-[2]"></div>
       </div>
 
       {/* Light theme background - Full viewport */}
@@ -321,9 +343,9 @@ const Hero: React.FC = () => {
           <div className="flex flex-col lg:flex-row items-end justify-between gap-8 lg:gap-12 w-full">
             {/* Left side - Text content */}
             <div className="flex-1 text-left w-full max-w-3xl">
-              {/* Main heading with gradient text - SplitText Animation */}
+              {/* Main heading with mix-blend-mode: exclusion - SplitText Animation */}
               <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-1">
-                <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300 whitespace-nowrap">
+                <span ref={nameRef} className="hero-name-cinematic font-seasons font-normal tracking-[0.01em] opacity-0 transition-opacity duration-300 whitespace-nowrap">
                   Naman Singh Panwar
                 </span>
               </h1>

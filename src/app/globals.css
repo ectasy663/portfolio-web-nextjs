@@ -266,6 +266,30 @@
     display: inline-block;
   }
 
+  /* Cinematic Hero Text with Exclusion Blend Mode */
+  .hero-name-cinematic {
+    word-break: keep-all;
+    overflow-wrap: normal;
+    hyphens: none;
+    display: inline-block;
+    color: #ffffff;
+    mix-blend-mode: exclusion;
+    -webkit-text-fill-color: #ffffff; /* Override any gradient clips */
+  }
+
+  /* Cursor Spotlight Reveal Mask */
+  .spotlight-reveal-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background-size: cover;
+    background-position: center;
+    mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle 250px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, transparent 100%);
+    will-change: mask-image, -webkit-mask-image;
+  }
+
   /* Curvy underline animation */
   .curvy-underline path {
     stroke-dasharray: 1000;
