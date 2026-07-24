@@ -98,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${satoshi.variable} ${seasons.variable}`}
+      className={`dark ${satoshi.variable} ${seasons.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <body className="gsap-loaded">

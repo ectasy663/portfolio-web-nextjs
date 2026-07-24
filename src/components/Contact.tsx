@@ -368,7 +368,7 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="contact" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300" aria-labelledby="contact-title">
+    <section ref={sectionRef} id="contact" className="section-padding bg-gray-50 dark:bg-transparent relative overflow-hidden transition-colors duration-300 scroll-mt-28" aria-labelledby="contact-title">
       {/* Light theme background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-cyan-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-0"></div>
 

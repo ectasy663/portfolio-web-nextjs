@@ -74,7 +74,7 @@ const FAQ: React.FC = () => {
     <section
       id="faq"
       ref={sectionRef}
-      className="relative py-20 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative py-20 px-6 md:px-12 lg:px-24 overflow-hidden scroll-mt-28"
       aria-labelledby="faq-title"
     >
       {/* Background Elements */}

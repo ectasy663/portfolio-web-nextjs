@@ -401,7 +401,7 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white/90 dark:bg-dark-950/80 transition-colors duration-300">
+    <section ref={sectionRef} id="projects" className="section-padding relative overflow-hidden bg-white/90 dark:bg-dark-950/80 transition-colors duration-300 scroll-mt-28">
 
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none z-0" aria-hidden="true"></div>
@@ -665,7 +665,7 @@ const Projects: React.FC = () => {
               Have an exciting project in mind? Let&apos;s collaborate and create innovative solutions that make a difference.
             </p>
             <button
-              onClick={() => scrollToId('#contact', 80)}
+              onClick={() => scrollToId('#contact')}
               className="group inline-flex items-center space-x-2 bg-gradient-to-r from-primary-500 to-secondary-600 text-white px-8 py-4 rounded-xl hover:shadow-royal-gold hover:scale-105 transition-all duration-300"
             >
               <span className="font-semibold">Start a Project</span>

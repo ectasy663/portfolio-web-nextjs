@@ -103,7 +103,7 @@ const AIStudio: React.FC = () => {
   return (
     <section
       id="ai-studio"
-      className="relative py-20 px-6 md:px-12 lg:px-24 overflow-hidden"
+      className="relative py-20 px-6 md:px-12 lg:px-24 overflow-hidden scroll-mt-28"
       aria-labelledby="ai-studio-title"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,165,233,0.22),_transparent_50%)]" />

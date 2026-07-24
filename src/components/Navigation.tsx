@@ -142,10 +142,10 @@ const Navigation: React.FC = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Unlock scroll spy after sufficient time for scroll to complete
+    // Unlock scroll spy after smooth scroll finishes
     setTimeout(() => {
       isScrollingRef.current = false;
-    }, 2500);
+    }, 800);
   }, []);
 
   if (!mounted) return null;

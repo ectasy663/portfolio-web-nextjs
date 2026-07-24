@@ -265,11 +265,11 @@ const Hero: React.FC = () => {
   }, []);
 
   const scrollToProjects = useCallback(() => {
-    scrollToId('#projects', 80);
+    scrollToId('#projects');
   }, []);
 
   const scrollToContact = useCallback(() => {
-    scrollToId('#contact', 80);
+    scrollToId('#contact');
   }, []);
 
   // Tech stack for displaying technology badges
@@ -287,7 +287,7 @@ const Hero: React.FC = () => {
   return (
     <section 
       id="home" 
-      className="video-scrub-section min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300"
+      className="video-scrub-section min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28"
       aria-label="Hero section"
     >
       {/* Hero Video Background */}

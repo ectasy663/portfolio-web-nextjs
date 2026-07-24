@@ -1,4 +1,4 @@
-export const NAV_OFFSET = 80;
+export const NAV_OFFSET = 112;
 
 // Global callback to cancel any active programmatic scroll adjustment
 let activeScrollCancel: (() => void) | null = null;

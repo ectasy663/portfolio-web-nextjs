@@ -229,7 +229,7 @@ const Skills: React.FC = () => {
   }, [shouldAnimate]);
 
   return (
-    <section ref={sectionRef} id="skills" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300">
+    <section ref={sectionRef} id="skills" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28">
 
 
       {/* Light theme background */}

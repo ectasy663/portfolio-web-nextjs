@@ -276,7 +276,7 @@ const About: React.FC = () => {
   }, [shouldAnimate]);
 
   return (
-    <section ref={sectionRef} id="about" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300" aria-labelledby="about-title">
+    <section ref={sectionRef} id="about" className="video-scrub-section section-padding relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28" aria-labelledby="about-title">
 
       {/* Light theme background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:opacity-0 opacity-100 transition-opacity duration-300 z-[3]"></div>

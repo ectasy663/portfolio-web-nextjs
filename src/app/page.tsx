@@ -19,7 +19,7 @@ import Navigation from '@/components/Navigation';
 import GlobalVideoBackground from '@/components/GlobalVideoBackground';
 
 // Minimal loading placeholder with optional ID to ensure anchor links work before lazy-load
-const LoadingPlaceholder = ({ id }: { id?: string }) => <div id={id} className="min-h-[50vh] w-full" />;
+const LoadingPlaceholder = ({ id }: { id?: string }) => <div id={id} className="min-h-[50vh] w-full scroll-mt-28" />;
 
 // Lazy load below-the-fold components
 const About = dynamic(() => import('@/components/About'), {

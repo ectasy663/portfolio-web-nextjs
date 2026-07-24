@@ -12,7 +12,7 @@ const AISummary: React.FC = () => {
   return (
     <section
       id="ai-summary"
-      className="relative py-16 px-6 md:px-12 lg:px-24"
+      className="relative py-16 px-6 md:px-12 lg:px-24 scroll-mt-28"
       aria-label="AI Summary"
       itemScope
       itemType="https://schema.org/Person"
