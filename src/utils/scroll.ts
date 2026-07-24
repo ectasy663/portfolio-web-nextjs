@@ -52,8 +52,12 @@ function performScroll(selector: string, initialEl: Element, offset: number) {
   let observedEl = initialEl;
   let targetTop = observedEl.getBoundingClientRect().top + window.pageYOffset - offset;
   
-  // Smooth scroll initially
-  window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  // First attempt native scrollIntoView so browser triggers smooth scroll directly
+  if (typeof observedEl.scrollIntoView === 'function') {
+    observedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  }
 
   let observer: ResizeObserver | null = null;
   let mutationObserver: MutationObserver | null = null;
@@ -74,23 +78,24 @@ function performScroll(selector: string, initialEl: Element, offset: number) {
     window.removeEventListener('wheel', onUserInteraction);
     window.removeEventListener('touchmove', onUserInteraction);
     window.removeEventListener('keydown', onUserInteraction);
-    window.removeEventListener('mousedown', onUserInteraction);
     
     if (activeScrollCancel === cleanup) {
       activeScrollCancel = null;
     }
   };
 
-  // If the user manually interacts, immediately halt programmatic adjustments
+  // If the user manually interacts via wheel/touch/keys, halt programmatic adjustments
   const onUserInteraction = () => {
     cleanup();
   };
 
-  // Register interactive events to listen for user overrides
-  window.addEventListener('wheel', onUserInteraction, { passive: true });
-  window.addEventListener('touchmove', onUserInteraction, { passive: true });
-  window.addEventListener('keydown', onUserInteraction, { passive: true });
-  window.addEventListener('mousedown', onUserInteraction, { passive: true });
+  // Delay attaching user interaction listeners so the click event itself doesn't cancel scroll
+  const attachTimer = window.setTimeout(() => {
+    window.addEventListener('wheel', onUserInteraction, { passive: true });
+    window.addEventListener('touchmove', onUserInteraction, { passive: true });
+    window.addEventListener('keydown', onUserInteraction, { passive: true });
+  }, 200);
+  timeouts.push(attachTimer);
 
   activeScrollCancel = cleanup;
 

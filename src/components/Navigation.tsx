@@ -115,31 +115,33 @@ const Navigation: React.FC = () => {
     { href: '#contact', label: 'Contact' },
   ];
 
-  const handleNavClick = useCallback((href: string) => {
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
     setIsOpen(false);
-    const idFromHref = href.startsWith('#') ? href.slice(1) : href;
+
+    const targetId = href.replace(/.*\#/, "");
+    if (!targetId) return;
 
     // Set active state immediately for visual feedback
-    setActive(idFromHref);
+    setActive(targetId);
 
     // Temporarily lock scroll spy to prevent state jumping during scroll
     isScrollingRef.current = true;
 
-    // smooth scroll to target
-    const targetId = idFromHref;
+    // 1-Click Forced Scroll: Immediate native scrollIntoView fallback & robust scrollToId
     const targetElement = document.getElementById(targetId);
-
     if (targetElement) {
-      // Use robust scrollToId to overcome lazy-loaded content shifting layout
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       scrollToId(`#${targetId}`);
-
-      // Update URL without jumping
-      if (history.pushState) {
-        history.pushState(null, '', `#${targetId}`);
-      }
     } else if (targetId === 'home') {
-      // Fallback for home if no ID found (though home usually has id="home")
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollToId(`#${targetId}`);
+    }
+
+    // Update URL hash cleanly without router re-render or page reload
+    if (typeof window !== 'undefined' && window.history.pushState) {
+      window.history.pushState(null, '', `#${targetId}`);
     }
 
     // Unlock scroll spy after smooth scroll finishes
@@ -222,8 +224,7 @@ const Navigation: React.FC = () => {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(item.href);
+                  handleNavClick(e, item.href);
                 }}
                 className="block px-5 py-4 rounded-2xl text-base font-medium transition-all duration-500 flex items-center justify-between group active:scale-[0.98] focus:outline-none focus-visible:outline-none"
                 style={{
@@ -358,9 +359,7 @@ const Navigation: React.FC = () => {
             <a
               href="#home"
               onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleNavClick('#home');
+                handleNavClick(e, '#home');
               }}
               className="group block relative rounded-2xl overflow-visible transition-all duration-500 active:scale-95 focus:outline-none focus-visible:outline-none"
             >
@@ -408,9 +407,7 @@ const Navigation: React.FC = () => {
                     key={item.href}
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      handleNavClick(item.href);
+                      handleNavClick(e, item.href);
                     }}
                     className={`
                     relative px-3 lg:px-4 py-1.5 text-sm font-medium rounded-full whitespace-nowrap
