@@ -9,7 +9,7 @@ import { scrollToId } from '@/utils/scroll';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiSupabase, SiJavascript,
   SiCss, SiHtml5, SiNodedotjs, SiPython, SiGit, SiSolana, SiNextdotjs,
-  SiGreensock, SiWebgl, SiJest
+  SiGreensock, SiWebgl, SiJest, SiPostgresql, SiDocker
 } from 'react-icons/si';
 
 import { projects } from '@/data/projects';
@@ -391,6 +391,8 @@ const Projects: React.FC = () => {
       'Supabase': <SiSupabase className="text-emerald-400" aria-hidden="true" />,
       'Node.js': <SiNodedotjs className="text-green-500" aria-hidden="true" />,
       'Python': <SiPython className="text-yellow-400" aria-hidden="true" />,
+      'PostgreSQL': <SiPostgresql className="text-blue-400" aria-hidden="true" />,
+      'Docker': <SiDocker className="text-blue-500" aria-hidden="true" />,
       'Git': <SiGit className="text-orange-500" aria-hidden="true" />,
       'Solana Web3.js': <SiSolana className="text-purple-400" aria-hidden="true" />,
       'Jest': <SiJest className="text-rose-400" aria-hidden="true" />

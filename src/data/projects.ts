@@ -1,5 +1,26 @@
 export const projects = [
   {
+    title: "Enterprise LMS & CRM System",
+    tagline: "Commercial LMS & CRM Platform",
+    description: "Architected full-stack Learning Management System and CRM to manage authentication, course entitlements, and automated invoicing for 525+ active users. Engineered a custom Python migration pipeline to transition 91+ legacy WooCommerce enrollments to a relational PostgreSQL schema, utilizing UUIDs to enforce 100% unique data integrity. Containerized API, database, and background task workers using Docker to automate payment state management and zero-touch PDF invoice generation.",
+    features: [
+      { text: "Architected LMS & CRM for 525+ active users" },
+      { text: "Custom Python migration pipeline for 91+ WooCommerce enrollments" },
+      { text: "Relational PostgreSQL schema with 100% UUID data integrity" },
+      { text: "Containerized API & background task workers using Docker" },
+      { text: "Automated payment state management" },
+      { text: "Zero-touch PDF invoice generation" }
+    ],
+    techStack: ["Python", "PostgreSQL", "Docker"],
+    liveUrl: "https://druterus.com/",
+    githubUrl: "#",
+    stats: { stars: 0, forks: 0, views: 0 },
+    date: "2026",
+    gradient: "dark:from-primary-500 dark:via-royal-red-600 dark:to-primary-600 from-primary-500 via-primary-400 to-primary-600",
+    category: "LMS & CRM Platform",
+    status: "Live Production"
+  },
+  {
     title: "Gyannetra AI Consultancy",
     tagline: "Live Production AI Consultancy Platform",
     description: "Production-grade AI consultancy platform currently live and discoverable on Google search. Engineered complete frontend architecture using React and TypeScript with component-based design. Implemented dockerized deployment pipeline for consistent builds across environments. Achieved strong Core Web Vitals scores through strategic code-splitting, lazy loading, and rendering optimizations. Platform serves as primary digital presence for AI consulting services, showcasing tools and solutions through polished, interactive components. Focused on conversion-optimized UI/UX while maintaining clean, professional aesthetics and SEO-ready structure.",

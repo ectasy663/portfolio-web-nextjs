@@ -25,6 +25,8 @@ export const skillCategories = [
       { name: "Model Fine-Tuning", icon: React.createElement(FaCog, { className: "text-2xl text-orange-400", "aria-hidden": "true" }), level: 85 },
       { name: "Python", icon: React.createElement(SiPython, { className: "text-2xl text-yellow-400", "aria-hidden": "true" }), level: 95 },
       { name: "Vector DBs", icon: React.createElement(SiPostgresql, { className: "text-2xl text-blue-400", "aria-hidden": "true" }), level: 88 },
+      { name: "Background Workers", icon: React.createElement(FaServer, { className: "text-2xl text-emerald-400", "aria-hidden": "true" }), level: 88 },
+      { name: "Automated Invoicing", icon: React.createElement(FaCode, { className: "text-2xl text-yellow-400", "aria-hidden": "true" }), level: 85 },
     ],
     gradient: "dark:from-royal-purple-500 dark:via-royal-purple-600 dark:to-royal-red-600 from-primary-500 via-primary-400 to-primary-600"
   },
@@ -64,6 +66,8 @@ export const skillCategories = [
       { name: "Docker", icon: React.createElement(SiDocker, { className: "text-2xl text-blue-500", "aria-hidden": "true" }), level: 80 },
       { name: "C++", icon: React.createElement(SiCplusplus, { className: "text-2xl text-blue-600", "aria-hidden": "true" }), level: 85 },
       { name: "Git & CI/CD", icon: React.createElement(SiGit, { className: "text-2xl text-orange-500", "aria-hidden": "true" }), level: 90 },
+      { name: "Data Migration", icon: React.createElement(FaDatabase, { className: "text-2xl text-purple-400", "aria-hidden": "true" }), level: 90 },
+      { name: "QA Testing", icon: React.createElement(FaCog, { className: "text-2xl text-blue-400", "aria-hidden": "true" }), level: 85 },
     ],
     gradient: "dark:from-secondary-500 dark:via-secondary-600 dark:to-royal-blue-600 from-primary-500 via-primary-400 to-primary-600"
   }
