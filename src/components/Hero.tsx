@@ -287,7 +287,7 @@ const Hero: React.FC = () => {
   return (
     <section 
       id="home" 
-      className="video-scrub-section min-h-screen flex items-center justify-center relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28"
+      className="video-scrub-section min-h-[100dvh] flex items-end justify-start relative overflow-hidden bg-gray-50 dark:bg-transparent transition-colors duration-300 scroll-mt-28"
       aria-label="Hero section"
     >
       {/* Hero Video Background */}
@@ -316,11 +316,11 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Main content */}
-      <div className="video-scrub-content container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-28 sm:pt-32">
-        <div ref={heroRef} className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-12">
+      <div className="video-scrub-content w-full container mx-auto px-4 sm:px-6 lg:px-8 relative z-50 pt-32 pb-16 sm:pb-20 lg:pb-24">
+        <div ref={heroRef} className="max-w-7xl mx-auto w-full">
+          <div className="flex flex-col lg:flex-row items-end justify-between gap-8 lg:gap-12 w-full">
             {/* Left side - Text content */}
-            <div className="flex-1 lg:flex-[1.3] text-left lg:pr-8">
+            <div className="flex-1 text-left w-full max-w-3xl">
               {/* Main heading with gradient text - SplitText Animation */}
               <h1 ref={titleRef} className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-seasons font-normal tracking-[0.01em] leading-[1.15] overflow-visible relative z-50 mb-1">
                 <span ref={nameRef} className="hero-name gradient-text-name font-seasons font-normal tracking-[0.01em] opacity-0 transition-colors duration-300 whitespace-nowrap">
@@ -428,15 +428,15 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Right side - Profile Image - Enhanced with 3D effect */}
-            <aside ref={imageRef} className="flex-shrink-0 lg:flex-[0.7] mx-auto lg:ml-24 lg:mr-0 perspective-1000">
-              <div className="relative group cursor-pointer w-80 h-[24rem] sm:w-96 sm:h-[28rem] md:w-[26rem] md:h-[32rem]">
+            <aside ref={imageRef} className="hidden md:block flex-shrink-0 perspective-1000 pb-4 lg:pb-0">
+              <div className="relative group cursor-pointer w-[22rem] h-[26rem] lg:w-[26rem] lg:h-[32rem]">
                 <Image
                   src="/assets/hero section image.png"
                   alt="Naman Singh Panwar - AI Engineer and Full-Stack Web Developer"
                   fill
                   loading="eager"
                   priority
-                  sizes="(max-width: 640px) 20rem, (max-width: 768px) 24rem, 26rem"
+                  sizes="(max-width: 1024px) 22rem, 26rem"
                   className="object-cover rounded-2xl shadow-xl group-hover:scale-105 transition-all duration-500 group-hover:shadow-2xl"
                 />
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none" aria-hidden="true"></div>
@@ -449,10 +449,10 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Scroll indicator - Enhanced bounce */}
-          <div className="scroll-indicator flex justify-center mt-6 sm:mt-8" role="navigation" aria-label="Scroll down">
-            <div className="flex flex-col items-center space-y-2">
-              <span className="text-xs sm:text-sm text-gray-600 dark:text-gray-200 font-medium transition-colors duration-300">Scroll to explore</span>
-              <LuArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={20} aria-hidden="true" />
+          <div className="scroll-indicator absolute bottom-4 left-1/2 -translate-x-1/2 flex justify-center mt-6 sm:mt-8" role="navigation" aria-label="Scroll down">
+            <div className="flex flex-col items-center space-y-1">
+              <span className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 font-medium transition-colors duration-300 uppercase tracking-widest">Scroll</span>
+              <LuArrowDown className="text-cyan-600 dark:text-cyan-400 transition-colors duration-300" size={16} aria-hidden="true" />
             </div>
           </div>
         </div>
