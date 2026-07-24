@@ -1,5 +1,5 @@
 {
-  "profile_summary": "Naman Singh Panwar is a highly skilled AI Engineer and Full-Stack Web Developer with approximately 20 months (1.6+ years) of cumulative professional experience across multiple full-time roles and high-impact internships.\n\n### WORK EXPERIENCE SUMMARY (~20 Months Total):\n1. GyanNetra Private Limited | AI Engineer | May 2026 - Present (Full-time, Remote)\n   - Description: Engineering advanced AI systems, optimizing machine learning models, and building scalable production-ready infrastructure for innovative AI solutions.\n2. AI R&D Division | Frontend Developer | Sep 2025 - Apr 2026 (8 months)\n   - Description: Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times. Reduced UI bugs by 60% through unit testing and built real-time data dashboards for 100K+ data points.\n3. DRDO (Defence Research and Development Organisation) | Summer Trainee | July 2025 – Sep 2025 (2 months)\n   - Description: Worked on 2 active defense research projects, improving ML model accuracy by 12% through feature engineering and data preprocessing on 50,000+ data samples.\n4. Gyannetra Pvt Ltd | AI Intern (Web Development) | May 2025 – July 2025 (2 months)\n   - Description: Built 15+ responsive React components across 4 AI applications. Reduced deployment time by 70% using Docker, and improved API response times by 35%.\n5. Microsoft (in collaboration with AICTE) | MS AINSI AI Intern | Apr 2025 – May 2025 (1 month)\n   - Description: Selected among top 5% of 10,000+ applicants. Developed 3 predictive models with 85%+ accuracy for real-world problems.\n6. Ideaforage | AI Executive Intern | June 2024 – Dec 2024 (6 months)\n   - Description: Researched and implemented 5+ emerging AI technologies (specifically LLMs, RAG, and agentic systems), increasing client engagement by 25% and maintaining a 98% code quality score across 8 scheduled releases.\n\n### KEY ACHIEVEMENTS:\n- **1st Place** - FinTech Revolution Thematic Award at Global IDEATHON 2025 (FIU), judged by executives from Google, Microsoft, Meta, and Oracle.\n- **Top 20% Finalist** - 'Build with India' National Hackathon (placing top 5,000 out of 25,000 teams).\n- **Top 30 National Placement** - Web-A-Thon MNIT Jaipur (placing top 30 out of 100+ teams).\n\n### CORE TECH STACK:\n- Agentic AI & LLMs: LangChain, LLM Orchestration, RAG Pipelines, Autonomous Agents, Prompt Engineering, Python, Vector DBs.\n- Machine Learning: TensorFlow, PyTorch, NumPy, Pandas, Predictive Modeling.\n- Frontend & Full-Stack: React, Next.js, React Native, TypeScript, Tailwind CSS, JavaScript.\n- Backend & Infra: Node.js, PostgreSQL, Supabase, Docker, C++, Git & CI/CD.\n\n### SKILLS NOT IN PORTFOLIO (NO DOCUMENTED EXPERIENCE):\nThe following skills and domains are NOT part of Naman's documented experience and must never be claimed:\n- Digital Marketing, SEO Marketing, Social Media Marketing, Content Marketing, PPC/Ad campaigns\n- Quantum Computing, Quantum Algorithms, Qiskit, Quantum ML\n- Corporate Training, Training & Development, L&D (Learning & Development), Public Speaking as a corporate trainer\n- Blockchain smart contract development (Note: Tokenarium is a UI/frontend project integrating a Solana wallet — it is NOT professional blockchain/smart contract engineering experience)\n- Data Engineering / ETL pipelines\n- Cybersecurity / Penetration Testing\n- Cloud Architecture (AWS/GCP/Azure) as a primary skill\n- AR/VR/XR development\n- Game development\n- Hardware / Embedded systems (beyond DRDO's ML work on datasets)\n\nIf a user or job description asks about ANY of these areas, the response must clearly state that Naman does not have documented professional experience in those domains.",
+  "profile_summary": "Naman Singh Panwar is a highly skilled AI Engineer and Full-Stack Web Developer with approximately 20 months (1.6+ years) of cumulative professional experience across multiple full-time roles and high-impact internships.\n\n### WORK EXPERIENCE SUMMARY (~20 Months Total):\n1. GyanNetra Private Limited | AI Engineer | May 2026 - Present (Full-time, Remote)\n   - Description: Secured an early full-time appointment during final-year B.Tech following exceptional performance as an intern. Engineering advanced AI systems, optimizing machine learning models, and building scalable production-ready infrastructure for enterprise AI solutions.\n2. GyanNetra Pvt Ltd (AI R&D Division) | Frontend Developer | Sep 2025 - Apr 2026 (8 months)\n   - Description: Spearheaded frontend development for 3+ AI-driven applications within GyanNetra's research division, achieving 40% faster load times. Reduced UI bugs by 60% through unit testing and built real-time data dashboards for 100K+ data points.\n3. DRDO (Defence Research and Development Organisation) | Summer Trainee | July 2025 – Sep 2025 (2 months)\n   - Description: Worked on 2 active defense research projects, improving ML model accuracy by 12% through feature engineering and data preprocessing on 50,000+ data samples.\n4. Gyannetra Pvt Ltd | AI Intern (Web Development) | May 2025 – July 2025 (2 months)\n   - Description: Built 15+ responsive React components across 4 AI applications. Reduced deployment time by 70% using Docker, and improved API response times by 35%.\n5. Microsoft (in collaboration with AICTE) | MS AINSI AI Intern | Apr 2025 – May 2025 (1 month)\n   - Description: Selected among top 5% of 10,000+ applicants. Developed 3 predictive models with 85%+ accuracy for real-world problems.\n6. Ideaforage | AI Executive Intern | June 2024 – Dec 2024 (6 months)\n   - Description: Researched and implemented 5+ emerging AI technologies (specifically LLMs, RAG, and agentic systems), increasing client engagement by 25% and maintaining a 98% code quality score across 8 scheduled releases.\n\n### FEATURED PRODUCTION PROJECTS:\n1. Enterprise LMS & CRM System (druterus.com):\n   - Architected full-stack Learning Management System and CRM to manage authentication, course entitlements, and automated invoicing for 525+ active users.\n   - Engineered a custom Python migration pipeline to transition 91+ legacy WooCommerce enrollments to a relational PostgreSQL schema with 100% UUID data integrity.\n   - Containerized API, database, and background task workers using Docker to automate payment state management and zero-touch PDF invoice generation.\n2. Gyannetra AI Consultancy Platform (gyannetra.com):\n   - Production-grade AI consultancy platform live on Google search. Engineered complete frontend architecture using React, TypeScript, and Dockerized deployment pipeline.\n3. Portfolio & AI Platform (namansinghpanwar.in):\n   - High-performance portfolio built with Next.js App Router, GSAP animations, Nodemailer API route, and serverless AI Assistant (RAG system).\n\n### KEY ACHIEVEMENTS:\n- **1st Place** - FinTech Revolution Thematic Award at Global IDEATHON 2025 (FIU), judged by executives from Google, Microsoft, Meta, and Oracle.\n- **Top 20% Finalist** - 'Build with India' National Hackathon (placing top 5,000 out of 25,000 teams).\n- **Top 30 National Placement** - Web-A-Thon MNIT Jaipur (placing top 30 out of 100+ teams).\n\n### CORE TECH STACK:\n- Agentic AI & LLMs: LangChain, LLM Orchestration, RAG Pipelines, Autonomous Agents, Prompt Engineering, Python, Vector DBs.\n- Machine Learning: TensorFlow, PyTorch, NumPy, Pandas, Predictive Modeling.\n- Frontend & Full-Stack: React, Next.js, React Native, TypeScript, Tailwind CSS, JavaScript.\n- Backend & Infra: Node.js, PostgreSQL, Supabase, Docker, C++, Git & CI/CD.\n\n### SKILLS NOT IN PORTFOLIO (NO DOCUMENTED EXPERIENCE):\nThe following skills and domains are NOT part of Naman's documented experience and must never be claimed:\n- Digital Marketing, SEO Marketing, Social Media Marketing, Content Marketing, PPC/Ad campaigns\n- Quantum Computing, Quantum Algorithms, Qiskit, Quantum ML\n- Corporate Training, Training & Development, L&D (Learning & Development), Public Speaking as a corporate trainer\n- Blockchain smart contract development\n- Data Engineering / ETL pipelines\n- Cybersecurity / Penetration Testing\n- Cloud Architecture (AWS/GCP/Azure) as a primary skill\n- AR/VR/XR development\n- Game development\n- Hardware / Embedded systems (beyond DRDO's ML work on datasets)\n\nIf a user or job description asks about ANY of these areas, the response must clearly state that Naman does not have documented professional experience in those domains.",
   "documents": [
     {
       "id": "about-1",
@@ -48,15 +48,15 @@
       "id": "experience-1",
       "title": "AI Engineer at GyanNetra Private Limited",
       "section": "experience",
-      "text": "Appointed as a full-time remote AI Engineer (May 2026 - Present). Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for innovative artificial intelligence solutions. Domain: AI/ML engineering.",
+      "text": "Appointed as a full-time remote AI Engineer (May 2026 - Present). Secured an early full-time offer during final-year B.Tech based on outstanding internship performance. Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for innovative artificial intelligence solutions. Domain: AI/ML engineering.",
       "tags": ["ai", "ml", "infrastructure", "full-time", "remote", "gyannetra"]
     },
     {
       "id": "experience-2",
-      "title": "Frontend Developer at AI R&D Division",
+      "title": "Frontend Developer at GyanNetra Pvt Ltd (AI R&D Division)",
       "section": "experience",
-      "text": "Frontend Developer from Sep 2025 - Apr 2026 (8 months). Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time. Domain: Frontend Web Development.",
-      "tags": ["frontend", "react", "performance", "testing", "dashboard", "web-development"]
+      "text": "Frontend Developer from Sep 2025 - Apr 2026 (8 months) within GyanNetra's AI R&D Division. Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time. Domain: Frontend Web Development.",
+      "tags": ["frontend", "react", "performance", "testing", "dashboard", "web-development", "gyannetra"]
     },
     {
       "id": "experience-3",
@@ -88,38 +88,24 @@
     },
     {
       "id": "project-1",
-      "title": "Gyannetra AI Consultancy Platform",
+      "title": "Enterprise LMS & CRM System",
       "section": "project",
-      "text": "Live production AI consultancy platform built with React and TypeScript, optimized for performance, SEO, and conversion-focused UI. Demonstrates full-stack web development and AI integration skills.",
-      "tags": ["react", "typescript", "seo", "ai", "production", "web-development"]
+      "text": "Commercial LMS & CRM Platform live at druterus.com. Architected full-stack Learning Management System and CRM to manage authentication, course entitlements, and automated invoicing for 525+ active users. Engineered a custom Python migration pipeline to transition 91+ legacy WooCommerce enrollments to a relational PostgreSQL schema, utilizing UUIDs to enforce 100% unique data integrity. Containerized API, database, and background task workers using Docker to automate payment state management and zero-touch PDF invoice generation.",
+      "tags": ["python", "postgresql", "docker", "lms", "crm", "full-stack", "invoicing", "migration"]
     },
     {
       "id": "project-2",
-      "title": "Portfolio Website (Next.js)",
+      "title": "Gyannetra AI Consultancy Platform",
       "section": "project",
-      "text": "Next.js portfolio with GSAP cinematic animations, dynamic imports, accessibility testing, and production grade performance tuning. Features an embedded AI assistant (RAG pipeline) and a job match analyzer.",
-      "tags": ["next.js", "gsap", "performance", "testing", "animations", "rag", "ai"]
+      "text": "Live production AI consultancy platform (gyannetra.com) built with React and TypeScript, Dockerized deployment pipeline, optimized for performance, SEO, and conversion-focused UI. Demonstrates full-stack web development and AI integration skills.",
+      "tags": ["react", "typescript", "seo", "ai", "production", "docker", "web-development"]
     },
     {
       "id": "project-3",
-      "title": "Gifting Muse Oracle",
+      "title": "Portfolio Website & AI Assistant (Next.js)",
       "section": "project",
-      "text": "AI powered gift discovery platform with smart filtering, personalized suggestions, and conversion focused UX. Features advanced search engine with multi-criteria filtering (occasion, recipient, price range, category). Built with React and AI recommendation logic.",
-      "tags": ["ai", "recommendations", "react", "filtering", "ux"]
-    },
-    {
-      "id": "project-4",
-      "title": "Magma Real Estate",
-      "section": "project",
-      "text": "Immersive real estate experience with cinema-quality GSAP animations, 3D depth, and high performance rendering. Integrates Locomotive Smooth Scroll for native scroll parallax effects. Showcases advanced frontend animation and UX design skills.",
-      "tags": ["gsap", "animations", "next.js", "ux", "3d", "frontend"]
-    },
-    {
-      "id": "project-5",
-      "title": "Tokenarium Web3 Wallet UI",
-      "section": "project",
-      "text": "Frontend UI project: a Web3 DeFi wallet interface with Solana wallet integration, portfolio analytics display, and secure transaction handling UI. IMPORTANT: This is a frontend/UI development project demonstrating React and Web3 UI integration skills. It is NOT evidence of professional blockchain engineering, smart contract development, or blockchain architecture expertise.",
-      "tags": ["web3", "solana", "defi", "react", "frontend", "ui", "wallet"]
+      "text": "Next.js 14+ portfolio (namansinghpanwar.in) with GSAP cinematic animations, dynamic imports, accessibility testing, and production grade performance tuning. Features an embedded AI assistant (RAG pipeline) and serverless API handlers.",
+      "tags": ["next.js", "gsap", "performance", "testing", "animations", "rag", "ai"]
     },
     {
       "id": "achievement-1",
