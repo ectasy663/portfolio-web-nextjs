@@ -29,7 +29,7 @@ const faqData: FAQItem[] = [
   },
   {
     question: 'Has Naman worked with any notable organizations?',
-    answer: 'Yes, Naman has worked with several prestigious organizations including DRDO (Defence Research and Development Organisation), Microsoft through the AINSI AI program (top 5% of 10,000+ applicants), Gyannetra Pvt Ltd, and is currently working in an AI R&D Division. He has also won awards judged by industry leaders from Google, Microsoft, Meta, and Oracle.',
+    answer: 'Yes, Naman has worked with several prestigious organizations including DRDO (Defence Research and Development Organisation), Microsoft through the AINSI AI program (top 5% of 10,000+ applicants), and GyanNetra Pvt Ltd (across their AI R&D Division and as a full-time AI Engineer). He has also won awards judged by industry leaders from Google, Microsoft, Meta, and Oracle.',
   },
   {
     question: 'What makes Naman stand out as a developer?',

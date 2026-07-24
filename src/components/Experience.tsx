@@ -353,6 +353,14 @@ const Experience: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Highlight pill if present */}
+                  {exp.highlight && (
+                    <div className="mb-4 relative z-10 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                      {exp.highlight}
+                    </div>
+                  )}
+
                   {/* Description */}
                   <p className="text-gray-600 dark:text-gray-300 leading-relaxed relative z-10">
                     {exp.description}

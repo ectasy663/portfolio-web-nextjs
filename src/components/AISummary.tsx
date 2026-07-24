@@ -78,7 +78,7 @@ const AISummary: React.FC = () => {
               <ul className="space-y-3 list-none pl-0">
                 <li className="leading-relaxed">
                   <strong itemProp="worksFor" itemScope itemType="https://schema.org/Organization">
-                    <span itemProp="name">AI R&D Division</span>
+                    <span itemProp="name">GyanNetra Pvt Ltd (AI R&D Division)</span>
                   </strong> (September 2025 - Present): Frontend Developer working on AI-driven web applications 
                   and interactive dashboards. Focuses on building responsive, high-performance user interfaces 
                   for data visualization and analytics platforms.
@@ -132,9 +132,9 @@ const AISummary: React.FC = () => {
               </h3>
               <p className="leading-relaxed">
                 Naman has built production web and mobile applications including <strong>Gyannetra</strong> 
-                (AI consultancy platform with full-stack implementation), <strong>DecentraFund</strong> 
+                (AI consultancy platform with full-stack implementation), <strong>Tokenarium</strong> 
                 (Web3 DeFi platform with Solana blockchain integration and real-time transaction tracking), 
-                <strong>ImmerSpace</strong> (immersive real estate application with cinema-grade UX and advanced 
+                <strong>Magma Real Estate</strong> (immersive 3D real estate application with cinema-grade UX and advanced 
                 GSAP animations), high-performance <strong>portfolio websites</strong> optimized for SEO and Core 
                 Web Vitals, and various <strong>React Native mobile apps</strong>. All projects emphasize modern 
                 development practices, responsive design, accessibility, and performance optimization using AI-augmented workflows.

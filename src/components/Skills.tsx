@@ -85,28 +85,6 @@ const Skills: React.FC = () => {
         );
       }
 
-      // === SKILL BARS ANIMATED FILL ===
-      const skillBars = skillsRef.current?.querySelectorAll('.skill-bar-fill');
-      if (skillBars) {
-        skillBars.forEach((bar) => {
-          const width = (bar as HTMLElement).style.width;
-          gsap.fromTo(bar,
-            { width: '0%', opacity: 0 },
-            {
-              width: width,
-              opacity: 1,
-              duration: 1.5,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: bar,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
-              }
-            }
-          );
-        });
-      }
-
       // === INDIVIDUAL SKILL ITEMS STAGGER ===
       const skillItems = skillsRef.current?.querySelectorAll('.skill-item');
       if (skillItems) {
@@ -285,29 +263,19 @@ const Skills: React.FC = () => {
                       key={skillIndex}
                       className="skill-item group/skill relative bg-white/80 dark:bg-dark-900/50 rounded-xl p-4 hover:bg-white dark:hover:bg-dark-900/80 transition-all duration-300 hover:scale-105 border border-primary-200/30 dark:border-primary-500/20 backdrop-blur-sm"
                     >
-                      {/* Skill icon and name */}
-                      <div className="flex items-center justify-between mb-3">
+                      {/* Skill icon, name and evidence badge */}
+                      <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className="skill-icon group-hover/skill:scale-110 transition-transform duration-300 cursor-pointer">
                             {skill.icon}
                           </div>
-                          <span className="text-body-sm font-body text-gray-800 dark:text-gray-200 group-hover/skill:text-gray-900 dark:group-hover/skill:text-white transition-colors duration-300">
+                          <span className="text-body-sm font-body text-gray-800 dark:text-gray-200 group-hover/skill:text-gray-900 dark:group-hover/skill:text-white transition-colors duration-300 font-medium">
                             {skill.name}
                           </span>
                         </div>
-                        <span className="text-caption text-gray-600 dark:text-gray-300 font-mono transition-colors duration-300">
-                          {skill.level}%
+                        <span className="text-xs px-2.5 py-1 rounded-md font-mono bg-primary-500/10 text-primary-600 dark:text-primary-300 border border-primary-500/20 whitespace-nowrap">
+                          {skill.evidence}
                         </span>
-                      </div>
-
-                      {/* Progress bar */}
-                      <div className="relative">
-                        <div className="h-2 bg-gray-300 dark:bg-gray-600 rounded-full overflow-hidden">
-                          <div
-                            className={`skill-bar-fill h-full bg-gradient-to-r ${category.gradient} rounded-full transition-all duration-1000 ease-out transform origin-left group-hover/skill:scale-x-105`}
-                            style={{ width: `${skill.level}%` }}
-                          ></div>
-                        </div>
                       </div>
                     </div>
                   ))}

@@ -120,7 +120,7 @@ export function generatePersonSchema(): PersonSchema {
     worksFor: [
       {
         '@type': 'Organization',
-        name: 'AI R&D Division',
+        name: 'GyanNetra Pvt Ltd (AI R&D Division)',
       },
     ],
   };

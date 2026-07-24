@@ -3,15 +3,16 @@ export const experiences = [
     role: "AI Engineer-1",
     company: "GyanNetra Private Limited",
     period: "May 2026 - Present",
-    description: "Appointed as a full-time remote AI Engineer. Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for innovative artificial intelligence solutions.",
+    description: "Secured an early full-time appointment during final-year B.Tech following exceptional performance as an intern. Engineering advanced AI systems, optimizing machine learning models, and building scalable infrastructure for enterprise artificial intelligence solutions.",
     type: "Current",
+    highlight: "Early Full-Time Offer (Final Year B.Tech)",
     color: "dark:from-primary-500 dark:to-royal-purple-500 from-primary-500 via-primary-400 to-primary-600"
   },
   {
     role: "Frontend Developer",
-    company: "AI R&D Division",
+    company: "GyanNetra Pvt Ltd (AI R&D Division)",
     period: "Sep 2025 - Apr 2026",
-    description: "Spearheaded frontend development for 3+ AI-driven applications, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time.",
+    description: "Spearheaded frontend development for 3+ AI-driven applications within GyanNetra's research division, achieving 40% faster load times through code optimization. Reduced UI bug reports by 60% through comprehensive testing. Collaborated with research teams to build interactive dashboards that visualize 100K+ data points in real-time.",
     type: "Recent",
     color: "dark:from-primary-500 dark:to-royal-purple-600 from-primary-500 via-primary-400 to-primary-600"
   },
