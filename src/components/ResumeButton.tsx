@@ -18,7 +18,7 @@ const ResumeButton: React.FC<ResumeButtonProps> = ({
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/resume/Naman_Resume_2026_March.pdf';
+    link.href = '/resume/naman_resume_july_2026.pdf';
     link.download = 'Naman_Singh_Panwar_Resume.pdf';
     document.body.appendChild(link);
     link.click();
