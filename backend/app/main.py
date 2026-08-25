@@ -406,7 +406,7 @@ def create_app() -> FastAPI:
             answer = _mock_answer(request.question, source_docs)
         else:
             client = Groq(api_key=api_key)
-            model = os.getenv("GROQ_MODEL", "gpt-oss-120b")
+            model = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
             answer = _groq_answer(client, model, request.question, source_docs, profile_summary)
 
         return AskResponse(answer=answer, sources=sources)
@@ -447,7 +447,7 @@ def create_app() -> FastAPI:
             )
 
         client = Groq(api_key=api_key)
-        model = os.getenv("GROQ_MODEL", "gpt-oss-120b")
+        model = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
         # LLM performs the honest, grounded analysis and returns structured JSON
         result = _groq_job_match(

@@ -126,7 +126,7 @@ class handler(BaseHTTPRequestHandler):
             )
 
             client = Groq(api_key=api_key)
-            model = os.environ.get("GROQ_MODEL", "gpt-oss-120b")
+            model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 
             completion = client.chat.completions.create(
                 model=model,
